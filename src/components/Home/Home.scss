@@ -1,19 +1,1 @@
 @import "../../common/global";
-
-.home {
-  display: grid;
-  grid-template:
-    ". . ." 1fr
-    ". header ." 1fr
-    ". . ." 1fr
-    / 1fr 1fr 1fr;
-  height: 100vh;
-  font-family: $font-stack;
-}
-
-.header {
-  grid-area: header;
-  justify-self: center;
-  align-self: center;
-  font-weight: $bold;
-}

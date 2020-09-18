@@ -2,8 +2,8 @@ import React from 'react';
 import './Home.scss';
 
 const Home = () => (
-  <div className="home">
-    <h1 className="header">React Boilerplate</h1>
+  <div>
+    <h1>Welcome to the home page</h1>
   </div>
 );
 
