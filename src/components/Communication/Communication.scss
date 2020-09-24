@@ -1,1 +1,47 @@
 @import "../../common/global";
+
+.selected {
+    background-color: lightblue;
+    background-repeat:no-repeat;
+    text-align: left;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none !important;
+}
+
+.toBottom {
+    position:absolute;                  
+    bottom:0;  
+    width: 100%;
+}
+
+.click {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    text-align: left;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+
+.click:active {
+    border: none;
+    outline: none;
+}
+.click:focus {
+    border: none;
+    outline: none;
+}
+
+.click:hover {
+    background-color: #547778;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

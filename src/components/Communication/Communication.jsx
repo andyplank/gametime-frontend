@@ -1,30 +1,39 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import './Communication.scss';
-import AuthContext from '../../common/context/auth';
+// import AuthContext from '../../common/context/auth';
+import ChatBox from './ChatBox';
+import MemberList from './MemberList';
+import GroupList from './GroupList';
+
 
 const Communication = () => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const temp = [{ name: 'Andy', id: '1' }, { name: 'Jim', id: '2' }, { name: 'Daniel', id: '3' }, { name: 'Jon', id: '4' }];
+  const temp2 = [{ name: 'Varsity', id: '10' }, { name: 'JV', id: '11' }];
+  // const { isAuthenticated } = useContext(AuthContext);
+  const [members] = useState(temp);
+  const [groups, setGroups] = useState(temp2);
+  const [selected, setSelected] = useState({});
+
 
   return (
-    <div>
-      <h1>
-        {isAuthenticated ? 'Lets chat!' : 'You must login first'}
-      </h1>
+    <div className="">
       <div className="container-fluid">
         <div className="row">
-          <div className="col-4 bg-Primary">
-            <div className="">
-              <h4>Groups</h4>
-            </div>
-            <div>
-              <h4>Members</h4>
-            </div>
+          <div className="col-3 bg-Primary px-0">
+            <GroupList
+              groups={groups}
+              setGroups={setGroups}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <MemberList
+              members={members}
+              selected={selected}
+              setSelected={setSelected}
+            />
           </div>
-          <div className="col-8">
-            <div>
-              <h4>Group Name</h4>
-              <span>Group Desc</span>
-            </div>
+          <div className="col-9">
+            <ChatBox selected={selected} />
           </div>
         </div>
       </div>
