@@ -15,6 +15,9 @@ const Header = () => (
       <li>
         <Link to="/comm">Communicate</Link>
       </li>
+      <li>
+        <Link to="/TeamManagement">Team Management</Link>
+      </li>
     </ul>
   </div>
 );
