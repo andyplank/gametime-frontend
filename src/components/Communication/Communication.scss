@@ -1,5 +1,17 @@
 @import "../../common/global";
 
+.toBottom {
+    position:absolute;                  
+    bottom:0;  
+    width: 100%;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .selected {
     background-color: lightblue;
     background-repeat:no-repeat;
@@ -8,12 +20,6 @@
     cursor:pointer;
     overflow: hidden;
     outline:none !important;
-}
-
-.toBottom {
-    position:absolute;                  
-    bottom:0;  
-    width: 100%;
 }
 
 .click {
@@ -26,7 +32,6 @@
     outline:none;
 }
 
-
 .click:active {
     border: none;
     outline: none;
@@ -38,10 +43,4 @@
 
 .click:hover {
     background-color: #547778;
-}
-
-.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }

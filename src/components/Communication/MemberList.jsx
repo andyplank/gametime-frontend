@@ -1,5 +1,6 @@
-import PropTypes, { any, array } from 'prop-types';
 import React from 'react';
+import PropTypes, { any, array } from 'prop-types';
+
 import './Communication.scss';
 
 const MemberList = (props) => {

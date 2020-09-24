@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import './Communication.scss';
 // import AuthContext from '../../common/context/auth';
+
 import ChatBox from './ChatBox';
 import MemberList from './MemberList';
 import GroupList from './GroupList';
 
+import './Communication.scss';
 
 const Communication = () => {
   const temp = [{ name: 'Andy', id: '1' }, { name: 'Jim', id: '2' }, { name: 'Daniel', id: '3' }, { name: 'Jon', id: '4' }];
