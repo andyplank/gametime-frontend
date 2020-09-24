@@ -45,7 +45,7 @@ const GroupList = (props) => {
 
 GroupList.propTypes = {
   groups: PropTypes.arrayOf(object).isRequired,
-  selected: PropTypes.objectOf(object).isRequired,
+  selected: PropTypes.instanceOf(Object).isRequired,
   setSelected: PropTypes.func.isRequired,
 };
 export default GroupList;

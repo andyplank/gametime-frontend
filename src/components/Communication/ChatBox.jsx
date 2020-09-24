@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes, { object } from 'prop-types';
+import PropTypes from 'prop-types';
 
 import './Communication.scss';
 
@@ -54,6 +54,6 @@ const ChatBox = (props) => {
 };
 
 ChatBox.propTypes = {
-  selected: PropTypes.objectOf(object).isRequired,
+  selected: PropTypes.instanceOf(Object).isRequired,
 };
 export default ChatBox;
