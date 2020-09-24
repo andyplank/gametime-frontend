@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes, { any, array } from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 
 import './Communication.scss';
 
@@ -28,8 +28,8 @@ const MemberList = (props) => {
 };
 
 MemberList.propTypes = {
-  members: PropTypes.instanceOf(array).isRequired,
-  selected: PropTypes.instanceOf(Object).isRequired,
-  setSelected: PropTypes.instanceOf(any).isRequired,
+  members: PropTypes.arrayOf(object).isRequired,
+  selected: PropTypes.objectOf(object).isRequired,
+  setSelected: PropTypes.func.isRequired,
 };
 export default MemberList;

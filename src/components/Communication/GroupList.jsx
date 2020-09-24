@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes, { any, array } from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 
 import './Communication.scss';
 
@@ -44,8 +44,8 @@ const GroupList = (props) => {
 };
 
 GroupList.propTypes = {
-  groups: PropTypes.instanceOf(array).isRequired,
-  selected: PropTypes.instanceOf(Object).isRequired,
-  setSelected: PropTypes.instanceOf(any).isRequired,
+  groups: PropTypes.arrayOf(object).isRequired,
+  selected: PropTypes.objectOf(object).isRequired,
+  setSelected: PropTypes.func.isRequired,
 };
 export default GroupList;
