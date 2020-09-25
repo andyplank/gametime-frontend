@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes, { object } from 'prop-types';
-import ListDisplay from './ListDisplay';
 
 import './Communication.scss';
+import ListDisplay from './ListDisplay';
 
 const MemberList = (props) => {
   const { members, selected, setSelected } = props;

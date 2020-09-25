@@ -16,25 +16,23 @@ const Communication = () => {
   const [selected, setSelected] = useState({});
 
   return (
-    <div className="">
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-3 bg-Primary px-0">
-            <GroupList
-              groups={groups}
-              setGroups={setGroups}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <MemberList
-              members={members}
-              selected={selected}
-              setSelected={setSelected}
-            />
-          </div>
-          <div className="col-9">
-            <ChatBox selected={selected} />
-          </div>
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-3 bg-Primary px-0">
+          <GroupList
+            groups={groups}
+            setGroups={setGroups}
+            selected={selected}
+            setSelected={setSelected}
+          />
+          <MemberList
+            members={members}
+            selected={selected}
+            setSelected={setSelected}
+          />
+        </div>
+        <div className="col-9">
+          <ChatBox selected={selected} />
         </div>
       </div>
     </div>
