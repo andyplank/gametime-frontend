@@ -1,28 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes, { object } from 'prop-types';
 
 import './Communication.scss';
+import GroupEditor from './GroupEditor';
+import ListDisplay from './ListDisplay';
+
 
 const GroupList = (props) => {
-  const { groups, selected, setSelected } = props;
+  const {
+    groups, selected, setSelected,
+  } = props;
+
+  const [show, setShow] = useState(false);
 
   const addGroup = (evt) => {
     evt.preventDefault();
+    setShow(true);
   };
-
-  const groupsList = groups.map((group) => (
-    <button
-      type="button"
-      className={selected.id === group.id ? 'px-4 selected' : 'px-4 click'}
-      key={group.id}
-      onClick={() => setSelected(group)}
-    >
-      {group.name}
-    </button>
-  ));
 
   return (
     <div className="pt-2">
+      <GroupEditor show={show} setShow={setShow} />
+
       <div className="px-2 d-flex justify-content-between align-items-center">
         <span className="h4">Groups</span>
         <button
@@ -36,9 +35,11 @@ const GroupList = (props) => {
         </button>
       </div>
 
-      <ul className="list-group">
-        {groupsList}
-      </ul>
+      <ListDisplay
+        items={groups}
+        selected={selected}
+        setSelected={setSelected}
+      />
     </div>
   );
 };

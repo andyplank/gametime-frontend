@@ -1,28 +1,20 @@
 import React from 'react';
 import PropTypes, { object } from 'prop-types';
+import ListDisplay from './ListDisplay';
 
 import './Communication.scss';
 
 const MemberList = (props) => {
   const { members, selected, setSelected } = props;
 
-  const memberList = members.map((member) => (
-    <button
-      type="button"
-      className={selected.id === member.id ? 'px-4 selected' : 'px-4 click'}
-      key={member.id}
-      onClick={() => setSelected(member)}
-    >
-      {member.name}
-    </button>
-  ));
-
   return (
     <div className="py-2">
       <h4 className="px-2">Members</h4>
-      <ul className="list-group">
-        {memberList}
-      </ul>
+      <ListDisplay
+        items={members}
+        selected={selected}
+        setSelected={setSelected}
+      />
     </div>
   );
 };
