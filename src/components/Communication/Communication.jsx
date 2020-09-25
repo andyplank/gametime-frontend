@@ -15,7 +15,6 @@ const Communication = () => {
   const [groups, setGroups] = useState(temp2);
   const [selected, setSelected] = useState({});
 
-
   return (
     <div className="">
       <div className="container-fluid">
