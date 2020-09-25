@@ -12,9 +12,9 @@ const GroupEditor = (props) => {
     <div>
       <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Group Editor</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, reading this text in a modal!</Modal.Body>
+        <Modal.Body>This will be a form for editing the group</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShow(false)}>
             Close

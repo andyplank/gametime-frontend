@@ -4,9 +4,7 @@ import PropTypes, { object } from 'prop-types';
 import './Communication.scss';
 
 const ListDisplay = (props) => {
-  const {
-    items, selected, setSelected,
-  } = props;
+  const { items, selected, setSelected } = props;
 
   return (
     <ul className="list-group">

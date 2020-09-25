@@ -6,10 +6,7 @@ import GroupEditor from './GroupEditor';
 import ListDisplay from './ListDisplay';
 
 const GroupList = (props) => {
-  const {
-    groups, selected, setSelected,
-  } = props;
-
+  const { groups, selected, setSelected } = props;
   const [show, setShow] = useState(false);
 
   return (
