@@ -7,11 +7,13 @@ import Form from 'react-bootstrap/Form';
 import './Communication.scss';
 
 const GroupEditor = (props) => {
-  const { show, setShow, members } = props;
+  const {
+    editing, editorVis, setEditorVis, members,
+  } = props;
 
   return (
     <div>
-      <Modal show={show} onHide={() => setShow(false)}>
+      <Modal show={editorVis} onHide={() => setEditorVis(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Group Editor</Modal.Title>
         </Modal.Header>
@@ -20,7 +22,7 @@ const GroupEditor = (props) => {
           <Modal.Body>
             <Form.Group controlId="formGroupName">
               <Form.Label>Group Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter group name..." />
+              <Form.Control type="text" placeholder="Enter group name..." value={editing.name} />
             </Form.Group>
 
             <Form.Group controlId="formGroupDesc">
@@ -41,10 +43,10 @@ const GroupEditor = (props) => {
 
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShow(false)}>
+            <Button variant="secondary" onClick={() => setEditorVis(false)}>
               Close
             </Button>
-            <Button variant="primary" onClick={() => setShow(false)}>
+            <Button variant="primary" onClick={() => setEditorVis(false)}>
               Save Changes
             </Button>
           </Modal.Footer>
@@ -56,11 +58,13 @@ const GroupEditor = (props) => {
 };
 
 GroupEditor.defaultProps = {
+  editing: { name: 'New' },
   members: [],
 };
 GroupEditor.propTypes = {
-  show: PropTypes.bool.isRequired,
-  setShow: PropTypes.func.isRequired,
+  editing: PropTypes.instanceOf(Object),
+  editorVis: PropTypes.bool.isRequired,
+  setEditorVis: PropTypes.func.isRequired,
   members: PropTypes.arrayOf(object),
 };
 
