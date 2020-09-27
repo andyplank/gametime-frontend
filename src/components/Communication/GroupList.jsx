@@ -6,12 +6,14 @@ import GroupEditor from './GroupEditor';
 import ListDisplay from './ListDisplay';
 
 const GroupList = (props) => {
-  const { groups, selected, setSelected } = props;
+  const {
+    members, groups, selected, setSelected,
+  } = props;
   const [show, setShow] = useState(false);
 
   return (
     <div className="pt-2">
-      <GroupEditor show={show} setShow={setShow} />
+      <GroupEditor members={members} show={show} setShow={setShow} />
       <div className="px-2 d-flex justify-content-between align-items-center">
         <div className="h4">Groups</div>
         <div className="my-1">
@@ -37,6 +39,7 @@ const GroupList = (props) => {
 };
 
 GroupList.propTypes = {
+  members: PropTypes.arrayOf(object).isRequired,
   groups: PropTypes.arrayOf(object).isRequired,
   selected: PropTypes.instanceOf(Object).isRequired,
   setSelected: PropTypes.func.isRequired,

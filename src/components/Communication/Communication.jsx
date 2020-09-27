@@ -20,6 +20,7 @@ const Communication = () => {
       <div className="row">
         <div className="col-3 bg-Primary px-0">
           <GroupList
+            members={members}
             groups={groups}
             setGroups={setGroups}
             selected={selected}
@@ -32,7 +33,7 @@ const Communication = () => {
           />
         </div>
         <div className="col-9">
-          <ChatBox selected={selected} />
+          <ChatBox selected={selected} members={members} />
         </div>
       </div>
     </div>

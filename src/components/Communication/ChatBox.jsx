@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 
 import './Communication.scss';
 import GroupEditor from './GroupEditor';
 
 const ChatBox = (props) => {
-  const { selected } = props;
+  const { selected, members } = props;
   const [message, setMessage] = useState('');
   const [show, setShow] = useState(false);
 
@@ -23,9 +23,9 @@ const ChatBox = (props) => {
 
   return (
     <div className="h-100 pt-2 px-2 ">
-      <GroupEditor show={show} setShow={setShow} />
+      <GroupEditor show={show} setShow={setShow} members={members} />
       <div className="d-flex justify-content-between align-items-center border-bottom">
-        <div className="h4">Groups</div>
+        <div className="h4">{selected.name}</div>
         <div className="my-1">
           <button
             className="click d-flex text-center align-items-center py-1"
@@ -57,7 +57,12 @@ const ChatBox = (props) => {
   );
 };
 
+
+ChatBox.defaultProps = {
+  members: [],
+};
 ChatBox.propTypes = {
   selected: PropTypes.instanceOf(Object).isRequired,
+  members: PropTypes.arrayOf(object),
 };
 export default ChatBox;
