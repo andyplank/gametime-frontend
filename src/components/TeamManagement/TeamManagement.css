@@ -1,13 +1,9 @@
-.zoom {
-  background-color: rgb(22, 185, 185);
-  transition: transform 0.2s; /* Animation */
-  margin: 0 auto;
-  width: 10%;
-  outline-color: black;
+.user-card {
+  height: 20%;
+  width: 50%;
 }
 
-.zoom:hover {
-  transform: scale(
-    1.2
-  ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+.user-card-grid {
+  height: 100%;
+  width: 40%;
 }
