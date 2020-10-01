@@ -18,7 +18,7 @@ import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import Tooltip from '@material-ui/core/Tooltip';
+import CloseIcon from '@material-ui/icons/Close';
 import {
   Container,
   Row,
@@ -52,7 +52,7 @@ componentDidMount() {
   this.setState({adminChecked: Array(members.length).fill(false)});
 }
 
-handleAdminChange(index, event) {
+handleAdminChange(index) {
   //TODO
   console.log(`toggling admin for ${members[index].name}`)
   const { adminChecked } = this.state;
@@ -67,8 +67,13 @@ handleTeamEditClick(){
 }
 
 handleTeamCreateClick(){
-  //TODO
+  //TOD
   console.log("create clicked")
+}
+
+handleMemberRemove(user){
+  //TODO
+  console.log(`removing ${user.name}`)
 }
 
 renderMembers() {
@@ -83,12 +88,20 @@ renderMembers() {
               <Card key={index} variant="outlined">
               <CardHeader
               title={user.name}
+              action={
+                <IconButton 
+                  style={{ outline: "none" }}
+                  onClick={() => this.handleMemberRemove(user)}
+                >
+                  <CloseIcon/>
+                </IconButton>
+              }
               />
               <CardContent>
                 Toggle Admin? 
                 <Switch
                   checked={adminChecked[index]}
-                  onChange={(event) => this.handleAdminChange(index, event)}
+                  onChange={() => this.handleAdminChange(index)}
                   color="primary"
                 />
               </CardContent>
