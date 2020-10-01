@@ -16,6 +16,9 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
+import Button from '@material-ui/core/Button';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import Tooltip from '@material-ui/core/Tooltip';
 import {
   Container,
   Row,
@@ -27,6 +30,7 @@ const members = [
   { userID: 2, name: 'Andy' },
   { userID: 3, name: 'Jon' },
   { userID: 4, name: 'Ray' },
+  { userID: 5, name: 'Trevor' },
   { userID: 5, name: 'Trevor' },
 ];
 
@@ -42,29 +46,40 @@ class TeamManagement extends React.Component {
       checkedA: true,
       adminChecked: [],
     };
-    this.handleChange = this.handleChange.bind(this)
   }
 
 componentDidMount() {
   this.setState({adminChecked: Array(members.length).fill(false)});
 }
 
-handleChange(index, event) {
+handleAdminChange(index, event) {
+  //TODO
+  console.log(`toggling admin for ${members[index].name}`)
   const { adminChecked } = this.state;
   let newArr = adminChecked;
-  newArr[index] = !newArr[index]
-  this.setState({adminChecked: newArr})
+  newArr[index] = !newArr[index];
+  this.setState({adminChecked: newArr});
 };
+
+handleTeamEditClick(){
+  //TODO
+  console.log("edit clicked")
+}
+
+handleTeamCreateClick(){
+  //TODO
+  console.log("create clicked")
+}
 
 renderMembers() {
   const { adminChecked } = this.state;
   return (
     adminChecked.length > 0 ? 
     <>
-      <Grid container spacing={5}>
+      <Grid container spacing={2}>
         {members.map((user, index) => {
           return (
-            <Grid className="user-card-grid" key={index} item xs={2}>
+            <Grid container className="user-card-grid" key={index} item xs={3}>
               <Card key={index} variant="outlined">
               <CardHeader
               title={user.name}
@@ -73,7 +88,7 @@ renderMembers() {
                 Toggle Admin? 
                 <Switch
                   checked={adminChecked[index]}
-                  onChange={(event) => this.handleChange(index, event)}
+                  onChange={(event) => this.handleAdminChange(index, event)}
                   color="primary"
                 />
               </CardContent>
@@ -89,26 +104,44 @@ renderMembers() {
 
   render() {
     return(
-      <>
-        <div>
-        <h1 style={headerStyle}>Team Management</h1>
-          <Container fluid>
-            <Row>
-              <Col xs={6} md={2}>
-                <h2>Team Controls</h2>
-                <ul>
-                <li>Create Team</li>
-                <li>Edit Team</li>
-                </ul>
-              </Col>
-              <Col xs={12} md={10}>
-                <h2>Members</h2>
-                {this.renderMembers()}
-              </Col>
-            </Row>
-          </Container>
-        </div>
-      </>
+      <div style={{ height: "100%" }}>
+            <h1 style={headerStyle}>Team Management</h1>
+            <Container fluid>
+              <Row>
+                <Col xs={6} md={2}>
+                  <h2 style={{ display:'inline-block', paddingBottom: '2%' }}>Team Control</h2>
+                  <p>
+                    <Button 
+                      className="btn-edit-team" 
+                      variant="contained" 
+                      color="primary"
+                      onClick={this.handleTeamEditClick}
+                    >
+                      Edit Team
+                    </Button>
+                  </p>
+                  <p>
+                    <Button 
+                      className="btn-edit-team"
+                      variant="contained" 
+                      color="primary"
+                      startIcon={ <AddCircleOutlineIcon/> }
+                      onClick={this.handleTeamCreateClick}
+                    >
+                      Create Team
+                    </Button>
+                  </p>
+                  <br></br>
+                </Col>
+                <Col xs={12} md={10}>
+                  <div style={{ paddingLeft: '5%' }}>
+                    <h2>Members</h2>
+                    {this.renderMembers()}
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+      </div>
     )
   };
 }
