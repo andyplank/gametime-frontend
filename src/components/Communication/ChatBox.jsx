@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Badge from 'react-bootstrap/Badge';
 
 import './Communication.scss';
 
@@ -7,8 +11,29 @@ const ChatBox = (props) => {
   const { selected, setEditorVis, setEditing } = props;
   const [message, setMessage] = useState('');
 
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertType] = useState('danger');
+  const [alertMsg] = useState('Error: Something went wrong');
+
+  const simulateNetworkRequest = () => new Promise((resolve) => setTimeout(resolve, 2000));
+
+  const [isSending, setSending] = useState(false);
+
+  useEffect(() => {
+    if (isSending) {
+      simulateNetworkRequest().then(() => {
+        setSending(false);
+      });
+    }
+  }, [isSending]);
+
   const submit = (evt) => {
     evt.preventDefault();
+    setSending(true);
+    setShowAlert(true);
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 4000);
   };
 
   const editGroup = () => {
@@ -25,7 +50,7 @@ const ChatBox = (props) => {
   }
 
   return (
-    <div className="h-100 pt-2 px-2 ">
+    <div className="pt-2 px-2">
       <div className="d-flex justify-content-between align-items-center border-bottom">
         <div className="h4">{selected.name}</div>
         <div className="my-1">
@@ -41,19 +66,51 @@ const ChatBox = (props) => {
         </div>
       </div>
       <div className="toBottom py-2">
-        <form onSubmit={submit} className="">
-          <div className="form-group">
-            Enter your message
-            <textarea
-              className="form-control"
+        <Form>
+          <Form.Group controlId="formGroupDesc">
+            <Form.Label>
+              Enter Message
+              {showAlert
+                && (
+                <Badge pill variant={alertType} className="mx-2">
+                  Failed to send
+                </Badge>
+                )}
+            </Form.Label>
+            <Form.Control
+              as="textarea"
               id="messageInput"
               rows="2"
               value={message}
+              placeholder="Enter message..."
               onChange={(e) => setMessage(e.target.value)}
+              isInvalid={showAlert}
             />
-          </div>
-          <input className="btn" type="submit" value="Submit" />
-        </form>
+          </Form.Group>
+
+          <Button
+            variant="primary"
+            disabled={isSending}
+            onClick={!isSending ? submit : null}
+            className="mx-2"
+          >
+            {isSending ? 'Sending…' : 'Send'}
+          </Button>
+          {showAlert
+            && (
+            <Badge pill variant={alertType}>
+              Failed to send
+            </Badge>
+            )}
+          <Alert
+            variant={alertType}
+            show={showAlert}
+            dismissible
+            onClose={() => setShowAlert(false)}
+          >
+            {alertMsg}
+          </Alert>
+        </Form>
       </div>
     </div>
   );
