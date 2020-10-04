@@ -28,8 +28,10 @@ describe('<ListDisplay />', () => {
   });
 
   it('item shouldnt be highlighted when not selected', () => {
-    const item = wrapper.find('button').at(1);
-    expect(item.hasClass('selected')).toBe(false);
-    expect(item.hasClass('click')).toBe(true);
+    const items = wrapper.find('button').slice(1);
+    items.forEach((item) => {
+      expect(item.hasClass('selected')).toBe(false);
+      expect(item.hasClass('click')).toBe(true);
+    });
   });
 });
