@@ -14,7 +14,11 @@ const Communication = () => {
   // const { isAuthenticated } = useContext(AuthContext);
   const [members] = useState(temp);
   const [groups] = useState(temp2);
+
+  // For which group / player is being chatted with
   const [selected, setSelected] = useState({});
+
+  // For the group editor state
   const [editorVis, setEditorVis] = useState(false);
   const [editing, setEditing] = useState({});
 
