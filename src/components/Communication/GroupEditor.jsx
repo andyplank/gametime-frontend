@@ -78,17 +78,21 @@ const GroupEditor = (props) => {
 
           <Modal.Footer>
             <Button
+              type="button"
+              id="closeGroupEditor"
               variant="secondary"
               onClick={() => setEditorVis(false)}
             >
               Close
             </Button>
             <Button
+              id="submitGroupEditor"
+              type="submit"
               variant="primary"
               disabled={isLoading}
               onClick={!isLoading ? handleClick : null}
             >
-              {isLoading ? 'Saving…' : 'Save'}
+              {isLoading ? 'Saving...' : 'Save'}
             </Button>
 
           </Modal.Footer>
