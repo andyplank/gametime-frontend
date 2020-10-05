@@ -4,6 +4,7 @@
   "description": "a react single-page application template for jump-starting projects",
   "main": "src/App.jsx",
   "scripts": {
+    "test": "jest",
     "dev": "webpack-dev-server",
     "build": "webpack --mode production"
   },
@@ -17,6 +18,9 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.5",
     "css-loader": "^2.1.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
+    "enzyme-to-json": "^3.6.1",
     "eslint": "^6.2.2",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-loader": "^3.0.0",
@@ -24,6 +28,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "jest": "^26.4.2",
     "node-sass": "^4.14.1",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
@@ -33,6 +38,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "prop-types": "^15.7.2",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "bootstrap": "^4.5.2",
@@ -41,5 +47,11 @@
     "react-bootstrap": "^1.3.0",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   }
 }
