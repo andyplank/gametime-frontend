@@ -6,11 +6,14 @@ import MemberList from './MemberList';
 import GroupList from './GroupList';
 
 import './Communication.scss';
-import GroupEditor from './GroupEditor';
 
 const Communication = () => {
   const temp = [{ name: 'Andy', id: '1' }, { name: 'Jim', id: '2' }, { name: 'Daniel', id: '3' }, { name: 'Jon', id: '4' }];
-  const temp2 = [{ name: 'Varsity', id: '10' }, { name: 'JV', id: '11' }];
+  const temp2 = [{
+    name: 'Varsity', id: '10', isGroup: true, members: [temp[0], temp[1]],
+  }, {
+    name: 'JV', id: '11', isGroup: true, members: [],
+  }];
   // const { isAuthenticated } = useContext(AuthContext);
   const [members] = useState(temp);
   const [groups] = useState(temp2);
@@ -19,25 +22,16 @@ const Communication = () => {
   const [selected, setSelected] = useState({});
 
   // For the group editor state
-  const [editorVis, setEditorVis] = useState(false);
-  const [editing, setEditing] = useState({});
 
   return (
     <div className="container-fluid">
-      <GroupEditor
-        members={members}
-        editing={editing}
-        editorVis={editorVis}
-        setEditorVis={setEditorVis}
-      />
-      <div className="row">
+      <div className="row fullScreen">
         <div className="col-3 bg-Primary px-0">
           <GroupList
+            members={members}
             groups={groups}
             selected={selected}
             setSelected={setSelected}
-            setEditing={setEditing}
-            setEditorVis={setEditorVis}
           />
           <MemberList
             members={members}
@@ -47,9 +41,8 @@ const Communication = () => {
         </div>
         <div className="col-9">
           <ChatBox
+            members={members}
             selected={selected}
-            setEditorVis={setEditorVis}
-            setEditing={setEditing}
           />
         </div>
       </div>

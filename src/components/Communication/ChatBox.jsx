@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Badge from 'react-bootstrap/Badge';
+import GroupEditor from './GroupEditor';
 
 import './Communication.scss';
 
 const ChatBox = (props) => {
-  const { selected, setEditorVis, setEditing } = props;
+  const { selected, members } = props;
   const [message, setMessage] = useState('');
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertType] = useState('danger');
   const [alertMsg] = useState('Error: Something went wrong');
+
+  const [editorVis, setEditorVis] = useState(false);
+  const [editing, setEditing] = useState({ members: [] });
 
   const simulateNetworkRequest = () => new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -51,9 +55,17 @@ const ChatBox = (props) => {
 
   return (
     <div className="pt-2 px-2">
+      <GroupEditor
+        members={members}
+        editing={editing}
+        editorVis={editorVis}
+        setEditorVis={setEditorVis}
+      />
       <div className="d-flex justify-content-between align-items-center border-bottom">
-        <div className="h4">{selected.name}</div>
-        <div className="my-1">
+        <div className="h4 mt-2">{selected.name}</div>
+        {selected.isGroup
+        && (
+        <div>
           <button
             className="click d-flex text-center align-items-center py-1"
             type="button"
@@ -64,10 +76,11 @@ const ChatBox = (props) => {
             </svg>
           </button>
         </div>
+        )}
       </div>
       <div className="toBottom py-2">
         <Form>
-          <Form.Group controlId="formGroupDesc">
+          <Form.Group>
             <Form.Label>
               Enter Message
               {showAlert
@@ -117,8 +130,7 @@ const ChatBox = (props) => {
 };
 
 ChatBox.propTypes = {
-  setEditing: PropTypes.func.isRequired,
+  members: PropTypes.arrayOf(object).isRequired,
   selected: PropTypes.instanceOf(Object).isRequired,
-  setEditorVis: PropTypes.func.isRequired,
 };
 export default ChatBox;

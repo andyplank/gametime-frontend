@@ -7,9 +7,9 @@ import Alert from 'react-bootstrap/Alert';
 
 import './Communication.scss';
 
-const GroupEditor = (props) => {
+const GroupCreator = (props) => {
   const {
-    editing, editorVis, setEditorVis, members,
+    editorVis, setEditorVis, members,
   } = props;
 
   const simulateNetworkRequest = () => new Promise((resolve) => setTimeout(resolve, 2000));
@@ -17,6 +17,8 @@ const GroupEditor = (props) => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertType] = useState('danger');
   const [alertMsg] = useState('Error: Something went wrong');
+
+  const [groupName] = useState('');
 
   const [isLoading, setLoading] = useState(false);
   useEffect(() => {
@@ -36,26 +38,24 @@ const GroupEditor = (props) => {
     <div>
       <Modal show={editorVis} onHide={() => setEditorVis(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Group Editor</Modal.Title>
+          <Modal.Title>Group Creator</Modal.Title>
         </Modal.Header>
         <Form>
 
           <Modal.Body>
 
-            <Form.Group>
-              <Form.Label>Group Name:</Form.Label>
-              <Form.Control type="text" placeholder="Enter group name..." readOnly value={editing.name} />
+            <Form.Group controlId="formGroupName">
+              <Form.Label>Group Name</Form.Label>
+              <Form.Control type="text" placeholder="Enter group name..." value={groupName} />
             </Form.Group>
 
-            <Form.Group>
-              <Form.Label>Group Members:</Form.Label>
+            <Form.Group id="formGridCheckbox">
               {members.map((member) => (
                 <Form.Check
                   key={`default-${member.id}`}
                   type="checkbox"
+                  id={member.id}
                   label={member.name}
-                  defaultChecked={Array.isArray(editing.members)
-                    && editing.members.includes(member)}
                 />
               ))}
             </Form.Group>
@@ -98,15 +98,13 @@ const GroupEditor = (props) => {
   );
 };
 
-GroupEditor.defaultProps = {
-  editing: { members: [] },
+GroupCreator.defaultProps = {
   members: [],
 };
-GroupEditor.propTypes = {
-  editing: PropTypes.instanceOf(Object),
+GroupCreator.propTypes = {
   editorVis: PropTypes.bool.isRequired,
   setEditorVis: PropTypes.func.isRequired,
   members: PropTypes.arrayOf(object),
 };
 
-export default GroupEditor;
+export default GroupCreator;

@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes, { object } from 'prop-types';
 
 import './Communication.scss';
 import ListDisplay from './ListDisplay';
+import GroupCreator from './GroupCreator';
 
 const GroupList = (props) => {
   const {
-    groups, selected, setSelected, setEditorVis, setEditing,
+    members, groups, selected, setSelected,
   } = props;
+
+  const [editorVis, setEditorVis] = useState(false);
 
   const newGroup = () => {
     setEditorVis(true);
-    setEditing({});
   };
 
   return (
     <div className="pt-2">
+      <GroupCreator
+        members={members}
+        editorVis={editorVis}
+        setEditorVis={setEditorVis}
+      />
       <div className="px-2 d-flex justify-content-between align-items-center">
         <div className="h4">Groups</div>
         <div className="my-1">
@@ -41,8 +48,7 @@ const GroupList = (props) => {
 };
 
 GroupList.propTypes = {
-  setEditorVis: PropTypes.func.isRequired,
-  setEditing: PropTypes.func.isRequired,
+  members: PropTypes.arrayOf(object).isRequired,
   groups: PropTypes.arrayOf(object).isRequired,
   selected: PropTypes.instanceOf(Object).isRequired,
   setSelected: PropTypes.func.isRequired,
