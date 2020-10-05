@@ -19,6 +19,8 @@ import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CloseIcon from '@material-ui/icons/Close';
+import Modal from 'react-bootstrap/Modal';
+import TextField from '@material-ui/core/TextField';
 import {
   Container,
   Row,
@@ -43,7 +45,8 @@ class TeamManagement extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      checkedA: true,
+      showTeamEdit: false,
+      showTeamCreate: false,
       adminChecked: [],
     };
   }
@@ -63,17 +66,83 @@ handleAdminChange(index) {
 
 handleTeamEditClick(){
   //TODO
+  this.setState({ showTeamEdit: true })
   console.log("edit clicked")
 }
 
 handleTeamCreateClick(){
   //TOD
+  this.setState({ showTeamCreate: true })
   console.log("create clicked")
 }
 
 handleMemberRemove(user){
   //TODO
   console.log(`removing ${user.name}`)
+}
+
+handleEditClose() {
+  //TODO
+  this.setState({ showTeamEdit: false })
+}
+
+handleSaveTeamEdits() {
+  //TODO
+  console.log("save team edits clicked")
+}
+
+handleSaveTeamCreate() {
+  //TODO
+  console.log("save team create clicked")
+}
+
+renderTeamEditModal() {
+  const { showTeamEdit } = this.state;
+  return (
+    <Modal
+      show={showTeamEdit}
+      onHide={() => this.handleEditClose()}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>Edit Team</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <form>
+          <div style={{ paddingBottom: "5%" }}>
+            <TextField id="outlined-basic" label="Outlined" variant="outlined" label="Team Name"/>
+          </div>
+          <div>
+            <TextField id="outlined-basic" label="Outlined" variant="outlined" label="Routing Number"/>
+          </div>
+        </form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="contained" color="secondary" onClick={() => this.handleEditClose()}>Close</Button>
+        <Button variant="contained" color="primary" onClick={() => this.handleSaveTeamEdits()}>Save changes</Button>
+      </Modal.Footer>
+    </Modal>
+  )
+}
+
+renderTeamCreateModal() {
+  const { showTeamCreate } = this.state;
+  return (
+    <Modal
+      show={showTeamCreate}
+      onHide={() => this.setState({ showTeamCreate: false })}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>Create Team</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p>create team</p>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="contained" color="secondary" onClick={() => this.setState({ showTeamCreate: false })}>Close</Button>
+        <Button variant="contained" color="primary" onClick={() => this.handleSaveTeamCreate()}>Save changes</Button>
+      </Modal.Footer>
+    </Modal>
+  )
 }
 
 renderMembers() {
@@ -118,42 +187,44 @@ renderMembers() {
   render() {
     return(
       <div style={{ height: "100%" }}>
-            <h1 style={headerStyle}>Team Management</h1>
-            <Container fluid>
-              <Row>
-                <Col xs={6} md={2}>
-                  <h2 style={{ display:'inline-block', paddingBottom: '2%' }}>Team Control</h2>
-                  <p>
-                    <Button 
-                      className="btn-edit-team" 
-                      variant="contained" 
-                      color="primary"
-                      onClick={this.handleTeamEditClick}
-                    >
-                      Edit Team
-                    </Button>
-                  </p>
-                  <p>
-                    <Button 
-                      className="btn-edit-team"
-                      variant="contained" 
-                      color="primary"
-                      startIcon={ <AddCircleOutlineIcon/> }
-                      onClick={this.handleTeamCreateClick}
-                    >
-                      Create Team
-                    </Button>
-                  </p>
-                  <br></br>
-                </Col>
-                <Col xs={12} md={10}>
-                  <div style={{ paddingLeft: '5%' }}>
-                    <h2>Members</h2>
-                    {this.renderMembers()}
-                  </div>
-                </Col>
-              </Row>
-            </Container>
+        {this.renderTeamEditModal()}
+        {this.renderTeamCreateModal()}
+        <h1 style={headerStyle}>Team Management</h1>
+        <Container fluid>
+          <Row>
+            <Col xs={6} md={2}>
+              <h2 style={{ display:'inline-block', paddingBottom: '2%' }}>Team Control</h2>
+              <p>
+                <Button 
+                  className="btn-edit-team" 
+                  variant="contained" 
+                  color="primary"
+                  onClick={() => this.handleTeamEditClick()}
+                >
+                  Edit Team
+                </Button>
+              </p>
+              <p>
+                <Button 
+                  className="btn-edit-team"
+                  variant="contained" 
+                  color="primary"
+                  startIcon={ <AddCircleOutlineIcon/> }
+                  onClick={() => this.handleTeamCreateClick()}
+                >
+                  Create Team
+                </Button>
+              </p>
+              <br></br>
+            </Col>
+            <Col xs={12} md={10}>
+              <div style={{ paddingLeft: '5%' }}>
+                <h2>Members</h2>
+                {this.renderMembers()}
+              </div>
+            </Col>
+          </Row>
+        </Container>
       </div>
     )
   };
