@@ -1,5 +1,55 @@
 @import "../../common/global";
 
-.communication {
-  font-family: $font-stack;
+.toBottom {
+    position:absolute;                  
+    bottom: 0;  
+    width: 25vw;
+}
+
+.leaveSpace {
+    position:absolute;                  
+    bottom: 5rem; 
+}
+
+.fullScreen {
+    min-height: 70vh;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.selected {
+    background-color: lightblue;
+    background-repeat:no-repeat;
+    text-align: left;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none !important;
+}
+
+.click {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    text-align: left;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.click:active {
+    border: none;
+    outline: none;
+}
+.click:focus {
+    border: none;
+    outline: none;
+}
+
+.click:hover {
+    background-color: #547778;
 }

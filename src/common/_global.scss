@@ -4,5 +4,12 @@ $box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
 $box-shadow-hover: 0px 4px 4px 0px rgba(0, 0, 0, 0.16);
 $hyperlink-color: #007bff;
 // $primary-color: #668c8f;
-$primary-color: #174ceb;
+// $primary-color: #174ceb;
 $secondary-color: #ebeff3;
+
+$primary-color: #a6bdbf;
+// $secondary-color: black;
+
+.bg-Primary {
+    background-color: $primary-color;
+}
