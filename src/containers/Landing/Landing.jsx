@@ -16,14 +16,6 @@ import apparel from '../../assets/icons/shopping-cart.svg';
 const Landing = () => {
   return (
     <div>
-      <Content />
-    </div>
-  );
-};
-
-const Content = () => {
-  return (
-    <div>
       <Jumbotron>
         <Container>
           <Row>
