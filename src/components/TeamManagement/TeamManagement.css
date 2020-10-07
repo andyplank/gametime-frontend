@@ -8,14 +8,13 @@
   width: 40%;
 }
 
-.btn-edit-team {
+.btn-team {
   background-color: lightskyblue;
   padding-bottom: 100%;
-  width:13em;
+  width: 13em;
 }
 
-.btn-create-team {
-  background-color: lightskyblue;
-  padding-bottom: 5%;
-  width:13em;
+.member-card {
+  height: 50%;
+  width: 75%;
 }

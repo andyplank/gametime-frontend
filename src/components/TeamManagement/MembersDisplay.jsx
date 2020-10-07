@@ -9,11 +9,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
 import CloseIcon from '@material-ui/icons/Close';
-import {
-  Container,
-  Row,
-  Col,
-} from 'react-bootstrap';
 
 class MembersDisplay extends React.Component {
     constructor(props) {
@@ -40,7 +35,7 @@ class MembersDisplay extends React.Component {
 
     handleMemberRemove(user){
         //TODO
-        console.log(`removing ${user.name}`)
+        console.log(`removing ${user.firstName} ${user.lastName}`)
       }
 
     render(){
@@ -53,26 +48,31 @@ class MembersDisplay extends React.Component {
                     {members.map((user, index) => {
                     return (
                         <Grid container className="user-card-grid" key={index} item xs={3}>
-                        <Card key={index} variant="outlined">
-                        <CardHeader
-                        title={user.name}
-                        action={
-                            <IconButton 
-                            style={{ outline: "none" }}
-                            onClick={() => this.handleMemberRemove(user)}
-                            >
-                            <CloseIcon/>
-                            </IconButton>
-                        }
-                        />
-                        <CardContent>
-                            Toggle Admin? 
-                            <Switch
-                            checked={adminChecked[index]}
-                            onChange={() => this.handleAdminChange(index)}
-                            color="primary"
+                        <Card 
+                            className="member-card"
+                            key={index} 
+                            variant="outlined"
+                        >
+                            <CardHeader
+                            title={`${user.firstName} ${user.lastName}`}
+                            action={
+                                <IconButton 
+                                    style={{ outline: "none" }}
+                                    onClick={() => this.handleMemberRemove(user)}
+                                    >
+                                    <CloseIcon/>
+                                </IconButton>
+                            }
                             />
-                        </CardContent>
+                            <CardContent>
+                                Toggle Admin? 
+                                <Switch 
+                                    className="adminSwitch"
+                                    checked={adminChecked[index]}
+                                    onChange={() => this.handleAdminChange(index)}
+                                    color="primary"
+                                />
+                            </CardContent>
                         </Card>
                         </Grid>
                     );
