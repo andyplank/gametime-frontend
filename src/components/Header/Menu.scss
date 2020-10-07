@@ -1,0 +1,21 @@
+.menu {
+  position: absolute;
+  top: 1;
+  right: 0;
+  z-index: 999;
+}
+
+.menu-account-text {
+  padding-left: 10px;
+}
+
+.menu-account-heading {
+  display: block;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.menu-account-subheading {
+  display: block;
+  font-size: 18px;
+}

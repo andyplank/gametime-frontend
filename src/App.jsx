@@ -1,32 +1,48 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import AuthContext from './common/context/auth';
-
-// page imports
-import Home from './components/Home/Home';
+import reducer from './reducers/reducer';
+import Landing from './containers/Landing/Landing';
 import Communication from './components/Communication/Communication';
-import Header from './components/Header/Header';
-import Login from './components/Login/Login';
+import 'bootstrap/dist/css/bootstrap.css';
+
+// Initialize Redux store
+const store = createStore(reducer);
 
 const App = () => {
   const [isAuthenticated, setAuth] = useState(false);
   const login = () => setAuth(!isAuthenticated);
 
   return (
-    <AuthContext.Provider value={{
-      isAuthenticated,
-      login,
-    }}
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        login
+      }}
     >
       <Router>
-        <Header />
-        <Route path="/comm" exact component={Communication} />
-        <Route path="/login" exact component={Login} />
-        <Route path="/" exact component={Home} />
+        <Switch>
+          {/* <Route path="/login" exact component={Login} /> */}
+          {/* <Route path="/logout" exact component={Logout} /> */}
+          {/* <Route path="/register" exact component={Register} /> */}
+          {/* <Route path="/account" exact component={Account} /> */}
+          {/* <Route path="/home" exact component={Home} /> */}
+          <Route path="/communication" exact component={Communication} />
+          {/* <Route path="/documentation" exact component={Documentation} /> */}
+          {/* <Route path="/resources" exact component={Resources} /> */}
+          <Route path="/" exact component={Landing} />
+        </Switch>
       </Router>
     </AuthContext.Provider>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('app-root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('app-root')
+);

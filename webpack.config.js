@@ -11,36 +11,43 @@ module.exports = {
         enforce: 'pre',
         loader: 'eslint-loader',
         options: {
-          configFile: path.resolve(__dirname, '.eslintrc.js'),
-        },
+          configFile: path.resolve(__dirname, '.eslintrc.js')
+        }
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/i,
+        loader: 'url-loader',
+        options: {
+          limit: 8192
+        }
       },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        options: { presets: ['@babel/env'] },
+        options: { presets: ['@babel/env'] }
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-    ],
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      }
+    ]
   },
   resolve: { extensions: ['*', '.js', '.jsx'] },
   output: {
     path: path.resolve(__dirname, 'public/'),
-    filename: 'bundle.js',
+    filename: 'bundle.js'
   },
   performance: {
-    hints: false,
+    hints: false
   },
   devServer: {
     contentBase: './public',
     hot: true,
-    open: true,
-  },
+    open: true
+  }
 };
