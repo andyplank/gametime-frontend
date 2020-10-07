@@ -21,6 +21,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CloseIcon from '@material-ui/icons/Close';
 import Modal from 'react-bootstrap/Modal';
 import TextField from '@material-ui/core/TextField';
+import MembersDisplay from './MembersDisplay';
 import {
   Container,
   Row,
@@ -47,22 +48,11 @@ class TeamManagement extends React.Component {
     this.state = {
       showTeamEdit: false,
       showTeamCreate: false,
+      teamNameError: false,
+      routingNumberError: false,
       adminChecked: [],
     };
   }
-
-componentDidMount() {
-  this.setState({adminChecked: Array(members.length).fill(false)});
-}
-
-handleAdminChange(index) {
-  //TODO
-  console.log(`toggling admin for ${members[index].name}`)
-  const { adminChecked } = this.state;
-  let newArr = adminChecked;
-  newArr[index] = !newArr[index];
-  this.setState({adminChecked: newArr});
-};
 
 handleTeamEditClick(){
   //TODO
@@ -74,11 +64,6 @@ handleTeamCreateClick(){
   //TOD
   this.setState({ showTeamCreate: true })
   console.log("create clicked")
-}
-
-handleMemberRemove(user){
-  //TODO
-  console.log(`removing ${user.name}`)
 }
 
 handleEditClose() {
@@ -97,7 +82,7 @@ handleSaveTeamCreate() {
 }
 
 renderTeamEditModal() {
-  const { showTeamEdit } = this.state;
+  const { showTeamEdit, teamNameError, routingNumberError } = this.state;
   return (
     <Modal
       show={showTeamEdit}
@@ -109,10 +94,10 @@ renderTeamEditModal() {
       <Modal.Body>
         <form>
           <div style={{ paddingBottom: "5%" }}>
-            <TextField id="outlined-basic" label="Outlined" variant="outlined" label="Team Name"/>
+            <TextField variant="outlined" label="Team Name" error={teamNameError} />
           </div>
           <div>
-            <TextField id="outlined-basic" label="Outlined" variant="outlined" label="Routing Number"/>
+            <TextField variant="outlined" label="Routing Number" error={routingNumberError}/>
           </div>
         </form>
       </Modal.Body>
@@ -142,45 +127,6 @@ renderTeamCreateModal() {
         <Button variant="contained" color="primary" onClick={() => this.handleSaveTeamCreate()}>Save changes</Button>
       </Modal.Footer>
     </Modal>
-  )
-}
-
-renderMembers() {
-  const { adminChecked } = this.state;
-  return (
-    adminChecked.length > 0 ? 
-    <>
-      <Grid container spacing={2}>
-        {members.map((user, index) => {
-          return (
-            <Grid container className="user-card-grid" key={index} item xs={3}>
-              <Card key={index} variant="outlined">
-              <CardHeader
-              title={user.name}
-              action={
-                <IconButton 
-                  style={{ outline: "none" }}
-                  onClick={() => this.handleMemberRemove(user)}
-                >
-                  <CloseIcon/>
-                </IconButton>
-              }
-              />
-              <CardContent>
-                Toggle Admin? 
-                <Switch
-                  checked={adminChecked[index]}
-                  onChange={() => this.handleAdminChange(index)}
-                  color="primary"
-                />
-              </CardContent>
-              </Card>
-            </Grid>
-          );
-        })}
-      </Grid>
-    </>
-    : null
   )
 }
 
@@ -220,7 +166,7 @@ renderMembers() {
             <Col xs={12} md={10}>
               <div style={{ paddingLeft: '5%' }}>
                 <h2>Members</h2>
-                {this.renderMembers()}
+                <MembersDisplay members={members}/>
               </div>
             </Col>
           </Row>
