@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Navbar, Button } from 'react-bootstrap';
 import Select from 'react-select';
@@ -45,7 +45,10 @@ const SignedOutHeader = () => {
   return (
     <Navbar>
       <Navbar.Brand style={{ fontFamily: 'SignPainter', fontSize: 42 }}>
-        GameTime
+        <Link to="/">
+          GameTime
+
+        </Link>
       </Navbar.Brand>
       <div className="ml-auto mr-sm-2">
         <Button className="ml-auto" variant="primary" onClick={onClick}>
@@ -73,7 +76,9 @@ const SignedInHeader = (props) => {
       {/* Navigation Header */}
       <Navbar className="border-bottom border-light">
         <Navbar.Brand style={{ fontFamily: 'SignPainter', fontSize: 42 }}>
-          GameTime
+          <Link to="/" className="noLink">
+            GameTime
+          </Link>
         </Navbar.Brand>
         <div style={{ display: 'flex' }} className="ml-auto align-items-center">
           <div style={{ width: '20rem' }}>

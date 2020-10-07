@@ -5,7 +5,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import AuthContext from './common/context/auth';
 import reducer from './reducers/reducer';
-import Landing from './containers/Landing/Landing';
+import Landing from './components/Landing/Landing';
 import Communication from './components/Communication/Communication';
 import 'bootstrap/dist/css/bootstrap.css';
 import Header from './components/Header/Header';
