@@ -8,6 +8,8 @@ import reducer from './reducers/reducer';
 import Landing from './containers/Landing/Landing';
 import Communication from './components/Communication/Communication';
 import 'bootstrap/dist/css/bootstrap.css';
+import Header from './components/Header/Header';
+
 
 // Initialize Redux store
 const store = createStore(reducer);
@@ -24,6 +26,7 @@ const App = () => {
       }}
     >
       <Router>
+        <Header />
         <Switch>
           {/* <Route path="/login" exact component={Login} /> */}
           {/* <Route path="/logout" exact component={Logout} /> */}

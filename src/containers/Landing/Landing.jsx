@@ -1,6 +1,10 @@
 import React from 'react';
 import './Landing.scss';
-import Header from '../../components/Header/Header';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Jumbotron from 'react-bootstrap/Jumbotron'
+
 import football from '../../assets/images/football.jpg';
 import fundraising from '../../assets/icons/money-bag.svg';
 import scheduling from '../../assets/icons/wall-clock.svg';
@@ -12,7 +16,6 @@ import apparel from '../../assets/icons/shopping-cart.svg';
 const Landing = () => {
   return (
     <div>
-      <Header />
       <Content />
     </div>
   );
@@ -21,55 +24,53 @@ const Landing = () => {
 const Content = () => {
   return (
     <div>
-      <div className="banner">
-        <div className="row">
-          <div className="col left">
-            <span className="mission-heading">
-              Streamlined Team Management for Coaches, Parents, and Athletes
-            </span>
-            <span className="mission-subheading">
-              GameTime helps you spend less time managing logistics, and more
-              time enjoying the field
-            </span>
-          </div>
-          <div className="col right">
-            <img src={football} height="300px" alt="Highschool Football Game" />
-          </div>
-        </div>
-      </div>
-      <div className="grid-wrapper">
-        <div className="grid">
-          <span className="services-heading">What We Offer</span>
-          <div className="row">
-            <div className="col grid-element">
-              <img className="grid-image" src={fundraising} alt="Money Bag" />
-              <span className="grid-heading">Fundraising</span>
-            </div>
-            <div className="col grid-element">
-              <img className="grid-image" src={scheduling} alt="Clock" />
-              <span className="grid-heading">Scheduling</span>
-            </div>
-            <div className="col grid-element">
-              <img className="grid-image" src={messaging} alt="Messages" />
-              <span className="grid-heading">Messaging</span>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col grid-element">
-              <img className="grid-image" src={documentation} alt="Documents" />
-              <span className="grid-heading">Documentation and Waivers</span>
-            </div>
-            <div className="col grid-element">
-              <img className="grid-image" src={rosters} alt="Team Roster" />
-              <span className="grid-heading">Team Rosters</span>
-            </div>
-            <div className="col grid-element">
-              <img className="grid-image" src={apparel} alt="Shopping Cart" />
-              <span className="grid-heading">Apparel and Sportswear</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Jumbotron>
+        <Container>
+          <Row>
+            <Col md={6}>
+              <span className="mission-heading">
+                Streamlined Team Management for Coaches, Parents, and Athletes
+              </span>
+              <span className="mission-subheading">
+                GameTime helps you spend less time managing logistics, and more
+                time enjoying the field
+              </span>
+            </Col>
+            <Col md={6}>
+              <img src={football} className="w-100" alt="Highschool Football Game" />
+            </Col>
+          </Row>
+        </Container>
+      </Jumbotron>
+      <Container className="text-center">
+        <h1>What We Offer</h1>
+        <Row>
+          <Col xs={6} md={4} className="py-4">
+            <img className="grid-image" src={fundraising} alt="Money Bag" />
+            <h3 className="mt-2">Fundraising</h3>
+          </Col>
+          <Col xs={6} md={4} className="py-4">
+            <img className="grid-image" src={scheduling} alt="Clock" />
+            <h3 className="mt-2">Scheduling</h3>
+          </Col>
+          <Col xs={6} md={4} className="py-4">
+            <img className="grid-image" src={messaging} alt="Messages" />
+            <h3 className="mt-2">Messaging</h3>
+          </Col>
+          <Col xs={6} md={4} className="py-4">
+            <img className="grid-image" src={documentation} alt="Documents" />
+            <h3 className="mt-2">Document Management</h3>
+          </Col>
+          <Col xs={6} md={4} className="py-4">
+            <img className="grid-image" src={rosters} alt="Team Roster" />
+            <h3 className="mt-2">Team Rosters</h3>
+          </Col>
+          <Col xs={6} md={4} className="py-4">
+            <img className="grid-image" src={apparel} alt="Shopping Cart" />
+            <h3 className="mt-2">Apparel and Sportswear</h3>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };

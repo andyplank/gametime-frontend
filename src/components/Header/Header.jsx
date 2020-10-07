@@ -43,7 +43,7 @@ const SignedOutHeader = () => {
   }
 
   return (
-    <Navbar fixedTop>
+    <Navbar>
       <Navbar.Brand style={{ fontFamily: 'SignPainter', fontSize: 42 }}>
         GameTime
       </Navbar.Brand>
@@ -71,7 +71,7 @@ const SignedInHeader = (props) => {
   return (
     <>
       {/* Navigation Header */}
-      <Navbar fixedTop className="border-bottom border-light">
+      <Navbar className="border-bottom border-light">
         <Navbar.Brand style={{ fontFamily: 'SignPainter', fontSize: 42 }}>
           GameTime
         </Navbar.Brand>
