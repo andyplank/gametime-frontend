@@ -13,7 +13,7 @@ export async function authenticate(email, password) {
     'https://1sz21h77li.execute-api.us-east-2.amazonaws.com/Dev/login';
 
   const body = {
-    email_address: email,
+    email: email,
     password: password
   };
   const response = await networker.post(endpoint, body);
@@ -22,7 +22,7 @@ export async function authenticate(email, password) {
     return null;
   }
 
-  const { message, error, success } = response.data;
+  const { message, user_id, error, success } = response.data;
 
   if (success && !error) {
     const {
@@ -31,6 +31,7 @@ export async function authenticate(email, password) {
       access_token,
       expires_in
     } = response.data.data;
+    setUserID(user_id);
     setTokens(id_token, refresh_token, access_token);
     setExpiration(expires_in);
   }
@@ -86,6 +87,15 @@ export async function reauthenticate() {
 
   setTokens(new_session_id, new_refresh_token);
   return true;
+}
+
+/**
+ * Stores user id as a browser cookie.
+ *
+ * @param {String} user_id The provided user id.
+ */
+export function setUserID(user_id) {
+  cookie.set('user_id', user_id);
 }
 
 /**
