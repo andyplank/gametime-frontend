@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
 import CloseIcon from '@material-ui/icons/Close';
 
-class MembersDisplay extends React.Component {
+class PlayersDisplay extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,37 +19,37 @@ class MembersDisplay extends React.Component {
     }
 
     componentDidMount() {
-        const { members } = this.props;
-        this.setState({adminChecked: Array(members.length).fill(false)});
+        const { players } = this.props;
+        this.setState({adminChecked: Array(players.length).fill(false)});
     }
 
     handleAdminChange(index) {
         //TODO
-        const { members } = this.props;
-        console.log(`toggling admin for ${members[index].name}`)
+        const { players } = this.props;
+        console.log(`toggling admin for ${players[index].name}`)
         const { adminChecked } = this.state;
         let newArr = adminChecked;
         newArr[index] = !newArr[index];
         this.setState({adminChecked: newArr});
     };
 
-    handleMemberRemove(user){
+    handlePlayerRemove(user){
         //TODO
         console.log(`removing ${user.firstName} ${user.lastName}`)
       }
 
     render(){
         const { adminChecked } = this.state;
-        const { members } = this.props;
+        const { players } = this.props;
         return (
             adminChecked.length > 0 ? 
             <>
                 <Grid container spacing={2}>
-                    {members.map((user, index) => {
+                    {players.map((user, index) => {
                     return (
                         <Grid container className="user-card-grid" key={index} item xs={3}>
                         <Card 
-                            className="member-card"
+                            className="player-card"
                             key={index} 
                             variant="outlined"
                         >
@@ -58,7 +58,7 @@ class MembersDisplay extends React.Component {
                             action={
                                 <IconButton 
                                     style={{ outline: "none" }}
-                                    onClick={() => this.handleMemberRemove(user)}
+                                    onClick={() => this.handlePlayerRemove(user)}
                                     >
                                     <CloseIcon/>
                                 </IconButton>
@@ -83,4 +83,4 @@ class MembersDisplay extends React.Component {
         )
     }    
 }
-export default MembersDisplay;
+export default PlayersDisplay;

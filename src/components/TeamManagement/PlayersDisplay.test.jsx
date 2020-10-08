@@ -2,19 +2,19 @@ import React from 'react';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Switch from '@material-ui/core/Switch';
-import MembersDisplay from './MembersDisplay';
+import PlayersDisplay from './PlayersDisplay';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('<MembersDisplay />', () => {
-  const testMembers = [
+describe('<PlayersDisplay />', () => {
+  const testPlayers = [
     { userID: 1, firstName: 'Collin', lastName: 'Li' },
-    { userID: 1, firstName: 'Jon', lastName: 'Huber' },
-    { userID: 1, firstName: 'Raymond', lastName: 'Truong' },
-    { userID: 1, firstName: 'Andy', lastName: 'Plank' },
+    { userID: 2, firstName: 'Jon', lastName: 'Huber' },
+    { userID: 3, firstName: 'Raymond', lastName: 'Truong' },
+    { userID: 4, firstName: 'Andy', lastName: 'Plank' },
   ];
-  const wrapper = Enzyme.mount(
-    <MembersDisplay members={testMembers} />,
+  const wrapper = Enzyme.shallow(
+    <PlayersDisplay players={testPlayers} />,
   );
 
   it('clicking item should call the handler', () => {
@@ -25,8 +25,10 @@ describe('<MembersDisplay />', () => {
     expect(wrapper.instance().handleAdminChange).toHaveBeenCalled();
   });
 
-  it('item should be on when clicked', () => {
-    const item = wrapper.find(Switch).at(0);
-    expect(item('checkbox')).to.have.property('checked', true);
+  it('All switches are off by default', () => {
+    const items = wrapper.find(Switch);
+    items.forEach((item) => {
+      expect(item.props().checked).toBe(false);
+    })
   });
 });

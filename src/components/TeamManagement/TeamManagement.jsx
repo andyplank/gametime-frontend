@@ -21,14 +21,14 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CloseIcon from '@material-ui/icons/Close';
 import Modal from 'react-bootstrap/Modal';
 import TextField from '@material-ui/core/TextField';
-import MembersDisplay from './MembersDisplay';
+import PlayersDisplay from './PlayersDisplay';
 import {
   Container,
   Row,
   Col,
 } from 'react-bootstrap';
 
-const members = [
+const players = [
   { userID: 1, firstName: 'daniel', lastName: 'Li' },
   { userID: 1, firstName: 'Collin', lastName: 'Li' },
   { userID: 1, firstName: 'Collin', lastName: 'Li' },
@@ -62,10 +62,56 @@ class TeamManagement extends React.Component {
       teamNameError: false,
       fundGoalError: false,
       fundDescError: false,
+      accountNumberError: false,
       routingNumberError: false,
       adminChecked: [],
     };
   }
+
+
+validateFields(team) {
+  let canSave = true;
+
+  if(team.name.length > 60){
+    canSave = false;
+    this.setState({ teamNameError: true });
+  }
+  else{
+    this.setState({ teamNameError: false })
+  }
+
+  if(isNaN(team.fundGoal)){
+    canSave = false;
+    this.setState({ fundGoalError: true });
+  }
+  else{
+    this.setState({ fundGoalError: false })
+  }
+
+  if(team.fundDesc.length > 100){
+    canSave = false;
+    this.setState({ fundDescError: true });
+  }
+  else{
+    this.setState({ fundDescError: false })
+  }
+
+  if(team.accountNumber > 12){
+    canSave = false;
+    this.setState({ accountNumberError: true });
+  }
+  else{
+    this.setState({ accountNumberError: false })
+  }
+
+  if(team.routingNumber > 9 || team.routingNumber < 9){
+    canSave = false;
+    this.setState({ routingNumberError: true });
+  }
+  else{
+    this.setState({ routingNumberError: false })
+  }
+}
 
 handleTeamEditClick(){
   //TODO
@@ -105,6 +151,7 @@ handleTeamCreateClick(){
       teamNameError,
       fundGoalError,
       fundDescError,
+      accountNumberError,
       routingNumberError,
     } = this.state;
     return (
@@ -126,6 +173,9 @@ handleTeamCreateClick(){
             <div style={{ paddingBottom: "5%" }}>
               <TextField variant="outlined" label="Fund Description" error={fundDescError} />
             </div>
+            <div style={{ paddingBottom: "5%" }}>
+              <TextField variant="outlined" label="Account Number" error={accountNumberError}/>
+            </div>
             <div>
               <TextField variant="outlined" label="Routing Number" error={routingNumberError}/>
             </div>
@@ -143,9 +193,6 @@ handleTeamCreateClick(){
     const { 
       showTeamCreate,
       teamNameError,
-      fundGoalError,
-      fundDescError,
-      routingNumberError,
     } = this.state;
     return (
       <Modal
@@ -160,20 +207,11 @@ handleTeamCreateClick(){
             <div style={{ paddingBottom: "5%" }}>
               <TextField variant="outlined" label="Team Name" error={teamNameError} />
             </div>
-            <div style={{ paddingBottom: "5%" }}>
-              <TextField variant="outlined" label="Fund Goal" error={fundGoalError} />
-            </div>
-            <div style={{ paddingBottom: "5%" }}>
-              <TextField variant="outlined" label="Fund Description" error={fundDescError} />
-            </div>
-            <div>
-              <TextField variant="outlined" label="Routing Number" error={routingNumberError}/>
-            </div>
           </form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="contained" color="secondary" onClick={() => this.setState({ showTeamCreate: false })}>Close</Button>
-          <Button variant="contained" color="primary" onClick={() => this.handleSaveTeamCreate()}>Save changes</Button>
+          <Button variant="contained" color="primary" onClick={() => this.handleSaveTeamCreate()}>Create</Button>
         </Modal.Footer>
       </Modal>
     )
@@ -242,8 +280,8 @@ handleTeamCreateClick(){
             </Col>
             <Col xs={12} md={10}>
               <div style={{ paddingLeft: '5%' }}>
-                <h2>Members</h2>
-                <MembersDisplay members={members}/>
+                <h2>Players</h2>
+                <PlayersDisplay players={players}/>
               </div>
             </Col>
           </Row>
