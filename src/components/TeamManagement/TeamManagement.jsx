@@ -29,22 +29,17 @@ import {
 } from 'react-bootstrap';
 
 const players = [
-  { userID: 1, firstName: 'daniel', lastName: 'Li' },
-  { userID: 1, firstName: 'Collin', lastName: 'Li' },
-  { userID: 1, firstName: 'Collin', lastName: 'Li' },
-  { userID: 1, firstName: 'Collin', lastName: 'Li' },
-  { userID: 1, firstName: 'Collin', lastName: 'Li' },
-  { userID: 1, firstName: 'Collin', lastName: 'Li' },
-  { userID: 1, firstName: 'Collin', lastName: 'Li' },
-  { userID: 1, firstName: 'Collin', lastName: 'Li' },
-  { userID: 1, firstName: 'Collin', lastName: 'Li' },
-  { userID: 1, firstName: 'Collin', lastName: 'Li' },
-  { userID: 1, firstName: 'Collin', lastName: 'Li' },
-  { userID: 1, firstName: 'Collin', lastName: 'Li' },
-  { userID: 1, firstName: 'Collin', lastName: 'Li' },
-  { userID: 1, firstName: 'Collin', lastName: 'Li' },
-  { userID: 1, firstName: 'Collin', lastName: 'Li' },
-  { userID: 1, firstName: 'Collin', lastName: 'Li' },
+  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
+  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
+  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
+  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
+  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
+  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
+  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
+  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
+  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
+  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
+  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
 ];
 
 const headerStyle = {
@@ -55,7 +50,8 @@ const headerStyle = {
 class TeamManagement extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = { 
+      adminChecked: [],
       showTeamEdit: false,
       showTeamCreate: false,
       showTeamInvite: false,
@@ -64,7 +60,7 @@ class TeamManagement extends React.Component {
       fundDescError: false,
       accountNumberError: false,
       routingNumberError: false,
-      adminChecked: [],
+      teamName: "",
     };
   }
 
@@ -142,7 +138,7 @@ handleTeamCreateClick(){
 
   handleSaveTeamCreate() {
     //TODO call endpoint(POST) to create team
-    console.log("save team create clicked")
+    console.log("saving team: " + this.state.teamName)
   }
 
   renderTeamEditModal() {
@@ -165,7 +161,7 @@ handleTeamCreateClick(){
         <Modal.Body>
           <form>
             <div style={{ paddingBottom: "5%" }}>
-              <TextField variant="outlined" label="Team Name" error={teamNameError} />
+              <TextField variant="outlined" label="Team Name" error={teamNameError}/>
             </div>
             <div style={{ paddingBottom: "5%" }}>
               <TextField variant="outlined" label="Fund Goal" error={fundGoalError} />
@@ -205,7 +201,7 @@ handleTeamCreateClick(){
         <Modal.Body>
           <form>
             <div style={{ paddingBottom: "5%" }}>
-              <TextField variant="outlined" label="Team Name" error={teamNameError} />
+              <TextField variant="outlined" label="Team Name" error={teamNameError} onChange={(event) => this.setState({ teamName: event.target.value })}/>
             </div>
           </form>
         </Modal.Body>
