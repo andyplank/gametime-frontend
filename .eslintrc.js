@@ -19,6 +19,9 @@ module.exports = {
   plugins: ['react'],
   rules: {
     'react/jsx-props-no-spreading': 'off',
-    'no-use-before-define': 'off'
+    'no-use-before-define': 'off',
+    camelcase: 'off',
+    'object-shorthand': 'off',
+    'no-param-reassign': 'off'
   }
 };
