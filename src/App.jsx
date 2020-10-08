@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import ReactDOM from 'react-dom';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { createStore } from 'redux';
@@ -36,6 +37,7 @@ const App = () => {
           {/* <Route path="/resources" exact component={Resources} /> */}
           <Route path="/" exact component={Landing} />
         </Switch>
+        <Route path="/TeamManagement" exact component={TeamManagement} />
       </Router>
     </AuthContext.Provider>
   );
