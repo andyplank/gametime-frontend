@@ -12,6 +12,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.4.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
@@ -39,8 +40,10 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "@babel/runtime": "^7.11.2",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
+    "js-cookie": "^2.2.1",
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
