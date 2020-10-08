@@ -45,9 +45,8 @@ const SignedOutHeader = () => {
   return (
     <Navbar>
       <Navbar.Brand style={{ fontFamily: 'SignPainter', fontSize: 42 }}>
-        <Link to="/">
+        <Link to="/" className="text-decoration-none text-reset">
           GameTime
-
         </Link>
       </Navbar.Brand>
       <div className="ml-auto mr-sm-2">
@@ -76,7 +75,7 @@ const SignedInHeader = (props) => {
       {/* Navigation Header */}
       <Navbar className="border-bottom border-light">
         <Navbar.Brand style={{ fontFamily: 'SignPainter', fontSize: 42 }}>
-          <Link to="/" className="noLink">
+          <Link to="/home" className="text-decoration-none text-reset">
             GameTime
           </Link>
         </Navbar.Brand>

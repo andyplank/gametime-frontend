@@ -19,6 +19,7 @@ const testingState = {
   },
   status: {
     signedIn: true,
+    // signedIn: false,
     selectedTeam: 0
   }
 };

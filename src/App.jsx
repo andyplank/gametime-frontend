@@ -6,10 +6,9 @@ import { Provider } from 'react-redux';
 import AuthContext from './common/context/auth';
 import reducer from './reducers/reducer';
 import Landing from './components/Landing/Landing';
+import Login from './components/Login/Login';
 import Communication from './components/Communication/Communication';
 import 'bootstrap/dist/css/bootstrap.css';
-import Header from './components/Header/Header';
-
 
 // Initialize Redux store
 const store = createStore(reducer);
@@ -26,9 +25,8 @@ const App = () => {
       }}
     >
       <Router>
-        <Header />
         <Switch>
-          {/* <Route path="/login" exact component={Login} /> */}
+          <Route path="/login" exact component={Login} />
           {/* <Route path="/logout" exact component={Logout} /> */}
           {/* <Route path="/register" exact component={Register} /> */}
           {/* <Route path="/account" exact component={Account} /> */}
