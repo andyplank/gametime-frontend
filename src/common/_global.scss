@@ -2,10 +2,21 @@ $font-stack: IBM Plex Sans, Arial, sans-serif;
 $bold: 700;
 $box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
 $box-shadow-hover: 0px 4px 4px 0px rgba(0, 0, 0, 0.16);
+$hyperlink-color: #007bff;
+// $primary-color: #668c8f;
 
-$primary-color: #a6bdbf;
-$secondary-color: black;
+$primary-color: #174ceb;
+$primary-color-dark: #0025b7;
+$primary-color-light: #6c78ff;
+$secondary-color: #c8c8cc;
+$secondary-color-dark: #97979b;
+$secondary-color-light: #fbfbff;
 
 .bg-Primary {
-    background-color: $primary-color;
+  background-color: $primary-color-light;
+}
+
+.noLink {
+  text-decoration: none !important;
+  color: inherit !important;
 }
