@@ -9,6 +9,7 @@ import reducer from './reducers/reducer';
 import Landing from './components/Landing/Landing';
 import Login from './components/Login/Login';
 import Communication from './components/Communication/Communication';
+import TeamManagement from './components/TeamManagement/TeamManagement'
 import 'bootstrap/dist/css/bootstrap.css';
 
 // Initialize Redux store
