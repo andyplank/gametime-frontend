@@ -11,6 +11,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Modal from 'react-bootstrap/Modal';
 import Button from '@material-ui/core/Button';
 import PropTypes, { object } from 'prop-types';
+import { editPermission, removeFromTeam } from '../../utils/team/team'
 
 class PlayersDisplay extends React.Component {
     constructor(props) {
@@ -20,6 +21,7 @@ class PlayersDisplay extends React.Component {
             showPlayerRemove: false,
             // TODO: use this in api call playerToRemove: null,
             removeMsg: "",
+            player: null,
         };
     }
 
@@ -35,7 +37,7 @@ class PlayersDisplay extends React.Component {
         console.log(players);
     }
 
-    handleAdminChange(index) {
+    async handleAdminChange(index) {
         // TODO
         const { players } = this.props;
         console.log(`toggling admin for ${players[index].name}`)
@@ -43,16 +45,21 @@ class PlayersDisplay extends React.Component {
         const newArr = adminChecked;
         newArr[index] = !newArr[index];
         this.setState({adminChecked: newArr});
+        const perm = newArr[index] ? 1 : 0;
+        await editPermission(1, players[index].user_id, perm);
     };
 
     showRemoveModal(player){
         this.setState({ showPlayerRemove: true });
+        this.setState({ player: player })
         this.setState({ 
             removeMsg: 
   <> 
     Are you sure you want to remove 
     <b>
+      &nbsp;
       {player.name}
+      &nbsp;
     </b> 
     from the team?
   </> 
@@ -60,9 +67,15 @@ class PlayersDisplay extends React.Component {
         // this.setState({ playerToRemove: player})
     }
 
-    handlePlayerRemove() {
+    async handlePlayerRemove() {
         // TODO call remove endpoint
-        this.setState({ showPlayerRemove: false })
+        const { player } = this.state;
+        const { refresh } = this.props;
+        this.setState({ showPlayerRemove: false });
+        await removeFromTeam(1, player.user_id);
+        await refresh();
+        console.log(player);
+
     }
 
     render(){
@@ -141,6 +154,7 @@ class PlayersDisplay extends React.Component {
 }
 
 PlayersDisplay.propTypes = {
-    players: PropTypes.arrayOf(object).isRequired
+    players: PropTypes.arrayOf(object).isRequired,
+    refresh: PropTypes.func.isRequired,
   };
 export default PlayersDisplay;

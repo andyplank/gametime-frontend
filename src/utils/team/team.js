@@ -42,7 +42,7 @@ export async function getTeamData(teamId) {
 
     const res = await axios(config);
 
-    console.log(res);
+    console.log("team data", res);
 }
 
 export async function getTeamsForUser(userId) {
@@ -57,8 +57,9 @@ export async function getTeamsForUser(userId) {
     }
 
     const res = await axios(config);
+    console.log("teams", res.data.teams)
 
-    console.log(res);
+    return res.data.teams;
 }
 
 export async function createTeam(ownerId, name) {
@@ -102,7 +103,7 @@ export async function editTeam(teamId, name) {
 
     const res = await axios(config);
 
-    console.log(res);
+    console.log("edit team", res);
 }
 
 export async function joinTeam(teamId, userId) {
@@ -126,7 +127,7 @@ export async function joinTeam(teamId, userId) {
     console.log(res);
 }
 
-export async function leaveTeam(teamId, userId) {
+export async function removeFromTeam(teamId, userId) {
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': auth    }

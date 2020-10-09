@@ -11,6 +11,7 @@ import Login from './components/Login/Login';
 import Communication from './components/Communication/Communication';
 import Register from './components/Register/Register';
 import TeamManagement from './components/TeamManagement/TeamManagement';
+import JoinTeamPage from './components/TeamManagement/JoinTeamPage';
 import 'bootstrap/dist/css/bootstrap.css';
 
 // Initialize Redux store
@@ -37,6 +38,7 @@ const App = () => {
           <Route path="/communication" exact component={Communication} />
           {/* <Route path="/documentation" exact component={Documentation} /> */}
           {/* <Route path="/resources" exact component={Resources} /> */}
+          <Route path="/joinTeam" exact component={JoinTeamPage} />
           <Route path="/" exact component={Landing} />
         </Switch>
         <Route path="/teammanagement" exact component={TeamManagement} />

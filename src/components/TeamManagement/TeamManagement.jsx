@@ -12,7 +12,7 @@ import {
 } from 'react-bootstrap';
 import Header from '../Header/Header';
 import PlayersDisplay from './PlayersDisplay';
-import { getPlayers, getTeamData, getTeamsForUser } from '../../utils/team/team';
+import { getPlayers, getTeamData, getTeamsForUser, createTeam, editTeam } from '../../utils/team/team';
 
 const headerStyle = {
   textAlign: 'center',
@@ -37,25 +37,28 @@ class Content extends React.Component {
       showTeamCreate: false,
       showTeamInvite: false,
       teamNameError: false,
-      fundGoalError: false,
-      fundDescError: false,
-      accountNumberError: false,
-      routingNumberError: false,
       teamName: '',
+      inviteLink: `${window.location.hostname}:8080/#/joinTeam`
     };
   }
 
   async componentDidMount() {
+    this.fetchPlayers();
+    const teams = await getTeamsForUser(1);
+    this.setState({ teamName: teams[0].name})
+    await getTeamData(1);
+  } 
+  
+  async fetchPlayers() {
     const players = await getPlayers(1);
     this.setState({ players: players });
-    getTeamData(1);
-    getTeamsForUser(1);
   }
 
-  validateFields(team) {
+  validateFields() {
+    const { teamName } = this.state;
     let canSave = true;
 
-    if(team.name.length > 60 || team.name.length === 0){
+    if(teamName.length > 30 || teamName.length === 0){
       canSave = false;
       this.setState({ teamNameError: true });
     }
@@ -90,34 +93,37 @@ class Content extends React.Component {
 
   handleCreateClose() {
     this.setState({ showTeamCreate: false});
+    this.setState({ teamNameError: false })
     this.setState({ teamName: "" });
   }
 
-  /* use when endpoints in
-  handleSaveTeamEdits() {
-    // TODO call endpoint to save edits to team
-    console.log('save team edits clicked');
+  async handleSaveTeamEdits() {
+    const { teamName } = this.state;
+    if(this.validateFields()){
+      console.log("saving team", teamName)
+      await editTeam(1, teamName);
+      this.setState({ showTeamEdit: false });
+    }
   }
-
-  handleSaveTeamCreate() {
-    //TODO call endpoint(POST) to create team
-    console.log('saving team: ' + this.state.teamName);
-    this.setState({ teamName: "" });
+  
+  async handleSaveTeamCreate() {
+    const { teamName } = this.state;
+    if(this.validateFields()){
+       await createTeam(1, teamName);
+       this.setState({ teamName: "" });
+       this.setState({ showTeamCreate: false });
+    }
   }
-  */
 
   renderTeamEditModal() {
     const {
       showTeamEdit,
       teamNameError,
-      fundGoalError,
-      fundDescError,
-      accountNumberError,
-      routingNumberError,
+      teamName
     } = this.state;
     return (
       <Modal
-        class="edit-modal"
+        className="edit-modal"
         show={showTeamEdit}
         onHide={() => this.handleEditClose()}
       >
@@ -131,34 +137,8 @@ class Content extends React.Component {
                 variant="outlined"
                 label="Team Name"
                 error={teamNameError}
-              />
-            </div>
-            <div style={{ paddingBottom: '5%' }}>
-              <TextField
-                variant="outlined"
-                label="Fund Goal"
-                error={fundGoalError}
-              />
-            </div>
-            <div style={{ paddingBottom: '5%' }}>
-              <TextField
-                variant="outlined"
-                label="Fund Description"
-                error={fundDescError}
-              />
-            </div>
-            <div style={{ paddingBottom: '5%' }}>
-              <TextField
-                variant="outlined"
-                label="Account Number"
-                error={accountNumberError}
-              />
-            </div>
-            <div>
-              <TextField
-                variant="outlined"
-                label="Routing Number"
-                error={routingNumberError}
+                onChange={(event) => this.setState({teamName: event.target.value})}
+                defaultValue={teamName}
               />
             </div>
           </form>
@@ -185,7 +165,7 @@ class Content extends React.Component {
 
   // move this to profile page when it's up
   renderTeamCreateModal() {
-    const { showTeamCreate, teamNameError, teamName } = this.state;
+    const { showTeamCreate, teamNameError } = this.state;
     return (
       <Modal
         show={showTeamCreate}
@@ -204,7 +184,7 @@ class Content extends React.Component {
                 onChange={(event) =>
                   this.setState({ teamName: event.target.value })
                 }
-                value={teamName}
+                helperText={teamNameError ? '0 < Team Name < 30' : null}
               />
             </div>
           </form>
@@ -230,7 +210,7 @@ class Content extends React.Component {
   }
 
   renderInviteLinkModal() {
-    const { showTeamInvite } = this.state;
+    const { showTeamInvite, inviteLink } = this.state;
     return (
       <Modal
         show={showTeamInvite}
@@ -240,14 +220,16 @@ class Content extends React.Component {
           <Modal.Title> Invite Link </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p style={{ textAlign: 'center' }}>invite link here</p>
+          <a href={inviteLink}>
+            {inviteLink}
+          </a>
         </Modal.Body>
       </Modal>
     );
   }
 
   render() {
-    const { players } = this.state;
+    const { players, teamName } = this.state;
     return(
       players.length > 0 ?
       (
@@ -255,7 +237,9 @@ class Content extends React.Component {
           {this.renderTeamEditModal()}
           {this.renderTeamCreateModal()}
           {this.renderInviteLinkModal()}
-          <h1 style={headerStyle}>Team Management</h1>
+          <h1 style={headerStyle}> 
+            {teamName} 
+          </h1>
           <Container fluid>
             <Row>
               <Col xs={6} md={2}>
@@ -298,7 +282,7 @@ class Content extends React.Component {
               <Col xs={12} md={10}>
                 <div style={{ paddingLeft: '5%' }}>
                   <h2>Players</h2>
-                  <PlayersDisplay players={players} />
+                  <PlayersDisplay players={players} refresh={() => this.fetchPlayers()} />
                 </div>
               </Col>
             </Row>
