@@ -49,10 +49,19 @@ const headerStyle = {
   paddingBottom: '3%',
 };
 
-class TeamManagement extends React.Component {
+const TeamManagement = () => {
+  return (
+    <>
+      <Header />
+      <Content />
+    </>
+  );
+};
+
+class Content extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       adminChecked: [],
       showTeamEdit: false,
       showTeamCreate: false,
@@ -62,7 +71,7 @@ class TeamManagement extends React.Component {
       fundDescError: false,
       accountNumberError: false,
       routingNumberError: false,
-      teamName: "",
+      teamName: '',
     };
   }
 
@@ -103,21 +112,21 @@ class TeamManagement extends React.Component {
 
   handleEditClose() {
     //TODO clear any edits
-    this.setState({ showTeamEdit: false })
+    this.setState({ showTeamEdit: false });
   }
 
   handleSaveTeamEdits() {
     //TODO call endpoint(PUT) to save edits to team
-    console.log("save team edits clicked")
+    console.log('save team edits clicked');
   }
 
   handleSaveTeamCreate() {
     //TODO call endpoint(POST) to create team
-    console.log("saving team: " + this.state.teamName)
+    console.log('saving team: ' + this.state.teamName);
   }
 
   renderTeamEditModal() {
-    const { 
+    const {
       showTeamEdit,
       teamNameError,
       fundGoalError,
@@ -136,37 +145,66 @@ class TeamManagement extends React.Component {
         </Modal.Header>
         <Modal.Body>
           <form>
-            <div style={{ paddingBottom: "5%" }}>
-              <TextField variant="outlined" label="Team Name" error={teamNameError}/>
+            <div style={{ paddingBottom: '5%' }}>
+              <TextField
+                variant="outlined"
+                label="Team Name"
+                error={teamNameError}
+              />
             </div>
-            <div style={{ paddingBottom: "5%" }}>
-              <TextField variant="outlined" label="Fund Goal" error={fundGoalError} />
+            <div style={{ paddingBottom: '5%' }}>
+              <TextField
+                variant="outlined"
+                label="Fund Goal"
+                error={fundGoalError}
+              />
             </div>
-            <div style={{ paddingBottom: "5%" }}>
-              <TextField variant="outlined" label="Fund Description" error={fundDescError} />
+            <div style={{ paddingBottom: '5%' }}>
+              <TextField
+                variant="outlined"
+                label="Fund Description"
+                error={fundDescError}
+              />
             </div>
-            <div style={{ paddingBottom: "5%" }}>
-              <TextField variant="outlined" label="Account Number" error={accountNumberError}/>
+            <div style={{ paddingBottom: '5%' }}>
+              <TextField
+                variant="outlined"
+                label="Account Number"
+                error={accountNumberError}
+              />
             </div>
             <div>
-              <TextField variant="outlined" label="Routing Number" error={routingNumberError}/>
+              <TextField
+                variant="outlined"
+                label="Routing Number"
+                error={routingNumberError}
+              />
             </div>
-            </form>
+          </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="contained" color="secondary" onClick={() => this.handleEditClose()}>Close</Button>
-          <Button variant="contained" color="primary" onClick={() => this.handleSaveTeamEdits()}>Save changes</Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => this.handleEditClose()}
+          >
+            Close
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => this.handleSaveTeamEdits()}
+          >
+            Save changes
+          </Button>
         </Modal.Footer>
       </Modal>
-    )
+    );
   }
 
   // move this to profile page when it's up
   renderTeamCreateModal() {
-    const { 
-      showTeamCreate,
-      teamNameError,
-    } = this.state;
+    const { showTeamCreate, teamNameError } = this.state;
     return (
       <Modal
         show={showTeamCreate}
@@ -177,17 +215,36 @@ class TeamManagement extends React.Component {
         </Modal.Header>
         <Modal.Body>
           <form>
-            <div style={{ paddingBottom: "5%" }}>
-              <TextField variant="outlined" label="Team Name" error={teamNameError} onChange={(event) => this.setState({ teamName: event.target.value })}/>
+            <div style={{ paddingBottom: '5%' }}>
+              <TextField
+                variant="outlined"
+                label="Team Name"
+                error={teamNameError}
+                onChange={(event) =>
+                  this.setState({ teamName: event.target.value })
+                }
+              />
             </div>
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="contained" color="secondary" onClick={() => this.setState({ showTeamCreate: false })}>Close</Button>
-          <Button variant="contained" color="primary" onClick={() => this.handleSaveTeamCreate()}>Create</Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => this.setState({ showTeamCreate: false })}
+          >
+            Close
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => this.handleSaveTeamCreate()}
+          >
+            Create
+          </Button>
         </Modal.Footer>
       </Modal>
-    )
+    );
   }
 
   renderInviteLinkModal() {
@@ -204,7 +261,7 @@ class TeamManagement extends React.Component {
           <p style={{ textAlign: 'center' }}>invite link here</p>
         </Modal.Body>
       </Modal>
-    )
+    );
   }
 
   render() {
@@ -220,11 +277,13 @@ class TeamManagement extends React.Component {
         <Container fluid>
           <Row>
             <Col xs={6} md={2}>
-              <h2 style={{ display:'inline-block', paddingBottom: '2%' }}>Team Control</h2>
+              <h2 style={{ display: 'inline-block', paddingBottom: '2%' }}>
+                Team Control
+              </h2>
               <p>
-                <Button 
-                  className="btn-team" 
-                  variant="contained" 
+                <Button
+                  className="btn-team"
+                  variant="contained"
                   color="primary"
                   onClick={() => this.handleTeamEditClick()}
                 >
@@ -232,9 +291,9 @@ class TeamManagement extends React.Component {
                 </Button>
               </p>
               <p>
-                <Button 
+                <Button
                   className="btn-team"
-                  variant="contained" 
+                  variant="contained"
                   color="primary"
                   onClick={() => this.handleTeamInviteClick()}
                 >
@@ -242,11 +301,11 @@ class TeamManagement extends React.Component {
                 </Button>
               </p>
               <p>
-                <Button 
+                <Button
                   className="btn-team"
-                  variant="contained" 
+                  variant="contained"
                   color="primary"
-                  startIcon={ <AddCircleOutlineIcon/> }
+                  startIcon={<AddCircleOutlineIcon />}
                   onClick={() => this.handleTeamCreateClick()}
                 >
                   Create Team
@@ -257,7 +316,7 @@ class TeamManagement extends React.Component {
             <Col xs={12} md={10}>
               <div style={{ paddingLeft: '5%' }}>
                 <h2>Players</h2>
-                <PlayersDisplay players={players}/>
+                <PlayersDisplay players={players} />
               </div>
             </Col>
           </Row>

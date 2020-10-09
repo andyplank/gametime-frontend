@@ -9,7 +9,8 @@ import reducer from './reducers/reducer';
 import Landing from './components/Landing/Landing';
 import Login from './components/Login/Login';
 import Communication from './components/Communication/Communication';
-import TeamManagement from './components/TeamManagement/TeamManagement'
+import Register from './components/Register/Register';
+import TeamManagement from './components/TeamManagement/TeamManagement';
 import 'bootstrap/dist/css/bootstrap.css';
 
 // Initialize Redux store
@@ -23,14 +24,14 @@ const App = () => {
     <AuthContext.Provider
       value={{
         isAuthenticated,
-        login
+        login,
       }}
     >
       <Router>
         <Switch>
           <Route path="/login" exact component={Login} />
           {/* <Route path="/logout" exact component={Logout} /> */}
-          {/* <Route path="/register" exact component={Register} /> */}
+          <Route path="/register" exact component={Register} />
           {/* <Route path="/account" exact component={Account} /> */}
           {/* <Route path="/home" exact component={Home} /> */}
           <Route path="/communication" exact component={Communication} />
