@@ -23,6 +23,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Modal from 'react-bootstrap/Modal';
 import TextField from '@material-ui/core/TextField';
 import PlayersDisplay from './PlayersDisplay';
+import { getPlayers, getTeamData } from '../../utils/team/team.js';
 import {
   Container,
   Row,
@@ -65,62 +66,35 @@ class TeamManagement extends React.Component {
     };
   }
 
-
-validateFields(team) {
-  let canSave = true;
-
-  if(team.name.length > 60){
-    canSave = false;
-    this.setState({ teamNameError: true });
-  }
-  else{
-    this.setState({ teamNameError: false })
+  componentDidMount(){
+    getPlayers(1);
+    getTeamData(1);
   }
 
-  if(isNaN(team.fundGoal)){
-    canSave = false;
-    this.setState({ fundGoalError: true });
-  }
-  else{
-    this.setState({ fundGoalError: false })
+
+  validateFields(team) {
+    let canSave = true;
+
+    if(team.name.length > 60 || team.name.length == 0){
+      canSave = false;
+      this.setState({ teamNameError: true });
+    }
+    else{
+      this.setState({ teamNameError: false })
+    }
   }
 
-  if(team.fundDesc.length > 100){
-    canSave = false;
-    this.setState({ fundDescError: true });
-  }
-  else{
-    this.setState({ fundDescError: false })
+  handleTeamEditClick(){
+    //TODO
+    this.setState({ showTeamEdit: true })
+    console.log("edit clicked")
   }
 
-  if(team.accountNumber > 12){
-    canSave = false;
-    this.setState({ accountNumberError: true });
+  handleTeamCreateClick(){
+    //TOD
+    this.setState({ showTeamCreate: true })
+    console.log("create clicked")
   }
-  else{
-    this.setState({ accountNumberError: false })
-  }
-
-  if(team.routingNumber > 9 || team.routingNumber < 9){
-    canSave = false;
-    this.setState({ routingNumberError: true });
-  }
-  else{
-    this.setState({ routingNumberError: false })
-  }
-}
-
-handleTeamEditClick(){
-  //TODO
-  this.setState({ showTeamEdit: true })
-  console.log("edit clicked")
-}
-
-handleTeamCreateClick(){
-  //TOD
-  this.setState({ showTeamCreate: true })
-  console.log("create clicked")
-}
 
   handleTeamInviteClick() {
     //TODO generate link with endpoint
@@ -187,6 +161,7 @@ handleTeamCreateClick(){
     )
   }
 
+  // move this to profile page when it's up
   renderTeamCreateModal() {
     const { 
       showTeamCreate,
