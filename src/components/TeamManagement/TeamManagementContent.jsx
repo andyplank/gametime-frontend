@@ -134,6 +134,7 @@ class TeamManagementContent extends React.Component {
                   error={teamNameError}
                   onChange={(event) => this.setState({teamName: event.target.value})}
                   defaultValue={teamName}
+                  helperText={teamNameError ? '0 < Team Name < 30' : null}
                 />
               </div>
             </form>
