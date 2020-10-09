@@ -62,7 +62,7 @@ const testing_state = {
 };
 
  function reducer(state = default_state, action) {
-  // function reducer(state = testing_state, action) {
+ //  function reducer(state = testing_state, action) {
   const copy = _.cloneDeep(state);
   switch (action.type) {
     // Actions pertaining to USER
@@ -79,8 +79,8 @@ const testing_state = {
     }
 
     case 'REMOVE_TEAM': {
-      const index = copy.user.teams.indexof(action.payload);
-      copy.user.teams.splice(index, 1);
+      const index = copy.teams.indexof(action.payload);
+      copy.teams.splice(index, 1);
       return copy;
     }
     // Actions pertaining to TEAMS
