@@ -1,19 +1,19 @@
-/* eslint-disable */
 import React from 'react';
 import './TeamManagement.scss';
 import './TeamManagement.css';
-import Header from '../Header/Header';
 import Button from '@material-ui/core/Button';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Modal from 'react-bootstrap/Modal';
 import TextField from '@material-ui/core/TextField';
-import PlayersDisplay from './PlayersDisplay';
-import { getPlayers, getTeamData } from '../../utils/team/team.js';
 import {
   Container,
   Row,
   Col,
 } from 'react-bootstrap';
+import Header from '../Header/Header';
+import PlayersDisplay from './PlayersDisplay';
+import { getPlayers, getTeamData, getTeamsForUser } from '../../utils/team/team';
+
 
 const players = [
   { id: 1, firstName: 'Daniel', lastName: 'Plue' },
@@ -47,7 +47,6 @@ class Content extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      adminChecked: [],
       showTeamEdit: false,
       showTeamCreate: false,
       showTeamInvite: false,
@@ -63,52 +62,63 @@ class Content extends React.Component {
   componentDidMount(){
     getPlayers(1);
     getTeamData(1);
+    getTeamsForUser(1);
   }
 
 
   validateFields(team) {
     let canSave = true;
 
-    if(team.name.length > 60 || team.name.length == 0){
+    if(team.name.length > 60 || team.name.length === 0){
       canSave = false;
       this.setState({ teamNameError: true });
     }
     else{
       this.setState({ teamNameError: false })
     }
+
+    return canSave;
   }
 
   handleTeamEditClick(){
-    //TODO
+    // TODO
     this.setState({ showTeamEdit: true })
     console.log("edit clicked")
   }
 
   handleTeamCreateClick(){
-    //TOD
+    // TODO
     this.setState({ showTeamCreate: true })
     console.log("create clicked")
   }
 
   handleTeamInviteClick() {
-    //TODO generate link with endpoint
+    // TODO generate link with endpoint
     this.setState({ showTeamInvite: true });
   }
 
   handleEditClose() {
-    //TODO clear any edits
+    // TODO clear any edits
     this.setState({ showTeamEdit: false });
   }
 
+  handleCreateClose() {
+    this.setState({ showTeamCreate: false});
+    this.setState({ teamName: "" });
+  }
+
+  /* use when endpoints in
   handleSaveTeamEdits() {
-    //TODO call endpoint(PUT) to save edits to team
+    // TODO call endpoint to save edits to team
     console.log('save team edits clicked');
   }
 
   handleSaveTeamCreate() {
     //TODO call endpoint(POST) to create team
     console.log('saving team: ' + this.state.teamName);
+    this.setState({ teamName: "" });
   }
+  */
 
   renderTeamEditModal() {
     const {
@@ -189,11 +199,11 @@ class Content extends React.Component {
 
   // move this to profile page when it's up
   renderTeamCreateModal() {
-    const { showTeamCreate, teamNameError } = this.state;
+    const { showTeamCreate, teamNameError, teamName } = this.state;
     return (
       <Modal
         show={showTeamCreate}
-        onHide={() => this.setState({ showTeamCreate: false })}
+        onHide={() => this.handleCreateClose()}
       >
         <Modal.Header closeButton>
           <Modal.Title>Create Team</Modal.Title>
@@ -208,6 +218,7 @@ class Content extends React.Component {
                 onChange={(event) =>
                   this.setState({ teamName: event.target.value })
                 }
+                value={teamName}
               />
             </div>
           </form>
@@ -216,7 +227,7 @@ class Content extends React.Component {
           <Button
             variant="contained"
             color="secondary"
-            onClick={() => this.setState({ showTeamCreate: false })}
+            onClick={() => this.handleCreateClose()}
           >
             Close
           </Button>
@@ -293,7 +304,7 @@ class Content extends React.Component {
                   Create Team
                 </Button>
               </p>
-              <br></br>
+              <br />
             </Col>
             <Col xs={12} md={10}>
               <div style={{ paddingLeft: '5%' }}>
