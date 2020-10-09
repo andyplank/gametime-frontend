@@ -27,6 +27,7 @@ const Content = () => {
   const [selected, setSelected] = useState({});
 
   const selector = (store) => {
+    console.log(store);
     return {
       name:
         store.teams.length > 0
@@ -49,7 +50,7 @@ const Content = () => {
     };
     const config = {
       method: 'post',
-      url: 'https://52.91.140.102:8080/team/view/members',
+      url: 'http://52.91.140.102:8080/team/view/members',
       headers: headers,
       data: data
     }
@@ -72,7 +73,7 @@ const Content = () => {
     };
     const config = {
       method: 'get',
-      url: 'https://52.91.140.102:8080/team/view/groups?id=1',
+      url: 'http://52.91.140.102:8080/team/view/groups?id=1',
       headers: headers,
       data: data
     }

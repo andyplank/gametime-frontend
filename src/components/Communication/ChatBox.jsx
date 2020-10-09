@@ -36,14 +36,14 @@ const ChatBox = (props) => {
     let data;
     let url;
     if(selected.group_id){
-      url = 'https://52.91.140.102:8080/sendGroupMessage';
+      url = 'http://52.91.140.102:8080/sendGroupMessage';
       data = {
         sender_id: selected.group_id,
         group_id: selected.group_id,
         message: message
       }
     } else {
-      url = 'https://52.91.140.102:8080/sendPlayerMessage';
+      url = 'http://52.91.140.102:8080/sendPlayerMessage';
       data = {
         sender_id: 1,
         recipient_id: selected.user_id,
@@ -105,7 +105,7 @@ const ChatBox = (props) => {
             type="button"
             onClick={editGroup}
           >
-            <svg width="2em" height="2em" viewBox="0 0 16 16" className="bi bi-people-fill" fill="currentColor" xmlns="https://www.w3.org/2000/svg">
+            <svg width="2em" height="2em" viewBox="0 0 16 16" className="bi bi-people-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fillRule="evenodd" d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
             </svg>
           </button>

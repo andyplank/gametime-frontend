@@ -9,7 +9,7 @@ import networker from '../networker/networker';
  * @return {data} the contents of the response body of the auth request.
  */
 export async function authenticate(email, password) {
-  const endpoint = 'https://52.91.140.102:8080/login';
+  const endpoint = 'http://52.91.140.102:8080/login';
 
   const body = {
     email: email,

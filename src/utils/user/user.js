@@ -7,7 +7,7 @@ import networker from '../networker/networker';
  * @return {data} the contents of the response body of the user request.
  */
 export async function getUser(user_id) {
-  const endpoint = 'https://52.91.140.102:8080/user';
+  const endpoint = 'http://52.91.140.102:8080/user';
 
   const params = {
     id: user_id,
@@ -39,7 +39,7 @@ export async function getUser(user_id) {
  * @return {message} whether or not the request succeeded.
  */
 export async function addPhoneNumber(user_id, phone_number) {
-  const endpoint = 'https://52.91.140.102:8080/user/phone/add';
+  const endpoint = 'http://52.91.140.102:8080/user/phone/add';
 
   const data = {
     id: user_id,
@@ -62,7 +62,7 @@ export async function addPhoneNumber(user_id, phone_number) {
  * @return {bool} whether or not the request succeeded.
  */
 export async function removePhoneNumber(user_id, phone_number) {
-  const endpoint = 'https://52.91.140.102:8080/user/phone/remove';
+  const endpoint = 'http://52.91.140.102:8080/user/phone/remove';
 
   const data = {
     id: user_id,
