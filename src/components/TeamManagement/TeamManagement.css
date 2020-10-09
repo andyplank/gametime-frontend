@@ -1,12 +1,3 @@
-.user-card {
-  height: 20%;
-  width: 50%;
-}
-
-.player-card-grid {
-  height: 100%;
-  width: 40%;
-}
 
 .btn-team {
   background-color: lightskyblue;
@@ -15,6 +6,6 @@
 }
 
 .player-card {
-  height: 50%;
+  height: 100%;
   width: 75%;
 }

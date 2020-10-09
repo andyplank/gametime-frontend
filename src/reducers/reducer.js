@@ -61,8 +61,8 @@ const testing_state = {
   },
 };
 
-// function reducer(state = default_state, action) {
-function reducer(state = testing_state, action) {
+ function reducer(state = default_state, action) {
+  // function reducer(state = testing_state, action) {
   const copy = _.cloneDeep(state);
   switch (action.type) {
     // Actions pertaining to USER
@@ -75,6 +75,12 @@ function reducer(state = testing_state, action) {
     case 'REMOVE_PHONE_NUMBER': {
       const index = copy.user.optional_phone_numbers.indexOf(action.payload);
       copy.user.optional_phone_numbers.splice(index, 1);
+      return copy;
+    }
+
+    case 'REMOVE_TEAM': {
+      const index = copy.user.teams.indexof(action.payload);
+      copy.user.teams.splice(index, 1);
       return copy;
     }
     // Actions pertaining to TEAMS

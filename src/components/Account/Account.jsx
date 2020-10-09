@@ -3,9 +3,14 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Jumbotron } from 'react-bootstrap';
 import { MdAccountCircle, MdClose, MdArrowForward } from 'react-icons/md';
+import Button from '@material-ui/core/Button';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import Modal from 'react-bootstrap/Modal';
+import TextField from '@material-ui/core/TextField';
 import Header from '../Header/Header';
 import { addPhoneNumber, removePhoneNumber } from '../../utils/user/user';
 import './Account.scss';
+import { removeFromTeam, creatTeam } from '../../utils/team/team';
 
 const Account = () => {
   return (
@@ -25,7 +30,7 @@ const Content = () => {
       email_address: store.user.email_address,
       default_phone_number: store.user.default_phone_number,
       optional_phone_numbers: store.user.optional_phone_numbers,
-      teams: store.user.teams,
+      teams: store.teams,
     };
   }
   const state = useSelector(selector);
@@ -37,6 +42,13 @@ const Content = () => {
     const result = await removePhoneNumber(state.id, target);
     if (result) {
       dispatch({ type: 'REMOVE_PHONE_NUMBER', payload: target });
+    }
+  }
+
+  async function onRemoveTeam(target) {
+    const result = await removeFromTeam(target.id, state.id);
+    if(result){
+      dispatch({ type: 'REMOVE_TEAM', payload: target });
     }
   }
 
@@ -83,7 +95,7 @@ const Content = () => {
           {state.optional_phone_numbers.map((num) => {
             return (
               <PhoneNumberRow
-                number={number}
+                number={num}
                 onClick={() => onRemoveNumber(num)}
               />
             );
@@ -104,6 +116,21 @@ const Content = () => {
               <MdArrowForward size={50} onClick={() => onAddNumber(number)} />
             </div>
           </div>
+          <div className="py-3 px-3">
+            <span className="d-block py-2 account-heading">
+              {
+                state.teams.length > 0 ? (<p>Teams</p>) : <p>You have not join any teams.</p>
+              }
+            </span>
+            {state.teams.map((team) => {
+              return (
+                <PhoneNumberRow
+                  number={team.name}
+                  onClick={() => onRemoveTeam(team)}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
@@ -113,7 +140,6 @@ const Content = () => {
 const PhoneNumberRow = (props) => {
   const { number, onClick } = props;
   const iconSize = 50;
-
   return (
     <div className="col-md-3">
       {/* <div className="row no-gutters"> */}
