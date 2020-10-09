@@ -3,23 +3,8 @@ import React from 'react';
 import './TeamManagement.scss';
 import './TeamManagement.css';
 import Header from '../Header/Header';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import IconButton from '@material-ui/core/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Grid from '@material-ui/core/Grid';
-import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import CloseIcon from '@material-ui/icons/Close';
 import Modal from 'react-bootstrap/Modal';
 import TextField from '@material-ui/core/TextField';
 import PlayersDisplay from './PlayersDisplay';
@@ -266,9 +251,6 @@ class Content extends React.Component {
 
   render() {
     return(
-      <>
-      <Header />
-
       <div style={{ height: "100%" }}>
         {this.renderTeamEditModal()}
         {this.renderTeamCreateModal()}
@@ -322,7 +304,6 @@ class Content extends React.Component {
           </Row>
         </Container>
       </div>
-      </>
     )
   };
 }
