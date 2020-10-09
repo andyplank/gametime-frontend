@@ -19,12 +19,10 @@ const JoinTeamPage = () => {
     const state = useSelector(selector);
 
     useEffect(() => {
-        console.log("userid", state.id);
-        console.log("teamid", state.selectedTeamId)
-            const join = async () => {
-                await joinTeam(state.selectedTeamId, state.id);
-            }
-            join();
+        const join = async () => {
+            await joinTeam(state.selectedTeamId, state.id);
+        }
+        join();
       });
 
     return state.signed_in ? <Redirect to="/Landing" /> : <Redirect to="/Login" />
