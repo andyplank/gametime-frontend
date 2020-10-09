@@ -23,6 +23,7 @@ const Account = () => {
 
 const Content = () => {
   function selector(store) {
+    console.log(store);
     return {
       id: store.user.id ? store.user.id : 1,
       first_name: store.user.first_name,

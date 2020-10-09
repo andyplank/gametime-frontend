@@ -50,7 +50,7 @@ const Content = () => {
     };
     const config = {
       method: 'post',
-      url: 'http://52.91.140.102:8080/team/view/members',
+      url: 'http://54.235.234.147:8080/team/view/members',
       headers: headers,
       data: data
     }
@@ -73,7 +73,7 @@ const Content = () => {
     };
     const config = {
       method: 'get',
-      url: 'http://52.91.140.102:8080/team/view/groups?id=1',
+      url: 'http://54.235.234.147:8080/team/view/groups?id=1',
       headers: headers,
       data: data
     }

@@ -55,7 +55,7 @@ const GroupEditor = (props) => {
     };
     const config = {
       method: 'put',
-      url: 'http://52.91.140.102:8080/group/addMembers',
+      url: 'http://54.235.234.147:8080/group/addMembers',
       headers: headers,
       data: data
     }
@@ -72,7 +72,7 @@ const GroupEditor = (props) => {
     };
     const config = {
       method: 'delete',
-      url: 'http://52.91.140.102:8080/group/deleteMembers',
+      url: 'http://54.235.234.147:8080/group/deleteMembers',
       headers: headers,
       data: data
     }

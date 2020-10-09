@@ -54,17 +54,15 @@ const GroupCreator = (props) => {
     };
     const config = {
       method: 'post',
-      url: 'http://52.91.140.102:8080/group',
+      url: 'http://54.235.234.147:8080/group',
       headers: headers,
       data: data
     }
     try {
-      const res = await networker(config);
-      if(res.status===200){
-        setAlertMessage('Success!');
-        setAlertType('success');
-        setShowAlert(true);
-      }
+      await networker(config);
+      setAlertMessage('Success!');
+      setAlertType('success');
+      setShowAlert(true);
     } catch (err) {
       setAlertMessage('Error: Something went wrong');
       setAlertType('danger');

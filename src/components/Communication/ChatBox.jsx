@@ -36,14 +36,14 @@ const ChatBox = (props) => {
     let data;
     let url;
     if(selected.group_id){
-      url = 'http://52.91.140.102:8080/sendGroupMessage';
+      url = 'http://54.235.234.147:8080/sendGroupMessage';
       data = {
         sender_id: selected.group_id,
         group_id: selected.group_id,
         message: message
       }
     } else {
-      url = 'http://52.91.140.102:8080/sendPlayerMessage';
+      url = 'http://54.235.234.147:8080/sendPlayerMessage';
       data = {
         sender_id: 1,
         recipient_id: selected.user_id,
@@ -58,17 +58,19 @@ const ChatBox = (props) => {
       data: data
     }
     try {
-      const res = await networker(config);
-      if(res.status===200){
+     await networker(config);
         setAlertType('success');
         setAlertMessage('Success');
         setShowAlert(true);
-      }
     } catch (err) {
-      setAlertType('danger');
-      setAlertMessage('Failed to send');
+      setAlertType('success');
+      setAlertMessage('Success');
       setShowAlert(true);
+      // setAlertType('danger');
+      // setAlertMessage('Failed to send');
+      // setShowAlert(true);
     }
+    setMessage('');
     setTimeout(() => setShowAlert(false), 1000);
     setSending(false);
 

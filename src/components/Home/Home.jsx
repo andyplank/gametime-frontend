@@ -25,19 +25,15 @@ const Content = () => {
   }
 
   const state = useSelector(selector);
+  console.log(state);
 
   return (
     <>
       <div>
         <Jumbotron className="text-center">
           <h1>
-            Welcome to&nbsp;
-            {state.name}
+            Welcome to Gametime!
           </h1>
-          <h2>
-            On this team, your role is&nbsp;
-            {state.role}
-          </h2>
         </Jumbotron>
         <div className="half-screen" />
       </div>
