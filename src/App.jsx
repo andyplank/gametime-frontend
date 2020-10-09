@@ -39,7 +39,7 @@ const App = () => {
           {/* <Route path="/resources" exact component={Resources} /> */}
           <Route path="/" exact component={Landing} />
         </Switch>
-        <Route path="/TeamManagement" exact component={TeamManagement} />
+        <Route path="/teammanagement" exact component={TeamManagement} />
       </Router>
     </AuthContext.Provider>
   );
