@@ -31,6 +31,7 @@ const Content = () => {
   const state = useSelector(selector);
   const dispatch = useDispatch();
   const [number, setNumber] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   async function onRemoveNumber(target) {
     // Call API to delete number
@@ -42,9 +43,12 @@ const Content = () => {
 
   async function onAddNumber(target) {
     // Call API to add number
-    const result = await addPhoneNumber(state.id, target);
-    if (result) {
+    setErrorMsg('');
+    const message = await addPhoneNumber(state.id, target);
+    if (message === '') {
       dispatch({ type: 'ADD_PHONE_NUMBER', payload: target });
+    } else {
+      setErrorMsg(message);
     }
   }
   const iconSize = 256;
@@ -83,7 +87,7 @@ const Content = () => {
           {state.optional_phone_numbers.map((num) => {
             return (
               <PhoneNumberRow
-                number={number}
+                number={num}
                 onClick={() => onRemoveNumber(num)}
               />
             );
@@ -95,7 +99,7 @@ const Content = () => {
                   <Form.Control
                     value={number}
                     onChange={(e) => setNumber(e.target.value)}
-                    // isInvalid={errorMsg !== ''}
+                    isInvalid={errorMsg !== ''}
                     size="lg"
                     placeholder="Add a number"
                   />
@@ -103,6 +107,9 @@ const Content = () => {
               </Form>
               <MdArrowForward size={50} onClick={() => onAddNumber(number)} />
             </div>
+            {errorMsg !== '' && (
+              <span className="invalid-feedback d-block">{errorMsg}</span>
+            )}
           </div>
         </div>
       </div>

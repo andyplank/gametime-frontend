@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authenticate } from '../../utils/auth/auth';
 import { getUser } from '../../utils/user/user';
 import getTeams from '../../utils/teams/teams';
@@ -15,14 +15,22 @@ const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  // If user is logged in, redirect to landing
+  const state = useSelector((store) => {
+    return { signed_in: store.status.signed_in };
+  });
+  if (state.signed_in) {
+    history.push('/');
+  }
+
   async function handleSubmit() {
     // Do not allow multiple outstanding requests
     if (mutex) {
       return;
     }
     // Clear any pre-existing error messages, and mark as loading
-    setErrorMsg('');
     setMutex(true);
+    setErrorMsg('');
 
     // Query login API
     const { message, error, success, user_id } = await authenticate(
