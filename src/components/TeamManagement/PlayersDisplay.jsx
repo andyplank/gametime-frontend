@@ -1,3 +1,4 @@
+/* eslint-disable */ 
 import React from 'react';
 import './TeamManagement.scss';
 import './TeamManagement.css';
@@ -152,9 +153,4 @@ class PlayersDisplay extends React.Component {
         )
     }    
 }
-
-PlayersDisplay.propTypes = {
-    players: PropTypes.arrayOf(object).isRequired,
-    refresh: PropTypes.func.isRequired,
-  };
 export default PlayersDisplay;

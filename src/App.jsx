@@ -44,7 +44,6 @@ const App = () => {
           <Route path="/joinTeam" exact component={JoinTeamPage} />
           <Route path="/" exact component={Landing} />
         </Switch>
-        <Route path="/teammanagement" exact component={TeamManagement} />
       </Router>
     </AuthContext.Provider>
   );
