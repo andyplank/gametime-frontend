@@ -7,15 +7,14 @@ import networker from '../networker/networker';
  * @return {data} the contents of the response body of the register request.
  */
 export async function register(data) {
-  const endpoint =
-    'https://1sz21h77li.execute-api.us-east-2.amazonaws.com/Dev/signup';
+  const endpoint = 'http://52.91.140.102:8080/signup';
 
   const body = {
     firstname: data.first_name,
     lastname: data.last_name,
     email: data.email_address,
     phone: data.phone_number,
-    password: data.password
+    password: data.password,
   };
   const response = await networker.post(endpoint, body);
 
@@ -23,7 +22,7 @@ export async function register(data) {
     return {
       message: 'Something went wrong, please try again later',
       error: true,
-      success: false
+      success: false,
     };
   }
 
@@ -31,7 +30,7 @@ export async function register(data) {
   return {
     message: message,
     error: error,
-    success: success
+    success: success,
   };
 }
 
@@ -48,7 +47,7 @@ export async function verify(data) {
   const body = {
     email: data.email,
     password: data.password,
-    code: data.code
+    code: data.code,
   };
   const response = await networker.post(endpoint, body);
 
@@ -56,7 +55,7 @@ export async function verify(data) {
     return {
       message: 'Something went wrong, please try again later',
       error: true,
-      success: false
+      success: false,
     };
   }
 
@@ -64,6 +63,6 @@ export async function verify(data) {
   return {
     message: message,
     error: error,
-    success: success
+    success: success,
   };
 }

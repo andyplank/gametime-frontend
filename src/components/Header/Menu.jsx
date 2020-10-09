@@ -16,7 +16,7 @@ import PropTypes from 'prop-types';
 const Menu = (props) => {
   const history = useHistory();
 
-  const { firstName, lastName, role } = props;
+  const { first_name, last_name, role } = props;
   const accountIconSize = 60;
   const linkIconSize = 24;
 
@@ -25,11 +25,11 @@ const Menu = (props) => {
       <Card style={{ width: '300px' }}>
         <ListGroup>
           {/* Account */}
-          <ListGroup.Item>
+          <ListGroup.Item onClick={() => history.push('account')}>
             <Row>
               <MdAccountCircle size={accountIconSize} />
               <div className="menu-account-text">
-                <span className="menu-account-heading">{`${firstName} ${lastName}`}</span>
+                <span className="menu-account-heading">{`${first_name} ${last_name}`}</span>
                 <span className="menu-account-subheading">
                   {role.charAt(0).toUpperCase() + role.slice(1)}
                 </span>
@@ -80,8 +80,8 @@ const Menu = (props) => {
 };
 
 Menu.propTypes = {
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired,
+  first_name: PropTypes.string.isRequired,
+  last_name: PropTypes.string.isRequired,
   role: PropTypes.string.isRequired,
 };
 

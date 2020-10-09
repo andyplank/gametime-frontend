@@ -5,12 +5,14 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import AuthContext from './common/context/auth';
-import reducer from './reducers/reducer';
+import Account from './components/Account/Account';
+import Home from './components/Home/Home';
 import Landing from './components/Landing/Landing';
 import Login from './components/Login/Login';
 import Communication from './components/Communication/Communication';
 import Register from './components/Register/Register';
 import TeamManagement from './components/TeamManagement/TeamManagement';
+import reducer from './reducers/reducer';
 import JoinTeamPage from './components/TeamManagement/JoinTeamPage';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -33,8 +35,9 @@ const App = () => {
           <Route path="/login" exact component={Login} />
           {/* <Route path="/logout" exact component={Logout} /> */}
           <Route path="/register" exact component={Register} />
-          {/* <Route path="/account" exact component={Account} /> */}
-          {/* <Route path="/home" exact component={Home} /> */}
+          <Route path="/account" exact component={Account} />
+          <Route path="/home" exact component={Home} />
+          <Route path="/TeamManagement" exact component={TeamManagement} />
           <Route path="/communication" exact component={Communication} />
           {/* <Route path="/documentation" exact component={Documentation} /> */}
           {/* <Route path="/resources" exact component={Resources} /> */}
