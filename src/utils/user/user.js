@@ -36,7 +36,7 @@ export async function getUser(user_id) {
  *
  * @param {String} user_id The uuid of the user.
  * @param {String} phone_number The phone number to be added to the user's list.
- * @return {bool} whether or not the request succeeded.
+ * @return {message} whether or not the request succeeded.
  */
 export async function addPhoneNumber(user_id, phone_number) {
   const endpoint = 'https://52.91.140.102:8080/user/phone/add';
@@ -45,16 +45,13 @@ export async function addPhoneNumber(user_id, phone_number) {
     id: user_id,
     phone: phone_number,
   };
-
-  const response = await networker.post(endpoint, data);
-
-  if (response.status !== 200) {
-    return false;
+  try {
+    await networker.post(endpoint, data);
+    return '';
+  } catch (e) {
+    return e.response.data.reason;
   }
-
   // TODO: Return success and error in response body from server
-
-  return true;
 }
 
 /**
