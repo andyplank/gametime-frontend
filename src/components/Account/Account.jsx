@@ -24,7 +24,7 @@ const Account = () => {
 const Content = () => {
   function selector(store) {
     return {
-      id: store.user.id,
+      id: store.user.id ? store.user.id : 1,
       first_name: store.user.first_name,
       last_name: store.user.last_name,
       email_address: store.user.email_address,
