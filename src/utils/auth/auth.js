@@ -31,6 +31,7 @@ export async function authenticate(email, password) {
       access_token,
       expires_in
     } = response.data.data;
+    
     setUserID(user_id);
     setTokens(id_token, refresh_token, access_token);
     setExpiration(expires_in);

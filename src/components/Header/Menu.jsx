@@ -8,7 +8,8 @@ import {
   MdMessage,
   MdFolder,
   MdHelp,
-  MdPowerSettingsNew
+  MdPowerSettingsNew,
+  MdAssignmentTurnedIn,
 } from 'react-icons/md';
 import PropTypes from 'prop-types';
 
@@ -39,7 +40,13 @@ const Menu = (props) => {
           <ListGroup.Item onClick={() => history.push('home')}>
             <Row className="align-items-center">
               <MdHome size={linkIconSize} className="mx-sm-2" />
-              Team Homepage
+              Homepage
+            </Row>
+          </ListGroup.Item>
+          <ListGroup.Item onClick={() => history.push('TeamManagement')}>
+            <Row className="align-items-center">
+              <MdAssignmentTurnedIn size={linkIconSize} className="mx-sm-2" />
+              Management
             </Row>
           </ListGroup.Item>
           <ListGroup.Item onClick={() => history.push('communication')}>
@@ -75,7 +82,7 @@ const Menu = (props) => {
 Menu.propTypes = {
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
-  role: PropTypes.string.isRequired
+  role: PropTypes.string.isRequired,
 };
 
 export default Menu;

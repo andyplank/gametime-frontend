@@ -24,5 +24,6 @@ module.exports = {
     'object-shorthand': 'off',
     'no-param-reassign': 'off',
     'react/jsx-curly-newline': 'off'
+
   }
 };
