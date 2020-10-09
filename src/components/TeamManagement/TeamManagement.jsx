@@ -2,6 +2,7 @@
 import React from 'react';
 import './TeamManagement.scss';
 import './TeamManagement.css';
+import Header from '../Header/Header';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -152,6 +153,7 @@ handleTeamCreateClick(){
     } = this.state;
     return (
       <Modal
+        class="edit-modal"
         show={showTeamEdit}
         onHide={() => this.handleEditClose()}
       >
@@ -232,6 +234,9 @@ handleTeamCreateClick(){
 
   render() {
     return(
+      <>
+      <Header />
+
       <div style={{ height: "100%" }}>
         {this.renderTeamEditModal()}
         {this.renderTeamCreateModal()}
@@ -283,6 +288,7 @@ handleTeamCreateClick(){
           </Row>
         </Container>
       </div>
+      </>
     )
   };
 }

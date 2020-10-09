@@ -47,6 +47,7 @@ class PlayersDisplay extends React.Component {
     handlePlayerRemove() {
         //TODO call remove endpoint
         console.log("removing " + this.state.playerToRemove.firstName);
+        this.setState({ showPlayerRemove: false })
     }
 
     render(){
@@ -55,23 +56,23 @@ class PlayersDisplay extends React.Component {
         return (
             adminChecked.length > 0 ? 
             <>
-            <Modal
-                show={showPlayerRemove}
-                onHide={() => this.setState({ showPlayerRemove: false })}
-            >
-                <Modal.Header closeButton>
-                <Modal.Title>Remove Player</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                <form>
-                    {removeMsg}
-                </form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="contained" color="secondary" onClick={() => this.setState({showPlayerRemove: false})}>No</Button>
-                    <Button variant="contained" color="primary" onClick={() => this.handlePlayerRemove()}>Yes</Button>
-                </Modal.Footer>
-            </Modal>
+                <Modal
+                    show={showPlayerRemove}
+                    onHide={() => this.setState({ showPlayerRemove: false })}
+                >
+                    <Modal.Header closeButton>
+                    <Modal.Title>Remove Player</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                    <form>
+                        {removeMsg}
+                    </form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="contained" color="secondary" onClick={() => this.setState({showPlayerRemove: false})}>No</Button>
+                        <Button variant="contained" color="primary" onClick={() => this.handlePlayerRemove()}>Yes</Button>
+                    </Modal.Footer>
+                </Modal>
                 <Grid container spacing={2}>
                     {players.map((player, index) => {
                     return (
