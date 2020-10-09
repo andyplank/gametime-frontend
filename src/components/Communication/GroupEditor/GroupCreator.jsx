@@ -54,7 +54,7 @@ const GroupCreator = (props) => {
     };
     const config = {
       method: 'post',
-      url: 'http://52.91.140.102:8080/group',
+      url: 'https://52.91.140.102:8080/group',
       headers: headers,
       data: data
     }

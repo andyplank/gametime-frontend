@@ -7,7 +7,7 @@ import networker from '../networker/networker';
  * @return {data} the contents of the response body of the register request.
  */
 export async function register(data) {
-  const endpoint = 'http://52.91.140.102:8080/signup';
+  const endpoint = 'https://52.91.140.102:8080/signup';
 
   const body = {
     firstname: data.first_name,
@@ -42,7 +42,7 @@ export async function register(data) {
  */
 export async function verify(data) {
   const endpoint =
-    'https://1sz21h77li.execute-api.us-east-2.amazonaws.com/Dev/verify';
+    'httpss://1sz21h77li.execute-api.us-east-2.amazonaws.com/Dev/verify';
 
   const body = {
     email: data.email,
