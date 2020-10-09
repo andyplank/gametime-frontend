@@ -1,0 +1,19 @@
+.register-background {
+  height: 100vh;
+  background-image: linear-gradient(
+    135deg,
+    rgba(82, 130, 133, 255),
+    rgba(52, 68, 86, 255)
+  );
+}
+
+.register-title {
+  font-size: 48px;
+  font-family: Helvetica;
+  color: white;
+}
+
+.register-card {
+  background-color: white;
+  padding: 80px 80px 80px 80px;
+}

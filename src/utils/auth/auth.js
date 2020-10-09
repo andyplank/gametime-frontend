@@ -9,12 +9,11 @@ import networker from '../networker/networker';
  * @return {data} the contents of the response body of the auth request.
  */
 export async function authenticate(email, password) {
-  const endpoint =
-    'https://1sz21h77li.execute-api.us-east-2.amazonaws.com/Dev/login';
+  const endpoint = 'http://52.91.140.102:8080/login';
 
   const body = {
-    email_address: email,
-    password: password
+    email: email,
+    password: password,
   };
   const response = await networker.post(endpoint, body);
 
@@ -22,23 +21,31 @@ export async function authenticate(email, password) {
     return null;
   }
 
-  const { message, error, success } = response.data;
+  const { success, error, message, user_id } = response.data;
 
   if (success && !error) {
     const {
       id_token,
       refresh_token,
       access_token,
-      expires_in
+      expires_in,
     } = response.data.data;
+
     setTokens(id_token, refresh_token, access_token);
     setExpiration(expires_in);
+
+    return {
+      user_id: user_id,
+      message: message,
+      error: error,
+      success: success,
+    };
   }
 
   return {
     message: message,
     error: error,
-    success: success
+    success: success,
   };
 }
 
@@ -69,7 +76,7 @@ export async function reauthenticate() {
   const body = {
     id_token: id_token,
     access_token: access_token,
-    refresh_token: refresh_token
+    refresh_token: refresh_token,
   };
 
   const response = await networker.post(endpoint, body);
@@ -110,7 +117,7 @@ export function getTokens() {
   return {
     id_token: cookie.get('id_token'),
     access_token: cookie.get('access_token'),
-    refresh_token: cookie.get('refresh_token')
+    refresh_token: cookie.get('refresh_token'),
   };
 }
 

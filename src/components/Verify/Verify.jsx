@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { authenticate } from '../../utils/auth/auth';
-import { getUser } from '../../utils/user/user';
-import getTeams from '../../utils/teams/teams';
-import './Login.scss';
+import { useHistory } from 'react-router-dom';
+import { verify } from '../../utils/registration/registration';
+import './Verify.scss';
 
-const Login = () => {
+const Verify = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [code, setCode] = useState('');
   const [mutex, setMutex] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const history = useHistory();
-  const dispatch = useDispatch();
 
   async function handleSubmit() {
     // Do not allow multiple outstanding requests
@@ -24,20 +21,17 @@ const Login = () => {
     setErrorMsg('');
     setMutex(true);
 
-    // Query login API
-    const { message, error, success, user_id } = await authenticate(
-      email,
-      password
-    );
+    // Query verify API
+    const data = {
+      email: email,
+      password: password,
+      code: code
+    };
+
+    const { message, error, success } = await verify(data);
 
     if (!error && success) {
-      const user = await getUser(user_id);
-      dispatch({ type: 'SET_USER', payload: user });
-      const teams = await getTeams(user_id);
-      dispatch({ type: 'SET_TEAMS', payload: teams });
-      dispatch({ type: 'SET_SIGNED_IN', payload: true });
-      // history.push('/home');
-      history.push('/');
+      history.push('/home');
     } else {
       setErrorMsg(message);
       setMutex(false);
@@ -45,20 +39,14 @@ const Login = () => {
   }
 
   return (
-    <div className="login-background">
+    <div className="verify-background">
       <div className="h-100 d-flex flex-column justify-content-center align-items-center">
-        <span className="login-title">GameTime</span>
-        <span className="login-subtitle pb-2">
-          Don&apos;t have an account? Create one&nbsp;
-          <Link to="/register">
-            <i>here</i>
-          </Link>
-        </span>
-        <div className="login-card">
-          <div className="login-form">
+        <span className="verify-title">Verify your Account</span>
+        <div className="verify-card">
+          <div className="verify-form">
             <Form noValidate>
               <Form.Group className="py-2" controlId="formBasicEmail">
-                <Form.Label className="login-form-label">
+                <Form.Label className="verify-form-label">
                   Email address
                 </Form.Label>
                 <Form.Control
@@ -71,7 +59,7 @@ const Login = () => {
                 />
               </Form.Group>
               <Form.Group className="py-2" controlId="formBasicPassword">
-                <Form.Label className="login-form-label">Password</Form.Label>
+                <Form.Label className="verify-form-label">Password</Form.Label>
                 <Form.Control
                   type="password"
                   value={password}
@@ -79,6 +67,18 @@ const Login = () => {
                   isInvalid={errorMsg !== ''}
                   size="lg"
                   placeholder="Password"
+                />
+              </Form.Group>
+              <Form.Group className="py-2" controlId="formBasicCode">
+                <Form.Label className="verify-form-label">
+                  Verification Code
+                </Form.Label>
+                <Form.Control
+                  value={code}
+                  onChange={(e) => setCode(e.target.value)}
+                  isInvalid={errorMsg !== ''}
+                  size="lg"
+                  placeholder="Code"
                 />
               </Form.Group>
               <div className="d-flex flex-column align-items-center">
@@ -95,7 +95,7 @@ const Login = () => {
                     type="Sign In"
                     onClick={handleSubmit}
                   >
-                    Sign In
+                    Verify
                   </Button>
                 </div>
               </div>
@@ -107,4 +107,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Verify;

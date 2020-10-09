@@ -8,14 +8,15 @@ import {
   MdMessage,
   MdFolder,
   MdHelp,
-  MdPowerSettingsNew
+  MdPowerSettingsNew,
+  MdAssignmentTurnedIn,
 } from 'react-icons/md';
 import PropTypes from 'prop-types';
 
 const Menu = (props) => {
   const history = useHistory();
 
-  const { firstName, lastName, role } = props;
+  const { first_name, last_name, role } = props;
   const accountIconSize = 60;
   const linkIconSize = 24;
 
@@ -24,11 +25,11 @@ const Menu = (props) => {
       <Card style={{ width: '300px' }}>
         <ListGroup>
           {/* Account */}
-          <ListGroup.Item>
+          <ListGroup.Item onClick={() => history.push('account')}>
             <Row>
               <MdAccountCircle size={accountIconSize} />
               <div className="menu-account-text">
-                <span className="menu-account-heading">{`${firstName} ${lastName}`}</span>
+                <span className="menu-account-heading">{`${first_name} ${last_name}`}</span>
                 <span className="menu-account-subheading">
                   {role.charAt(0).toUpperCase() + role.slice(1)}
                 </span>
@@ -39,7 +40,13 @@ const Menu = (props) => {
           <ListGroup.Item onClick={() => history.push('home')}>
             <Row className="align-items-center">
               <MdHome size={linkIconSize} className="mx-sm-2" />
-              Team Homepage
+              Homepage
+            </Row>
+          </ListGroup.Item>
+          <ListGroup.Item onClick={() => history.push('TeamManagement')}>
+            <Row className="align-items-center">
+              <MdAssignmentTurnedIn size={linkIconSize} className="mx-sm-2" />
+              Management
             </Row>
           </ListGroup.Item>
           <ListGroup.Item onClick={() => history.push('communication')}>
@@ -73,9 +80,9 @@ const Menu = (props) => {
 };
 
 Menu.propTypes = {
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired,
-  role: PropTypes.string.isRequired
+  first_name: PropTypes.string.isRequired,
+  last_name: PropTypes.string.isRequired,
+  role: PropTypes.string.isRequired,
 };
 
 export default Menu;
