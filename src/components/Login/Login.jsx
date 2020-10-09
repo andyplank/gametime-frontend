@@ -3,7 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authenticate } from '../../utils/auth/auth';
-import getUser from '../../utils/user/user';
+import { getUser } from '../../utils/user/user';
 import getTeams from '../../utils/teams/teams';
 import './Login.scss';
 
