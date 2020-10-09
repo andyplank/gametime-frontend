@@ -22,6 +22,8 @@ module.exports = {
     'no-use-before-define': 'off',
     camelcase: 'off',
     'object-shorthand': 'off',
-    'no-param-reassign': 'off'
+    'no-param-reassign': 'off',
+    'react/jsx-curly-newline': 'off'
+
   }
 };
