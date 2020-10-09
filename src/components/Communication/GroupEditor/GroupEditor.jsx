@@ -11,7 +11,7 @@ import networker from '../../../utils/networker/networker';
 
 const GroupEditor = (props) => {
   const {
-    editing, editorVis, setEditorVis, members,
+    editing, editorVis, setEditorVis, members, refresh
   } = props;
 
   const [showAlert, setShowAlert] = useState(false);
@@ -95,6 +95,7 @@ const GroupEditor = (props) => {
       setShowAlert(true);
     }
     setLoading(false);
+    refresh();
   };
 
   return (
@@ -170,6 +171,7 @@ GroupEditor.propTypes = {
   editorVis: PropTypes.bool.isRequired,
   setEditorVis: PropTypes.func.isRequired,
   members: PropTypes.arrayOf(object),
+  refresh: PropTypes.func.isRequired,
 };
 
 export default GroupEditor;

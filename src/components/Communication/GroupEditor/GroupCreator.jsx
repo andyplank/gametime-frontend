@@ -11,7 +11,7 @@ import '../Communication.scss';
 
 const GroupCreator = (props) => {
   const {
-    editorVis, setEditorVis, members,
+    editorVis, setEditorVis, members, refresh
   } = props;
 
   const [showAlert, setShowAlert] = useState(false);
@@ -71,6 +71,7 @@ const GroupCreator = (props) => {
       setShowAlert(true);
     }
     setLoading(false);
+    refresh();
   };
 
   return (
@@ -144,6 +145,7 @@ GroupCreator.defaultProps = {
   members: [],
 };
 GroupCreator.propTypes = {
+  refresh: PropTypes.func.isRequired,
   editorVis: PropTypes.bool.isRequired,
   setEditorVis: PropTypes.func.isRequired,
   members: PropTypes.arrayOf(object),

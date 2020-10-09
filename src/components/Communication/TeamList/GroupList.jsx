@@ -6,7 +6,7 @@ import GroupCreator from '../GroupEditor/GroupCreator';
 
 const GroupList = (props) => {
   const {
-    members, groups, selected, setSelected,
+    members, groups, selected, setSelected, refresh
   } = props;
 
   const [editorVis, setEditorVis] = useState(false);
@@ -25,6 +25,7 @@ const GroupList = (props) => {
         members={members}
         editorVis={editorVis}
         setEditorVis={setEditorVis}
+        refresh={refresh}
       />
       <div className="px-2 d-flex justify-content-between align-items-center">
         <div className="h4">Groups</div>
@@ -62,5 +63,6 @@ GroupList.propTypes = {
   groups: PropTypes.arrayOf(object).isRequired,
   selected: PropTypes.instanceOf(Object).isRequired,
   setSelected: PropTypes.func.isRequired,
+  refresh: PropTypes.func.isRequired,
 };
 export default GroupList;

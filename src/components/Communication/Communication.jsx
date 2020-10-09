@@ -40,55 +40,59 @@ const Content = () => {
   const state = useSelector(selector);
   console.log(state);
 
-  useEffect(() => {
-    const fetchMembers = async () => {
-      const headers = {
-        'Content-Type': 'application/json',
-      }
-      const data = {
-        team: 1
-      };
-      const config = {
-        method: 'post',
-        url: 'http://52.91.140.102:8080/team/view/members',
-        headers: headers,
-        data: data
-      }
-      try {
-        const res = await networker(config);
-        if(res.status===200){
-          setMembers(res.data);
-        }
-      } catch (err) {
-        setMembers([]);
-      }
+  const fetchMembers = async () => {
+    const headers = {
+      'Content-Type': 'application/json',
     }
+    const data = {
+      team: 1
+    };
+    const config = {
+      method: 'post',
+      url: 'http://52.91.140.102:8080/team/view/members',
+      headers: headers,
+      data: data
+    }
+    try {
+      const res = await networker(config);
+      if(res.status===200){
+        setMembers(res.data);
+      }
+    } catch (err) {
+      setMembers([]);
+    }
+  }
 
-    const fetchGroups = async () => {
-      const headers = {
-        'Content-Type': 'application/json',
-      }
-      const data = {
-        team: 1
-      };
-      const config = {
-        method: 'get',
-        url: 'http://52.91.140.102:8080/team/view/groups?id=1',
-        headers: headers,
-        data: data
-      }
-      try {
-        const res = await networker(config);
-        if(res.status===200){
-          setGroups(res.data.groups);
-        }
-      } catch (err) {
-        setGroups([]);
-      }
+  const fetchGroups = async () => {
+    const headers = {
+      'Content-Type': 'application/json',
     }
+    const data = {
+      team: 1
+    };
+    const config = {
+      method: 'get',
+      url: 'http://52.91.140.102:8080/team/view/groups?id=1',
+      headers: headers,
+      data: data
+    }
+    try {
+      const res = await networker(config);
+      if(res.status===200){
+        setGroups(res.data.groups);
+      }
+    } catch (err) {
+      setGroups([]);
+    }
+  }
+
+  const refresh = () =>{
     fetchGroups();
     fetchMembers();
+  }
 
+  useEffect(() => {
+    refresh();
   }, [])
 
   // For the group editor state
@@ -102,6 +106,7 @@ const Content = () => {
             groups={groups}
             selected={selected}
             setSelected={setSelected}
+            refresh={refresh}
           />
           <MemberList
             members={members}
@@ -110,7 +115,7 @@ const Content = () => {
           />
         </div>
         <div className="col-9">
-          <ChatBox members={members} selected={selected} />
+          <ChatBox members={members} selected={selected} refresh={refresh} />
         </div>
       </div>
     </div>

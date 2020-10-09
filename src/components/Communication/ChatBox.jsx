@@ -11,7 +11,7 @@ import GroupEditor from './GroupEditor/GroupEditor';
 import './Communication.scss';
 
 const ChatBox = (props) => {
-  const { selected, members } = props;
+  const { selected, members, refresh} = props;
   const [message, setMessage] = useState('');
 
   const [showAlert, setShowAlert] = useState(false);
@@ -25,7 +25,6 @@ const ChatBox = (props) => {
   useEffect(() => {
     setMessage('');
   }, [selected]);
-
   
   const submit = async (evt) => {
     evt.preventDefault();
@@ -99,6 +98,7 @@ const ChatBox = (props) => {
             editing={selected}
             editorVis={editorVis}
             setEditorVis={setEditorVis}
+            refresh={refresh}
           />
           <button
             className="click d-flex text-center align-items-center py-1"
@@ -153,5 +153,6 @@ const ChatBox = (props) => {
 ChatBox.propTypes = {
   members: PropTypes.arrayOf(object).isRequired,
   selected: PropTypes.instanceOf(Object).isRequired,
+  refresh: PropTypes.func.isRequired,
 };
 export default ChatBox;
