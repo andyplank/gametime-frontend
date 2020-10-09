@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 
-import axios from 'axios';
+import networker from '../../../utils/networker/networker';
 
 import '../Communication.scss';
 
@@ -59,7 +59,7 @@ const GroupCreator = (props) => {
       data: data
     }
     try {
-      const res = await axios(config);
+      const res = await networker(config);
       if(res.status===200){
         setAlertMessage('Success!');
         setAlertType('success');

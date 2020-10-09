@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Badge from 'react-bootstrap/Badge';
 
-import axios from 'axios';
+import networker from '../../utils/networker/networker';
 
 import GroupEditor from './GroupEditor/GroupEditor';
 
@@ -26,6 +26,7 @@ const ChatBox = (props) => {
     setMessage('');
   }, [selected]);
 
+  
   const submit = async (evt) => {
     evt.preventDefault();
     setSending(true);
@@ -58,7 +59,7 @@ const ChatBox = (props) => {
       data: data
     }
     try {
-      const res = await axios(config);
+      const res = await networker(config);
       if(res.status===200){
         setAlertType('success');
         setAlertMessage('Success');

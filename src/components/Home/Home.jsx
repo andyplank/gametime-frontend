@@ -20,7 +20,7 @@ const Content = () => {
         store.teams.length > 0
           ? store.teams[store.status.selected_team].name
           : '',
-      role: store.teams.length > 0 ? [store.status.selected_team].role : '',
+      role: store.teams.length > 0 ? store.teams[store.status.selected_team].role : '',
     };
   }
 

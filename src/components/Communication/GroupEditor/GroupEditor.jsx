@@ -7,7 +7,7 @@ import Alert from 'react-bootstrap/Alert';
 
 import '../Communication.scss';
 
-import axios from 'axios';
+import networker from '../../../utils/networker/networker';
 
 const GroupEditor = (props) => {
   const {
@@ -59,7 +59,7 @@ const GroupEditor = (props) => {
       headers: headers,
       data: data
     }
-    return axios(config);
+    return networker(config);
   }
 
   const removeMembers = () => {
@@ -76,7 +76,7 @@ const GroupEditor = (props) => {
       headers: headers,
       data: data
     }
-    return axios(config);
+    return networker(config);
   }
 
   const handleClick = async () => {

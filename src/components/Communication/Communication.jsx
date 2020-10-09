@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+
+import { useSelector } from 'react-redux';
 
 import Header from '../Header/Header';
 import ChatBox from './ChatBox';
@@ -7,7 +8,7 @@ import MemberList from './TeamList/MemberList';
 import GroupList from './TeamList/GroupList';
 
 import './Communication.scss';
-// import networker from '../../utils/networker/networker';
+import networker from '../../utils/networker/networker';
 
 const Communication = () => {
   return (
@@ -25,6 +26,20 @@ const Content = () => {
   // For which group / player is being chatted with
   const [selected, setSelected] = useState({});
 
+  const selector = (store) => {
+    return {
+      name:
+        store.teams.length > 0
+          ? store.teams[store.status.selected_team].name
+          : '',
+      role: store.teams.length > 0 ? store.teams[store.status.selected_team].role : '',
+      id: store.teams.length > 0 ? store.teams[store.status.selected_team].id : '',
+    };
+  }
+
+  const state = useSelector(selector);
+  console.log(state);
+
   useEffect(() => {
     const fetchMembers = async () => {
       const headers = {
@@ -40,7 +55,7 @@ const Content = () => {
         data: data
       }
       try {
-        const res = await axios(config);
+        const res = await networker(config);
         if(res.status===200){
           setMembers(res.data);
         }
@@ -63,7 +78,7 @@ const Content = () => {
         data: data
       }
       try {
-        const res = await axios(config);
+        const res = await networker(config);
         if(res.status===200){
           setGroups(res.data.groups);
         }
