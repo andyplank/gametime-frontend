@@ -59,7 +59,7 @@ const Content = () => {
         setMembers(res.data);
       }
     } catch (err) {
-      setMembers([]);
+      console.log(err);
     }
   }
 
@@ -82,7 +82,7 @@ const Content = () => {
         setGroups(res.data.groups);
       }
     } catch (err) {
-      setGroups([]);
+      console.log(err);
     }
   }
 
