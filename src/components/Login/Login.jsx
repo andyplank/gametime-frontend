@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { authenticate } from '../../utils/auth/auth';
+import getUser from '../../utils/user/user';
+import getTeams from '../../utils/teams/teams';
 import './Login.scss';
 
 const Login = () => {
@@ -10,6 +13,7 @@ const Login = () => {
   const [mutex, setMutex] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const history = useHistory();
+  const dispatch = useDispatch();
 
   async function handleSubmit() {
     // Do not allow multiple outstanding requests
@@ -21,9 +25,19 @@ const Login = () => {
     setMutex(true);
 
     // Query login API
-    const { message, error, success } = await authenticate(email, password);
+    const { message, error, success, user_id } = await authenticate(
+      email,
+      password
+    );
+
     if (!error && success) {
-      history.push('/home');
+      const user = await getUser(user_id);
+      dispatch({ type: 'SET_USER', payload: user });
+      const teams = await getTeams(user_id);
+      dispatch({ type: 'SET_TEAMS', payload: teams });
+      dispatch({ type: 'SET_SIGNED_IN', payload: true });
+      // history.push('/home');
+      history.push('/');
     } else {
       setErrorMsg(message);
       setMutex(false);
