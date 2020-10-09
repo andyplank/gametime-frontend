@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import Header from '../Header/Header';
 import ChatBox from './ChatBox';
-import MemberList from './MemberList';
-import GroupList from './GroupList';
+import MemberList from './TeamList/MemberList';
+import GroupList from './TeamList/GroupList';
 
 import './Communication.scss';
+// import networker from '../../utils/networker/networker';
 
 const Communication = () => {
   return (
@@ -16,32 +19,62 @@ const Communication = () => {
 };
 
 const Content = () => {
-  const temp = [
-    { name: 'Andy', id: '1' },
-    { name: 'Jim', id: '2' },
-    { name: 'Daniel', id: '3' },
-    { name: 'Jon', id: '4' }
-  ];
-  const temp2 = [
-    {
-      name: 'Varsity',
-      id: '10',
-      isGroup: true,
-      members: [temp[0], temp[1]]
-    },
-    {
-      name: 'JV',
-      id: '11',
-      isGroup: true,
-      members: []
-    }
-  ];
-  // const { isAuthenticated } = useContext(AuthContext);
-  const [members] = useState(temp);
-  const [groups] = useState(temp2);
+  const [members, setMembers] = useState([]);
+  const [groups, setGroups] = useState([]);
 
   // For which group / player is being chatted with
   const [selected, setSelected] = useState({});
+
+  useEffect(() => {
+    const fetchMembers = async () => {
+      const headers = {
+        'Content-Type': 'application/json',
+      }
+      const data = {
+        team: 1
+      };
+      const config = {
+        method: 'post',
+        url: 'http://52.91.140.102:8080/team/view/members',
+        headers: headers,
+        data: data
+      }
+      try {
+        const res = await axios(config);
+        if(res.status===200){
+          setMembers(res.data);
+        }
+      } catch (err) {
+        setMembers([]);
+      }
+    }
+
+    const fetchGroups = async () => {
+      const headers = {
+        'Content-Type': 'application/json',
+      }
+      const data = {
+        team: 1
+      };
+      const config = {
+        method: 'get',
+        url: 'http://52.91.140.102:8080/team/view/groups?id=1',
+        headers: headers,
+        data: data
+      }
+      try {
+        const res = await axios(config);
+        if(res.status===200){
+          setGroups(res.data.groups);
+        }
+      } catch (err) {
+        setGroups([]);
+      }
+    }
+    fetchGroups();
+    fetchMembers();
+
+  }, [])
 
   // For the group editor state
 

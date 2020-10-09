@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes, { object } from 'prop-types';
-import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Badge from 'react-bootstrap/Badge';
-import GroupEditor from './GroupEditor';
+
+import axios from 'axios';
+
+import GroupEditor from './GroupEditor/GroupEditor';
 
 import './Communication.scss';
 
@@ -13,36 +15,67 @@ const ChatBox = (props) => {
   const [message, setMessage] = useState('');
 
   const [showAlert, setShowAlert] = useState(false);
-  const [alertType] = useState('danger');
-  const [alertMsg] = useState('Error: Something went wrong');
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('danger');
 
   const [editorVis, setEditorVis] = useState(false);
-  const [editing, setEditing] = useState({ members: [] });
-
-  const simulateNetworkRequest = () => new Promise((resolve) => setTimeout(resolve, 2000));
 
   const [isSending, setSending] = useState(false);
 
   useEffect(() => {
-    if (isSending) {
-      simulateNetworkRequest().then(() => {
-        setSending(false);
-      });
-    }
-  }, [isSending]);
+    setMessage('');
+  }, [selected]);
 
-  const submit = (evt) => {
+  const submit = async (evt) => {
     evt.preventDefault();
     setSending(true);
-    setShowAlert(true);
-    setTimeout(() => {
-      setShowAlert(false);
-    }, 4000);
+
+    const headers = {
+      'Content-Type': 'application/json',
+    }
+    let data;
+    let url;
+    if(selected.group_id){
+      url = 'http://52.91.140.102:8080/sendGroupMessage';
+      data = {
+        sender_id: selected.group_id,
+        group_id: selected.group_id,
+        message: message
+      }
+    } else {
+      url = 'http://52.91.140.102:8080/sendPlayerMessage';
+      data = {
+        sender_id: 1,
+        recipient_id: selected.user_id,
+        message: message
+      }
+    }
+
+    const config = {
+      method: 'post',
+      url: url,
+      headers: headers,
+      data: data
+    }
+    try {
+      const res = await axios(config);
+      if(res.status===200){
+        setAlertType('success');
+        setAlertMessage('Success');
+        setShowAlert(true);
+      }
+    } catch (err) {
+      setAlertType('danger');
+      setAlertMessage('Failed to send');
+      setShowAlert(true);
+    }
+    setTimeout(() => setShowAlert(false), 1000);
+    setSending(false);
+
   };
 
   const editGroup = () => {
     setEditorVis(true);
-    setEditing(selected);
   };
 
   if (selected.name === undefined) {
@@ -55,17 +88,17 @@ const ChatBox = (props) => {
 
   return (
     <div className="pt-2 px-2">
-      <GroupEditor
-        members={members}
-        editing={editing}
-        editorVis={editorVis}
-        setEditorVis={setEditorVis}
-      />
       <div className="d-flex justify-content-between align-items-center border-bottom">
         <div className="h4 mt-2">{selected.name}</div>
-        {selected.isGroup
+        {selected.group_id
         && (
         <div>
+          <GroupEditor
+            members={members}
+            editing={selected}
+            editorVis={editorVis}
+            setEditorVis={setEditorVis}
+          />
           <button
             className="click d-flex text-center align-items-center py-1"
             type="button"
@@ -78,32 +111,27 @@ const ChatBox = (props) => {
         </div>
         )}
       </div>
-      <div className="toBottom py-2">
+      <div className="toBottom py-2 w-50">
         <Form>
           <Form.Group>
             <Form.Label>
               Enter Message
-              {showAlert
-                && (
-                <Badge pill variant={alertType} className="mx-2">
-                  Failed to send
-                </Badge>
-                )}
             </Form.Label>
             <Form.Control
               as="textarea"
               id="messageInput"
               rows="2"
+              className="w-100"
               value={message}
-              placeholder="Enter message..."
+              placeholder="Enter message before sending..."
               onChange={(e) => setMessage(e.target.value)}
-              isInvalid={showAlert}
+              required
             />
           </Form.Group>
 
           <Button
             variant="primary"
-            disabled={isSending}
+            disabled={isSending || message===''}
             onClick={!isSending ? submit : null}
             className="mx-2"
           >
@@ -112,17 +140,9 @@ const ChatBox = (props) => {
           {showAlert
             && (
             <Badge pill variant={alertType}>
-              Failed to send
+              {alertMessage}
             </Badge>
             )}
-          <Alert
-            variant={alertType}
-            show={showAlert}
-            dismissible
-            onClose={() => setShowAlert(false)}
-          >
-            {alertMsg}
-          </Alert>
         </Form>
       </div>
     </div>

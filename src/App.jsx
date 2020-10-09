@@ -10,6 +10,7 @@ import Landing from './components/Landing/Landing';
 import Login from './components/Login/Login';
 import Communication from './components/Communication/Communication';
 import TeamManagement from './components/TeamManagement/TeamManagement'
+import Home from './components/Home/Home';
 import 'bootstrap/dist/css/bootstrap.css';
 
 // Initialize Redux store
@@ -32,7 +33,7 @@ const App = () => {
           {/* <Route path="/logout" exact component={Logout} /> */}
           {/* <Route path="/register" exact component={Register} /> */}
           {/* <Route path="/account" exact component={Account} /> */}
-          {/* <Route path="/home" exact component={Home} /> */}
+          <Route path="/home" exact component={Home} />
           <Route path="/communication" exact component={Communication} />
           {/* <Route path="/documentation" exact component={Documentation} /> */}
           {/* <Route path="/resources" exact component={Resources} /> */}

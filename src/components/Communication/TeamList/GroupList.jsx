@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes, { object } from 'prop-types';
 
-import './Communication.scss';
-import ListDisplay from './ListDisplay';
-import GroupCreator from './GroupCreator';
+import '../Communication.scss';
+import GroupCreator from '../GroupEditor/GroupCreator';
 
 const GroupList = (props) => {
   const {
@@ -11,6 +10,10 @@ const GroupList = (props) => {
   } = props;
 
   const [editorVis, setEditorVis] = useState(false);
+
+  const handleClick = (item) => {
+    setSelected(item);
+  }
 
   const newGroup = () => {
     setEditorVis(true);
@@ -38,11 +41,18 @@ const GroupList = (props) => {
         </div>
       </div>
 
-      <ListDisplay
-        items={groups}
-        selected={selected}
-        setSelected={setSelected}
-      />
+      <ul className="list-group">
+        {groups.map((item) => (
+          <button
+            type="button"
+            className={selected.group_id === item.group_id ? 'px-4 selected' : 'px-4 click'}
+            key={item.group_id}
+            onClick={() => handleClick(item)}
+          >
+            {item.name}
+          </button>
+      ))}
+      </ul>
     </div>
   );
 };
