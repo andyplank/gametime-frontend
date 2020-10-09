@@ -25,7 +25,14 @@ class PlayersDisplay extends React.Component {
 
     componentDidMount() {
         const { players } = this.props;
-        this.setState({adminChecked: Array(players.length).fill(false)});
+        const arr = players.map((item) => {
+            if(item.permission_level > 0) {
+                return true;
+            }
+            return false;
+        });
+        this.setState({ adminChecked: arr });
+        console.log(players);
     }
 
     handleAdminChange(index) {
@@ -45,8 +52,7 @@ class PlayersDisplay extends React.Component {
   <> 
     Are you sure you want to remove 
     <b>
-      {player.firstName} 
-      {player.lastName}
+      {player.name}
     </b> 
     from the team?
   </> 
@@ -85,14 +91,14 @@ class PlayersDisplay extends React.Component {
               {players.map((player, index) => {
                   const i = index;
             return (
-              <Grid container className="player-card-grid" key={i} item xs={3}>
+              <Grid container key={i} item xs={3}>
                 <Card 
                   className="player-card"
                   key={i} 
                   variant="outlined"
                 >
                   <CardHeader
-                    title={`${player.firstName} ${player.lastName}`}
+                    title={player.name}
                     action={
                       (
                         <IconButton 
@@ -104,15 +110,24 @@ class PlayersDisplay extends React.Component {
                       )
                     }
                   />
-                  <CardContent>
-                    Toggle Admin? 
-                    <Switch 
-                      className="adminSwitch"
-                      checked={adminChecked[index]}
-                      onChange={() => this.handleAdminChange(index)}
-                      color="primary"
-                    />
-                  </CardContent>
+                  { player.permission_level !== 2
+                  ? (
+                    <CardContent>
+                      Toggle Admin? 
+                      <Switch 
+                        className="adminSwitch"
+                        checked={adminChecked[index]}
+                        onChange={() => this.handleAdminChange(index)}
+                        color="primary"
+                      />
+                    </CardContent>
+                  )
+                  : ( 
+                    <CardContent>
+                      Team Owner
+                    </CardContent>
+                  )
+                }
                 </Card>
               </Grid>
                     );

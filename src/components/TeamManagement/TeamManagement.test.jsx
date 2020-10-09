@@ -2,13 +2,17 @@ import React from 'react';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Modal from 'react-bootstrap/Modal';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
 import TeamManagement from './TeamManagement';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('<TeamManagement />', () => {
-    const wrapper = Enzyme.shallow(
-      <TeamManagement />,
+    const mockStore = configureStore();
+    const store = mockStore({});
+    const wrapper = Enzyme.mount(
+      <Provider store={store}><TeamManagement /></Provider>,
     );
 
     it('clicking edit team opens edit modal', () => {

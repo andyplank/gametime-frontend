@@ -1,10 +1,11 @@
-/* eslint-disable */
 import axios from 'axios';
+
+const auth = 'eyJraWQiOiJmUk1xT1J0SFNTcnk3RWNsYmtQbXlVK1wvZlNabjhWOElWWU5vY3A0K3Ricz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI4ZjVjOTZlOS0xZjJlLTQ3MjItOGRjOS04ODM5NWFmNTJlYTUiLCJldmVudF9pZCI6IjFlZGY0MmNkLTZiMjMtNDdjNC05NzIzLTYzOTc0M2Y0MWE3YyIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2MDIyMTk2MDQsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTIuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0yX1cwRXRtZHg0cyIsImV4cCI6MTYwMjMwNjAwNCwiaWF0IjoxNjAyMjE5NjA1LCJqdGkiOiIzNDNlMzMwMC00MzgxLTQxY2EtYWFkZC01MzNhZmQxNjAwZjIiLCJjbGllbnRfaWQiOiI3dWQxcXJ1OGV1Mm8xdmh0Nm9vNnBodXRudSIsInVzZXJuYW1lIjoiOGY1Yzk2ZTktMWYyZS00NzIyLThkYzktODgzOTVhZjUyZWE1In0.euLFGXaJc8FVMXMq7uB0XoywbPmDZSnxZup1WWzhMKrO_89UUD5AgNAthQKuuvyTWJ4fx4lEQWfrf_xWt6yWHs9eaXSdApqvO4OozpActgjBqzoWfISObtlOFgt8vADFqjOoQn8OoQx9GJGQhcsNuTou9YTv_wJLZkQ4MrF3KOjVR1cjRZpmlYSMPRIon5qajyvF3Kymhb6riT-XoIlxHxLLjGbzRWAAkqQ0s68Pkbp2Mu1mpVG2G9jK5pli8uhrCWCTrHZ29dOnl8DQLbQwVNL-tex5r_K20WJZ4OMqZ2t7PN6uTM9coWpUmm4Xs7ZnYt9l-BOH3-mwOKddWQJibQ';
 
 export async function getPlayers(teamId) {
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'eyJraWQiOiJmUk1xT1J0SFNTcnk3RWNsYmtQbXlVK1wvZlNabjhWOElWWU5vY3A0K3Ricz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjNTVmYTlmOC0xMzVmLTQ4ODItYjUwMS03MjVjMTE3NWFkNjkiLCJldmVudF9pZCI6IjhhNmE1NGU5LWRjOTAtNGUzNS04ZDE2LTJjMmMxODRhNGU4ZiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2MDIyMDgzNjMsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTIuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0yX1cwRXRtZHg0cyIsImV4cCI6MTYwMjIxMTk2MywiaWF0IjoxNjAyMjA4MzY0LCJqdGkiOiIzZGZkOGUzZS04YWU2LTQyMjgtYjE4My03ZGFkOTYyY2MzNzkiLCJjbGllbnRfaWQiOiI3dWQxcXJ1OGV1Mm8xdmh0Nm9vNnBodXRudSIsInVzZXJuYW1lIjoiYzU1ZmE5ZjgtMTM1Zi00ODgyLWI1MDEtNzI1YzExNzVhZDY5In0.JdQhs2_pIBeX6kcPp-5HQRqINBajfvdFVyZ7zkLoE93DEGKeXDtZ4W0czOC7OSCPudPl-K7-b4Bj-UJr7_3AoNYBvhD19r4qIhq7UoiOqHPatEfCB5zlbE80vMiHjU-r_UG8dk71v1d2schwqaZ3hHDefGeSvWqeIKRZIkiwbirdRfRU5hNjY0Syjs10PCp4ryHzt_5NIyorbj5xz0kCMRTFql-Np6ry-JBZoxi0Op785j4o0318NNmK2fuJULzlXBa9Ov0q23aaq7VelpKYhWc5Kz5AubNlxCINsSJJ1EFuw2-VfMTLprZmbMZATjxpgp24xb-xpzSvkYC9na52xg'
+        'Authorization': auth
     }
 
     const data = {
@@ -20,14 +21,13 @@ export async function getPlayers(teamId) {
 
     const res = await axios(config);
 
-    console.log(res);
+    return res.data;
 }
 
 export async function getTeamData(teamId) {
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'eyJraWQiOiJmUk1xT1J0SFNTcnk3RWNsYmtQbXlVK1wvZlNabjhWOElWWU5vY3A0K3Ricz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjNTVmYTlmOC0xMzVmLTQ4ODItYjUwMS03MjVjMTE3NWFkNjkiLCJldmVudF9pZCI6IjhhNmE1NGU5LWRjOTAtNGUzNS04ZDE2LTJjMmMxODRhNGU4ZiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2MDIyMDgzNjMsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTIuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0yX1cwRXRtZHg0cyIsImV4cCI6MTYwMjIxMTk2MywiaWF0IjoxNjAyMjA4MzY0LCJqdGkiOiIzZGZkOGUzZS04YWU2LTQyMjgtYjE4My03ZGFkOTYyY2MzNzkiLCJjbGllbnRfaWQiOiI3dWQxcXJ1OGV1Mm8xdmh0Nm9vNnBodXRudSIsInVzZXJuYW1lIjoiYzU1ZmE5ZjgtMTM1Zi00ODgyLWI1MDEtNzI1YzExNzVhZDY5In0.JdQhs2_pIBeX6kcPp-5HQRqINBajfvdFVyZ7zkLoE93DEGKeXDtZ4W0czOC7OSCPudPl-K7-b4Bj-UJr7_3AoNYBvhD19r4qIhq7UoiOqHPatEfCB5zlbE80vMiHjU-r_UG8dk71v1d2schwqaZ3hHDefGeSvWqeIKRZIkiwbirdRfRU5hNjY0Syjs10PCp4ryHzt_5NIyorbj5xz0kCMRTFql-Np6ry-JBZoxi0Op785j4o0318NNmK2fuJULzlXBa9Ov0q23aaq7VelpKYhWc5Kz5AubNlxCINsSJJ1EFuw2-VfMTLprZmbMZATjxpgp24xb-xpzSvkYC9na52xg'
-    }
+        'Authorization': auth    }
 
     const data = {
         team: teamId
@@ -48,8 +48,7 @@ export async function getTeamData(teamId) {
 export async function getTeamsForUser(userId) {
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'eyJraWQiOiJmUk1xT1J0SFNTcnk3RWNsYmtQbXlVK1wvZlNabjhWOElWWU5vY3A0K3Ricz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjNTVmYTlmOC0xMzVmLTQ4ODItYjUwMS03MjVjMTE3NWFkNjkiLCJldmVudF9pZCI6IjhhNmE1NGU5LWRjOTAtNGUzNS04ZDE2LTJjMmMxODRhNGU4ZiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2MDIyMDgzNjMsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTIuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0yX1cwRXRtZHg0cyIsImV4cCI6MTYwMjIxMTk2MywiaWF0IjoxNjAyMjA4MzY0LCJqdGkiOiIzZGZkOGUzZS04YWU2LTQyMjgtYjE4My03ZGFkOTYyY2MzNzkiLCJjbGllbnRfaWQiOiI3dWQxcXJ1OGV1Mm8xdmh0Nm9vNnBodXRudSIsInVzZXJuYW1lIjoiYzU1ZmE5ZjgtMTM1Zi00ODgyLWI1MDEtNzI1YzExNzVhZDY5In0.JdQhs2_pIBeX6kcPp-5HQRqINBajfvdFVyZ7zkLoE93DEGKeXDtZ4W0czOC7OSCPudPl-K7-b4Bj-UJr7_3AoNYBvhD19r4qIhq7UoiOqHPatEfCB5zlbE80vMiHjU-r_UG8dk71v1d2schwqaZ3hHDefGeSvWqeIKRZIkiwbirdRfRU5hNjY0Syjs10PCp4ryHzt_5NIyorbj5xz0kCMRTFql-Np6ry-JBZoxi0Op785j4o0318NNmK2fuJULzlXBa9Ov0q23aaq7VelpKYhWc5Kz5AubNlxCINsSJJ1EFuw2-VfMTLprZmbMZATjxpgp24xb-xpzSvkYC9na52xg'
-    }
+        'Authorization': auth    }
 
     const config = {
         method: 'get',
@@ -62,11 +61,10 @@ export async function getTeamsForUser(userId) {
     console.log(res);
 }
 
-export async function createTeam(name, ownerId) {
+export async function createTeam(ownerId, name) {
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'eyJraWQiOiJmUk1xT1J0SFNTcnk3RWNsYmtQbXlVK1wvZlNabjhWOElWWU5vY3A0K3Ricz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjNTVmYTlmOC0xMzVmLTQ4ODItYjUwMS03MjVjMTE3NWFkNjkiLCJldmVudF9pZCI6IjhhNmE1NGU5LWRjOTAtNGUzNS04ZDE2LTJjMmMxODRhNGU4ZiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2MDIyMDgzNjMsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTIuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0yX1cwRXRtZHg0cyIsImV4cCI6MTYwMjIxMTk2MywiaWF0IjoxNjAyMjA4MzY0LCJqdGkiOiIzZGZkOGUzZS04YWU2LTQyMjgtYjE4My03ZGFkOTYyY2MzNzkiLCJjbGllbnRfaWQiOiI3dWQxcXJ1OGV1Mm8xdmh0Nm9vNnBodXRudSIsInVzZXJuYW1lIjoiYzU1ZmE5ZjgtMTM1Zi00ODgyLWI1MDEtNzI1YzExNzVhZDY5In0.JdQhs2_pIBeX6kcPp-5HQRqINBajfvdFVyZ7zkLoE93DEGKeXDtZ4W0czOC7OSCPudPl-K7-b4Bj-UJr7_3AoNYBvhD19r4qIhq7UoiOqHPatEfCB5zlbE80vMiHjU-r_UG8dk71v1d2schwqaZ3hHDefGeSvWqeIKRZIkiwbirdRfRU5hNjY0Syjs10PCp4ryHzt_5NIyorbj5xz0kCMRTFql-Np6ry-JBZoxi0Op785j4o0318NNmK2fuJULzlXBa9Ov0q23aaq7VelpKYhWc5Kz5AubNlxCINsSJJ1EFuw2-VfMTLprZmbMZATjxpgp24xb-xpzSvkYC9na52xg'
-    }
+        'Authorization': auth    }
 
     const data = {
         name: name,
@@ -85,11 +83,10 @@ export async function createTeam(name, ownerId) {
     console.log(res);
 }
 
-export async function editTeam(name, teamId) {
+export async function editTeam(teamId, name) {
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'eyJraWQiOiJmUk1xT1J0SFNTcnk3RWNsYmtQbXlVK1wvZlNabjhWOElWWU5vY3A0K3Ricz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjNTVmYTlmOC0xMzVmLTQ4ODItYjUwMS03MjVjMTE3NWFkNjkiLCJldmVudF9pZCI6IjhhNmE1NGU5LWRjOTAtNGUzNS04ZDE2LTJjMmMxODRhNGU4ZiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2MDIyMDgzNjMsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTIuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0yX1cwRXRtZHg0cyIsImV4cCI6MTYwMjIxMTk2MywiaWF0IjoxNjAyMjA4MzY0LCJqdGkiOiIzZGZkOGUzZS04YWU2LTQyMjgtYjE4My03ZGFkOTYyY2MzNzkiLCJjbGllbnRfaWQiOiI3dWQxcXJ1OGV1Mm8xdmh0Nm9vNnBodXRudSIsInVzZXJuYW1lIjoiYzU1ZmE5ZjgtMTM1Zi00ODgyLWI1MDEtNzI1YzExNzVhZDY5In0.JdQhs2_pIBeX6kcPp-5HQRqINBajfvdFVyZ7zkLoE93DEGKeXDtZ4W0czOC7OSCPudPl-K7-b4Bj-UJr7_3AoNYBvhD19r4qIhq7UoiOqHPatEfCB5zlbE80vMiHjU-r_UG8dk71v1d2schwqaZ3hHDefGeSvWqeIKRZIkiwbirdRfRU5hNjY0Syjs10PCp4ryHzt_5NIyorbj5xz0kCMRTFql-Np6ry-JBZoxi0Op785j4o0318NNmK2fuJULzlXBa9Ov0q23aaq7VelpKYhWc5Kz5AubNlxCINsSJJ1EFuw2-VfMTLprZmbMZATjxpgp24xb-xpzSvkYC9na52xg'
-    }
+        'Authorization': auth    }
 
     const data = {
         name: name,
@@ -111,8 +108,7 @@ export async function editTeam(name, teamId) {
 export async function joinTeam(teamId, userId) {
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'eyJraWQiOiJmUk1xT1J0SFNTcnk3RWNsYmtQbXlVK1wvZlNabjhWOElWWU5vY3A0K3Ricz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjNTVmYTlmOC0xMzVmLTQ4ODItYjUwMS03MjVjMTE3NWFkNjkiLCJldmVudF9pZCI6IjhhNmE1NGU5LWRjOTAtNGUzNS04ZDE2LTJjMmMxODRhNGU4ZiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2MDIyMDgzNjMsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTIuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0yX1cwRXRtZHg0cyIsImV4cCI6MTYwMjIxMTk2MywiaWF0IjoxNjAyMjA4MzY0LCJqdGkiOiIzZGZkOGUzZS04YWU2LTQyMjgtYjE4My03ZGFkOTYyY2MzNzkiLCJjbGllbnRfaWQiOiI3dWQxcXJ1OGV1Mm8xdmh0Nm9vNnBodXRudSIsInVzZXJuYW1lIjoiYzU1ZmE5ZjgtMTM1Zi00ODgyLWI1MDEtNzI1YzExNzVhZDY5In0.JdQhs2_pIBeX6kcPp-5HQRqINBajfvdFVyZ7zkLoE93DEGKeXDtZ4W0czOC7OSCPudPl-K7-b4Bj-UJr7_3AoNYBvhD19r4qIhq7UoiOqHPatEfCB5zlbE80vMiHjU-r_UG8dk71v1d2schwqaZ3hHDefGeSvWqeIKRZIkiwbirdRfRU5hNjY0Syjs10PCp4ryHzt_5NIyorbj5xz0kCMRTFql-Np6ry-JBZoxi0Op785j4o0318NNmK2fuJULzlXBa9Ov0q23aaq7VelpKYhWc5Kz5AubNlxCINsSJJ1EFuw2-VfMTLprZmbMZATjxpgp24xb-xpzSvkYC9na52xg'
-    }
+        'Authorization': auth    }
 
     const data = {
         user: userId
@@ -133,8 +129,7 @@ export async function joinTeam(teamId, userId) {
 export async function leaveTeam(teamId, userId) {
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'eyJraWQiOiJmUk1xT1J0SFNTcnk3RWNsYmtQbXlVK1wvZlNabjhWOElWWU5vY3A0K3Ricz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjNTVmYTlmOC0xMzVmLTQ4ODItYjUwMS03MjVjMTE3NWFkNjkiLCJldmVudF9pZCI6IjhhNmE1NGU5LWRjOTAtNGUzNS04ZDE2LTJjMmMxODRhNGU4ZiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2MDIyMDgzNjMsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTIuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0yX1cwRXRtZHg0cyIsImV4cCI6MTYwMjIxMTk2MywiaWF0IjoxNjAyMjA4MzY0LCJqdGkiOiIzZGZkOGUzZS04YWU2LTQyMjgtYjE4My03ZGFkOTYyY2MzNzkiLCJjbGllbnRfaWQiOiI3dWQxcXJ1OGV1Mm8xdmh0Nm9vNnBodXRudSIsInVzZXJuYW1lIjoiYzU1ZmE5ZjgtMTM1Zi00ODgyLWI1MDEtNzI1YzExNzVhZDY5In0.JdQhs2_pIBeX6kcPp-5HQRqINBajfvdFVyZ7zkLoE93DEGKeXDtZ4W0czOC7OSCPudPl-K7-b4Bj-UJr7_3AoNYBvhD19r4qIhq7UoiOqHPatEfCB5zlbE80vMiHjU-r_UG8dk71v1d2schwqaZ3hHDefGeSvWqeIKRZIkiwbirdRfRU5hNjY0Syjs10PCp4ryHzt_5NIyorbj5xz0kCMRTFql-Np6ry-JBZoxi0Op785j4o0318NNmK2fuJULzlXBa9Ov0q23aaq7VelpKYhWc5Kz5AubNlxCINsSJJ1EFuw2-VfMTLprZmbMZATjxpgp24xb-xpzSvkYC9na52xg'
-    }
+        'Authorization': auth    }
 
     const data = {
         team: teamId,
@@ -144,6 +139,29 @@ export async function leaveTeam(teamId, userId) {
     const config = {
         method: 'post',
         url: `http://52.91.140.102:8080/team/remove`,
+        headers: headers,
+        data: data
+    }
+
+    const res = await axios(config);
+
+    console.log(res);
+}
+
+export async function editPermission(teamId, userId, permission) {
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': auth    }
+
+    const data = {
+        team: teamId,
+        user: userId,
+        priv: permission
+    }
+
+    const config = {
+        method: 'post',
+        url: `http://52.91.140.102:8080/team/permissions`,
         headers: headers,
         data: data
     }

@@ -14,21 +14,6 @@ import Header from '../Header/Header';
 import PlayersDisplay from './PlayersDisplay';
 import { getPlayers, getTeamData, getTeamsForUser } from '../../utils/team/team';
 
-
-const players = [
-  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
-  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
-  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
-  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
-  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
-  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
-  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
-  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
-  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
-  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
-  { id: 1, firstName: 'Daniel', lastName: 'Plue' },
-];
-
 const headerStyle = {
   textAlign: 'center',
   paddingBottom: '3%',
@@ -47,6 +32,7 @@ class Content extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      players: [],
       showTeamEdit: false,
       showTeamCreate: false,
       showTeamInvite: false,
@@ -59,12 +45,12 @@ class Content extends React.Component {
     };
   }
 
-  componentDidMount(){
-    getPlayers(1);
+  async componentDidMount() {
+    const players = await getPlayers(1);
+    this.setState({ players: players });
     getTeamData(1);
     getTeamsForUser(1);
   }
-
 
   validateFields(team) {
     let canSave = true;
@@ -261,60 +247,65 @@ class Content extends React.Component {
   }
 
   render() {
+    const { players } = this.state;
     return(
-      <div style={{ height: "100%" }}>
-        {this.renderTeamEditModal()}
-        {this.renderTeamCreateModal()}
-        {this.renderInviteLinkModal()}
-        <h1 style={headerStyle}>Team Management</h1>
-        <Container fluid>
-          <Row>
-            <Col xs={6} md={2}>
-              <h2 style={{ display: 'inline-block', paddingBottom: '2%' }}>
-                Team Control
-              </h2>
-              <p>
-                <Button
-                  className="btn-team"
-                  variant="contained"
-                  color="primary"
-                  onClick={() => this.handleTeamEditClick()}
-                >
-                  Edit Team
-                </Button>
-              </p>
-              <p>
-                <Button
-                  className="btn-team"
-                  variant="contained"
-                  color="primary"
-                  onClick={() => this.handleTeamInviteClick()}
-                >
-                  Show Invite Link
-                </Button>
-              </p>
-              <p>
-                <Button
-                  className="btn-team"
-                  variant="contained"
-                  color="primary"
-                  startIcon={<AddCircleOutlineIcon />}
-                  onClick={() => this.handleTeamCreateClick()}
-                >
-                  Create Team
-                </Button>
-              </p>
-              <br />
-            </Col>
-            <Col xs={12} md={10}>
-              <div style={{ paddingLeft: '5%' }}>
-                <h2>Players</h2>
-                <PlayersDisplay players={players} />
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+      players.length > 0 ?
+      (
+        <div style={{ height: "100%" }}>
+          {this.renderTeamEditModal()}
+          {this.renderTeamCreateModal()}
+          {this.renderInviteLinkModal()}
+          <h1 style={headerStyle}>Team Management</h1>
+          <Container fluid>
+            <Row>
+              <Col xs={6} md={2}>
+                <h2 style={{ display: 'inline-block', paddingBottom: '2%' }}>
+                  Team Control
+                </h2>
+                <p>
+                  <Button
+                    className="btn-team"
+                    variant="contained"
+                    color="primary"
+                    onClick={() => this.handleTeamEditClick()}
+                  >
+                    Edit Team
+                  </Button>
+                </p>
+                <p>
+                  <Button
+                    className="btn-team"
+                    variant="contained"
+                    color="primary"
+                    onClick={() => this.handleTeamInviteClick()}
+                  >
+                    Show Invite Link
+                  </Button>
+                </p>
+                <p>
+                  <Button
+                    className="btn-team"
+                    variant="contained"
+                    color="primary"
+                    startIcon={<AddCircleOutlineIcon />}
+                    onClick={() => this.handleTeamCreateClick()}
+                  >
+                    Create Team
+                  </Button>
+                </p>
+                <br />
+              </Col>
+              <Col xs={12} md={10}>
+                <div style={{ paddingLeft: '5%' }}>
+                  <h2>Players</h2>
+                  <PlayersDisplay players={players} />
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      )
+      : null
     )
   };
 }
