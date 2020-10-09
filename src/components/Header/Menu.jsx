@@ -25,7 +25,7 @@ const Menu = (props) => {
       <Card style={{ width: '300px' }}>
         <ListGroup>
           {/* Account */}
-          <ListGroup.Item>
+          <ListGroup.Item onClick={() => history.push('account')}>
             <Row>
               <MdAccountCircle size={accountIconSize} />
               <div className="menu-account-text">
