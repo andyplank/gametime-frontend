@@ -1,0 +1,43 @@
+@import '../../common/global';
+
+.verify-title {
+  font-size: 48px;
+  font-family: Helvetica;
+  color: white;
+}
+
+.verify-subtitle {
+  font-size: 24px;
+  font-family: Helvetica;
+  color: white;
+}
+
+.verify-background {
+  height: 100vh;
+  background-image: linear-gradient(
+    135deg,
+    rgba(82, 130, 133, 255),
+    rgba(52, 68, 86, 255)
+  );
+}
+
+// .verify-card {
+//   background-color: white;
+//   width: 822px;
+//   height: 548px;
+// }
+
+.verify-card {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 822px;
+}
+
+.verify-form {
+  padding: 80px 80px 40px 80px;
+}
+
+.verify-form-label {
+  font-size: 24px;
+}
