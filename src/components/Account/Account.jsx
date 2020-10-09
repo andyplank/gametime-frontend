@@ -72,7 +72,13 @@ const Content = () => {
         <div className="row justify-content-center">
           <div className="d-flex flex-column align-items-center">
             <MdAccountCircle size={iconSize} />
-            <span className="account-title">{`${state.first_name} ${state.last_name}`}</span>
+            <span className="account-title">
+              {
+                `${state.first_name} 
+                ${state.last_name ? state.last_name : ""}
+                `
+              }
+            </span>
           </div>
         </div>
       </Jumbotron>
