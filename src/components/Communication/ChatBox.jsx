@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes, { object } from 'prop-types';
+import React, { useState, useEffect, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Badge from 'react-bootstrap/Badge';
 
-import networker from '../../utils/networker/networker';
-
 import GroupEditor from './GroupEditor/GroupEditor';
 
 import './Communication.scss';
+import CommContext from './context';
 
-const ChatBox = (props) => {
-  const { selected, members, refresh} = props;
+import {sendPlayerMessage, sendGroupMessage} from '../../utils/comm/comm';
+
+const ChatBox = () => {
+  const { selected } = useContext(CommContext);
+
   const [message, setMessage] = useState('');
+  const [isSending, setSending] = useState(false);
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('danger');
 
   const [editorVis, setEditorVis] = useState(false);
-
-  const [isSending, setSending] = useState(false);
 
   useEffect(() => {
     setMessage('');
@@ -29,51 +29,25 @@ const ChatBox = (props) => {
   const submit = async (evt) => {
     evt.preventDefault();
     setSending(true);
-
-    const headers = {
-      'Content-Type': 'application/json',
-    }
-    let data;
-    let url;
-    if(selected.group_id){
-      url = 'http://54.235.234.147:8080/sendGroupMessage';
-      data = {
-        sender_id: selected.group_id,
-        group_id: selected.group_id,
-        message: message
-      }
+    let res;
+    if(selected.group_id){ 
+      // Fix sender id
+      res = await sendGroupMessage(selected.group_id, selected.group_id, message);
     } else {
-      url = 'http://54.235.234.147:8080/sendPlayerMessage';
-      data = {
-        sender_id: 1,
-        recipient_id: selected.user_id,
-        message: message
-      }
+      res = await sendPlayerMessage(selected.user_id, message);
     }
-
-    const config = {
-      method: 'post',
-      url: url,
-      headers: headers,
-      data: data
-    }
-    try {
-     await networker(config);
-        setAlertType('success');
-        setAlertMessage('Success');
-        setShowAlert(true);
-    } catch (err) {
+    setSending(false);
+    if(res===true){
       setAlertType('success');
       setAlertMessage('Success');
       setShowAlert(true);
-      // setAlertType('danger');
-      // setAlertMessage('Failed to send');
-      // setShowAlert(true);
+      setMessage('');
+    } else {
+      setAlertType('danger');
+      setAlertMessage('Failed to send');
+      setShowAlert(true);
     }
-    setMessage('');
-    setTimeout(() => setShowAlert(false), 1000);
-    setSending(false);
-
+    setTimeout(() => setShowAlert(false), 2000);
   };
 
   const editGroup = () => {
@@ -96,11 +70,8 @@ const ChatBox = (props) => {
         && (
         <div>
           <GroupEditor
-            members={members}
-            editing={selected}
             editorVis={editorVis}
             setEditorVis={setEditorVis}
-            refresh={refresh}
           />
           <button
             className="click d-flex text-center align-items-center py-1"
@@ -153,8 +124,5 @@ const ChatBox = (props) => {
 };
 
 ChatBox.propTypes = {
-  members: PropTypes.arrayOf(object).isRequired,
-  selected: PropTypes.instanceOf(Object).isRequired,
-  refresh: PropTypes.func.isRequired,
 };
 export default ChatBox;

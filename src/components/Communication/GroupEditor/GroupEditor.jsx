@@ -1,35 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes, { object } from 'prop-types';
+import React, { useState, useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 
-import '../Communication.scss';
+import {updateMembers} from '../../../utils/comm/comm';
 
-import networker from '../../../utils/networker/networker';
+import CommContext from '../context';
+
+import '../Communication.scss';
 
 const GroupEditor = (props) => {
   const {
-    editing, editorVis, setEditorVis, members, refresh
+    editorVis, setEditorVis
   } = props;
 
+  const { selected, members, refresh } = useContext(CommContext)
+
+  // For user feedback on API responses
   const [showAlert, setShowAlert] = useState(false);
   const [alertType, setAlertType] = useState('danger');
   const [alertMsg, setAlertMessage] = useState('');
-
-  const [groupMembers, setGroupMembers] = useState([]);
-
   const [isLoading, setLoading] = useState(false);
-
-  const initMembers = [];
-  editing.members.forEach(element => {
-    initMembers.push(element[0]);
-  });
-
+  
+  const [initMembers, setInitMembers] = useState([]);
+  const [groupMembers, setGroupMembers] = useState([]);
+  
   useEffect(() => {
+    const temp = [];
+    if(selected.members !== undefined && Array.isArray(selected.members)){
+      selected.members.forEach(member => {
+        temp.push(member.user_id);
+      });
+    }
+    setInitMembers(temp);
     setGroupMembers(initMembers);
-  }, [editorVis, editing])
+  }, [editorVis, selected])
 
   const handleCheck = (event) => {
     const temp = groupMembers;
@@ -45,57 +52,20 @@ const GroupEditor = (props) => {
     }
   }
 
-  const addMembers = async () => {
-    const headers = {
-      'Content-Type': 'application/json',
-    }
-    const data = {
-      group_id: editing.group_id,
-      new_members: groupMembers.filter(elm => !initMembers.includes(elm))
-    };
-    const config = {
-      method: 'put',
-      url: 'http://54.235.234.147:8080/group/addMembers',
-      headers: headers,
-      data: data
-    }
-    return networker(config);
-  }
-
-  const removeMembers = () => {
-    const headers = {
-      'Content-Type': 'application/json',
-    }
-    const data = {
-      group_id: editing.group_id,
-      remove_members: initMembers.filter(elm => !groupMembers.includes(elm))
-    };
-    const config = {
-      method: 'delete',
-      url: 'http://54.235.234.147:8080/group/deleteMembers',
-      headers: headers,
-      data: data
-    }
-    return networker(config);
-  }
-
-  const handleClick = async () => {
+  const handleSubmit = async () => {
     setLoading(true);
-    try {
-      const u1 = await addMembers();
-      const u2 = await removeMembers();
-      if(u1.status===200 && u2.status===200){
-        setAlertMessage('Success!');
-        setAlertType('success');
-        setShowAlert(true);
-      }
-    } catch (err) {
+    const res = await updateMembers(selected, initMembers, groupMembers);
+    setLoading(false);
+    if(res===true){
+      setAlertMessage('Success!');
+      setAlertType('success');
+      setShowAlert(true);
+      refresh();
+    } else {
       setAlertMessage('Error: Something went wrong');
       setAlertType('danger');
       setShowAlert(true);
     }
-    setLoading(false);
-    refresh();
   };
 
   return (
@@ -109,7 +79,7 @@ const GroupEditor = (props) => {
 
             <Form.Group>
               <Form.Label>Group Name:</Form.Label>
-              <Form.Control type="text" readOnly value={editing.name} />
+              <Form.Control type="text" readOnly value={selected.name} />
             </Form.Group>
 
             <Form.Group id="formGridCheckbox">
@@ -150,7 +120,7 @@ const GroupEditor = (props) => {
               type="submit"
               variant="primary"
               disabled={isLoading}
-              onClick={!isLoading ? handleClick : null}
+              onClick={!isLoading ? handleSubmit : null}
             >
               {isLoading ? 'Saving...' : 'Save'}
             </Button>
@@ -162,16 +132,9 @@ const GroupEditor = (props) => {
   );
 };
 
-GroupEditor.defaultProps = {
-  editing: { members: [] },
-  members: [],
-};
 GroupEditor.propTypes = {
-  editing: PropTypes.instanceOf(Object),
   editorVis: PropTypes.bool.isRequired,
   setEditorVis: PropTypes.func.isRequired,
-  members: PropTypes.arrayOf(object),
-  refresh: PropTypes.func.isRequired,
 };
 
 export default GroupEditor;

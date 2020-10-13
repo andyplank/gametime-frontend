@@ -1,11 +1,11 @@
 /* eslint-disable */
-import React from 'react';
-import PropTypes, { object } from 'prop-types';
+import React, { useContext } from 'react';
 
 import '../Communication.scss';
+import CommContext from '../context';
 
-const MemberList = (props) => {
-  const { members, selected, setSelected } = props;
+const MemberList = () => {
+  const { members, selected, setSelected } = useContext(CommContext);
 
   const handleClick = (item) => {
     setSelected(item);
@@ -30,9 +30,5 @@ const MemberList = (props) => {
   );
 };
 
-MemberList.propTypes = {
-  members: PropTypes.arrayOf(object).isRequired,
-  selected: PropTypes.instanceOf(Object).isRequired,
-  setSelected: PropTypes.func.isRequired,
-};
+MemberList.propTypes = {};
 export default MemberList;
