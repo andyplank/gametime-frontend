@@ -5,33 +5,71 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 
-import './Communication.scss';
+import networker from '../../../utils/networker/networker';
+
+import '../Communication.scss';
 
 const GroupCreator = (props) => {
   const {
-    editorVis, setEditorVis, members,
+    editorVis, setEditorVis, members, refresh
   } = props;
 
-  const simulateNetworkRequest = () => new Promise((resolve) => setTimeout(resolve, 2000));
-
   const [showAlert, setShowAlert] = useState(false);
-  const [alertType] = useState('danger');
-  const [alertMsg] = useState('Error: Something went wrong');
+  const [alertType, setAlertType] = useState('danger');
+  const [alertMsg, setAlertMessage] = useState('');
 
-  const [groupName] = useState('');
+  const [groupName, setGroupName] = useState('');
+  const [groupMembers, setGroupMembers] = useState([]);
 
   const [isLoading, setLoading] = useState(false);
-  useEffect(() => {
-    if (isLoading) {
-      simulateNetworkRequest().then(() => {
-        setLoading(false);
-      });
-    }
-  }, [isLoading]);
 
-  const handleClick = () => {
+  useEffect(() => {
+    setGroupName('');
+    setGroupMembers([]);
+  }, [editorVis])
+
+  const handleCheck = (event) => {
+    const temp = groupMembers;
+    if(event.target.checked){
+      temp.push(event.target.id);
+      setGroupMembers(temp);
+    } else {
+      const index = temp.indexOf(event.target.id);
+      if (index > -1) {
+        temp.splice(index, 1);
+        setGroupMembers(temp);
+      }
+    }
+  }
+
+  const handleClick = async () => {
     setLoading(true);
-    setShowAlert(true);
+    const headers = {
+      'Content-Type': 'application/json',
+    }
+    const data = {
+      name: groupName,
+      team_id: 1,
+      member_ids: groupMembers
+    };
+    const config = {
+      method: 'post',
+      url: 'http://54.235.234.147:8080/group',
+      headers: headers,
+      data: data
+    }
+    try {
+      await networker(config);
+      setAlertMessage('Success!');
+      setAlertType('success');
+      setShowAlert(true);
+    } catch (err) {
+      setAlertMessage('Error: Something went wrong');
+      setAlertType('danger');
+      setShowAlert(true);
+    }
+    setLoading(false);
+    refresh();
   };
 
   return (
@@ -40,22 +78,27 @@ const GroupCreator = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>Group Creator</Modal.Title>
         </Modal.Header>
-        <Form>
-
+        <Form autoComplete="off">
           <Modal.Body>
-
             <Form.Group controlId="formGroupName">
               <Form.Label>Group Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter group name..." value={groupName} />
+              <Form.Control 
+                type="text"
+                placeholder="Enter group name..."
+                value={groupName} 
+                onChange={(event) => setGroupName(event.target.value)}
+                isInvalid={groupName===''}
+              />
             </Form.Group>
 
-            <Form.Group id="formGridCheckbox">
+            <Form.Group>
               {members.map((member) => (
                 <Form.Check
-                  key={`default-${member.id}`}
+                  key={`creator-${member.user_id}`}
                   type="checkbox"
-                  id={member.id}
+                  id={member.user_id}
                   label={member.name}
+                  onChange={handleCheck}
                 />
               ))}
             </Form.Group>
@@ -68,7 +111,6 @@ const GroupCreator = (props) => {
             >
               {alertMsg}
             </Alert>
-
           </Modal.Body>
 
           <Modal.Footer>
@@ -84,7 +126,7 @@ const GroupCreator = (props) => {
               id="submitGroupEditor"
               type="submit"
               variant="primary"
-              disabled={isLoading}
+              disabled={groupName==='' || isLoading}
               onClick={!isLoading ? handleClick : null}
             >
               {isLoading ? 'Saving...' : 'Save'}
@@ -92,7 +134,6 @@ const GroupCreator = (props) => {
 
           </Modal.Footer>
         </Form>
-
       </Modal>
     </div>
   );
@@ -102,6 +143,7 @@ GroupCreator.defaultProps = {
   members: [],
 };
 GroupCreator.propTypes = {
+  refresh: PropTypes.func.isRequired,
   editorVis: PropTypes.bool.isRequired,
   setEditorVis: PropTypes.func.isRequired,
   members: PropTypes.arrayOf(object),

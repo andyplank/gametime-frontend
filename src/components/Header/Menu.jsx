@@ -29,7 +29,7 @@ const Menu = (props) => {
             <Row>
               <MdAccountCircle size={accountIconSize} />
               <div className="menu-account-text">
-                <span className="menu-account-heading">{`${first_name} ${last_name}`}</span>
+                <span className="menu-account-heading">{`${first_name} ${last_name || ""}`}</span>
                 <span className="menu-account-subheading">
                   {role.charAt(0).toUpperCase() + role.slice(1)}
                 </span>

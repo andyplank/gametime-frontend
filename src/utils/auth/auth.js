@@ -9,7 +9,7 @@ import networker from '../networker/networker';
  * @return {data} the contents of the response body of the auth request.
  */
 export async function authenticate(email, password) {
-  const endpoint = 'http://52.91.140.102:8080/login';
+  const endpoint = 'http://54.235.234.147:8080/login';
 
   const body = {
     email: email,
@@ -141,4 +141,4 @@ export function getExpiration() {
 }
 
 // TODO: Expirations of cookies should be passed with the cookie so that the browser handles it for us
-// TODO: Non-'HTTP-only' cookies and 'Authorization' header makes us more vulnerable to XSS and CSRF attacks
+// TODO: Non-'https-only' cookies and 'Authorization' header makes us more vulnerable to XSS and CSRF attacks

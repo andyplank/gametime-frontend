@@ -7,7 +7,7 @@ import networker from '../networker/networker';
  * @return {data} the contents of the response body of the teams request.
  */
 export default async function getTeams(user_id) {
-  const endpoint = 'http://52.91.140.102:8080/user/teams';
+  const endpoint = 'http://54.235.234.147:8080/user/teams';
 
   const params = {
     id: user_id,
@@ -31,5 +31,6 @@ export default async function getTeams(user_id) {
       role: dict[team.privilege_level],
     })
   );
+  console.log("teams from login",teams);
   return teams;
 }
