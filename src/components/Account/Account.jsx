@@ -23,6 +23,7 @@ const Account = () => {
 
 const Content = () => {
   function selector(store) {
+    console.log(store);
     return {
       id: store.user.id ? store.user.id : 1,
       first_name: store.user.first_name,
@@ -36,6 +37,7 @@ const Content = () => {
   const state = useSelector(selector);
   const dispatch = useDispatch();
   const [number, setNumber] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   async function onRemoveNumber(target) {
     // Call API to delete number
@@ -54,9 +56,12 @@ const Content = () => {
 
   async function onAddNumber(target) {
     // Call API to add number
-    const result = await addPhoneNumber(state.id, target);
-    if (result) {
+    setErrorMsg('');
+    const message = await addPhoneNumber(state.id, target);
+    if (message === '') {
       dispatch({ type: 'ADD_PHONE_NUMBER', payload: target });
+    } else {
+      setErrorMsg(message);
     }
   }
   const iconSize = 256;
@@ -67,7 +72,13 @@ const Content = () => {
         <div className="row justify-content-center">
           <div className="d-flex flex-column align-items-center">
             <MdAccountCircle size={iconSize} />
-            <span className="account-title">{`${state.first_name} ${state.last_name}`}</span>
+            <span className="account-title">
+              {
+                `${state.first_name} 
+                ${state.last_name ? state.last_name : ""}
+                `
+              }
+            </span>
           </div>
         </div>
       </Jumbotron>
@@ -107,7 +118,7 @@ const Content = () => {
                   <Form.Control
                     value={number}
                     onChange={(e) => setNumber(e.target.value)}
-                    // isInvalid={errorMsg !== ''}
+                    isInvalid={errorMsg !== ''}
                     size="lg"
                     placeholder="Add a number"
                   />
@@ -115,6 +126,9 @@ const Content = () => {
               </Form>
               <MdArrowForward size={50} onClick={() => onAddNumber(number)} />
             </div>
+            {errorMsg !== '' && (
+              <span className="invalid-feedback d-block">{errorMsg}</span>
+            )}
           </div>
           <div className="py-3 px-3">
             <span className="d-block py-2 account-heading">

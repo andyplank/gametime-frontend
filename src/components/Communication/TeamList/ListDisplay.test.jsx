@@ -6,7 +6,7 @@ import ListDisplay from './ListDisplay';
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('<ListDisplay />', () => {
-  const testMembers = [{ name: 'Andy', id: '1' }, { name: 'Jim', id: '2' }, { name: 'Daniel', id: '3' }, { name: 'Jon', id: '4' }];
+  const testMembers = [{ name: 'Andy', user_id: '1' }, { name: 'Jim', user_id: '2' }, { name: 'Daniel', user_id: '3' }, { name: 'Jon', user_id: '4' }];
   const clickFn = jest.fn();
   const wrapper = Enzyme.shallow(
     <ListDisplay

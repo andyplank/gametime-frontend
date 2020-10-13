@@ -39,7 +39,7 @@ class TeamManagementContent extends React.Component {
     async componentDidMount() {
       const { team } = this.props;
       this.fetchPlayers();
-      await getTeamsForUser(1);
+      await getTeamsForUser(3);
       this.setState({ teamName: team.name ? team.name : "" })
       
       await getTeamData(team.id);
@@ -47,7 +47,7 @@ class TeamManagementContent extends React.Component {
     
     async fetchPlayers() {
       const {team} = this.props;
-      const players = await getPlayers(1);
+      const players = await getPlayers(2);
       this.setState({ players: players });
     }
   
@@ -95,7 +95,7 @@ class TeamManagementContent extends React.Component {
       const { teamName } = this.state;
       if(this.validateFields()){
         console.log("saving team", teamName)
-        await editTeam(1, teamName);
+        await editTeam(2, teamName);
         this.setState({ showTeamEdit: false });
       }
     }
@@ -134,6 +134,7 @@ class TeamManagementContent extends React.Component {
                   error={teamNameError}
                   onChange={(event) => this.setState({teamName: event.target.value})}
                   defaultValue={teamName}
+                  helperText={teamNameError ? '0 < Team Name < 30' : null}
                 />
               </div>
             </form>

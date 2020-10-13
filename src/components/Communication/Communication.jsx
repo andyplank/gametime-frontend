@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { useSelector } from 'react-redux';
+
 import Header from '../Header/Header';
 import ChatBox from './ChatBox';
-import MemberList from './MemberList';
-import GroupList from './GroupList';
+import MemberList from './TeamList/MemberList';
+import GroupList from './TeamList/GroupList';
 
 import './Communication.scss';
+import networker from '../../utils/networker/networker';
 
 const Communication = () => {
   return (
@@ -16,32 +20,81 @@ const Communication = () => {
 };
 
 const Content = () => {
-  const temp = [
-    { name: 'Andy', id: '1' },
-    { name: 'Jim', id: '2' },
-    { name: 'Daniel', id: '3' },
-    { name: 'Jon', id: '4' }
-  ];
-  const temp2 = [
-    {
-      name: 'Varsity',
-      id: '10',
-      isGroup: true,
-      members: [temp[0], temp[1]]
-    },
-    {
-      name: 'JV',
-      id: '11',
-      isGroup: true,
-      members: []
-    }
-  ];
-  // const { isAuthenticated } = useContext(AuthContext);
-  const [members] = useState(temp);
-  const [groups] = useState(temp2);
+  const [members, setMembers] = useState([]);
+  const [groups, setGroups] = useState([]);
 
   // For which group / player is being chatted with
   const [selected, setSelected] = useState({});
+
+  const selector = (store) => {
+    console.log(store);
+    return {
+      name:
+        store.teams.length > 0
+          ? store.teams[store.status.selected_team].name
+          : '',
+      role: store.teams.length > 0 ? store.teams[store.status.selected_team].role : '',
+      id: store.teams.length > 0 ? store.teams[store.status.selected_team].id : '',
+    };
+  }
+
+  const state = useSelector(selector);
+  console.log(state);
+
+  const fetchMembers = async () => {
+    const headers = {
+      'Content-Type': 'application/json',
+    }
+    const data = {
+      team: 1
+    };
+    const config = {
+      method: 'post',
+      url: 'http://54.235.234.147:8080/team/view/members',
+      headers: headers,
+      data: data
+    }
+    try {
+      const res = await networker(config);
+      if(res.status===200){
+        setMembers(res.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const fetchGroups = async () => {
+    const headers = {
+      'Content-Type': 'application/json',
+    }
+    const data = {
+      team: 1
+    };
+    const config = {
+      method: 'get',
+      url: 'http://54.235.234.147:8080/team/view/groups?id=1',
+      headers: headers,
+      data: data
+    }
+    try {
+      const res = await networker(config);
+      if(res.status===200){
+        setGroups(res.data.groups);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const refresh = () =>{
+    fetchGroups();
+    fetchMembers();
+  }
+
+  useEffect(() => {
+    refresh();
+  }, [])
 
   // For the group editor state
 
@@ -54,6 +107,7 @@ const Content = () => {
             groups={groups}
             selected={selected}
             setSelected={setSelected}
+            refresh={refresh}
           />
           <MemberList
             members={members}
@@ -62,7 +116,7 @@ const Content = () => {
           />
         </div>
         <div className="col-9">
-          <ChatBox members={members} selected={selected} />
+          <ChatBox members={members} selected={selected} refresh={refresh} />
         </div>
       </div>
     </div>
