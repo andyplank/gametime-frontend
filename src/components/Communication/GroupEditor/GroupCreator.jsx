@@ -86,7 +86,7 @@ const GroupCreator = (props) => {
                   key={`creator-${member.user_id}`}
                   type="checkbox"
                   id={member.user_id}
-                  label={member.name}
+                  label={`${member.first_name  } ${  member.last_name}`}
                   onChange={handleCheck}
                 />
               ))}

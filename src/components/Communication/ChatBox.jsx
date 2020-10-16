@@ -54,12 +54,16 @@ const ChatBox = () => {
     setEditorVis(true);
   };
 
-  if (selected.name === undefined) {
+  if (selected.constructor !== Object || Object.entries(selected).length === 0) {
     return (
       <div className="center w-100 h-100">
         <h4>Please select an option from the left</h4>
       </div>
     );
+  }
+
+  if(selected.name === undefined){
+    selected.name = `${selected.first_name} ${selected.last_name}`
   }
 
   return (
@@ -123,6 +127,5 @@ const ChatBox = () => {
   );
 };
 
-ChatBox.propTypes = {
-};
+ChatBox.propTypes = {};
 export default ChatBox;

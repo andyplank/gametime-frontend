@@ -29,21 +29,6 @@ const Content = () => {
   const [groups, setGroups] = useState(temp2);
   const [selected, setSelected] = useState({});
 
-  // Type checking
-  const updateMembers = (newMembers) => {
-    if(!Array.is(newMembers)){
-      return;
-    }
-    setMembers(newMembers);
-  }
-
-  const updateGroups = (newGroups) => {
-    if(!Array.is(newGroups)){
-      return;
-    }
-    setGroups(newGroups);
-  }
-
   const selector = (store) => {
     return {
       name:
@@ -55,12 +40,12 @@ const Content = () => {
     };
   }
 
+  // eslint-disable-next-line no-unused-vars
   const state = useSelector(selector);
-  console.log(state);
 
   const refresh = () => {
-    fetchMembers();
-    fetchGroups();
+    fetchMembers(setMembers);
+    fetchGroups(setGroups);
   }
 
   useEffect(() => {
@@ -71,9 +56,9 @@ const Content = () => {
     <CommContext.Provider
       value={{
       members,
-      updateMembers,
+      setMembers,
       groups,
-      updateGroups,
+      setGroups,
       selected,
       setSelected,
       refresh

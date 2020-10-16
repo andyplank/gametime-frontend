@@ -15,14 +15,14 @@ const MemberList = () => {
     <div className="py-2">
       <h4 className="px-2">Members</h4>
       <ul className="list-group">
-        {members.map((item) => (
+        {members.map((member) => (
           <button
             type="button"
-            className={selected.user_id === item.user_id ? 'px-4 selected' : 'px-4 click'}
-            key={item.user_id}
-            onClick={() => handleClick(item)}
+            className={selected.user_id === member.user_id ? 'px-4 selected' : 'px-4 click'}
+            key={member.user_id}
+            onClick={() => handleClick(member)}
           >
-            {item.name}
+            {member.first_name + " " + member.last_name}
           </button>
       ))}
       </ul>

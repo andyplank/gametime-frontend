@@ -29,8 +29,8 @@ const GroupEditor = (props) => {
   
   useEffect(() => {
     const temp = [];
-    if(selected.members !== undefined && Array.isArray(selected.members)){
-      selected.members.forEach(member => {
+    if(selected.users !== undefined && Array.isArray(selected.users)){
+      selected.users.forEach(member => {
         temp.push(member.user_id);
       });
     }
@@ -88,7 +88,7 @@ const GroupEditor = (props) => {
                   key={`editor-${member.user_id}`}
                   type="checkbox"
                   id={member.user_id}
-                  label={member.name}
+                  label={`${member.first_name  } ${  member.last_name}`}
                   defaultChecked={initMembers.includes(member.user_id)}
                   onChange={handleCheck}
                 />
