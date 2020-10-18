@@ -15,7 +15,7 @@ import {
   } from 'react-bootstrap';
 
 import PlayersDisplay from './PlayersDisplay';
-import { getPlayers, getTeamData, createTeam, editTeam, getTeamsForUser } from '../../utils/team/team';
+import { getTeamData, createTeam, editTeam } from '../../utils/team/team';
 
 const headerStyle = {
 textAlign: 'center',
@@ -35,20 +35,18 @@ class TeamManagementContent extends React.Component {
         inviteLink: `${window.location.hostname}:8080/#/joinTeam`
       };
     }
-  
+
+
+  //pass in teamId from redux into getTeamData
     async componentDidMount() {
-      const { team } = this.props;
       this.fetchPlayers();
-      await getTeamsForUser(3);
-      this.setState({ teamName: team.name ? team.name : "" })
-      
-      await getTeamData(team.id);
     } 
     
+    // call getTeamData again to refresh the players list
     async fetchPlayers() {
-      const {team} = this.props;
-      const players = await getPlayers(2);
-      this.setState({ players: players });
+      const { teamId } = this.props;
+      const data = await getTeamData(teamId)
+      this.setState({ players: data.players });
     }
   
     validateFields() {
@@ -226,6 +224,7 @@ class TeamManagementContent extends React.Component {
   
     render() {
       const { players, teamName } = this.state;
+      const { teamId } = this.props;
       return(
           <div style={{ height: "100%" }}>
             {this.renderTeamEditModal()}
@@ -278,7 +277,7 @@ class TeamManagementContent extends React.Component {
                     <h2>Players</h2>
                     { players.length > 0 
                         ? (
-                            <PlayersDisplay players={players} refresh={() => this.fetchPlayers()} />
+                            <PlayersDisplay players={players} refresh={() => this.fetchPlayers()} teamId={teamId} />
                           ) 
                         : null
                     }
