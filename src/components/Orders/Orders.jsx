@@ -10,6 +10,10 @@ import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import IconButton from '@material-ui/core/IconButton';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
 import { useSelector } from 'react-redux';
 import Collapse from '@material-ui/core/Collapse';
 
@@ -84,6 +88,10 @@ const Orders = (props) => {
 	function Row(props) {
 		const { row } = props;
 		const [open, setOpen] = React.useState(false);
+
+		const handleStatusChange = (event) => {
+			// TODO call enpoint to chaqnge order status here
+		}
 	  
 		return (
 		  <React.Fragment>
@@ -94,7 +102,18 @@ const Orders = (props) => {
 				</IconButton>
 			  </TableCell>
 			  <TableCell component="th" scope="row">
-				{row.status}
+				<FormControl variant="outlined">
+					<InputLabel>Status</InputLabel>
+						<Select
+						label="Status"
+						value={1}
+						onChange={handleStatusChange}
+						>
+							<MenuItem value={1}>Pending</MenuItem>
+							<MenuItem value={2}>Shipped</MenuItem>
+							<MenuItem value={3}>Completed</MenuItem>
+						</Select>
+				</FormControl>
 			  </TableCell>
 			  <TableCell align="right">{row.buyer_email}</TableCell>
 			  <TableCell align="right">{row.buyer_address}</TableCell>
@@ -139,7 +158,6 @@ const Orders = (props) => {
 							<TableCell>Status</TableCell>
 							<TableCell align="right">Buyer's&nbsp;Email</TableCell>
 							<TableCell align="right">Address</TableCell>
-							<TableCell align="right">Items</TableCell>
 						</TableRow>
 						</TableHead>
 						<TableBody>
