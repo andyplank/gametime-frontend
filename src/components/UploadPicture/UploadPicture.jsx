@@ -1,14 +1,13 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
 import ImageUploader from "react-images-upload";
+import Button from '@material-ui/core/Button';
+import "./UploadPicture.css"
+
 
 const UploadPicture = (props) => {
   const [picture, setPicture] = useState(null);
-
-  useEffect(() => {
-    console.log("useffect called");
-    //call props function here to set picture
-  }, [picture])
+  const [showButtons, setShowButtons] = useState(false);
 
   function _handleReaderLoaded(readerEvt) {
     let binaryString = readerEvt.target.result;
@@ -16,15 +15,20 @@ const UploadPicture = (props) => {
   }
   
   const onDrop = (picture) => {
+    console.log("ondrop", picture)
     if(picture.length > 0){
       const reader = new FileReader();
       reader.onload = _handleReaderLoaded;
       reader.readAsBinaryString(picture[0]);
+      setShowButtons(true);
+    }
+    else{
+      setShowButtons(false);
     }
   }
 
   return (
-    <div>
+    <div style={{textAlign:"center"}}>
       <ImageUploader
           withIcon={false}
           onChange={onDrop}
@@ -35,6 +39,21 @@ const UploadPicture = (props) => {
           withLabel={false}
           withPreview={true}
       />
+      {
+        showButtons &&
+          <>
+            <Button 
+              className="picture-button"
+              variant="contained" 
+              color="primary"
+              onClick={() => props.savePicture(picture)}
+            >
+              Save
+            </Button>
+            &nbsp;
+          </>
+      }
+
     </div>
   )
 }
