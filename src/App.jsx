@@ -5,6 +5,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './components/Login/Login';
+import Register from './components/Register/Register';
 
 import Routes from './components/Routing/Routes';
 import reducer from './reducers/reducer';
@@ -19,6 +20,7 @@ const App = () => {
     <Router>
       <Switch>
         <Route path="/login" exact component={Login} />
+        <Route path="/register" exact component={Register} />
         
         <Routes />
       </Switch>
