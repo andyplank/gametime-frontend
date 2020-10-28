@@ -40,26 +40,17 @@ export async function fetchItems(setItems, id) {
 }
 
 
-export async function sendPlayerMessage(recepientID, message){
+export async function purchaseItems(email, address, items) {
     const data = {
-        sender_id: 1,
-        recipient_id: recepientID,
-        message: message
-      }
-
+        buyer_email: email,
+        buyer_address: address,
+        items: items
+    }
     const config = {
-      method: 'post',
-      url: `${url}/sendPlayerMessage`,
-      headers: headers,
-      data: data
+        method: 'post',
+        url: `${url}/store/order`,
+        headers: headers,
+        data: data
     }
-    try {
-        const res = await networker(config);
-        if(res.status===200){
-            return true;
-        }
-    } catch (err) {
-        return false;
-    }
-    return false;
+    return networker(config);
 }
