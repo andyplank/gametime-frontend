@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes, { object } from 'prop-types';
+import React, { useState, useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 
-import networker from '../../../utils/networker/networker';
+import {createGroup} from '../../../utils/comm/comm';
 
 import '../Communication.scss';
+import CommContext from '../context';
 
 const GroupCreator = (props) => {
   const {
-    editorVis, setEditorVis, members, refresh
+    editorVis, setEditorVis
   } = props;
+
+  const { members, refresh } = useContext(CommContext)
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertType, setAlertType] = useState('danger');
@@ -42,33 +45,19 @@ const GroupCreator = (props) => {
     }
   }
 
-  const handleClick = async () => {
+  const handleSubmit = async () => {
     setLoading(true);
-    const headers = {
-      'Content-Type': 'application/json',
-    }
-    const data = {
-      name: groupName,
-      team_id: 1,
-      member_ids: groupMembers
-    };
-    const config = {
-      method: 'post',
-      url: 'http://54.235.234.147:8080/group',
-      headers: headers,
-      data: data
-    }
-    try {
-      await networker(config);
+    const res = await createGroup(groupName, groupMembers);
+    setLoading(false);
+    if(res===true){
       setAlertMessage('Success!');
       setAlertType('success');
       setShowAlert(true);
-    } catch (err) {
+    } else {
       setAlertMessage('Error: Something went wrong');
       setAlertType('danger');
       setShowAlert(true);
     }
-    setLoading(false);
     refresh();
   };
 
@@ -97,7 +86,7 @@ const GroupCreator = (props) => {
                   key={`creator-${member.user_id}`}
                   type="checkbox"
                   id={member.user_id}
-                  label={member.name}
+                  label={`${member.first_name  } ${  member.last_name}`}
                   onChange={handleCheck}
                 />
               ))}
@@ -127,7 +116,7 @@ const GroupCreator = (props) => {
               type="submit"
               variant="primary"
               disabled={groupName==='' || isLoading}
-              onClick={!isLoading ? handleClick : null}
+              onClick={!isLoading ? handleSubmit : null}
             >
               {isLoading ? 'Saving...' : 'Save'}
             </Button>
@@ -139,14 +128,9 @@ const GroupCreator = (props) => {
   );
 };
 
-GroupCreator.defaultProps = {
-  members: [],
-};
 GroupCreator.propTypes = {
-  refresh: PropTypes.func.isRequired,
   editorVis: PropTypes.bool.isRequired,
   setEditorVis: PropTypes.func.isRequired,
-  members: PropTypes.arrayOf(object),
 };
 
 export default GroupCreator;
