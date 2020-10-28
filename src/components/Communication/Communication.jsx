@@ -7,14 +7,18 @@ import MemberList from './TeamList/MemberList';
 import GroupList from './TeamList/GroupList';
 
 import './Communication.scss';
-import networker from '../../utils/networker/networker';
-  
+
+import CommContext from './context';
+
+import {fetchMembers, fetchGroups} from '../../utils/comm/comm'
+
+
 const Communication = () => {
 
-  const [members, setMembers] = useState([]);
-  const [groups, setGroups] = useState([]);
-
-  // For which group / player is being chatted with
+  const temp = [{ name: 'Andy', user_id: '1' }, { name: 'Jim', user_id: '2' }, { name: 'Daniel', user_id: '3' }, { name: 'Jon', user_id: '4' }];
+  const temp2 = [{ name: 'Varsity', group_id: '10', members:[temp[0], temp[1]] }, { name: 'JV', group_id: '11', members: [] }];
+  const [members, setMembers] = useState(temp);
+  const [groups, setGroups] = useState(temp2);
   const [selected, setSelected] = useState({});
 
   const selector = (store) => {
@@ -24,93 +28,46 @@ const Communication = () => {
           ? store.teams[store.status.selected_team].name
           : '',
       role: store.teams.length > 0 ? store.teams[store.status.selected_team].role : '',
-      id: store.teams.length > 0 ? store.teams[store.status.selected_team].id : '',
+      team_id: store.teams.length > 0 ? store.teams[store.status.selected_team].id : '',
     };
   }
 
-  // TODO: Get team id
   // eslint-disable-next-line no-unused-vars
   const state = useSelector(selector);
 
-  const fetchMembers = async () => {
-    const headers = {
-      'Content-Type': 'application/json',
-    }
-    const data = {
-      team: 1
-    };
-    const config = {
-      method: 'post',
-      url: 'http://54.235.234.147:8080/team/view/members',
-      headers: headers,
-      data: data
-    }
-    try {
-      const res = await networker(config);
-      if(res.status===200){
-        setMembers(res.data);
-      }
-    } catch (err) {
-      setMembers([]);
-    }
-  }
-
-  const fetchGroups = async () => {
-    const headers = {
-      'Content-Type': 'application/json',
-    }
-    const data = {
-      team: 1
-    };
-    const config = {
-      method: 'get',
-      url: 'http://54.235.234.147:8080/team/view/groups?id=1',
-      headers: headers,
-      data: data
-    }
-    try {
-      const res = await networker(config);
-      if(res.status===200){
-        setGroups(res.data.groups);
-      }
-    } catch (err) {
-      setGroups([]);
-    }
-  }
-
-  const refresh = () =>{
-    fetchGroups();
-    fetchMembers();
+  const refresh = () => {
+    fetchMembers(setMembers);
+    fetchGroups(setGroups);
   }
 
   useEffect(() => {
     refresh();
   }, [])
 
-  // For the group editor state
-
   return (
-    <div className="container-fluid fill-vert">
-      <div className="row flex-fill">
-        <div className="col-3 bg-Primary px-0">
-          <GroupList
-            members={members}
-            groups={groups}
-            selected={selected}
-            setSelected={setSelected}
-            refresh={refresh}
-          />
-          <MemberList
-            members={members}
-            selected={selected}
-            setSelected={setSelected}
-          />
-        </div>
-        <div className="col-9">
-          <ChatBox members={members} selected={selected} refresh={refresh} />
+    <CommContext.Provider
+      value={{
+      members,
+      setMembers,
+      groups,
+      setGroups,
+      selected,
+      setSelected,
+      refresh
+    }}
+    >
+      <div className="container-fluid fill-vert">
+        <div className="row flex-fill">
+          <div className="col-3 bg-Primary px-0">
+            <GroupList />
+            <MemberList />
+          </div>
+          <div className="col-9">
+            <ChatBox />
+          </div>
         </div>
       </div>
-    </div>
+    </CommContext.Provider>
   );
 };
 
