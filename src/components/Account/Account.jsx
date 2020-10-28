@@ -7,21 +7,13 @@ import Button from '@material-ui/core/Button';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Modal from 'react-bootstrap/Modal';
 import TextField from '@material-ui/core/TextField';
-import Header from '../Header/Header';
 import { addPhoneNumber, removePhoneNumber } from '../../utils/user/user';
 import './Account.scss';
 import { removeFromTeam, creatTeam } from '../../utils/team/team';
 
-const Account = () => {
-  return (
-    <>
-      <Header />
-      <Content />
-    </>
-  );
-};
 
-const Content = () => {
+const Account = () => {
+
   function selector(store) {
     console.log(store);
     return {

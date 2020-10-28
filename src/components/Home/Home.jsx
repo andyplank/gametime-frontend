@@ -1,19 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import Header from '../Header/Header';
 import './Home.scss';
 
-const Home = () => {
-  return (
-    <>
-      <Header />
-      <Content />
-    </>
-  );
-};
 
-const Content = () => {
+const Home = () => {
+
   function selector(store) {
     return {
       name:
@@ -28,17 +20,13 @@ const Content = () => {
   console.log(state);
 
   return (
-    <>
-      <div>
-        <Jumbotron className="text-center">
-          <h1>
-            Welcome to Gametime!
-          </h1>
-        </Jumbotron>
-        <div className="half-screen" />
-      </div>
-
-    </>
+    <div className="">
+      <Jumbotron className="text-center">
+        <h1>
+          Welcome to Gametime!
+        </h1>
+      </Jumbotron>
+    </div>
   );
 };
 

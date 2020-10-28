@@ -10,11 +10,12 @@ import JoinTeamPage from '../TeamManagement/JoinTeamPage';
 import NotFound from './NotFound';
 import Private from './Private';
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 const Routes = () => {
 
   return (
-    <div>
+    <div className="">
       <Header />
       <Switch>
         {/* <Route path="/logout" exact component={Logout} /> */}
@@ -22,13 +23,14 @@ const Routes = () => {
         <Route path="/account" exact component={Account} />
         <Route path="/home" exact component={Home} />
         <Route path="/team" exact component={TeamManagement} />
-        <Private path="/communication" exact component={Communication} />
+        <Private path="/message" exact component={Communication} />
         {/* <Route path="/documentation" exact component={Documentation} /> */}
         {/* <Route path="/resources" exact component={Resources} /> */}
         <Route path="/joinTeam" exact component={JoinTeamPage} />
         <Route path="/" exact component={Landing} />
         <Route component={NotFound} />
       </Switch>
+      <Footer />
     </div>
   );
 };

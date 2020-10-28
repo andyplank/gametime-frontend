@@ -3,7 +3,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './components/Login/Login';
 
 import Routes from './components/Routing/Routes';
@@ -17,8 +17,11 @@ const App = () => {
 
   return (
     <Router>
-      <Route path="/login" exact component={Login} />
-      <Routes />
+      <Switch>
+        <Route path="/login" exact component={Login} />
+        
+        <Routes />
+      </Switch>
     </Router>
   );
 };

@@ -13,7 +13,6 @@ import {
   Row,
   Col,
 } from 'react-bootstrap';
-import Header from '../Header/Header';
 import PlayersDisplay from './PlayersDisplay';
 import { getPlayers, getTeamData, createTeam, editTeam, getTeamsForUser } from '../../utils/team/team';
 import TeamManagementContent from './TeamManagementContent';
@@ -22,7 +21,6 @@ const TeamManagement = () => {
 
   return (
     <>
-      <Header />
       <TeamManagementContent />
     </>
   );

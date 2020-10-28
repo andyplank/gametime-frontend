@@ -2,24 +2,15 @@ import React, { useState, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import Header from '../Header/Header';
 import ChatBox from './ChatBox';
 import MemberList from './TeamList/MemberList';
 import GroupList from './TeamList/GroupList';
 
 import './Communication.scss';
 import networker from '../../utils/networker/networker';
-
+  
 const Communication = () => {
-  return (
-    <>
-      <Header />
-      <Content />
-    </>
-  );
-};
 
-const Content = () => {
   const [members, setMembers] = useState([]);
   const [groups, setGroups] = useState([]);
 
