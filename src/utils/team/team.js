@@ -41,8 +41,7 @@ export async function getTeamData(teamId) {
     }
 
     const res = await axios(config);
-
-    console.log("team data", res);
+    return res;
 }
 
 export async function getTeamsForUser(userId) {
@@ -57,8 +56,7 @@ export async function getTeamsForUser(userId) {
     }
 
     const res = await axios(config);
-    console.log("teams", res.data.teams)
-
+    
     return res.data.teams;
 }
 
@@ -80,8 +78,7 @@ export async function createTeam(ownerId, name) {
     }
 
     const res = await axios(config);
-
-    console.log(res);
+    return res;
 }
 
 export async function editTeam(teamId, name) {
@@ -102,8 +99,7 @@ export async function editTeam(teamId, name) {
     }
 
     const res = await axios(config);
-
-    console.log("edit team", res);
+    return res;
 }
 
 export async function joinTeam(teamId, userId) {
@@ -123,31 +119,9 @@ export async function joinTeam(teamId, userId) {
     }
 
     const res = await axios(config);
-
-    console.log(res);
+    return res;
 }
 
-export async function removeFromTeam(teamId, userId) {
-    const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': auth    }
-
-    const data = {
-        team: teamId,
-        user: userId
-    }
-
-    const config = {
-        method: 'post',
-        url: `http://54.235.234.147:8080/team/remove`,
-        headers: headers,
-        data: data
-    }
-
-    const res = await axios(config);
-
-    console.log(res);
-}
 
 export async function editPermission(teamId, userId, permission) {
     const headers = {
@@ -168,6 +142,5 @@ export async function editPermission(teamId, userId, permission) {
     }
 
     const res = await axios(config);
-
-    console.log(res);
+    return res;
 }

@@ -15,7 +15,22 @@ $secondary-color-light: #fbfbff;
   background-color: $primary-color-light;
 }
 
-.bg-white {
+.bg-secondary-dark{
+  background-color: $secondary-color-dark;
+}
+
+.full-screen {
   min-height: 100vh;
-  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.fill-vert {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-fill {
+  flex:1;
 }

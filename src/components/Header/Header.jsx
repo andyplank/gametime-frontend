@@ -70,7 +70,6 @@ const SignedInHeader = () => {
       return { label: team.name, value: index };
     });
   }
-  console.log(storeState);
   return (
     <>
       {/* Navigation Header */}

@@ -19,6 +19,17 @@ const GroupList = () => {
     setEditorVis(true);
   };
 
+  const groupButtons = groups.map((item) => (
+    <button
+      type="button"
+      className={selected.group_id === item.group_id ? 'px-4 selected' : 'px-4 click'}
+      key={item.group_id}
+      onClick={() => handleClick(item)}
+    >
+      {item.name}
+    </button>
+))
+
   return (
     <div className="pt-2">
       <GroupCreator
@@ -41,16 +52,11 @@ const GroupList = () => {
       </div>
 
       <ul className="list-group">
-        {groups.map((item) => (
-          <button
-            type="button"
-            className={selected.group_id === item.group_id ? 'px-4 selected' : 'px-4 click'}
-            key={item.group_id}
-            onClick={() => handleClick(item)}
-          >
-            {item.name}
-          </button>
-      ))}
+        {groups.length !== 0 ? groupButtons : (
+          <li className="px-4 py-2">
+            <h6>There are no groups, try creating one!</h6>
+          </li>
+      )}
       </ul>
     </div>
   );
