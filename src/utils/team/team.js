@@ -57,7 +57,6 @@ export async function getTeamsForUser(userId) {
     }
 
     const res = await axios(config);
-    console.log("teams", res.data.teams)
 
     return res.data.teams;
 }

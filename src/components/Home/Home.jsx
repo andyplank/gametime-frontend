@@ -16,8 +16,9 @@ const Home = () => {
     };
   }
 
+  // TODO: Use this
+  // eslint-disable-next-line no-unused-vars
   const state = useSelector(selector);
-  console.log(state);
 
   return (
     <div className="fill-vert">
