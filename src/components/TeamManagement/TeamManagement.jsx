@@ -20,9 +20,9 @@ import TeamManagementContent from './TeamManagementContent';
 const TeamManagement = () => {
 
   return (
-    <>
+    <div className="fill-vert">
       <TeamManagementContent />
-    </>
+    </div>
   );
 };
 

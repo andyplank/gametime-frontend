@@ -18,7 +18,6 @@ const Communication = () => {
   const [selected, setSelected] = useState({});
 
   const selector = (store) => {
-    console.log(store);
     return {
       name:
         store.teams.length > 0
@@ -29,8 +28,9 @@ const Communication = () => {
     };
   }
 
+  // TODO: Get team id
+  // eslint-disable-next-line no-unused-vars
   const state = useSelector(selector);
-  console.log(state);
 
   const fetchMembers = async () => {
     const headers = {
@@ -51,7 +51,7 @@ const Communication = () => {
         setMembers(res.data);
       }
     } catch (err) {
-      console.log(err);
+      setMembers([]);
     }
   }
 
@@ -74,7 +74,7 @@ const Communication = () => {
         setGroups(res.data.groups);
       }
     } catch (err) {
-      console.log(err);
+      setGroups([]);
     }
   }
 
@@ -90,8 +90,8 @@ const Communication = () => {
   // For the group editor state
 
   return (
-    <div className="container-fluid">
-      <div className="row fullScreen">
+    <div className="container-fluid fill-vert">
+      <div className="row flex-fill">
         <div className="col-3 bg-Primary px-0">
           <GroupList
             members={members}

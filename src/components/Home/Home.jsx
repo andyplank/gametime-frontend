@@ -20,7 +20,7 @@ const Home = () => {
   console.log(state);
 
   return (
-    <div className="">
+    <div className="fill-vert">
       <Jumbotron className="text-center">
         <h1>
           Welcome to Gametime!

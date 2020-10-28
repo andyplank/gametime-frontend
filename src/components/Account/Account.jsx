@@ -59,7 +59,7 @@ const Account = () => {
   const iconSize = 256;
 
   return (
-    <div className="">
+    <div className="page">
       <Jumbotron className="">
         <div className="row justify-content-center">
           <div className="d-flex flex-column align-items-center">

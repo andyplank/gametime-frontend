@@ -1,12 +1,12 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 
-const ProtectedRoute = (props) => {
+const Private = (props) => {
     // TODO: Prop validation 
     // eslint-disable-next-line react/prop-types
     const { Component } = props;
-    const isAuthenticated = false;
-    
+    const isAuthenticated = true;
+
     return isAuthenticated ? (
       <Component />
     ) : (
@@ -14,4 +14,4 @@ const ProtectedRoute = (props) => {
     );
 }
 
-export default ProtectedRoute;
+export default Private;

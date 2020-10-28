@@ -15,7 +15,7 @@ import Footer from '../Footer/Footer';
 const Routes = () => {
 
   return (
-    <div className="">
+    <div className="full-screen">
       <Header />
       <Switch>
         {/* <Route path="/logout" exact component={Logout} /> */}
@@ -23,7 +23,7 @@ const Routes = () => {
         <Route path="/account" exact component={Account} />
         <Route path="/home" exact component={Home} />
         <Route path="/team" exact component={TeamManagement} />
-        <Private path="/message" exact component={Communication} />
+        <Private path="/message" exact Component={Communication} />
         {/* <Route path="/documentation" exact component={Documentation} /> */}
         {/* <Route path="/resources" exact component={Resources} /> */}
         <Route path="/joinTeam" exact component={JoinTeamPage} />
