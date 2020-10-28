@@ -1,9 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom'
 
 const Private = (props) => {
-    // TODO: Prop validation 
-    // eslint-disable-next-line react/prop-types
     const { Component } = props;
     const isAuthenticated = true;
 
@@ -14,4 +13,8 @@ const Private = (props) => {
     );
 }
 
+
+Private.propTypes = {
+  Component: PropTypes.elementType.isRequired
+}
 export default Private;
