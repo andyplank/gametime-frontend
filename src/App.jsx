@@ -25,29 +25,31 @@ const App = () => {
   const login = () => setAuth(!isAuthenticated);
 
   return (
-    <AuthContext.Provider
-      value={{
+    <div className="bg-white">
+      <AuthContext.Provider
+        value={{
         isAuthenticated,
         login,
       }}
-    >
-      <Router>
-        <Switch>
-          <Route path="/login" exact component={Login} />
-          {/* <Route path="/logout" exact component={Logout} /> */}
-          <Route path="/register" exact component={Register} />
-          <Route path="/account" exact component={Account} />
-          <Route path="/home" exact component={Home} />
-          <Route path="/TeamManagement" exact component={TeamManagement} />
-          <Route path="/communication" exact component={Communication} />
-          {/* <Route path="/documentation" exact component={Documentation} /> */}
-          {/* <Route path="/resources" exact component={Resources} /> */}
-          <Route path="/store" exact component={Store} />
-          <Route path="/joinTeam" exact component={JoinTeamPage} />
-          <Route path="/" exact component={Landing} />
-        </Switch>
-      </Router>
-    </AuthContext.Provider>
+      >
+        <Router>
+          <Switch>
+            <Route path="/login" exact component={Login} />
+            {/* <Route path="/logout" exact component={Logout} /> */}
+            <Route path="/register" exact component={Register} />
+            <Route path="/account" exact component={Account} />
+            <Route path="/home" exact component={Home} />
+            <Route path="/TeamManagement" exact component={TeamManagement} />
+            <Route path="/communication" exact component={Communication} />
+            {/* <Route path="/documentation" exact component={Documentation} /> */}
+            {/* <Route path="/resources" exact component={Resources} /> */}
+            <Route path="/store" exact component={Store} />
+            <Route path="/joinTeam" exact component={JoinTeamPage} />
+            <Route path="/" exact component={Landing} />
+          </Switch>
+        </Router>
+      </AuthContext.Provider>
+    </div>
   );
 };
 

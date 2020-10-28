@@ -1,5 +1,9 @@
 import React, {useState} from 'react';
 
+import { Jumbotron , Container } from 'react-bootstrap';
+
+
+
 import Header from '../Header/Header';
 
 import StoreContext from './context';
@@ -44,7 +48,13 @@ const Content = () => {
                 setCart
             }}
         >
+          <Jumbotron fluid>
+            <Container>
+              <h1>Welcome to the team store</h1>
+            </Container>
+          </Jumbotron>
           <ItemGrid />
+          <div className="break" />
         </StoreContext.Provider>
       </div>
     );

@@ -14,3 +14,8 @@ $secondary-color-light: #fbfbff;
 .bg-Primary {
   background-color: $primary-color-light;
 }
+
+.bg-white {
+  min-height: 100vh;
+  background-color: white;
+}
