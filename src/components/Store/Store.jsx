@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import Header from '../Header/Header';
 
 import StoreContext from './context';
+import ItemGrid from './ItemGrid';
 
 import './Store.scss';
 
@@ -43,7 +44,7 @@ const Content = () => {
                 setCart
             }}
         >
-          Store
+          <ItemGrid />
         </StoreContext.Provider>
       </div>
     );
