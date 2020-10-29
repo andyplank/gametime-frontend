@@ -200,8 +200,8 @@ const Content = () => {
                 ${state.last_name ? state.last_name : ""}
                 `
               }
-              <UploadPicture savePicture={onSavePicture}/>
             </span>
+            <UploadPicture savePicture={onSavePicture}/>
           </div>
         </div>
       </Jumbotron>

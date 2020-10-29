@@ -8,6 +8,7 @@ import "./UploadPicture.css"
 const UploadPicture = (props) => {
   const [picture, setPicture] = useState(null);
   const [showButtons, setShowButtons] = useState(false);
+  const [pictureObj, setPictureObj] = useState(null);
 
   function _handleReaderLoaded(readerEvt) {
     let binaryString = readerEvt.target.result;
@@ -16,6 +17,7 @@ const UploadPicture = (props) => {
   
   const onDrop = (picture) => {
     console.log("ondrop", picture)
+    setPictureObj(picture);
     if(picture.length > 0){
       const reader = new FileReader();
       reader.onload = _handleReaderLoaded;
@@ -27,9 +29,16 @@ const UploadPicture = (props) => {
     }
   }
 
+  const onSavePicture = () => {
+    props.savePicture(picture);
+    setPictureObj(null);
+    setShowButtons(false);
+  }
+
   return (
     <div style={{textAlign:"center"}}>
-      <ImageUploader
+      {!pictureObj &&
+        <ImageUploader
           withIcon={false}
           onChange={onDrop}
           imgExtension={[".jpg"]}
@@ -37,8 +46,9 @@ const UploadPicture = (props) => {
           singleImage={true}
           buttonText="Edit Picture"
           withLabel={false}
-          withPreview={true}
-      />
+          withPreview={false}
+        />
+      }
       {
         showButtons &&
           <>
@@ -46,11 +56,11 @@ const UploadPicture = (props) => {
               className="picture-button"
               variant="contained" 
               color="primary"
-              onClick={() => props.savePicture(picture)}
+              onClick={() => onSavePicture()}
             >
               Save
             </Button>
-            &nbsp;
+            <p>File Name: {pictureObj[0].name}</p>
           </>
       }
 
