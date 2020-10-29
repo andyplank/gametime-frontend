@@ -11,6 +11,7 @@ import Header from '../Header/Header';
 import { addPhoneNumber, removePhoneNumber } from '../../utils/user/user';
 import './Account.scss';
 import { removeFromTeam, createTeam } from '../../utils/team/team';
+import UploadPicture from '../UploadPicture/UploadPicture';
 
 const Account = () => {
   return (
@@ -150,6 +151,8 @@ const Content = () => {
       setErrorMsg(message);
     }
   }
+
+
   const iconSize = 256;
 
   return (
@@ -164,6 +167,7 @@ const Content = () => {
                 ${state.last_name ? state.last_name : ""}
                 `
               }
+              <UploadPicture/>
             </span>
           </div>
         </div>
