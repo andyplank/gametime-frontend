@@ -19,13 +19,16 @@ export async function getUser(user_id) {
     return null;
   }
 
+  console.log(response)
+
   const user = {
     id: response.data.user_id,
-    first_name: response.data.name.split(' ')[0],
-    last_name: response.data.name.split(' ')[1],
+    first_name: response.data.first_name,
+    last_name: response.data.last_name,
     email_address: response.data.email,
     default_phone_number: response.data.phone_number,
     optional_phone_numbers: response.data.extra_phone_numbers,
+    teams: response.data.teams
   };
 
   return user;

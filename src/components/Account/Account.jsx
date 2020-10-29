@@ -24,88 +24,93 @@ const Account = () => {
 
 const CreateTeamModal = () => {
   function selector(store) {
-    console.log(store);
     return {
       id: store.user.id ? store.user.id : 1,
+      teams: store.teams
     };
   }
 
+  const dispatch = useDispatch();
   const state = useSelector(selector);
-    const [show, setShow] = useState(false);
-    const [teamNameError, setTeamNameError] = useState(false);
-    const [teamName, setTeamName] = useState("");
 
-    function handleCreateClose() {
-      console.log("closing team modal");
+  const [show, setShow] = useState(false);
+  const [teamNameError, setTeamNameError] = useState(false);
+  const [teamName, setTeamName] = useState("");
+
+  function handleCreateClose() {
+    console.log("closing team modal");
+    setTeamName("");
+    setShow(false);
+  }
+
+  async function handleSaveTeamCreate() {
+    if(teamName && teamName.length > 0 && teamName.length <= 30){
+      let team_id = await createTeam(state.id, teamName);
+      console.log("teamid",team_id)
+      const newTeam = {name: teamName, permission_level: 2, team_id: team_id};
+      dispatch({ type: 'SET_TEAMS', payload: state.teams.concat(newTeam)});
       setTeamName("");
       setShow(false);
     }
-
-    async function handleSaveTeamCreate() {
-      if(teamName && teamName.length > 0 && teamName.length <= 30){
-        createTeam(state.id, teamName);
-        setShow(false);
-        //update redux state too
-      }
-      else{
-        setTeamNameError(true);
-      }
-      
+    else{
+      setTeamNameError(true);
     }
+    
+  }
 
-    return (
-      <div style={{paddingLeft: '3%'}}>
-        <Button
-          className="btn-team"
-          variant="contained"
-          color="primary"
-          startIcon={<AddCircleOutlineIcon />}
-          onClick={() => setShow(true)}
-        >
-          Create Team
-        </Button>
-        <Modal
-          show={show}
-          onHide={() => handleCreateClose()}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Create Team</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <form>
-              <div style={{ paddingBottom: '5%' }}>
-                <TextField
-                  variant="outlined"
-                  label="Team Name"
-                  error={teamNameError}
-                  onChange={(event) =>
-                    setTeamName(event.target.value)
-                  }
-                  helperText={teamNameError ? "0 < Team Name <= 30" : ""}
-                  value={teamName}
-                />
-              </div>
-            </form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => handleCreateClose()}
-            >
-              Close
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => handleSaveTeamCreate()}
-            >
-              Create
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
-    );
+  return (
+    <div style={{paddingLeft: '3%'}}>
+      <Button
+        className="btn-team"
+        variant="contained"
+        color="primary"
+        startIcon={<AddCircleOutlineIcon />}
+        onClick={() => setShow(true)}
+      >
+        Create Team
+      </Button>
+      <Modal
+        show={show}
+        onHide={() => handleCreateClose()}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Create Team</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form>
+            <div style={{ paddingBottom: '5%' }}>
+              <TextField
+                variant="outlined"
+                label="Team Name"
+                error={teamNameError}
+                onChange={(event) =>
+                  setTeamName(event.target.value)
+                }
+                helperText={teamNameError ? "0 < Team Name <= 30" : ""}
+                value={teamName}
+              />
+            </div>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => handleCreateClose()}
+          >
+            Close
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleSaveTeamCreate()}
+          >
+            Create
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
 }
 
 const Content = () => {

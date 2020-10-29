@@ -1,5 +1,6 @@
 import networker from '../networker/networker';
 
+
 export async function getTeamData(teamId) {
     const headers = {
         'Content-Type': 'application/json'
@@ -10,7 +11,7 @@ export async function getTeamData(teamId) {
     }
 
     const config = {
-        method: 'post',
+        method: 'get',
         url: 'http://54.235.234.147:8080/team/view/data',
         headers: headers,
         data: data
@@ -19,23 +20,6 @@ export async function getTeamData(teamId) {
     const res = await networker(config);
     console.log("team data", res);
     return res;
-}
-
-export async function getTeamsForUser(userId) {
-    const headers = {
-        'Content-Type': 'application/json',
-    }
-
-    const config = {
-        method: 'get',
-        url: `http://54.235.234.147:8080/user/teams?id=${userId}`,
-        headers: headers,
-    }
-
-    const res = await networker(config);
-    console.log("teams", res.data.teams)
-
-    return res.data.teams;
 }
 
 export async function createTeam(ownerId, name) {
@@ -57,7 +41,7 @@ export async function createTeam(ownerId, name) {
 
     const res = await networker(config);
 
-    console.log(res);
+    return res.data.team_id;
 }
 
 export async function editTeam(teamId, name) {
@@ -110,11 +94,10 @@ export async function removeFromTeam(teamId, userId) {
 
     const data = {
         team: teamId,
-        user: userId
     }
 
     const config = {
-        method: 'post',
+        method: 'delete',
         url: `http://54.235.234.147:8080/team/remove`,
         headers: headers,
         data: data
