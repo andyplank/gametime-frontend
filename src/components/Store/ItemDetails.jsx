@@ -67,7 +67,7 @@ const ItemDetails = () => {
                 <div>
                   <Link to={`/${teamId}/store/checkout`}>
                     <Button>
-                      Purchase
+                      Checkout
                     </Button>
                   </Link>
 

@@ -41,17 +41,19 @@ export async function fetchItems(setItems, id) {
 }
 
 
-export async function purchaseItems(email, address, items) {
-    const data = {
-        buyer_email: email,
-        buyer_address: address,
+export async function purchaseItems(buyer_info, items) {
+    const data = { 
+        ...buyer_info, 
         items: items
     }
-    const config = {
-        method: 'post',
-        url: `${url}/store/order`,
-        headers: headers,
-        data: data
-    }
-    return networker(config);
+    // const config = {
+    //     method: 'post',
+    //     url: `${url}/store/order`,
+    //     headers: headers,
+    //     data: data
+    // }
+    console.log(data);
+    return true;
+    // TODO: Link API
+    // return networker(config);
 }

@@ -4,8 +4,6 @@ import { Jumbotron , Container, Row, Col } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import StoreContext from './context';
 
-
-
 import './Store.scss';
 
 const ItemGrid = () => {

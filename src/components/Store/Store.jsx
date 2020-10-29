@@ -12,7 +12,6 @@ import CheckOut from './CheckOut';
 
 import { fetchItems } from '../../utils/store/store'
 
-
 import './Store.scss';
 
 const Store = () => {
@@ -46,6 +45,12 @@ const Store = () => {
       setCart(temp);
   };
 
+  const updateCart = (newCart) => {
+    if(Array.isArray(newCart)){
+      setCart(newCart)      
+    }
+  };
+
   const shoppingCartBadge = (
     <div className="wrap">
       <div className="absolute">
@@ -66,7 +71,7 @@ const Store = () => {
             cart,
             addCart,
             removeCart,
-            setCart
+            updateCart
           }}
       >
         {location.pathname!==`/${teamId}/store/cart` && shoppingCartBadge}
