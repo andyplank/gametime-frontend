@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Jumbotron } from 'react-bootstrap';
 import { MdAccountCircle, MdClose, MdArrowForward } from 'react-icons/md';
@@ -8,10 +8,12 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Modal from 'react-bootstrap/Modal';
 import TextField from '@material-ui/core/TextField';
 import Header from '../Header/Header';
-import { addPhoneNumber, removePhoneNumber } from '../../utils/user/user';
+import { addPhoneNumber, removePhoneNumber, getProfilePicture, setProfilePicture } from '../../utils/user/user';
 import './Account.scss';
 import { removeFromTeam, createTeam } from '../../utils/team/team';
 import UploadPicture from '../UploadPicture/UploadPicture';
+import Avatar from '@material-ui/core/Avatar';
+import { makeStyles } from '@material-ui/core/styles';
 
 const Account = () => {
   return (
@@ -130,6 +132,17 @@ const Content = () => {
   const dispatch = useDispatch();
   const [number, setNumber] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [profPicture, setProfPicture] = useState(null);
+
+  async function getPic(){
+    let p = await getProfilePicture(state.id);
+    setProfPicture(p);
+  }
+
+  useEffect(() => {
+    getPic();
+    console.log("pic", profPicture);
+  },[])
 
   async function onRemoveNumber(target) {
     // Call API to delete number
@@ -140,9 +153,9 @@ const Content = () => {
   }
 
   async function onRemoveTeam(target) {
-    const result = await removeFromTeam(target.id, state.id);
+    const result = await removeFromTeam(target.team_id, state.id);
     if(result){
-      dispatch({ type: 'REMOVE_TEAM', payload: target });
+      dispatch({ type: 'SET_TEAMS', payload:  state.teams.filter(t => t.team_id != target.team_id)});
     }
   }
 
@@ -158,18 +171,29 @@ const Content = () => {
   }
 
   async function onSavePicture(picture){
-    console.log("from account", picture);
+    const formattedPicture = `data:image/jpeg;base64,${picture}`
+    setProfilePicture(state.id, formattedPicture, profPicture == null);
+    setProfPicture(formattedPicture);
+
   }
 
-
   const iconSize = 256;
+
+  const useStyles = makeStyles((theme) => ({
+    large: {
+      width: theme.spacing(20),
+      height: theme.spacing(20),
+    },
+  }));
+
+  const classes = useStyles();
 
   return (
     <div className="">
       <Jumbotron className="">
         <div className="row justify-content-center">
           <div className="d-flex flex-column align-items-center">
-            <MdAccountCircle size={iconSize} />
+            <Avatar alt="pic" src={`${profPicture}`} className={classes.large}/>
             <span className="account-title">
               {
                 `${state.first_name} 

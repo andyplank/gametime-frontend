@@ -45,7 +45,7 @@ class TeamManagementContent extends React.Component {
     // call getTeamData again to refresh the players list
     async fetchPlayers() {
       const { teamId } = this.props;
-      const data = await getTeamData(teamId)
+      // const data = await getTeamData(1)
       this.setState({ players: data.players });
     }
   

@@ -82,3 +82,46 @@ export async function removePhoneNumber(user_id, phone_number) {
 
   return true;
 }
+
+/**
+ * Gets current profile picture of user
+ */
+export async function getProfilePicture(user_id) {
+  const endpoint = 'http://54.235.234.147:8080/user/profilePicture';
+
+  const data = {
+    id: user_id,
+  };
+
+  const response = await networker.get(endpoint, data);
+
+  if (response.status !== 200) {
+    return false;
+  }
+
+  console.log("returned pic", response)
+
+  return response.data.profile_picture;
+}
+
+export async function setProfilePicture(user_id, picture, isFirst) {
+  const endpoint = 'http://54.235.234.147:8080/user/profilePicture';
+
+  const data = {
+    id: user_id,
+    profile_picture: picture
+  }
+
+  if(isFirst){
+    const response = await networker.post(endpoint, data);
+    if(response.status !== 200){
+      return false;
+    }
+    return response;
+  }
+    const response = await networker.put(endpoint, data);
+    if(response.status !== 200){
+      return false;
+    }
+    return response;
+}

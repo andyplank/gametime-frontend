@@ -94,18 +94,21 @@ export async function removeFromTeam(teamId, userId) {
 
     const data = {
         team: teamId,
+        user: userId
     }
 
     const config = {
-        method: 'delete',
+        method: 'post',
         url: `http://54.235.234.147:8080/team/remove`,
         headers: headers,
         data: data
     }
 
     const res = await networker(config);
-
-    console.log(res);
+    if(res.status !== 200){
+        return null;
+    }
+    return res;
 }
 
 export async function editPermission(teamId, userId, permission) {
