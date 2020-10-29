@@ -68,12 +68,10 @@ class TeamManagementContent extends React.Component {
   
     handleTeamEditClick(){
       this.setState({ showTeamEdit: true })
-      console.log("edit clicked")
     }
   
     handleTeamCreateClick(){
       this.setState({ showTeamCreate: true })
-      console.log("create clicked")
     }
   
     handleTeamInviteClick() {
@@ -94,7 +92,6 @@ class TeamManagementContent extends React.Component {
     async handleSaveTeamEdits() {
       const { teamName } = this.state;
       if(this.validateFields()){
-        console.log("saving team", teamName)
         await editTeam(2, teamName);
         this.setState({ showTeamEdit: false });
       }

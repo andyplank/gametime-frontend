@@ -31,6 +31,5 @@ export default async function getTeams(user_id) {
       role: dict[team.privilege_level],
     })
   );
-  console.log("teams from login",teams);
   return teams;
 }
