@@ -1,11 +1,13 @@
 import React, {useContext} from 'react';
 import { Jumbotron, Button  } from 'react-bootstrap';
+import { useParams, Link } from 'react-router-dom';
 
 import StoreContext from './context';
 
 const Cart = () => {
 
     const { cart, removeCart } = useContext(StoreContext);
+    const { teamId }  = useParams();
 
     const handleRemove = (item) => {
       removeCart(item);
@@ -32,6 +34,10 @@ const Cart = () => {
               There are no items in your cart!
             </h2>
           )}
+        </div>
+        <div className="text-center py-4">
+          <Link to={`/${teamId}/store/`} className="no-link"><h5>Return to store</h5></Link>
+
         </div>
       </div>
     );
