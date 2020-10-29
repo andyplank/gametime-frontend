@@ -7,9 +7,10 @@ import { Route, Switch, Redirect, Link, useParams, useLocation } from 'react-rou
 import StoreContext from './context';
 import Cart from './Cart';
 import ItemGrid from './ItemGrid';
-import Purchase from './Purchase';
+import ItemDetails from './ItemDetails';
+import CheckOut from './CheckOut';
 
-import {fetchItems} from '../../utils/store/store'
+import { fetchItems } from '../../utils/store/store'
 
 
 import './Store.scss';
@@ -38,14 +39,11 @@ const Store = () => {
       setCart(temp);
   };
 
-  const removeCart = (item) => {
+  const removeCart = (index) => {
       const temp = cart;
-      const index = temp.indexOf(item);
-      if (index > -1) {
-        temp.splice(index, 1);
-        setcartLen(temp.length);
-        setCart(temp);
-      }
+      temp.splice(index, 1);
+      setcartLen(temp.length);
+      setCart(temp);
   };
 
   const shoppingCartBadge = (
@@ -74,8 +72,9 @@ const Store = () => {
         {location.pathname!==`/${teamId}/store/cart` && shoppingCartBadge}
          
         <Switch>
-          <Route path="/:teamId/store/item/:id" component={Purchase} />
+          <Route path="/:teamId/store/item/:id" component={ItemDetails} />
           <Route path="/:teamId/store/cart/" exact component={Cart} />
+          <Route path="/:teamId/store/checkout/" exact component={CheckOut} />
           <Route path="/:teamId/store" exact component={ItemGrid} />
           <Route component={() => (<Redirect to={{ pathname: `/${teamId}/store` }} />)} />
         </Switch>
