@@ -1,3 +1,13 @@
 .break {
     min-height: 10vh;
 }
+
+.wrap {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+    top: 2vh;
+    right: 2vw;
+  }

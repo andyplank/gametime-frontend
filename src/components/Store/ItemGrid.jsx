@@ -1,31 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 
+import { Jumbotron , Container, Row, Col } from 'react-bootstrap';
+import { Link, useParams } from 'react-router-dom';
+import StoreContext from './context';
 
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-
-import { Link } from 'react-router-dom';
-
-import {fetchItems} from '../../utils/store/store'
 
 
 import './Store.scss';
 
 const ItemGrid = () => {
-  const [items, setItems] = useState([]);
+  
+  const { teamId } = useParams();
 
-  const refresh = () => {
-    fetchItems(setItems, 1);
-  }
-
-  useEffect(() => {
-    refresh();
-  }, [])
-
+  const { items } = useContext(StoreContext);
+  
   const grids = items.map((item) => (
-    <Col xs={6} md={4} lg={3}>
-      <Link to="/"><img alt="Logo" className="w-100 h-100" /></Link>
+    <Col xs={6} md={4} lg={3} key={item.item_id}>
+      <Link to={`/${teamId}/store/item/${item.item_id}`}><img alt="Logo" className="w-100 h-100" src={item.picture} /></Link>
       <div className="text-center">
         <h6>{item.name}</h6>
       </div>
@@ -49,6 +40,11 @@ const ItemGrid = () => {
 
   return (
     <div>
+      <Jumbotron fluid>
+        <Container>
+          <h1>Welcome to the team store</h1>
+        </Container>
+      </Jumbotron>
       <Container className="text-center"> 
         <Row>
           {grids}

@@ -7,15 +7,16 @@ const headers = {
 
 
 export async function fetchItems(setItems, id) {
-    const item = {
-        item_id: '1234',
-        name: 'T-Shirt',
-        types: ['Small', 'Medium', 'etc'],
-        picture: 'URL',
-        price: 12.00,
-    }
+
     const temp = [];
     for(let i=0; i<3; i+=1){
+        const item = {
+            item_id: i,
+            name: 'T-Shirt',
+            types: ['Small', 'Medium', 'etc'],
+            picture: 'https://images.asos-media.com/products/asos-design-plus-satin-regular-shirt-in-animal-rock-print/20718856-1-brown?$n_320w$&wid=317&fit=constrain',
+            price: 12.00,
+        }
         temp.push(item);
     }
     setItems(temp);
@@ -27,7 +28,7 @@ export async function fetchItems(setItems, id) {
     try {
         const res = await networker(config);
         if(res.status===200){
-            setItems(res.data.users);
+            setItems(res.data);
         } else {
             return false;
         }

@@ -6,6 +6,7 @@ import Landing from '../Landing/Landing';
 import Communication from '../Communication/Communication';
 import TeamManagement from '../TeamManagement/TeamManagement';
 import JoinTeamPage from '../TeamManagement/JoinTeamPage';
+import Store from '../Store/Store';
 import NotFound from './NotFound';
 import Private from './Private';
 import Header from '../Header/Header';
@@ -26,6 +27,7 @@ const Routes = () => {
         {/* <Route path="/documentation" exact component={Documentation} /> */}
         {/* <Route path="/resources" exact component={Resources} /> */}
         
+        <Route path="/:teamId/store/" component={Store} />
         <Route path="/home" exact component={Home} />
         <Route path="/" exact component={Landing} />
         <Route component={NotFound} />
