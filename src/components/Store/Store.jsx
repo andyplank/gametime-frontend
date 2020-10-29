@@ -21,7 +21,7 @@ const Store = () => {
 
   const [items, setItems] = useState([]);
   const [cart, setCart] = useState([]);
-  const [cartLen, setcartLen] = useState(0);
+  const [cartLen, setCartLen] = useState(0);
 
   const refresh = () => {
     fetchItems(setItems, teamId);
@@ -34,20 +34,21 @@ const Store = () => {
   const addCart = (item) => {
       const temp = cart;
       temp.push(item);
-      setcartLen(temp.length);
+      setCartLen(temp.length);
       setCart(temp);
   };
 
   const removeCart = (index) => {
       const temp = cart;
       temp.splice(index, 1);
-      setcartLen(temp.length);
+      setCartLen(temp.length);
       setCart(temp);
   };
 
   const updateCart = (newCart) => {
     if(Array.isArray(newCart)){
-      setCart(newCart)      
+      setCartLen(newCart.length);
+      setCart(newCart);
     }
   };
 
