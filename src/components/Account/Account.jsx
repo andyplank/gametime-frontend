@@ -152,6 +152,10 @@ const Content = () => {
     }
   }
 
+  async function onSavePicture(picture){
+    console.log("from account", picture);
+  }
+
 
   const iconSize = 256;
 
@@ -167,7 +171,7 @@ const Content = () => {
                 ${state.last_name ? state.last_name : ""}
                 `
               }
-              <UploadPicture/>
+              <UploadPicture savePicture={onSavePicture}/>
             </span>
           </div>
         </div>
