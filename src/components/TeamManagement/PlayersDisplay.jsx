@@ -20,7 +20,6 @@ class PlayersDisplay extends React.Component {
         this.state = {
             adminChecked: [],
             showPlayerRemove: false,
-            // TODO: use this in api call playerToRemove: null,
             removeMsg: "",
             player: null,
         };
@@ -65,7 +64,6 @@ class PlayersDisplay extends React.Component {
     from the team?
   </> 
         });
-        // this.setState({ playerToRemove: player})
     }
 
     async handlePlayerRemove() {
@@ -112,8 +110,9 @@ class PlayersDisplay extends React.Component {
                   variant="outlined"
                 >
                   <CardHeader
-                    title={player.name}
+                    title={`${player.first_name} ${player.last_name}`}
                     action={
+                      player.permission_level !== 2 && 
                       (
                         <IconButton 
                           style={{ outline: "none" }}

@@ -1,25 +1,27 @@
 import networker from '../networker/networker';
 
 
-export async function getTeamData(teamId) {
+export async function getTeamData(teamId, playerId) {
     const headers = {
         'Content-Type': 'application/json'
     }
 
     const data = {
-        team: teamId
+        team: teamId,
+        player: playerId
     }
 
     const config = {
-        method: 'get',
+        method: 'post',
         url: 'http://54.235.234.147:8080/team/view/data',
         headers: headers,
         data: data
     }
 
     const res = await networker(config);
-    console.log("team data", res);
-    return res;
+    console.log(res.data);
+
+    return res.data;
 }
 
 export async function createTeam(ownerId, name) {
@@ -50,8 +52,8 @@ export async function editTeam(teamId, name) {
     }
 
     const data = {
-        name: name,
-        team: teamId
+        team: teamId,
+        name: name
     }
 
     const config = {
