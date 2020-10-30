@@ -25,7 +25,6 @@ const TeamManagement = () => {
         state.teams.map(t => {
           if(t.team_id == state.teams[state.selected].team_id){
             t.name = teamName;
-            return t
           }
           return t
         })
