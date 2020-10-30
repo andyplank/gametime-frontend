@@ -32,7 +32,7 @@ class TeamManagementContent extends React.Component {
         showTeamInvite: false,
         teamNameError: false,
         teamName: '',
-        inviteLink: `${window.location.hostname}:8080/#/joinTeam`
+        inviteLink: `${window.location.hostname}:8080/?#/team/join/${props.teamId}`
       };
     }
 

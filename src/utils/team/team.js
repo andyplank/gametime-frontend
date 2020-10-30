@@ -68,20 +68,15 @@ export async function editTeam(teamId, name) {
     console.log("edit team", res);
 }
 
-export async function joinTeam(teamId, userId) {
+export async function joinTeam(teamId) {
     const headers = {
         'Content-Type': 'application/json',
     }
 
-    const data = {
-        user: userId
-    }
-
     const config = {
-        method: 'post',
+        method: 'get',
         url: `http://54.235.234.147:8080/team/join/${teamId}`,
-        headers: headers,
-        data: data
+        headers: headers
     }
 
     const res = await networker(config);
