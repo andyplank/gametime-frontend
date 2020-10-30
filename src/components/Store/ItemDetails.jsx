@@ -39,7 +39,7 @@ const ItemDetails = () => {
       <Container>
         <Row>
           <Col md={4}>
-            <img src={item.picture} alt={item.name} />
+            <img src={item.picture} alt={item.name} className="w-100" />
           </Col>
           <Col md={8}>
             <div className="py-4">

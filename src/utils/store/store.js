@@ -14,7 +14,7 @@ export async function fetchItems(setItems, id) {
             item_id: i,
             name: 'T-Shirt',
             types: ['Small', 'Medium', 'etc'],
-            picture: 'https://images.asos-media.com/products/asos-design-plus-satin-regular-shirt-in-animal-rock-print/20718856-1-brown?$n_320w$&wid=317&fit=constrain',
+            picture: 'https://www.newjerseysbuy.com/wp-content/uploads/2020/01/cheap-nba-jerseys-free-shipping-Mitchell-Ness-Stephon-Marbury-Minnesota-Timberwolves-Hardwood-Classics-Throwback-NBA-Swingman-Jersey-inexpensive-sports-jerseys.jpg',
             price: 12.00,
         }
         temp.push(item);

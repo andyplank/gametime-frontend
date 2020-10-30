@@ -68,9 +68,12 @@ const CheckOut = () => {
         <Container className="pb-4 mb-4">
           <h2>Success!</h2>
           <h4>Your order has been placed</h4>
-          <Link to={`/${teamId}/store/`} className="no-link my-2">
-            <Button variant="outline-secondary">Return to store</Button>
-          </Link>
+          <div className="mt-3">
+            <Link to={`/${teamId}/store/`} className="no-link">
+              <Button variant="outline-secondary">Return to store</Button>
+            </Link>
+          </div>
+
         </Container>
       </div>
     )
@@ -83,9 +86,11 @@ const CheckOut = () => {
         <Container className="pb-4 mb-4">
           <h2>Your cart is empty</h2>
           <h4>Try adding an item first</h4>
-          <Link to={`/${teamId}/store/`} className="no-link my-2">
-            <Button variant="outline-secondary">Return to store</Button>
-          </Link>
+          <div className="mt-3">
+            <Link to={`/${teamId}/store/`} className="no-link">
+              <Button variant="outline-secondary">Return to store</Button>
+            </Link>
+          </div>
         </Container>
       </div>
     )
