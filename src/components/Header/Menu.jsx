@@ -49,7 +49,7 @@ const Menu = (props) => {
               Management
             </Row>
           </ListGroup.Item>
-          <ListGroup.Item onClick={() => history.push('communication')}>
+          <ListGroup.Item onClick={() => history.push('message')}>
             <Row className="align-items-center">
               <MdMessage size={linkIconSize} className="mx-sm-2" />
               Messaging
