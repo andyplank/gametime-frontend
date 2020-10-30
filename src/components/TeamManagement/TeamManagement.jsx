@@ -3,7 +3,6 @@ import React from 'react';
 import './TeamManagement.scss';
 import './TeamManagement.css';
 import { useSelector, useDispatch } from 'react-redux';
-import Header from '../Header/Header';
 import TeamManagementContent from './TeamManagementContent';
 
 const TeamManagement = () => {
@@ -35,7 +34,6 @@ const TeamManagement = () => {
   
   return (
     <>
-      <Header />
       <TeamManagementContent 
         teamId={state.teams[state.selected].team_id} 
         playerId={state.user}
