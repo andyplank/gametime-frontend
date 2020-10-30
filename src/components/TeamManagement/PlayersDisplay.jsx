@@ -34,13 +34,10 @@ class PlayersDisplay extends React.Component {
             return false;
         });
         this.setState({ adminChecked: arr });
-        console.log(players);
     }
 
     async handleAdminChange(index) {
-        // TODO
         const { players, teamId } = this.props;
-        console.log(`toggling admin for ${players[index].name}`)
         const { adminChecked } = this.state;
         const newArr = adminChecked;
         newArr[index] = !newArr[index];
@@ -73,8 +70,6 @@ class PlayersDisplay extends React.Component {
         this.setState({ showPlayerRemove: false });
         await removeFromTeam(teamId, player.user_id);
         await refresh();
-        console.log(player);
-
     }
 
     render(){

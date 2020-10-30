@@ -65,7 +65,6 @@ class TeamManagementContent extends React.Component {
   
     handleTeamEditClick(){
       this.setState({ showTeamEdit: true })
-      console.log("edit clicked")
     }
   
   
@@ -82,7 +81,6 @@ class TeamManagementContent extends React.Component {
       const { teamName } = this.state;
       const { teamId, dispatchTeamEdit } = this.props;
       if(this.validateFields()){
-        console.log("saving team", teamName)
         await editTeam(teamId, teamName);
         this.setState({ showTeamEdit: false });
         dispatchTeamEdit(teamName);

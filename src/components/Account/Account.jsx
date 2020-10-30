@@ -7,22 +7,12 @@ import Button from '@material-ui/core/Button';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Modal from 'react-bootstrap/Modal';
 import TextField from '@material-ui/core/TextField';
-import Header from '../Header/Header';
 import { addPhoneNumber, removePhoneNumber, getProfilePicture, setProfilePicture } from '../../utils/user/user';
 import './Account.scss';
 import { removeFromTeam, createTeam } from '../../utils/team/team';
 import UploadPicture from '../UploadPicture/UploadPicture';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
-
-const Account = () => {
-  return (
-    <>
-      <Header />
-      <Content />
-    </>
-  );
-};
 
 const CreateTeamModal = () => {
   function selector(store) {
@@ -115,9 +105,8 @@ const CreateTeamModal = () => {
   );
 }
 
-const Content = () => {
+const Account = () => {
   function selector(store) {
-    console.log(store);
     return {
       id: store.user.id ? store.user.id : 1,
       first_name: store.user.first_name,
@@ -189,7 +178,7 @@ const Content = () => {
   const classes = useStyles();
 
   return (
-    <div className="">
+    <div className="page">
       <Jumbotron className="">
         <div className="row justify-content-center">
           <div className="d-flex flex-column align-items-center">

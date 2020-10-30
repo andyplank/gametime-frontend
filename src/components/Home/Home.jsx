@@ -1,19 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import Header from '../Header/Header';
 import './Home.scss';
 
-const Home = () => {
-  return (
-    <>
-      <Header />
-      <Content />
-    </>
-  );
-};
 
-const Content = () => {
+const Home = () => {
+
   function selector(store) {
     return {
       name:
@@ -24,21 +16,18 @@ const Content = () => {
     };
   }
 
+  // TODO: Use this
+  // eslint-disable-next-line no-unused-vars
   const state = useSelector(selector);
-  console.log(state);
 
   return (
-    <>
-      <div>
-        <Jumbotron className="text-center">
-          <h1>
-            Welcome to Gametime!
-          </h1>
-        </Jumbotron>
-        <div className="half-screen" />
-      </div>
-
-    </>
+    <div className="fill-vert">
+      <Jumbotron className="text-center">
+        <h1>
+          Welcome to Gametime!
+        </h1>
+      </Jumbotron>
+    </div>
   );
 };
 
