@@ -43,7 +43,7 @@ const Menu = (props) => {
               Homepage
             </Row>
           </ListGroup.Item>
-          <ListGroup.Item onClick={() => history.push('TeamManagement')}>
+          <ListGroup.Item onClick={() => history.push('team')}>
             <Row className="align-items-center">
               <MdAssignmentTurnedIn size={linkIconSize} className="mx-sm-2" />
               Management
