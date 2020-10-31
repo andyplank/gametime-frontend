@@ -8,6 +8,7 @@ import StoreContext from './context';
 import Cart from './Cart';
 import ItemGrid from './ItemGrid';
 import ItemDetails from './ItemDetails';
+import ItemForm from './ItemForm';
 import CheckOut from './CheckOut';
 
 import { fetchItems } from '../../utils/store/store'
@@ -78,6 +79,7 @@ const Store = () => {
         {location.pathname!==`/${teamId}/store/cart` && shoppingCartBadge}
          
         <Switch>
+          <Route path="/:teamId/store/edit" component={ItemForm} />
           <Route path="/:teamId/store/item/:id" component={ItemDetails} />
           <Route path="/:teamId/store/cart/" exact component={Cart} />
           <Route path="/:teamId/store/checkout/" exact component={CheckOut} />
