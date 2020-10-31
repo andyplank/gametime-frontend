@@ -128,7 +128,6 @@ const Account = () => {
 
   useEffect(() => {
     getPic();
-    console.log("pic", profPicture);
   },[])
 
   async function onRemoveNumber(target) {

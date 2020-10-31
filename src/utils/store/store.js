@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import networker from '../networker/networker';
 
 const url = 'http://54.235.234.147:8080';
@@ -45,13 +46,12 @@ export async function purchaseItems(buyer_info, items) {
         ...buyer_info, 
         items: items
     }
-    // const config = {
-    //     method: 'post',
-    //     url: `${url}/store/order`,
-    //     headers: headers,
-    //     data: data
-    // }
-    console.log(data);
+    const config = {
+        method: 'post',
+        url: `${url}/store/order`,
+        headers: headers,
+        data: data
+    }
     return true;
     // TODO: Link API
     // return networker(config);
@@ -68,7 +68,6 @@ export async function createItem(team_id, item) {
         headers: headers,
         data: data
     }
-    console.log(config);
     return true;
     // TODO: Link API
     // return networker(config);
@@ -85,7 +84,6 @@ export async function updateItem(team_id, item) {
         headers: headers,
         data: data
     }
-    console.log(config);
     return true;
     // TODO: Link API
     // return networker(config);
@@ -102,7 +100,6 @@ export async function deleteItem(team_id, item_id) {
         headers: headers,
         data: data
     }
-    console.log(config);
     return true;
     // TODO: Link API
     // return networker(config);

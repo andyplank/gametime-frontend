@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import {Jumbotron, Row, Col, Container, Button} from 'react-bootstrap';
-import UploadPicture from '../UploadPicture/UploadPicture';
 import ItemForm from './ItemForm';
 import Confirm from './Confirm';
 
-import { fetchItems } from '../../utils/store/store'
+import { fetchItems, updateItem } from '../../utils/store/store'
 
 const Management = () => {
     
     const [items, setItems] = useState([]);
     const [selected, setSelected] = useState({});
     const [show, setShow] = useState(false);
+    const [showDetails, setShowDetails] = useState(false);
+
+    // TODO: Fix team_id
+    const team_id = 0;
 
     const refresh = () => {
         fetchItems(setItems, 0);
@@ -20,21 +23,21 @@ const Management = () => {
         refresh();
     }, [])
 
-    async function onSavePicture(picture){
-        const formattedPicture = `data:image/jpeg;base64,${picture}`
-        console.log(formattedPicture);
-    }
-  
     const handleDetails = (item) => {
-        console.log(item);
+      setSelected(item);
+      setShowDetails(true);
+      console.log(item);
     }
 
-    const handleShow = (item) => {
-        console.log(item);
+    const handleShow = async (item) => {
+        item.active = !item.active;
+        const res = await updateItem(team_id, item);
+        if (res===true){
+            console.log("nice");
+        }
     }
 
     const handleDelete = (item) => {
-        console.log(item);
         setSelected(item);
         setShow(true);
     }
@@ -63,6 +66,7 @@ const Management = () => {
           show={show}
           setShow={setShow}
           item={selected}
+          team_id={team_id}
         />
         <Jumbotron className="text-center">
           <h3>Store Manager</h3>
@@ -84,8 +88,7 @@ const Management = () => {
           </Row>
           {itemMap}
         </Container>
-        <ItemForm />
-        <UploadPicture savePicture={onSavePicture} />
+        <ItemForm show={showDetails} setShow={setShowDetails} />
       </div>
     )
 };
