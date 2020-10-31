@@ -20,7 +20,6 @@ const JoinTeamPage = () => {
           let teamId = "";
           teamId += window.location.href;
           teamId = teamId.substr(teamId.lastIndexOf("/")+1);
-          console.log(teamId);
           await joinTeam(teamId);
         }
         join();

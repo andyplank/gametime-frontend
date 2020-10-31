@@ -5,7 +5,6 @@ const headers = {
     'Content-Type': 'application/json'
 }
 
-
 export async function fetchItems(setItems, id) {
 
     const temp = [];
@@ -53,6 +52,57 @@ export async function purchaseItems(buyer_info, items) {
     //     data: data
     // }
     console.log(data);
+    return true;
+    // TODO: Link API
+    // return networker(config);
+}
+
+export async function createItem(team_id, item) {
+    const data = {
+        ...item,
+        team_id: team_id,
+    }
+    const config = {
+        method: 'delete',
+        url: `${url}/store/create`,
+        headers: headers,
+        data: data
+    }
+    console.log(config);
+    return true;
+    // TODO: Link API
+    // return networker(config);
+}
+
+export async function updateItem(team_id, item) {
+    const data = {
+        ...item,
+        team_id: team_id,
+    }
+    const config = {
+        method: 'put',
+        url: `${url}/store/update`,
+        headers: headers,
+        data: data
+    }
+    console.log(config);
+    return true;
+    // TODO: Link API
+    // return networker(config);
+}
+
+export async function deleteItem(team_id, item_id) {
+    const data = {
+        team_id: team_id,
+        item_id: item_id
+    }
+    const config = {
+        method: 'delete',
+        url: `${url}/store/delete`,
+        headers: headers,
+        data: data
+    }
+    console.log(config);
     return true;
     // TODO: Link API
     // return networker(config);

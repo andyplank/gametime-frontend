@@ -1,0 +1,38 @@
+/* eslint-disable react/prop-types */
+import React from 'react';
+import { Modal, Button } from 'react-bootstrap';
+
+const Confirm = (props) => {
+
+    const {show, setShow, item} = props;
+
+    const handleClose = () => {
+        console.log(item);
+        setShow(false);
+    }
+
+    return (
+      <>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Confirm Delete?</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure you want to delete
+            {' '}
+            {item.name}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={handleClose}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    );
+}
+
+export default Confirm;

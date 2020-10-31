@@ -98,7 +98,7 @@ const CheckOut = () => {
 
   return (
 
-    <div>
+    <div className="py-4">
       <Container className="pb-4">
         <div className="text-center">
           <h2 className="border-bottom pb-2 mb-2">Cart</h2>
