@@ -4,7 +4,6 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { authenticate } from '../../utils/auth/auth';
 import { getUser } from '../../utils/user/user';
-import getTeams from '../../utils/teams/teams';
 import './Login.scss';
 
 const Login = () => {
@@ -41,8 +40,7 @@ const Login = () => {
     if (!error && success) {
       const user = await getUser(user_id);
       dispatch({ type: 'SET_USER', payload: user });
-      const teams = await getTeams(user_id);
-      dispatch({ type: 'SET_TEAMS', payload: teams });
+      dispatch({ type: 'SET_TEAMS', payload: user.teams });
       dispatch({ type: 'SET_SIGNED_IN', payload: true });
       // history.push('/home');
       history.push('/');

@@ -21,14 +21,14 @@ const Routes = () => {
         {/* <Route path="/logout" exact component={Logout} /> */}
         <Private path="/account" exact Component={Account} />
         <Private path="/team" exact Component={TeamManagement} />
-        <Private path="/message" exact Component={Communication} />
-        <Private path="/joinTeam" exact Component={JoinTeamPage} />     
+        <Private path="/message" exact Component={Communication} />    
            
         {/* <Route path="/documentation" exact component={Documentation} /> */}
         {/* <Route path="/resources" exact component={Resources} /> */}
         
         <Route path="/:teamId/store/" component={Store} />
         <Route path="/home" exact component={Home} />
+        <Private path="/team/join" Component={JoinTeamPage} /> 
         <Route path="/" exact component={Landing} />
         <Route component={NotFound} />
       </Switch>
