@@ -35,50 +35,47 @@ const ItemDetails = () => {
   }
 
   return (
-    <div>
-      <Container>
-        <Row>
-          <Col md={4}>
-            <img src={item.picture} alt={item.name} className="w-100" />
-          </Col>
-          <Col md={8}>
-            <div className="py-4">
-              <h2>{item.name}</h2>
-              <h3>{item.price}</h3>
-              <Form>
-                <Form.Group controlId="formGridState">
-                  <Form.Label>Type</Form.Label>
-                  <Form.Control
-                    as="select" 
-                    onChange={(e) => {setType(e.target.value)}}
-                  >
-                    {item.types && item.types.map(elm => {
+    <Container className="py-4">
+      <Row>
+        <Col md={4}>
+          <img src={item.picture} alt={item.name} className="w-100" />
+        </Col>
+        <Col md={8}>
+          <div className="py-4">
+            <h2>{item.name}</h2>
+            <h3>{item.price}</h3>
+            <Form>
+              <Form.Group controlId="formGridState">
+                <Form.Label>Type</Form.Label>
+                <Form.Control
+                  as="select" 
+                  onChange={(e) => {setType(e.target.value)}}
+                >
+                  {item.types && item.types.map(elm => {
                     return (<option key={elm}>{elm}</option>)
                   })}
-                  </Form.Control>
-                </Form.Group>
-                <div className="py-2">
-                  <Button
-                    onClick={() => {handleCart()}}
-                  >
-                    Add to cart
+                </Form.Control>
+              </Form.Group>
+              <div className="py-2">
+                <Button
+                  onClick={() => {handleCart()}}
+                >
+                  Add to cart
+                </Button>
+              </div>
+              <div>
+                <Link to={`/${teamId}/store/checkout`}>
+                  <Button>
+                    Checkout
                   </Button>
-                </div>
-                <div>
-                  <Link to={`/${teamId}/store/checkout`}>
-                    <Button>
-                      Checkout
-                    </Button>
-                  </Link>
+                </Link>
 
-                </div>
-              </Form>
-            </div>
-          </Col>
-        </Row>
-      </Container>
-      
-    </div>
+              </div>
+            </Form>
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

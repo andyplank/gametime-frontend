@@ -60,9 +60,7 @@ const Cart = () => {
         <div className="text-center py-4">
           <Link to={`/${teamId}/store/`} className="no-link">
             <Button variant="outline-secondary">Return to store</Button>
-
           </Link>
-
         </div>
       </div>
     );
