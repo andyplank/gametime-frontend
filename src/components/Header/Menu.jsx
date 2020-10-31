@@ -31,7 +31,7 @@ const Menu = (props) => {
               <div className="menu-account-text">
                 <span className="menu-account-heading">{`${first_name} ${last_name || ""}`}</span>
                 <span className="menu-account-subheading">
-                  {role.charAt(0).toUpperCase() + role.slice(1)}
+                  {role && role.charAt(0).toUpperCase() + role.slice(1)}
                 </span>
               </div>
             </Row>
@@ -43,13 +43,13 @@ const Menu = (props) => {
               Homepage
             </Row>
           </ListGroup.Item>
-          <ListGroup.Item onClick={() => history.push('TeamManagement')}>
+          <ListGroup.Item onClick={() => history.push('team')}>
             <Row className="align-items-center">
               <MdAssignmentTurnedIn size={linkIconSize} className="mx-sm-2" />
               Management
             </Row>
           </ListGroup.Item>
-          <ListGroup.Item onClick={() => history.push('communication')}>
+          <ListGroup.Item onClick={() => history.push('message')}>
             <Row className="align-items-center">
               <MdMessage size={linkIconSize} className="mx-sm-2" />
               Messaging

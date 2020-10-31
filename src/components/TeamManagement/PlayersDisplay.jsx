@@ -20,7 +20,6 @@ class PlayersDisplay extends React.Component {
         this.state = {
             adminChecked: [],
             showPlayerRemove: false,
-            // TODO: use this in api call playerToRemove: null,
             removeMsg: "",
             player: null,
         };
@@ -38,14 +37,13 @@ class PlayersDisplay extends React.Component {
     }
 
     async handleAdminChange(index) {
-        // TODO:
-        const { players } = this.props;
+        const { players, teamId } = this.props;
         const { adminChecked } = this.state;
         const newArr = adminChecked;
         newArr[index] = !newArr[index];
         this.setState({adminChecked: newArr});
         const perm = newArr[index] ? 1 : 0;
-        await editPermission(1, players[index].user_id, perm);
+        await editPermission(teamId, players[index].user_id, perm);
     };
 
     showRemoveModal(player){
@@ -63,15 +61,14 @@ class PlayersDisplay extends React.Component {
     from the team?
   </> 
         });
-        // this.setState({ playerToRemove: player})
     }
 
     async handlePlayerRemove() {
         // TODO call remove endpoint
         const { player } = this.state;
-        const { refresh } = this.props;
+        const { refresh, teamId } = this.props;
         this.setState({ showPlayerRemove: false });
-        await removeFromTeam(1, player.user_id);
+        await removeFromTeam(teamId, player.user_id);
         await refresh();
     }
 
@@ -108,8 +105,9 @@ class PlayersDisplay extends React.Component {
                   variant="outlined"
                 >
                   <CardHeader
-                    title={player.name}
+                    title={`${player.first_name} ${player.last_name}`}
                     action={
+                      player.permission_level !== 2 && 
                       (
                         <IconButton 
                           style={{ outline: "none" }}
