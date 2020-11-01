@@ -52,7 +52,7 @@ export async function purchaseItems(buyer_info, items) {
         headers: headers,
         data: data
     }
-    return true;
+    return false;
     // TODO: Link API
     // return networker(config);
 }

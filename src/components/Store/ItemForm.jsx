@@ -30,6 +30,7 @@ const ItemForm = (props) => {
 
   const onSubmit = async (data) => {
     setLoading(true);
+    console.log(data);
     // TODO: fetch data
     setLoading(false);
     if(data){
@@ -43,7 +44,7 @@ const ItemForm = (props) => {
 
   const closeModal = () => {
     setShowAlert(false);
-     setShow(false);
+    setShow(false);
   }
 
   return (
@@ -93,6 +94,27 @@ const ItemForm = (props) => {
               {errors.price && errors.price.message}
             </Form.Control.Feedback>
           </Form.Group>
+
+          <Form.Group>
+            <Form.Label>Picture</Form.Label>
+            <Form.Control 
+              type="file"
+              name="picture"
+              isValid={formState.isDirty.picture && !errors.picture}
+              isInvalid={errors.picture}
+              ref={register({
+                    required: "Required",
+                }
+              )}
+            />
+            <Form.Control.Feedback type="valid">
+              Looks Good
+            </Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              {errors.picture && errors.picture.message}
+            </Form.Control.Feedback>
+          </Form.Group>
+
           {/* <UploadPicture savePicture={onSavePicture} /> */}
           <Feedback 
             alertType={alertType}

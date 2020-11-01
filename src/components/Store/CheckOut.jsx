@@ -8,6 +8,7 @@ import { purchaseItems } from '../../utils/store/store';
 import StoreContext from './context';
 
 import StateOptions from './StateOptions';
+import Feedback from "../Feedback";
 
 const CheckOut = () => {
   const { register, handleSubmit, errors, formState, reset } = useForm({
@@ -37,7 +38,6 @@ const CheckOut = () => {
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertType, setAlertType] = useState('danger');
-  // const [alertMsg, setAlertMessage] = useState('');
   const [isLoading, setLoading] = useState(false);
 
   let total = 0;
@@ -106,7 +106,6 @@ const CheckOut = () => {
         {items}
         <h4>
           Total: $
-          {' '}
           {total}
         </h4>
       </Container>
@@ -265,10 +264,14 @@ const CheckOut = () => {
               Reset
             </Button>
           </Form.Group>
-
- 
-
         </Form> 
+        
+        <Feedback 
+          alertType={alertType}
+          showAlert={showAlert}
+          setShowAlert={setShowAlert}
+        />
+
       </Container>
 
     </div>
