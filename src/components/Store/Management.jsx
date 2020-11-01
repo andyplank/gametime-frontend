@@ -26,20 +26,17 @@ const Management = () => {
     const handleDetails = (item) => {
       setSelected(item);
       setShowDetails(true);
-      console.log(item);
     }
 
     const handleShow = async (item) => {
-        item.active = !item.active;
-        const res = await updateItem(team_id, item);
-        if (res===true){
-            console.log("nice");
-        }
+      item.active = !item.active;
+      // eslint-disable-next-line no-unused-vars
+      const res = await updateItem(team_id, item);
     }
 
     const handleDelete = (item) => {
-        setSelected(item);
-        setShow(true);
+      setSelected(item);
+      setShow(true);
     }
 
     const itemMap = items.map((elm, index) => (
@@ -68,10 +65,16 @@ const Management = () => {
           item={selected}
           team_id={team_id}
         />
+        <ItemForm
+          show={showDetails} 
+          setShow={setShowDetails}
+          item={selected}
+        />
         <Jumbotron className="text-center">
           <h3>Store Manager</h3>
         </Jumbotron>
         <Container>
+          <Button onClick={() => handleDetails({})}> Create New </Button>
           <Row className="text-center py-2 border-bottom h5">
             <Col>
               Item Name
@@ -88,7 +91,6 @@ const Management = () => {
           </Row>
           {itemMap}
         </Container>
-        <ItemForm show={showDetails} setShow={setShowDetails} />
       </div>
     )
 };

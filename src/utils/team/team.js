@@ -19,7 +19,6 @@ export async function getTeamData(teamId, playerId) {
     }
 
     const res = await networker(config);
-    console.log(res.data);
 
     return res.data;
 }
@@ -64,8 +63,8 @@ export async function editTeam(teamId, name) {
     }
 
     const res = await networker(config);
+    return res;
 
-    console.log("edit team", res);
 }
 
 export async function joinTeam(teamId) {
@@ -80,8 +79,8 @@ export async function joinTeam(teamId) {
     }
 
     const res = await networker(config);
+    return res;
 
-    console.log(res);
 }
 
 export async function removeFromTeam(teamId, userId) {
@@ -127,6 +126,6 @@ export async function editPermission(teamId, userId, permission) {
     }
 
     const res = await networker(config);
+    return res;
 
-    console.log(res);
 }

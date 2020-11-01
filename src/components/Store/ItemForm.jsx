@@ -1,12 +1,22 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Container, Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form, Modal } from 'react-bootstrap';
+import Feedback from '../Feedback';
 import UploadPicture from '../UploadPicture/UploadPicture';
 
 
 const ItemForm = (props) => {
-  const {show, setShow} = props;
+  const {show, setShow, item} = props;
+
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertType, setAlertType] = useState('danger');
+  const [isLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    reset(item)
+  }, [item]);
 
   const { register, handleSubmit, errors, formState, reset } = useForm({
     mode: 'all',
@@ -14,8 +24,8 @@ const ItemForm = (props) => {
   });
 
   async function onSavePicture(picture){
+    // eslint-disable-next-line no-unused-vars
     const formattedPicture = `data:image/jpeg;base64,${picture}`
-    console.log(formattedPicture);
   }
 
   const onSubmit = async (data) => {
@@ -23,39 +33,21 @@ const ItemForm = (props) => {
     // TODO: fetch data
     setLoading(false);
     if(data){
-      // setAlertMessage('Success!');
       setAlertType('success');
       setShowAlert(true);
     } else {
-      // setAlertMessage('Error: Something went wrong');
       setAlertType('danger');
       setShowAlert(true);
     }
-    handleClose();
   };
 
-  const handleClose = () => {
-    setShow(false);
-  }
-
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertType, setAlertType] = useState('danger');
-  // const [alertMsg, setAlertMessage] = useState('');
-  const [isLoading, setLoading] = useState(false);
-
-  // Order was completed
-  if(alertType === "success" && showAlert===true){
-    return (
-      <div className="text-center quarter">
-        <Container className="pb-4 mb-4">
-          <h2>Success!</h2>
-        </Container>
-      </div>
-    )
+  const closeModal = () => {
+    setShowAlert(false);
+     setShow(false);
   }
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={() => closeModal()}>
       <Modal.Header closeButton>
         <Modal.Title>Item Details</Modal.Title>
       </Modal.Header>
@@ -66,7 +58,6 @@ const ItemForm = (props) => {
             <Form.Label>Item Name</Form.Label>
             <Form.Control 
               type="text"
-              placeholder="T-Shirt"
               name="name"
               isValid={formState.touched.name && !errors.name}
               isInvalid={errors.name}
@@ -86,8 +77,7 @@ const ItemForm = (props) => {
           <Form.Group>
             <Form.Label>Price</Form.Label>
             <Form.Control 
-              type="text"
-              placeholder="1.00"
+              type="number"
               name="price"
               isValid={formState.touched.price && !errors.price}
               isInvalid={errors.price}
@@ -103,8 +93,12 @@ const ItemForm = (props) => {
               {errors.price && errors.price.message}
             </Form.Control.Feedback>
           </Form.Group>
-          <UploadPicture savePicture={onSavePicture} />
-
+          {/* <UploadPicture savePicture={onSavePicture} /> */}
+          <Feedback 
+            alertType={alertType}
+            showAlert={showAlert}
+            setShowAlert={setShowAlert}
+          />
         </Modal.Body>
         <Modal.Footer>
           <Form.Group className="py-2">
@@ -122,7 +116,7 @@ const ItemForm = (props) => {
               id="resetItemBtn"
               type="button"
               variant="secondary"
-              onClick={() => reset()}
+              onClick={() => { reset(); setShowAlert(false) }}
               className="mx-3"
             >
               Reset

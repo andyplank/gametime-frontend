@@ -9,9 +9,7 @@ const Confirm = (props) => {
 
     const handleClose = async () => {
         const res = await deleteItem(team_id, item.item_id);
-        if (res===true){
-            console.log("nice");
-        }
+        if (res===true)
         setShow(false);
     }
 
