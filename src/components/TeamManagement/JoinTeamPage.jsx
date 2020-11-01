@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react';
 import {useSelector} from 'react-redux';
+import {Redirect} from 'react-router-dom';
 import {joinTeam} from "../../utils/team/team";
+
 
 const JoinTeamPage = () => {
 
@@ -26,7 +28,7 @@ const JoinTeamPage = () => {
         join();
       },[]);
 
-    return state.signed_in && <p>You have successfully joined the team!</p>
+    return state.signed_in && <Redirect to={{ pathname: '/home' }} />
 };
 
 
