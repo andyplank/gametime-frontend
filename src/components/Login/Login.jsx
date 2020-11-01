@@ -1,9 +1,11 @@
+/* eslint-disable */
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { authenticate } from '../../utils/auth/auth';
+import login from '../../utils/auth/auth';
 import { getUser } from '../../utils/user/user';
+// import { getUser } from '../../utils/user/user';
 import './Login.scss';
 
 const Login = () => {
@@ -18,11 +20,13 @@ const Login = () => {
   const state = useSelector((store) => {
     return { signed_in: store.status.signed_in };
   });
+
   if (state.signed_in) {
     history.push('/');
   }
 
   async function handleSubmit() {
+    console.log('handle submit fired');
     // Do not allow multiple outstanding requests
     if (mutex) {
       return;
@@ -32,18 +36,21 @@ const Login = () => {
     setErrorMsg('');
 
     // Query login API
-    const { message, error, success, user_id } = await authenticate(
-      email,
-      password
-    );
+    const { message, error, success } = await login(email, password);
 
     if (!error && success) {
-      const user = await getUser(user_id);
-      dispatch({ type: 'SET_USER', payload: user });
-      dispatch({ type: 'SET_TEAMS', payload: user.teams });
-      dispatch({ type: 'SET_SIGNED_IN', payload: true });
-      // history.push('/home');
-      history.push('/');
+      const { success, error, user } = await getUser();
+      if (!error && success) {
+        const state = {
+          user: user,
+          status: {
+            signed_in: true,
+            selected_team: 0,
+          },
+        };
+        dispatch({ type: 'SET_STATE', payload: state });
+        history.push('/');
+      }
     } else {
       setErrorMsg(message);
       setMutex(false);

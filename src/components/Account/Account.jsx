@@ -7,7 +7,12 @@ import Button from '@material-ui/core/Button';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Modal from 'react-bootstrap/Modal';
 import TextField from '@material-ui/core/TextField';
-import { addPhoneNumber, removePhoneNumber, getProfilePicture, setProfilePicture } from '../../utils/user/user';
+import {
+  addPhoneNumber,
+  removePhoneNumber,
+  getProfilePicture,
+  setProfilePicture,
+} from '../../utils/user/user';
 import './Account.scss';
 import { removeFromTeam, createTeam } from '../../utils/team/team';
 import UploadPicture from '../UploadPicture/UploadPicture';
@@ -18,7 +23,7 @@ const CreateTeamModal = () => {
   function selector(store) {
     return {
       id: store.user.id ? store.user.id : 1,
-      teams: store.teams
+      teams: store.user.teams,
     };
   }
 
@@ -27,31 +32,29 @@ const CreateTeamModal = () => {
 
   const [show, setShow] = useState(false);
   const [teamNameError, setTeamNameError] = useState(false);
-  const [teamName, setTeamName] = useState("");
+  const [teamName, setTeamName] = useState('');
 
   function handleCreateClose() {
-    console.log("closing team modal");
-    setTeamName("");
+    console.log('closing team modal');
+    setTeamName('');
     setShow(false);
   }
 
   async function handleSaveTeamCreate() {
-    if(teamName && teamName.length > 0 && teamName.length <= 30){
+    if (teamName && teamName.length > 0 && teamName.length <= 30) {
       let team_id = await createTeam(state.id, teamName);
-      console.log("teamid",team_id)
-      const newTeam = {name: teamName, permission_level: 2, team_id: team_id};
-      dispatch({ type: 'SET_TEAMS', payload: state.teams.concat(newTeam)});
-      setTeamName("");
+      console.log('teamid', team_id);
+      const newTeam = { name: teamName, permission_level: 2, team_id: team_id };
+      dispatch({ type: 'SET_TEAMS', payload: state.teams.concat(newTeam) });
+      setTeamName('');
       setShow(false);
-    }
-    else{
+    } else {
       setTeamNameError(true);
     }
-    
   }
 
   return (
-    <div style={{paddingLeft: '3%'}}>
+    <div style={{ paddingLeft: '3%' }}>
       <Button
         className="btn-team"
         variant="contained"
@@ -61,10 +64,7 @@ const CreateTeamModal = () => {
       >
         Create Team
       </Button>
-      <Modal
-        show={show}
-        onHide={() => handleCreateClose()}
-      >
+      <Modal show={show} onHide={() => handleCreateClose()}>
         <Modal.Header closeButton>
           <Modal.Title>Create Team</Modal.Title>
         </Modal.Header>
@@ -75,10 +75,8 @@ const CreateTeamModal = () => {
                 variant="outlined"
                 label="Team Name"
                 error={teamNameError}
-                onChange={(event) =>
-                  setTeamName(event.target.value)
-                }
-                helperText={teamNameError ? "0 < Team Name <= 30" : ""}
+                onChange={(event) => setTeamName(event.target.value)}
+                helperText={teamNameError ? '0 < Team Name <= 30' : ''}
                 value={teamName}
               />
             </div>
@@ -103,7 +101,7 @@ const CreateTeamModal = () => {
       </Modal>
     </div>
   );
-}
+};
 
 const Account = () => {
   function selector(store) {
@@ -113,8 +111,8 @@ const Account = () => {
       last_name: store.user.last_name,
       email_address: store.user.email_address,
       default_phone_number: store.user.default_phone_number,
-      optional_phone_numbers: store.user.optional_phone_numbers,
-      teams: store.teams,
+      extra_phone_numbers: store.user.extra_phone_numbers,
+      teams: store.user.teams,
     };
   }
   const state = useSelector(selector);
@@ -123,15 +121,15 @@ const Account = () => {
   const [errorMsg, setErrorMsg] = useState('');
   const [profPicture, setProfPicture] = useState(null);
 
-  async function getPic(){
+  async function getPic() {
     let p = await getProfilePicture(state.id);
     setProfPicture(p);
   }
 
   useEffect(() => {
     getPic();
-    console.log("pic", profPicture);
-  },[])
+    console.log('pic', profPicture);
+  }, []);
 
   async function onRemoveNumber(target) {
     // Call API to delete number
@@ -143,8 +141,11 @@ const Account = () => {
 
   async function onRemoveTeam(target) {
     const result = await removeFromTeam(target.team_id, state.id);
-    if(result){
-      dispatch({ type: 'SET_TEAMS', payload:  state.teams.filter(t => t.team_id != target.team_id)});
+    if (result) {
+      dispatch({
+        type: 'SET_TEAMS',
+        payload: state.teams.filter((t) => t.team_id != target.team_id),
+      });
     }
   }
 
@@ -159,11 +160,10 @@ const Account = () => {
     }
   }
 
-  async function onSavePicture(picture){
-    const formattedPicture = `data:image/jpeg;base64,${picture}`
+  async function onSavePicture(picture) {
+    const formattedPicture = `data:image/jpeg;base64,${picture}`;
     setProfilePicture(state.id, formattedPicture, profPicture == null);
     setProfPicture(formattedPicture);
-
   }
 
   const iconSize = 256;
@@ -182,15 +182,17 @@ const Account = () => {
       <Jumbotron className="">
         <div className="row justify-content-center">
           <div className="d-flex flex-column align-items-center">
-            <Avatar alt="pic" src={`${profPicture}`} className={classes.large}/>
+            <Avatar
+              alt="pic"
+              src={`${profPicture}`}
+              className={classes.large}
+            />
             <span className="account-title">
-              {
-                `${state.first_name} 
-                ${state.last_name ? state.last_name : ""}
-                `
-              }
+              {`${state.first_name} 
+                ${state.last_name ? state.last_name : ''}
+                `}
             </span>
-            <UploadPicture savePicture={onSavePicture}/>
+            <UploadPicture savePicture={onSavePicture} />
           </div>
         </div>
       </Jumbotron>
@@ -215,7 +217,7 @@ const Account = () => {
           <span className="d-block py-2 account-heading">
             Registered Phone Numbers
           </span>
-          {state.optional_phone_numbers.map((num) => {
+          {state.extra_phone_numbers.map((num) => {
             return (
               <PhoneNumberRow
                 number={num}
@@ -244,9 +246,11 @@ const Account = () => {
           </div>
           <div className="py-3 px-3">
             <span className="d-block py-2 account-heading">
-              {
-                state.teams.length > 0 ? (<p>Teams</p>) : <p>You have not join any teams.</p>
-              }
+              {state.teams.length > 0 ? (
+                <p>Teams</p>
+              ) : (
+                <p>You have not joined any teams.</p>
+              )}
             </span>
             {state.teams.map((team) => {
               return (
@@ -257,7 +261,7 @@ const Account = () => {
               );
             })}
           </div>
-          <CreateTeamModal/>
+          <CreateTeamModal />
         </div>
       </div>
     </div>
