@@ -3,7 +3,7 @@ import {Jumbotron, Row, Col, Container, Button} from 'react-bootstrap';
 import ItemForm from './ItemForm';
 import Confirm from './Confirm';
 
-import { fetchItems, updateItem } from '../../utils/store/store'
+import { fetchItems } from '../../utils/store/store'
 
 const Management = () => {
     
@@ -28,12 +28,6 @@ const Management = () => {
       setShowDetails(true);
     }
 
-    const handleShow = async (item) => {
-      item.active = !item.active;
-      // eslint-disable-next-line no-unused-vars
-      const res = await updateItem(team_id, item);
-    }
-
     const handleDelete = (item) => {
       setSelected(item);
       setShow(true);
@@ -47,9 +41,6 @@ const Management = () => {
         </Col>
         <Col>
           <Button onClick={() => handleDetails(elm)}>Edit Details</Button>
-        </Col>
-        <Col>
-          <Button onClick={() => handleShow(elm)}>{elm.hidden ? "Show" : "Hide"}</Button>
         </Col>
         <Col>
           <Button variant="danger" onClick={() => handleDelete(elm)}>Delete</Button>
@@ -69,6 +60,9 @@ const Management = () => {
           show={showDetails} 
           setShow={setShowDetails}
           item={selected}
+          pictureRequired={
+            selected.name === undefined ? "Required" : ""
+          }
         />
         <Jumbotron className="text-center">
           <h3>Store Manager</h3>
@@ -81,9 +75,6 @@ const Management = () => {
             </Col>
             <Col>
               Edit item
-            </Col>
-            <Col>
-              Show/Hide
             </Col>
             <Col>
               Delete

@@ -4,13 +4,13 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Form, Modal } from 'react-bootstrap';
 import Feedback from '../Feedback';
-import UploadPicture from '../UploadPicture/UploadPicture';
 import ItemTypes from './ItemTypes';
 
 const ItemForm = (props) => {
-  const {show, setShow, item} = props;
+  const {show, setShow, item, pictureRequired} = props;
 
   const [allTypes, setAllTypes] = useState([]);
+  const [picture, setPicture] = useState('');
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertType, setAlertType] = useState('danger');
@@ -21,13 +21,10 @@ const ItemForm = (props) => {
     reValidateMode: 'onChange',
   });
 
-  async function onSavePicture(picture){
-    // eslint-disable-next-line no-unused-vars
-    const formattedPicture = `data:image/jpeg;base64,${picture}`
-  }
-
   useEffect(() => {
-    reset(item)
+    const temp = {...item};
+    temp.picture = '';
+    reset(temp)
     const types = Array.isArray(item.types) 
       ? item.types 
       : [];
@@ -38,6 +35,16 @@ const ItemForm = (props) => {
   const closeModal = () => {
     setShowAlert(false);
     setShow(false);
+  }
+
+  const handlePicture = (e) => {
+    const input = e.target;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataURL = reader.result;
+      setPicture(dataURL);
+    };
+    reader.readAsDataURL(input.files[0]);
   }
 
   const onSubmit = async (data) => {
@@ -64,7 +71,7 @@ const ItemForm = (props) => {
           <Form.Group>
             <Form.Label>Item Name</Form.Label>
             <Form.Control 
-              type="text"
+              type="new-password"
               name="name"
               isValid={formState.touched.name && !errors.name}
               isInvalid={errors.name}
@@ -100,26 +107,18 @@ const ItemForm = (props) => {
               {errors.price && errors.price.message}
             </Form.Control.Feedback>
           </Form.Group>
- 
-          <ItemTypes types={allTypes} setTypes={setAllTypes} />
-          <Form.Group className="text-left">
-            <Form.Check
-              label="Is active"
-              type="checkbox"
-              name="active"
-              ref={register()}
-            />
-          </Form.Group>
 
-          {/* <Form.Group>
+          <Form.Group>
             <Form.Label>Picture</Form.Label>
             <Form.Control 
               type="file"
               name="picture"
+              className="btn no-padding"
+              onChange={(e) => handlePicture(e)}
               isValid={formState.isDirty.picture && !errors.picture}
               isInvalid={errors.picture}
               ref={register({
-                    required: "Required",
+                  required: pictureRequired,
                 }
               )}
             />
@@ -129,9 +128,19 @@ const ItemForm = (props) => {
             <Form.Control.Feedback type="invalid">
               {errors.picture && errors.picture.message}
             </Form.Control.Feedback>
-          </Form.Group> */}
+          </Form.Group>
 
-          {/* <UploadPicture savePicture={onSavePicture} /> */}
+          <Form.Group className="text-left">
+            <Form.Check
+              label="Is active"
+              type="checkbox"
+              name="active"
+              ref={register()}
+            />
+          </Form.Group>
+
+          <ItemTypes types={allTypes} setTypes={setAllTypes} />
+
           <Feedback 
             alertType={alertType}
             showAlert={showAlert}
