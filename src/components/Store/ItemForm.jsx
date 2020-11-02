@@ -5,18 +5,16 @@ import { useForm } from "react-hook-form";
 import { Button, Form, Modal } from 'react-bootstrap';
 import Feedback from '../Feedback';
 import UploadPicture from '../UploadPicture/UploadPicture';
-
+import ItemTypes from './ItemTypes';
 
 const ItemForm = (props) => {
   const {show, setShow, item} = props;
 
+  const [allTypes, setAllTypes] = useState([]);
+
   const [showAlert, setShowAlert] = useState(false);
   const [alertType, setAlertType] = useState('danger');
   const [isLoading, setLoading] = useState(false);
-
-  useEffect(() => {
-    reset(item)
-  }, [item]);
 
   const { register, handleSubmit, errors, formState, reset } = useForm({
     mode: 'all',
@@ -28,9 +26,18 @@ const ItemForm = (props) => {
     const formattedPicture = `data:image/jpeg;base64,${picture}`
   }
 
+  useEffect(() => {
+    reset(item)
+  }, [item]);
+
+
+  const closeModal = () => {
+    setShowAlert(false);
+    setShow(false);
+  }
+
   const onSubmit = async (data) => {
     setLoading(true);
-    console.log(data);
     // TODO: fetch data
     setLoading(false);
     if(data){
@@ -41,11 +48,6 @@ const ItemForm = (props) => {
       setShowAlert(true);
     }
   };
-
-  const closeModal = () => {
-    setShowAlert(false);
-    setShow(false);
-  }
 
   return (
     <Modal show={show} onHide={() => closeModal()}>
@@ -94,6 +96,8 @@ const ItemForm = (props) => {
               {errors.price && errors.price.message}
             </Form.Control.Feedback>
           </Form.Group>
+ 
+          <ItemTypes types={allTypes} setTypes={setAllTypes} />
 
           <Form.Group>
             <Form.Label>Picture</Form.Label>
