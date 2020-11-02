@@ -17,6 +17,7 @@ import FormControl from '@material-ui/core/FormControl';
 import { useSelector } from 'react-redux';
 import Collapse from '@material-ui/core/Collapse';
 import { getOrders } from '../../utils/orders/orders';
+import './Orders.scss';
 
 const mockData = [
 	{
@@ -151,17 +152,17 @@ const Orders = (props) => {
 	  }
     
 	return (
-		<>
+		<div className="fill-vert">
 			{mockData.map((row) => (
-				<div style={{width: "50%", paddingBottom: "3%"}}>
+				<div className="orders-display">
 					<TableContainer component={Paper}>
 					<Table aria-label="simple table" size="small">
 						<TableHead>
 						<TableRow>
-							<TableCell/>
-							<TableCell>Status</TableCell>
-							<TableCell align="right">Buyer's&nbsp;Email</TableCell>
-							<TableCell align="right">Address</TableCell>
+							<TableCell style={{width:'5%'}}/>
+							<TableCell style={{width:'25%'}}>Status</TableCell>
+							<TableCell style={{width:'10%'}} align="right">Buyer's&nbsp;Email</TableCell>
+							<TableCell style={{width:'25%'}} align="right">Address</TableCell>
 						</TableRow>
 						</TableHead>
 						<TableBody>
@@ -171,7 +172,7 @@ const Orders = (props) => {
 				</TableContainer>
 			</div>
 			))}
-		</>
+		</ div>
 	)   
     
     
