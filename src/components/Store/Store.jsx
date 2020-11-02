@@ -98,7 +98,7 @@ const Store = () => {
          
         <Switch>
           <Route path="/:teamId/store/edit" component={ItemForm} />
-          <Route path="/:teamId/store/item/:id" component={ItemDetails} />
+          <Route path="/:teamId/store/item/:itemId" component={ItemDetails} />
           <Route path="/:teamId/store/cart/" exact component={Cart} />
           <Route path="/:teamId/store/checkout/" exact component={CheckOut} />
           <Route path="/:teamId/store" exact component={ItemGrid} />

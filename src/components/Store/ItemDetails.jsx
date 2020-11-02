@@ -9,29 +9,69 @@ import StoreContext from './context';
 const ItemDetails = () => {
 
   const { items, addCart } = useContext(StoreContext);
-  const { teamId } = useParams();
+  const { teamId, itemId} = useParams();
 
   const [item, setItem] = useState({})
   const [type, setType] = useState('')
 
   const refresh = () => {
-    if(items.length !== 0){
-      setItem(items.find((elm) => elm.item_id === 1));
+    if(!Number.isNaN(itemId)){
+      const item_id = parseInt(itemId, 0);
+      if(items.length !== 0){
+        const temp = items.find((elm) => elm.item_id === item_id);
+        setItem(temp);
+      }
     }
   }
 
   useEffect(() => {
-    setType(item.types && Array.isArray(item.types) ? item.types[0] : '');
-  }, [item]);
+    refresh();
+  }, [itemId, items])
 
   useEffect(() => {
-    refresh();
-  }, [items])
+    if(item && item.types && Array.isArray(item.types)) {
+      setType(item.types[0]);
+    } else {
+      setType('');
+    }
+  }, [item]);
 
   const handleCart = () => {
     const obj = { ...item};
     obj.type = type;
     addCart(obj);
+  }
+
+  // Item was not found. Display an error
+  if(item===undefined){
+    return (
+      <Container className="py-4 text-center">
+        <h4>That item was not found</h4>
+        <div className="text-center py-4">
+          <Link to={`/${teamId}/store/`} className="no-link">
+            <Button variant="outline-secondary">Return to store</Button>
+          </Link>
+        </div>
+      </Container>
+    );
+  }
+
+  // Dropdown for the different product types that you can select
+  let typeSelector = (<></>);
+  if(item && item.types && item.types.length>0){
+    typeSelector = (
+      <Form.Group controlId="formGridState">
+        <Form.Label>Type</Form.Label>
+        <Form.Control
+          as="select" 
+          onChange={(e) => {setType(e.target.value)}}
+        >
+          {item && item.types && item.types.map(elm => {
+        return (<option key={elm}>{elm}</option>)
+      })}
+        </Form.Control>
+      </Form.Group>
+    );
   }
 
   return (
@@ -45,17 +85,7 @@ const ItemDetails = () => {
             <h2>{item.name}</h2>
             <h3>{item.price}</h3>
             <Form>
-              <Form.Group controlId="formGridState">
-                <Form.Label>Type</Form.Label>
-                <Form.Control
-                  as="select" 
-                  onChange={(e) => {setType(e.target.value)}}
-                >
-                  {item.types && item.types.map(elm => {
-                    return (<option key={elm}>{elm}</option>)
-                  })}
-                </Form.Control>
-              </Form.Group>
+              {typeSelector}
               <div className="py-2">
                 <Button
                   onClick={() => {handleCart()}}
@@ -69,7 +99,6 @@ const ItemDetails = () => {
                     Checkout
                   </Button>
                 </Link>
-
               </div>
             </Form>
           </div>

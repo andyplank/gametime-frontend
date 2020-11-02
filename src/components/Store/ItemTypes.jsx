@@ -11,36 +11,33 @@ const ItemTypes = (props) => {
         if (newType==='') {
           return;
         }
-        const temp = types.concat(newType);
+        const temp = Array.isArray(types) 
+            ? types.concat(newType) 
+            : [newType];
         setTypes(temp);
         setNewType(''); 
     }
     
     const removeType = (index) => {
-    if(index > types.length){
-        return;
-    }
-    const temp = [...types];
-    temp.splice(index, 1);
-    setTypes(temp);
+        if(index > types.length){
+            return;
+        }
+        const temp = [...types];
+        temp.splice(index, 1);
+        setTypes(temp);
     };
 
-    let typeMap;
-    if(!Array.isArray(types) || types.length===0){
-        typeMap = (<></>);
-    } else {
-        typeMap = types.map((elm, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-          <Form.Row key={`item-type-${index}`} className="d-flex align-items-end pt-1">
-            <Col>
-              <Form.Label className="pl-2">{elm}</Form.Label>
-            </Col>
-            <Col>
-              <Button variant="danger" onClick={() => {removeType(index)}}>Remove</Button>
-            </Col>
-          </Form.Row>
-        ));
-    }
+    const typeMap = types.map((elm, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+      <Form.Row key={`item-type-${index}`} className="d-flex align-items-end pt-1">
+        <Col>
+          <Form.Label className="pl-2">{elm}</Form.Label>
+        </Col>
+        <Col>
+          <Button variant="danger" onClick={() => {removeType(index)}}>Remove</Button>
+        </Col>
+      </Form.Row>
+    ));
 
     return (
       <Form.Group>

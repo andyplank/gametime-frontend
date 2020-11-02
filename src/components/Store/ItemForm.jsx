@@ -28,7 +28,10 @@ const ItemForm = (props) => {
 
   useEffect(() => {
     reset(item)
-    setAllTypes(item.types);
+    const types = Array.isArray(item.types) 
+      ? item.types 
+      : [];
+    setAllTypes(types);
   }, [item]);
 
 

@@ -9,7 +9,7 @@ const headers = {
 export async function fetchItems(setItems, id) {
 
     const temp = [];
-    for(let i=0; i<3; i+=1){
+    for(let i=0; i<4; i+=1){
         const item = {
             item_id: i,
             name: 'T-Shirt',
@@ -20,6 +20,7 @@ export async function fetchItems(setItems, id) {
         }
         temp.push(item);
     }
+    temp[3].types = [];
     setItems(temp);
     const config = {
         method: 'get',
