@@ -14,7 +14,9 @@ const Cart = () => {
     }
 
     const changeQuantity = (e, index) => {
-      updateQuantity(index, e.target.value);
+      if(!Number.isNaN(e.target.value)){
+        updateQuantity(index, e.target.value);
+      }
     }
 
     const continueShopping = (

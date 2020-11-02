@@ -51,7 +51,7 @@ const Store = () => {
   const updateQuantity = (index, quantity) => {
     if(index < cart.length){
       const temp = [...cart];
-      temp[index].quantity = quantity;
+      temp[index].quantity = parseInt(quantity, 0);
       setCart(temp);
     }
   }
