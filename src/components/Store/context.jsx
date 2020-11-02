@@ -5,7 +5,8 @@ const StoreContext = createContext({
     cart: [],
     addCart: () => {},
     removeCart: () => {},
-    updateCart: () => {}
+    updateCart: () => {},
+    updateQuantity: () => {}
 });
 
 export default StoreContext;

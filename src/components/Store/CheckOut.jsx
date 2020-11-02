@@ -43,10 +43,10 @@ const CheckOut = () => {
   let total = 0;
 
   const items = cart.map((elm, index) => {
-    total += elm.price;
+    total += elm.quantity*elm.price;
     return (
       // eslint-disable-next-line react/no-array-index-key
-      <Row key={`cart-item-${index}`} className="py-2">
+      <Row key={`cart-item-${index}`} className="pt-2">
         <Col>
           {elm.name}
         </Col>
@@ -54,8 +54,14 @@ const CheckOut = () => {
           {elm.type}
         </Col>
         <Col>
-          $
+          {elm.quantity}
+        </Col>
+        <Col>
           {elm.price}
+        </Col>
+        <Col>
+          $
+          {elm.quantity*elm.price}
         </Col>
       </Row>
     )
@@ -103,11 +109,30 @@ const CheckOut = () => {
         <div className="text-center">
           <h2 className="border-bottom pb-2 mb-2">Cart</h2>
         </div>  
+        <Row className="pt-2 h6">
+          <Col>
+            Name
+          </Col>
+          <Col>
+            Type
+          </Col>
+          <Col>
+            Quantity
+          </Col>
+          <Col>
+            Price per
+          </Col>
+          <Col>
+            Total Price
+          </Col>
+        </Row>
         {items}
-        <h4>
-          Total: $
-          {total}
-        </h4>
+        <div className="pt-2"> 
+          <h4>
+            Total: $
+            {total}
+          </h4>
+        </div>
       </Container>
       <Container>
         <div className="text-center">

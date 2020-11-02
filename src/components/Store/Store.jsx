@@ -33,11 +33,29 @@ const Store = () => {
   }, [teamId])
 
   const addCart = (item) => {
-      const temp = cart;
-      temp.push(item);
-      setCartLen(temp.length);
-      setCart(temp);
+    const temp = cart;
+    const index = temp.findIndex((elm) => {
+      return elm.item_id === item.item_id && elm.type === item.type
+    });
+    if(index !== -1) {
+      temp[index].quantity += 1;
+    } else {
+      const newItem = {...item};
+      newItem.quantity = 1
+      temp.push(newItem);
+    }
+    setCartLen(temp.length);
+    setCart(temp);
   };
+
+  const updateQuantity = (index, quantity) => {
+    if(index < cart.length){
+      const temp = cart;
+      temp[index].quantity = quantity;
+      setCart(temp);
+      console.log(temp);
+    }
+  }
 
   const removeCart = (index) => {
       const temp = cart;
@@ -73,7 +91,8 @@ const Store = () => {
             cart,
             addCart,
             removeCart,
-            updateCart
+            updateCart,
+            updateQuantity
           }}
       >
         {location.pathname!==`/${teamId}/store/cart` && shoppingCartBadge}
