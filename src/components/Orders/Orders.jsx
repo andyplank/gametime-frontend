@@ -16,7 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { useSelector } from 'react-redux';
 import Collapse from '@material-ui/core/Collapse';
-import { getOrders } from '../../utils/orders/orders';
+import getOrders from '../../utils/orders/orders';
 import './Orders.scss';
 
 const mockData = [
@@ -45,7 +45,7 @@ const mockData = [
 	},
 	{
 		order_id: "def",
-		status: 1,
+		status: 2,
 		buyer_email: 'li2718@purdue.edu',
 		buyer_address: '1225 West State Street',
 		items: [
@@ -83,19 +83,19 @@ const Orders = (props) => {
 	useEffect(() => {
 		async function fetchOrders() {
 			const orders = await getOrders(state.teams[state.selected].team_id);
-			console.log(orders);
+			setOrders(orders);
 		}
 		fetchOrders();
 
-		// setOrders(orders);
 	}, []);
 
 	function Row(props) {
 		const { row } = props;
 		const [open, setOpen] = React.useState(false);
 
-		const handleStatusChange = (event) => {
-			// TODO call enpoint to chaqnge order status here
+		const handleStatusChange = (status, order_id) => {
+			console.log(`changing ${order_id} to`, status);
+			// set orders here to rerender
 		}
 	  
 		return (
@@ -111,12 +111,12 @@ const Orders = (props) => {
 					<InputLabel>Status</InputLabel>
 						<Select
 						label="Status"
-						value={1}
-						onChange={handleStatusChange}
+						value={row.status}
+						onChange={(event) => handleStatusChange(event.target.value, row.order_id)}
 						>
-							<MenuItem value={1}>Pending</MenuItem>
-							<MenuItem value={2}>Shipped</MenuItem>
-							<MenuItem value={3}>Completed</MenuItem>
+							<MenuItem value={0}>Pending</MenuItem>
+							<MenuItem value={1}>Shipped</MenuItem>
+							<MenuItem value={2}>Completed</MenuItem>
 						</Select>
 				</FormControl>
 			  </TableCell>
@@ -129,17 +129,17 @@ const Orders = (props) => {
 				<Table size="small" aria-label="Items">
 					<TableHead>
 						<TableRow>
-							<TableCell>item_id</TableCell>
-							<TableCell align="right">quantity</TableCell>
-							<TableCell align="right">type</TableCell>
+							<TableCell>Item Name</TableCell>
+							<TableCell align="right">Quantity</TableCell>
+							<TableCell align="right">Type</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
 						{row.items.map((item) => (
 							<TableRow key={item.item_id}>
-								<TableCell>{item.item_id}</TableCell>
+								<TableCell>{item.name}</TableCell>
 								<TableCell align="right">{item.quantity}</TableCell>
-								<TableCell align="right">{item.type.length > 0 ? item.type : "N/A"}</TableCell>
+								<TableCell align="right">{item.label && item.label.length > 0 ? item.label : "N/A"}</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
@@ -153,8 +153,8 @@ const Orders = (props) => {
     
 	return (
 		<div className="fill-vert">
-			{mockData.map((row) => (
-				<div className="orders-display">
+			{orders.map((row, i) => (
+				<div key={i} className="orders-display">
 					<TableContainer component={Paper}>
 					<Table aria-label="simple table" size="small">
 						<TableHead>

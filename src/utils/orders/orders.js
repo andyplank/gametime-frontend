@@ -17,7 +17,7 @@ export default async function getOrders(teamId) {
     }
 
     const res = await networker(config);
-    console.log(res.data);
-    return res;
+
+    return res.data.transactions;
   }
   
