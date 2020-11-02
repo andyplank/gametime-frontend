@@ -85,7 +85,7 @@ const SearchBar = () => {
           )}
       />
       <InputGroup.Append>
-        <Link to={`${teamId}/home`} className="no-link btn btn-outline-primary d-flex align-items-center">
+        <Link to={`${teamId}/home`} className="no-link justify-content-center btn btn-outline-primary d-flex align-items-center search-button">
           {' Go '}
         </Link>
       </InputGroup.Append>
