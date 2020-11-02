@@ -13,6 +13,7 @@ import { removeFromTeam, createTeam } from '../../utils/team/team';
 import UploadPicture from '../UploadPicture/UploadPicture';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
+import Email from '../Email/Email';
 
 const CreateTeamModal = () => {
   function selector(store) {
@@ -191,6 +192,7 @@ const Account = () => {
               }
             </span>
             <UploadPicture savePicture={onSavePicture}/>
+            <Email />
           </div>
         </div>
       </Jumbotron>

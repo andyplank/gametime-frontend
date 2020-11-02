@@ -16,6 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { useSelector } from 'react-redux';
 import Collapse from '@material-ui/core/Collapse';
+import { getOrders } from '../../utils/orders/orders';
 
 const mockData = [
 	{
@@ -70,10 +71,8 @@ const mockData = [
 const Orders = (props) => {
 	function selector(store) {
 		return {
-			teamId:
-				store.teams.length > 0
-					? store.teams[store.status.selected_team].id
-					: 0,
+			teams: store.teams,
+			selected: store.status.selected_team,
 		};
 	}	
 
@@ -81,8 +80,13 @@ const Orders = (props) => {
 	const state = useSelector(selector);
 
 	useEffect(() => {
-		const orders = [] // call api to retrieve orders
-		setOrders(orders);
+		async function fetchOrders() {
+			const orders = await getOrders(state.teams[state.selected].team_id);
+			console.log(orders);
+		}
+		fetchOrders();
+
+		// setOrders(orders);
 	}, []);
 
 	function Row(props) {

@@ -1,0 +1,4 @@
+.txtbox {
+    display:flex;
+    justify-content: space-between;
+}
