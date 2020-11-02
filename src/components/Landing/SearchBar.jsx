@@ -62,7 +62,7 @@ const SearchBar = () => {
                     className:"search-bar",
                     endAdornment: (
                       <>
-                        {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                        {loading ? <span className="pr-3"><CircularProgress color="inherit" size={20} /></span> : null}
                         {params.InputProps.endAdornment}
                       </>
                     ),
