@@ -1,4 +1,30 @@
-@import "../../common/global";
+@import '../../common/global';
+
+.search-bar {
+  border-bottom-left-radius: 1rem !important;
+  border-top-left-radius: 1rem !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.search-button {
+  min-width: 60px;
+  border-top-right-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}
+
+.w-75-md {
+  width: 100% !important;
+}
+@media only screen and (min-width: 768px) {
+  .w-75-md {
+    width: 75% !important;
+  }
+}
+
+.grow {
+  flex-grow: 2;
+}
 
 .mission-heading {
   display: block;
@@ -37,4 +63,3 @@
 .grid-image {
   width: 60%;
 }
-
