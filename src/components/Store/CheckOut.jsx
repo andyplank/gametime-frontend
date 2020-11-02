@@ -7,7 +7,6 @@ import { purchaseItems } from '../../utils/store/store';
 
 import StoreContext from './context';
 
-import StateOptions from './StateOptions';
 import Feedback from "../Feedback";
 
 const CheckOut = () => {
@@ -200,6 +199,7 @@ const CheckOut = () => {
               <Form.Label>City</Form.Label>
               <Form.Control 
                 type="text"
+                placeholder="San Diego"
                 name="city"
                 isValid={formState.touched.city && !errors.city}
                 isInvalid={errors.city}
@@ -219,22 +219,19 @@ const CheckOut = () => {
             <Form.Group as={Col} controlId="formGridState">
               <Form.Label>State</Form.Label>
               <Form.Control
-                as="select"
-                defaultValue="Choose..." 
+                type="text"
+                placeholder="CA"
                 name="state"
                 isValid={formState.touched.state && !errors.state}
                 isInvalid={errors.state}
                 ref={register({
-                    pattern: {
-                        value: /^..$/,
-                        message: 'Make a selection'
-                    }
-
+                 required: "Required",
+                  pattern: {
+                      value: /^..$/,
+                      message: 'Enter 2 Digit state code: (New York -> NY)'
+                  }
                 })}
-              >
-                <option>Choose...</option>
-                {StateOptions}
-              </Form.Control>
+              />
               <Form.Control.Feedback type="valid">
                 Looks Good
               </Form.Control.Feedback>
@@ -247,6 +244,7 @@ const CheckOut = () => {
               <Form.Label>Zip</Form.Label>
               <Form.Control 
                 type="text"
+                placeholder="92101"
                 name="zip"
                 isValid={formState.touched.zip && !errors.zip}
                 isInvalid={errors.zip}
