@@ -33,7 +33,7 @@ const Store = () => {
   }, [teamId])
 
   const addCart = (item) => {
-    const temp = cart;
+    const temp = [...cart];
     const index = temp.findIndex((elm) => {
       return elm.item_id === item.item_id && elm.type === item.type
     });
@@ -50,15 +50,14 @@ const Store = () => {
 
   const updateQuantity = (index, quantity) => {
     if(index < cart.length){
-      const temp = cart;
+      const temp = [...cart];
       temp[index].quantity = quantity;
       setCart(temp);
-      console.log(temp);
     }
   }
 
   const removeCart = (index) => {
-      const temp = cart;
+      const temp = [...cart];
       temp.splice(index, 1);
       setCartLen(temp.length);
       setCart(temp);

@@ -16,6 +16,7 @@ export async function fetchItems(setItems, id) {
             types: ['Small', 'Medium', 'etc'],
             picture: 'https://www.newjerseysbuy.com/wp-content/uploads/2020/01/cheap-nba-jerseys-free-shipping-Mitchell-Ness-Stephon-Marbury-Minnesota-Timberwolves-Hardwood-Classics-Throwback-NBA-Swingman-Jersey-inexpensive-sports-jerseys.jpg',
             price: 12.00,
+            active: i%2
         }
         temp.push(item);
     }

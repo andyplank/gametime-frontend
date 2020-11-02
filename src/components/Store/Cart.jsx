@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useContext} from 'react';
 import { Form, Jumbotron, Button, Container, Row, Col } from 'react-bootstrap';
 import { useParams, Link } from 'react-router-dom';
 
@@ -7,7 +7,6 @@ import StoreContext from './context';
 const Cart = () => {
 
     const { cart, removeCart, updateQuantity } = useContext(StoreContext);
-    const [refresh, setRefresh] = useState(false);
     const { teamId }  = useParams();
 
     const handleRemove = (index) => {
@@ -15,8 +14,6 @@ const Cart = () => {
     }
 
     const changeQuantity = (e, index) => {
-      // TODO: This is forcing a refresh on quantity change. Should remove this later
-      setRefresh(!refresh);
       updateQuantity(index, e.target.value);
     }
 

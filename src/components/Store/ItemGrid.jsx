@@ -12,7 +12,8 @@ const ItemGrid = () => {
 
   const { items } = useContext(StoreContext);
   
-  const grids = items.map((item) => (
+  const activeItems = items.filter((item) => item.active);
+  const grids = activeItems.map((item) => (
     <Col xs={6} md={4} lg={3} key={item.item_id}>
       <div>
         <Link to={`/${teamId}/store/item/${item.item_id}`}><img alt="Logo" className="w-100" src={item.picture} /></Link>

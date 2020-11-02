@@ -28,6 +28,7 @@ const ItemForm = (props) => {
 
   useEffect(() => {
     reset(item)
+    setAllTypes(item.types);
   }, [item]);
 
 
@@ -98,8 +99,16 @@ const ItemForm = (props) => {
           </Form.Group>
  
           <ItemTypes types={allTypes} setTypes={setAllTypes} />
+          <Form.Group className="text-left">
+            <Form.Check
+              label="Is active"
+              type="checkbox"
+              name="active"
+              ref={register()}
+            />
+          </Form.Group>
 
-          <Form.Group>
+          {/* <Form.Group>
             <Form.Label>Picture</Form.Label>
             <Form.Control 
               type="file"
@@ -117,7 +126,7 @@ const ItemForm = (props) => {
             <Form.Control.Feedback type="invalid">
               {errors.picture && errors.picture.message}
             </Form.Control.Feedback>
-          </Form.Group>
+          </Form.Group> */}
 
           {/* <UploadPicture savePicture={onSavePicture} /> */}
           <Feedback 
