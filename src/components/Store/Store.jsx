@@ -78,7 +78,7 @@ const Store = () => {
       <div className="absolute">
         <Link to={`/${teamId}/store/cart`} className="no-link">
           <Badge badgeContent={cartLen} showZero color="primary">
-            <ShoppingCartRoundedIcon fontSize="large" />
+            <ShoppingCartRoundedIcon style={{color: 'black'}} fontSize="large" />
           </Badge>
         </Link>
       </div>

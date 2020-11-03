@@ -94,7 +94,7 @@ const ItemDetails = () => {
               <h2>{item.name}</h2>
               <h3>
                 $
-                {item.price}
+                {item.price.toFixed(2)}
               </h3>
               {typeSelector}
             </div>

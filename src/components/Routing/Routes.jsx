@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Account from '../Account/Account';
 import Home from '../Home/Home';
-import Landing from '../Landing/Landing';
 import Communication from '../Communication/Communication';
 import TeamManagement from '../TeamManagement/TeamManagement';
 import Orders from '../Orders/Orders';
@@ -33,7 +32,6 @@ const Routes = () => {
         <Route path="/:teamId/store/" component={Store} />
         <Route path="/:teamId/home" component={Home} />
         <Private path="/team/join" Component={JoinTeamPage} /> 
-        <Route path="/" exact component={Landing} />
         <Route component={NotFound} />
       </Switch>
       <Footer />

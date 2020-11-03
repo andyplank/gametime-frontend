@@ -51,11 +51,11 @@ const CheckOut = () => {
           {elm.quantity}
         </Col>
         <Col>
-          {elm.price}
+          {elm.price.toFixed(2)}
         </Col>
         <Col>
           $
-          {elm.quantity*elm.price}
+          {(elm.quantity*elm.price).toFixed(2)}
         </Col>
       </Row>
     )

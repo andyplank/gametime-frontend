@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form, Modal, InputGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Feedback from './Feedback';
 import ItemTypes from './ItemTypes';
@@ -8,8 +8,14 @@ import ItemTypes from './ItemTypes';
 import {updateItem, createItem} from '../../utils/store/store';
 
 const ItemForm = (props) => {
-  const {show, setShow, item, isNew, 
-    teamId, refresh} = props;
+  const {
+    show, 
+    setShow, 
+    item, 
+    isNew, 
+    teamId, 
+    refresh
+  } = props;
 
   const [allTypes, setAllTypes] = useState([]);
   const [picture, setPicture] = useState('');
@@ -35,12 +41,13 @@ const ItemForm = (props) => {
   useEffect(() => {
     const temp = {...item};
     temp.picture = '';
-    reset(temp)
+    setPicture('');
+    reset(temp);
     const types = Array.isArray(item.types) 
       ? item.types 
       : [];
     setAllTypes(types);
-  }, [item]);
+  }, [item, show]);
 
 
   const closeModal = () => {
@@ -109,23 +116,29 @@ const ItemForm = (props) => {
 
           <Form.Group>
             <Form.Label>Price</Form.Label>
-            <Form.Control 
-              type="number"
-              name="price"
-              isValid={(formState.touched.price || formState.isSubmitted) && !errors.price}
-              isInvalid={errors.price}
-              ref={register({
-                  min: 0,
-                  required: true
-                }
-              )}
-            />
-            <Form.Control.Feedback type="valid">
-              Looks Good
-            </Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              {errors.price && errors.price.message}
-            </Form.Control.Feedback>
+            <InputGroup className="mb-3">
+              <InputGroup.Prepend>
+                <InputGroup.Text>$</InputGroup.Text>
+              </InputGroup.Prepend>
+              <Form.Control 
+                type="number"
+                name="price"
+                isValid={(formState.touched.price || formState.isSubmitted) && !errors.price}
+                isInvalid={errors.price}
+                ref={register({
+                    required: "Required",
+                    min: 0
+                  }
+                )}
+              />
+              <Form.Control.Feedback className="d-block" type="invalid">
+                {errors.price && errors.price.message}
+              </Form.Control.Feedback>
+              <Form.Control.Feedback className="d-block" type="valid">
+                {(formState.touched.price || formState.isSubmitted) && !errors.price && ('Looks Good')}
+              </Form.Control.Feedback>
+            </InputGroup>
+
           </Form.Group>
 
           <Form.Group>

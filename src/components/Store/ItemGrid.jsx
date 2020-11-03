@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
 
 import { Jumbotron , Container, Row, Col } from 'react-bootstrap';
@@ -6,8 +5,6 @@ import { Link, useParams } from 'react-router-dom';
 import StoreContext from './context';
 
 import './Store.scss';
-
-const notFoundIMG = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.blocclt.com%2Fpage&psig=AOvVaw016I79VDRI4QnNkzRhxcs5&ust=1604441404663000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCCzJLw5OwCFQAAAAAdAAAAABAD";
 
 const ItemGrid = () => {
   const { teamId } = useParams();
@@ -32,7 +29,7 @@ const ItemGrid = () => {
             <div>
               <h6>
                 $
-                {item.price}
+                {item.price.toFixed(2)}
               </h6>
             </div>
           </div>
