@@ -186,7 +186,7 @@ const Orders = (props) => {
 	}
     
 	return (
-		<div className="fill-vert">
+		<div className="orders fill-vert">
 			<AlertMsg/>
 			{orders.length > 0 ? 
 				orders.map((row, i) => (
