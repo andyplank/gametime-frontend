@@ -13,7 +13,7 @@ export default async function sendEmail(recipient, subject, body){
 
     const config = {
         method: 'post',
-        url: 'http://54.235.234.147:8080/fundraising/email',
+        url: 'https://gametime-server.hubermjonathan.com:8080/fundraising/email',
         headers: headers,
         data: data
     }

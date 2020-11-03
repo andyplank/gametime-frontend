@@ -9,7 +9,7 @@ import networker from '../networker/networker';
  * @return {data} the contents of the response body of the auth request.
  */
 export default async function login(email, password) {
-  const endpoint = 'http://54.235.234.147:8080/login';
+  const endpoint = 'https://gametime-server.hubermjonathan.com:8080/login';
 
   const body = {
     email: email,

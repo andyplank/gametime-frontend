@@ -75,7 +75,7 @@ const mockData = [
 const Orders = (props) => {
 	function selector(store) {
 		return {
-			teams: store.teams,
+			teams: store.user.teams,
 			selected: store.status.selected_team,
 		};
 	}	
@@ -87,7 +87,9 @@ const Orders = (props) => {
 
 	useEffect(() => {
 		async function fetchOrders() {
+			console.log(state);
 			const orders = await getOrders(state.teams[state.selected].team_id);
+			console.log(orders);
 			setOrders(orders);
 		}
 		fetchOrders();

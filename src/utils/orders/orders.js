@@ -11,7 +11,7 @@ export async function getOrders(teamId) {
 
     const config = {
         method: 'post',
-        url: 'http://54.235.234.147:8080/store/status',
+        url: 'https://gametime-server.hubermjonathan.com:8080/store/status',
         headers: headers,
         data: data
     }
@@ -33,7 +33,7 @@ export async function setOrderStatus(orderId, status) {
 
     const config = {
         method: 'put',
-        url: 'http://54.235.234.147:8080/store/status',
+        url: 'https://gametime-server.hubermjonathan.com:8080/store/status',
         headers: headers,
         data: data
     }
