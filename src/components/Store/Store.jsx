@@ -24,9 +24,11 @@ const Store = () => {
   const [items, setItems] = useState([]);
   const [cart, setCart] = useState([]);
   const [cartLen, setCartLen] = useState(0);
+  const [loading, setLoading] = useState(true);
 
-  const refresh = () => {
-    fetchItems(setItems, teamId);
+  const refresh = async () => {
+    await fetchItems(setItems, teamId);
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -96,15 +98,16 @@ const Store = () => {
           }}
       >
         {location.pathname!==`/${teamId}/store/cart` && shoppingCartBadge}
-         
-        <Switch>
-          <Route path="/:teamId/store/edit" component={ItemForm} />
-          <Route path="/:teamId/store/item/:itemId" component={ItemDetails} />
-          <Route path="/:teamId/store/cart/" exact component={Cart} />
-          <Route path="/:teamId/store/checkout/" exact component={CheckOut} />
-          <Route path="/:teamId/store" exact component={ItemGrid} />
-          <Route component={() => (<Redirect to={{ pathname: `/${teamId}/store` }} />)} />
-        </Switch>
+        {!loading && (
+          <Switch>
+            <Route path="/:teamId/store/edit" component={ItemForm} />
+            <Route path="/:teamId/store/item/:itemId" component={ItemDetails} />
+            <Route path="/:teamId/store/cart/" exact component={Cart} />
+            <Route path="/:teamId/store/checkout/" exact component={CheckOut} />
+            <Route path="/:teamId/store" exact component={ItemGrid} />
+            <Route component={() => (<Redirect to={{ pathname: `/${teamId}/store` }} />)} />
+          </Switch>
+        )}
       </StoreContext.Provider>
     </div>
   );
