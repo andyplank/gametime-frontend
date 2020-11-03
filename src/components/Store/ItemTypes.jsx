@@ -8,30 +8,33 @@ const ItemTypes = (props) => {
     const [newType, setNewType] = useState('');
 
     const addType = () => {
-        if (newType==='') {
-          return;
-        }
-        const temp = Array.isArray(types) 
-            ? types.concat(newType) 
-            : [newType];
-        setTypes(temp);
-        setNewType(''); 
+      if (newType==='') {
+        return;
+      }
+      const typeObject = {
+        label: newType, 
+        type_id: Math.floor(Math.random() * Math.floor(1000))
+      };
+      const temp = Array.isArray(types) 
+          ? types.concat(typeObject) 
+          : [typeObject];
+      setTypes(temp);
+      setNewType(''); 
     }
     
     const removeType = (index) => {
-        if(index > types.length){
-            return;
-        }
-        const temp = [...types];
-        temp.splice(index, 1);
-        setTypes(temp);
+      if(index > types.length){
+          return;
+      }
+      const temp = [...types];
+      temp.splice(index, 1);
+      setTypes(temp);
     };
 
     const typeMap = types.map((elm, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-      <Form.Row key={`item-type-${index}`} className="d-flex align-items-end pt-1">
+      <Form.Row key={`item-type-${elm.label}-${elm.type_id}`} className="d-flex align-items-end pt-1">
         <Col>
-          <Form.Label className="pl-2">{elm}</Form.Label>
+          <Form.Label className="pl-2">{elm.label}</Form.Label>
         </Col>
         <Col>
           <Button variant="danger" onClick={() => {removeType(index)}}>Remove</Button>

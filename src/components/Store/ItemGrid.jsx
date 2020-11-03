@@ -6,17 +6,24 @@ import StoreContext from './context';
 
 import './Store.scss';
 
-const ItemGrid = () => {
-  
-  const { teamId } = useParams();
+const notFoundIMG = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.blocclt.com%2Fpage&psig=AOvVaw016I79VDRI4QnNkzRhxcs5&ust=1604441404663000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCCzJLw5OwCFQAAAAAdAAAAABAD";
 
+const ItemGrid = () => {
+  const { teamId } = useParams();
   const { items } = useContext(StoreContext);
   
   const activeItems = items.filter((item) => item.active);
   const grids = activeItems.map((item) => (
     <Col xs={6} md={4} lg={3} key={item.item_id}>
       <div>
-        <Link to={`/${teamId}/store/item/${item.item_id}`}><img alt="Logo" className="w-100" src={item.picture} /></Link>
+        <Link to={`/${teamId}/store/item/${item.item_id}`}>
+          <img
+            alt={item.name}
+            className="item"
+            src={item.picture} 
+            onError={(e)=>{e.target.onerror = null; e.target.src=notFoundIMG}}
+          />
+        </Link>
       </div>
       <div className="text-center">
         <h6>{item.name}</h6>

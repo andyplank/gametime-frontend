@@ -17,6 +17,7 @@ import './Store.scss';
 
 const Store = () => {
     
+
   const { teamId } = useParams();
   const location = useLocation();
 

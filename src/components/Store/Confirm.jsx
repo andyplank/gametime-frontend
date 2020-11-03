@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { deleteItem } from '../../utils/store/store'
-import Feedback from '../Feedback';
+import Feedback from './Feedback';
 
 const Confirm = (props) => {
     const {show, setShow, item, team_id} = props;

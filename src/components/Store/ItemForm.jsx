@@ -1,13 +1,15 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Form, Modal } from 'react-bootstrap';
-import Feedback from '../Feedback';
+import PropTypes from 'prop-types';
+import Feedback from './Feedback';
 import ItemTypes from './ItemTypes';
 
+import {updateItem, createItem} from '../../utils/store/store';
+
 const ItemForm = (props) => {
-  const {show, setShow, item, pictureRequired} = props;
+  const {show, setShow, item, isNew, teamId} = props;
 
   const [allTypes, setAllTypes] = useState([]);
   const [picture, setPicture] = useState('');
@@ -16,7 +18,16 @@ const ItemForm = (props) => {
   const [alertType, setAlertType] = useState('danger');
   const [isLoading, setLoading] = useState(false);
 
-  const { register, handleSubmit, errors, formState, reset } = useForm({
+  useEffect(() =>{
+    if(picture.length > 5242880) {
+      setError("picture", {
+        type: "manual",
+        message: "File size too big"
+      });
+    }
+  }, [picture])
+
+  const { register, handleSubmit, errors, formState, reset, setError, trigger } = useForm({
     mode: 'all',
     reValidateMode: 'onChange',
   });
@@ -48,16 +59,22 @@ const ItemForm = (props) => {
   }
 
   const onSubmit = async (data) => {
+    data.price = parseFloat(data.price);
     setLoading(true);
-    // TODO: fetch data
-    setLoading(false);
-    if(data){
+    let res;
+    if (isNew){
+      res = await createItem(teamId, data, allTypes, picture);
+    } else {
+      res = await updateItem(teamId, data, allTypes, picture, item.item_id);
+    }
+    if(res){
       setAlertType('success');
       setShowAlert(true);
     } else {
       setAlertType('danger');
       setShowAlert(true);
     }
+    setLoading(false);
   };
 
   return (
@@ -65,7 +82,7 @@ const ItemForm = (props) => {
       <Modal.Header closeButton>
         <Modal.Title>Item Details</Modal.Title>
       </Modal.Header>
-      <Form noValidate onSubmit={handleSubmit(onSubmit)}>
+      <Form noValidate onSubmit={handleSubmit(onSubmit)} autoComplete="off">
     
         <Modal.Body>
           <Form.Group>
@@ -73,7 +90,7 @@ const ItemForm = (props) => {
             <Form.Control 
               type="new-password"
               name="name"
-              isValid={formState.touched.name && !errors.name}
+              isValid={(formState.touched.name || formState.isSubmitted) && !errors.name}
               isInvalid={errors.name}
               ref={register({
                     required: "Required",
@@ -93,10 +110,11 @@ const ItemForm = (props) => {
             <Form.Control 
               type="number"
               name="price"
-              isValid={formState.touched.price && !errors.price}
+              isValid={(formState.touched.price || formState.isSubmitted) && !errors.price}
               isInvalid={errors.price}
               ref={register({
-                    required: "Required",
+                  min: 0,
+                  required: "Required",
                 }
               )}
             />
@@ -113,12 +131,17 @@ const ItemForm = (props) => {
             <Form.Control 
               type="file"
               name="picture"
+              accept="image/jpeg"
               className="btn no-padding"
               onChange={(e) => handlePicture(e)}
-              isValid={formState.isDirty.picture && !errors.picture}
-              isInvalid={errors.picture}
+              isValid={picture!=='' && !errors.picture}
+              isInvalid={picture==='' && errors.picture}
               ref={register({
-                  required: pictureRequired,
+                  required: isNew ? "Required" : "",
+                  pattern: {
+                    value: /^.*\.(jpg|JPG)$/,
+                    message: "Must be a JPG file"
+                  }
                 }
               )}
             />
@@ -163,7 +186,7 @@ const ItemForm = (props) => {
               id="resetItemBtn"
               type="button"
               variant="secondary"
-              onClick={() => { reset(); setShowAlert(false) }}
+              onClick={() => {reset(); setShowAlert(false) }}
               className="mx-3"
             >
               Reset
@@ -178,4 +201,12 @@ const ItemForm = (props) => {
     )
 };
 
+ItemForm.propTypes = {
+  show: PropTypes.bool.isRequired,
+  setShow: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  item: PropTypes.object.isRequired,
+  teamId: PropTypes.string.isRequired,
+  isNew: PropTypes.bool.isRequired,
+}
 export default ItemForm;

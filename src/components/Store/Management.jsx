@@ -13,10 +13,10 @@ const Management = () => {
     const [showDetails, setShowDetails] = useState(false);
 
     // TODO: Fix team_id
-    const team_id = 0;
+    const team_id = '8a1addb0-db22-415e-bbfd-1da2dc193e28';
 
     const refresh = () => {
-        fetchItems(setItems, 0);
+        fetchItems(setItems, team_id);
     }
     
     useEffect(() => {
@@ -60,9 +60,10 @@ const Management = () => {
           show={showDetails} 
           setShow={setShowDetails}
           item={selected}
-          pictureRequired={
-            selected.name === undefined ? "Required" : ""
+          isNew={
+            selected.name === undefined
           }
+          teamId={team_id}
         />
         <Jumbotron className="text-center">
           <h3>Store Manager</h3>

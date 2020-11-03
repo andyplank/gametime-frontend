@@ -16,7 +16,6 @@ const UploadPicture = (props) => {
   }
   
   const onDrop = (picture) => {
-    console.log("ondrop", picture)
     setPictureObj(picture);
     if(picture.length > 0){
       const reader = new FileReader();

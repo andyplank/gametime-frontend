@@ -52,3 +52,9 @@ $secondary-color-light: #fbfbff;
 .fileContainer {
   box-shadow: none;
 }
+
+.cover {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}

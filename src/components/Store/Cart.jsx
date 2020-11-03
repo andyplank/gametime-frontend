@@ -14,8 +14,17 @@ const Cart = () => {
     }
 
     const changeQuantity = (e, index) => {
-      if(!Number.isNaN(e.target.value)){
-        updateQuantity(index, e.target.value);
+      if(e.target.value===''){
+        updateQuantity(index, 1);
+      } else if(Number.isNaN(e.target.value)){
+        updateQuantity(index, 1);
+      } else {
+        const num = parseInt(e.target.value, 0);
+        if(num>1000){
+          updateQuantity(index, 1000)
+        } else {
+          updateQuantity(index, num);
+        }
       }
     }
 
@@ -30,7 +39,7 @@ const Cart = () => {
     const items = cart.map((elm, index) => {
       return (
         // eslint-disable-next-line react/no-array-index-key
-        <Row key={`cart-item-${index}`} className="pt-3 d-flex align-items-center">
+        <Row key={`cart-item-${elm.item_id}-${index}`} className="pt-3 d-flex align-items-center">
           <Col>
             {elm.name}
           </Col>

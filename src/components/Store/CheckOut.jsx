@@ -6,8 +6,7 @@ import { useParams, Link } from 'react-router-dom';
 import { purchaseItems } from '../../utils/store/store';
 
 import StoreContext from './context';
-
-import Feedback from "../Feedback";
+import Feedback from "./Feedback";
 
 const CheckOut = () => {
   const { register, handleSubmit, errors, formState, reset } = useForm({
@@ -20,19 +19,16 @@ const CheckOut = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    // TODO: fetch data
-    const res = await purchaseItems(data, cart);
-    setLoading(false);
+    const res = await purchaseItems(data, cart, teamId);
     if(res===true){
-      // setAlertMessage('Success!');
       setAlertType('success');
       setShowAlert(true);
       updateCart([]);
     } else {
-      // setAlertMessage('Error: Something went wrong');
       setAlertType('danger');
       setShowAlert(true);
     }
+    setLoading(false);
   };
 
   const [showAlert, setShowAlert] = useState(false);
@@ -78,7 +74,6 @@ const CheckOut = () => {
               <Button variant="outline-secondary">Return to store</Button>
             </Link>
           </div>
-
         </Container>
       </div>
     )
@@ -147,13 +142,13 @@ const CheckOut = () => {
               isValid={formState.touched.email && !errors.email}
               isInvalid={errors.email}
               ref={register({
-                    required: "Required",
-                    pattern: {
-                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                        message: "invalid email address"
-                    }
+                  required: "Required",
+                  pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "invalid email address"
+                  }
                 }
-                )}
+              )}
             />
             <Form.Control.Feedback type="valid">
               Looks Good
@@ -182,16 +177,6 @@ const CheckOut = () => {
             <Form.Control.Feedback type="invalid">
               {errors.address && errors.address.message}
             </Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group controlId="formGridAddress2">
-            <Form.Label>Address 2</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Apartment, studio, or floor" 
-              name="address2"
-              ref={register()}
-            />
           </Form.Group>
 
           <Form.Row>

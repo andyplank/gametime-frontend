@@ -15,11 +15,11 @@ const ItemDetails = () => {
   const [type, setType] = useState('')
 
   const refresh = () => {
-    if(!Number.isNaN(itemId)){
-      const item_id = parseInt(itemId, 0);
-      if(items.length !== 0){
-        const temp = items.find((elm) => elm.item_id === item_id);
-        setItem(temp);
+    if(items.length !== 0){
+      const temp = items.find((elm) => elm.item_id === itemId);
+      setItem(temp);
+      if(Array.isArray(temp.types) && temp.types.length > 0){
+        setType(temp.types[0].label);
       }
     }
   }
@@ -27,14 +27,6 @@ const ItemDetails = () => {
   useEffect(() => {
     refresh();
   }, [itemId, items])
-
-  useEffect(() => {
-    if(item && item.types && Array.isArray(item.types)) {
-      setType(item.types[0]);
-    } else {
-      setType('');
-    }
-  }, [item]);
 
   const handleCart = () => {
     const obj = { ...item};
@@ -67,7 +59,7 @@ const ItemDetails = () => {
           onChange={(e) => {setType(e.target.value)}}
         >
           {item && item.types && item.types.map(elm => {
-        return (<option key={elm}>{elm}</option>)
+        return (<option key={elm.type_id}>{elm.label}</option>)
       })}
         </Form.Control>
       </Form.Group>
@@ -76,6 +68,11 @@ const ItemDetails = () => {
 
   return (
     <Container className="py-4">
+      <div className="pb-2">
+        <Link to={`/${teamId}/store/`}>
+          Return to store
+        </Link>
+      </div>
       <Row>
         <Col md={4}>
           <img src={item.picture} alt={item.name} className="w-100" />

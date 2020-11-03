@@ -7,34 +7,37 @@ import { InputGroup} from 'react-bootstrap';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-function sleep(delay = 0) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay);
-  });
-}
+import landing from '../../utils/landing/landing';
+
 const SearchBar = () => {
   const [value, setValue] = useState(null);  
   const [inputValue, setInputValue] = useState('');
   const [teamId, setTeamID] = useState('');  
   const [open, setOpen] = useState(false);
-
   const [options, setOptions] = useState([]);
   const loading = open && options.length === 0;
+  const [err, setErr] = useState(false);
 
-  const refresh = () => {
-    (async () => {
-      await sleep(100); // For demo purposes.
-      const countries = [
-        { id: '1234', label: 'San Marcos Lacrosse' },
-        { id: '4567', label: 'LaPorte Badmitten' }
-      ]; 
-      setOptions(countries);
-    })();
+  const refresh = async () => {
+    const res = await landing(setOptions);
+    if(res===false){
+      setErr(true);
+    }
   }
 
   useEffect(() => {
     refresh();
   }, [])
+
+  if(err){
+    return (
+      <div>
+        <h4>
+          NOT!
+        </h4>
+      </div>
+    );
+  }
 
   return (
     <InputGroup className="d-flex">
