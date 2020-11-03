@@ -9,6 +9,15 @@
   position: relative;
   align-items: center;
   justify-content: center;
+  height: 100vh
+}
+
+.no-blue {
+  border-bottom: white !important;
+}
+
+.no-blue:focus {
+  border-bottom: white !important;
 }
 
 .LandingText {

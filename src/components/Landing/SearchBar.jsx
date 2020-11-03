@@ -43,7 +43,7 @@ const SearchBar = () => {
     <InputGroup className="d-flex">
       <Autocomplete
         id="team-search-bar"
-        className="grow"
+        className="grow no-blue"
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
@@ -78,6 +78,7 @@ const SearchBar = () => {
             InputProps={{
               ...params.InputProps,
               className:"search-bar",
+              disableUnderline: true,
               endAdornment: (
                 <>
                   {loading ? <span className="pr-3"><CircularProgress color="inherit" size={20} /></span> : null}
