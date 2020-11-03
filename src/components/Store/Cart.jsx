@@ -69,7 +69,7 @@ const Cart = () => {
       return (
         <>
           <Jumbotron className="text-center">
-            <h2 className="py-4">
+            <h2>
               There are no items in your cart!
             </h2>
           </Jumbotron>

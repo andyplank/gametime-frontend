@@ -15,9 +15,12 @@ const ItemGrid = () => {
   const activeItems = items.filter((item) => item.active);
   const grids = activeItems.map((item) => (
     <Col xs={6} md={4} lg={3} key={item.item_id} className="d-flex align-items-end">
-      <div>
+      <div className="w-100">
         <div className="w-100">
-          <Link to={`/${teamId}/store/item/${item.item_id}`}>
+          <Link
+            to={`/${teamId}/store/item/${item.item_id}`}
+            className="w-100"
+          >
             <img
               alt={item.name}
               className="w-100"
@@ -26,14 +29,16 @@ const ItemGrid = () => {
             />
           </Link>
         </div>
-        <div className="text-center">
-          <h6>{item.name}</h6>
-        </div>
-        <div className="text-right">
-          <h5>
-            $
-            {item.price}
-          </h5>
+        <div className="pt-1 pb-2">
+          <div>
+            <h5>{item.name}</h5>
+          </div>
+          <div>
+            <h6>
+              $
+              {item.price}
+            </h6>
+          </div>
         </div>
       </div>
     </Col>
@@ -50,10 +55,8 @@ const ItemGrid = () => {
 
   return (
     <div className="fill-vert">
-      <Jumbotron fluid>
-        <Container>
-          <h1>Welcome to the team store</h1>
-        </Container>
+      <Jumbotron className="text-center">
+        <h2>Welcome to the team store</h2>
       </Jumbotron>
       <Container className="py-4">
         <Row className="flex-fill">
