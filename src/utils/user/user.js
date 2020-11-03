@@ -19,7 +19,6 @@ export async function getUser(user_id) {
     return null;
   }
 
-  console.log(response)
 
   const user = {
     id: response.data.user_id,
@@ -99,7 +98,6 @@ export async function getProfilePicture(user_id) {
     return false;
   }
 
-  console.log("returned pic", response)
 
   return response.data.profile_picture;
 }
