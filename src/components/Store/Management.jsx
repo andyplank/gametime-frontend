@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import {Link} from 'react-router-dom';
 import {Jumbotron, Row, Col, Container, Button} from 'react-bootstrap';
 import ItemForm from './ItemForm';
 import Confirm from './Confirm';
@@ -71,7 +72,14 @@ const Management = () => {
           <h3>Store Manager</h3>
         </Jumbotron>
         <Container className="mb-4">
-          <Button onClick={() => handleDetails({})}>Add Item</Button>
+          <div className="w-100 d-flex justify-content-left pt-4">
+            <div>
+              <Button onClick={() => handleDetails({})}>Add Item</Button>
+              <Link to={`/${team_id}/store`} className="ml-4"> 
+                <Button>View the store</Button>
+              </Link>
+            </div>
+          </div>
           <Row className="text-center py-2 border-bottom h5">
             <Col>
               Item Name
