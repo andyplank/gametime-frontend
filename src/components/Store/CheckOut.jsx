@@ -270,9 +270,13 @@ const CheckOut = () => {
             >
               Reset
             </Button>
+
+            <Link to={`/${teamId}/store/`} className="no-link">
+              <Button variant="outline-secondary">Return to store</Button>
+            </Link>
           </Form.Group>
         </Form> 
-        
+
         <Feedback 
           alertType={alertType}
           showAlert={showAlert}
