@@ -1,6 +1,6 @@
 import networker from '../networker/networker';
 
-const url = 'http://54.235.234.147:8080';
+const url = 'https://gametime-server.hubermjonathan.com:8080/';
 const headers = {
     'Content-Type': 'application/json'
 }

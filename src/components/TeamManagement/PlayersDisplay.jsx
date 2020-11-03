@@ -55,7 +55,7 @@ class PlayersDisplay extends React.Component {
     Are you sure you want to remove 
     <b>
       &nbsp;
-      {player.name}
+      {`${player.first_name} ${player.last_name}`}
       &nbsp;
     </b> 
     from the team?
