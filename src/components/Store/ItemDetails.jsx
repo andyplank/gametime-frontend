@@ -9,14 +9,19 @@ import StoreContext from './context';
 const ItemDetails = () => {
 
   const { items, addCart } = useContext(StoreContext);
-  const { teamId, itemId} = useParams();
+  const { teamId, itemId } = useParams();
 
+  const [loading, setLoading] = useState(true);
   const [item, setItem] = useState({})
   const [type, setType] = useState('')
 
   const refresh = () => {
     if(items.length !== 0){
       const temp = items.find((elm) => elm.item_id === itemId);
+      setLoading(false);
+      if(temp===undefined){
+        return;
+      }
       setItem(temp);
       if(Array.isArray(temp.types) && temp.types.length > 0){
         setType(temp.types[0].label);
@@ -34,8 +39,13 @@ const ItemDetails = () => {
     addCart(obj);
   }
 
+
+  if (loading) {
+    return (<></>);
+  }
+
   // Item was not found. Display an error
-  if(item===undefined){
+  if(item.name===undefined){
     return (
       <Container className="py-4 text-center">
         <h4>That item was not found</h4>
@@ -79,25 +89,28 @@ const ItemDetails = () => {
         </Col>
         <Col md={8}>
           <div className="py-4">
-            <h2>{item.name}</h2>
-            <h3>{item.price}</h3>
-            <Form>
+            <div style={{minHeight: '75px'}}>
+              <h2>{item.name}</h2>
+              <h3>
+                $
+                {item.price}
+              </h3>
               {typeSelector}
-              <div className="py-2">
-                <Button
-                  onClick={() => {handleCart()}}
-                >
-                  Add to cart
+            </div>
+            <div className="py-2">
+              <Button
+                onClick={() => {handleCart()}}
+              >
+                Add to cart
+              </Button>
+            </div>
+            <div>
+              <Link to={`/${teamId}/store/checkout`}>
+                <Button>
+                  Checkout
                 </Button>
-              </div>
-              <div>
-                <Link to={`/${teamId}/store/checkout`}>
-                  <Button>
-                    Checkout
-                  </Button>
-                </Link>
-              </div>
-            </Form>
+              </Link>
+            </div>
           </div>
         </Col>
       </Row>
