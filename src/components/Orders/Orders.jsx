@@ -160,25 +160,29 @@ const Orders = (props) => {
     
 	return (
 		<div className="fill-vert">
-			{orders.map((row, i) => (
-				<div key={i} className="orders-display">
-					<TableContainer component={Paper}>
-					<Table aria-label="simple table" size="small">
-						<TableHead>
-						<TableRow>
-							<TableCell style={{width:'5%'}}/>
-							<TableCell style={{width:'25%'}}>Status</TableCell>
-							<TableCell style={{width:'10%'}} align="right">Buyer's&nbsp;Email</TableCell>
-							<TableCell style={{width:'25%'}} align="right">Address</TableCell>
-						</TableRow>
-						</TableHead>
-						<TableBody>
-							<Row key={row.order_id} row={row}/>
-						</TableBody>
-					</Table>
-				</TableContainer>
-			</div>
-			))}
+			{orders.length > 0 ? 
+				orders.map((row, i) => (
+					<div key={i} className="orders-display">
+						<TableContainer component={Paper}>
+						<Table aria-label="simple table" size="small">
+							<TableHead>
+							<TableRow>
+								<TableCell style={{width:'5%'}}/>
+								<TableCell style={{width:'25%'}}>Status</TableCell>
+								<TableCell style={{width:'10%'}} align="right">Buyer's&nbsp;Email</TableCell>
+								<TableCell style={{width:'25%'}} align="right">Address</TableCell>
+							</TableRow>
+							</TableHead>
+							<TableBody>
+								<Row key={row.order_id} row={row}/>
+							</TableBody>
+						</Table>
+					</TableContainer>
+				</div>
+				))
+			:
+			<p>No orders currently exist for this team</p>
+			}
 		</ div>
 	)   
     
