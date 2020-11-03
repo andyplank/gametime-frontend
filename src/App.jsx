@@ -6,11 +6,11 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import cookie from 'js-cookie';
 import { getUser } from './utils/user/user';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Landing from './components/Landing/Landing';
 
 import Routes from './components/Routing/Routes';
@@ -51,7 +51,6 @@ const App = () => {
     }
 
     const { success, error, user } = await getUser();
-    console.log('User: ' + user);
     if (success && !error) {
       const state = {
         user: user,
@@ -69,7 +68,7 @@ const App = () => {
     initStore();
   }, []);
 
-  if (!initializing) {
+  if (initializing) {
     return (
       <div className="vw-100 vh-100 d-flex justify-content-center align-items-center">
         <div className="fundraiser-loader">
