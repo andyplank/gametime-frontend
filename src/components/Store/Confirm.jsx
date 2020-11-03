@@ -5,7 +5,7 @@ import { deleteItem } from '../../utils/store/store'
 import Feedback from './Feedback';
 
 const Confirm = (props) => {
-    const {show, setShow, item, team_id} = props;
+    const {show, setShow, item, team_id, refresh} = props;
     
     const [showAlert, setShowAlert] = useState(false);
     const [alertType, setAlertType] = useState('danger');
@@ -16,6 +16,7 @@ const Confirm = (props) => {
       const res = await deleteItem(team_id, item.item_id);
       setShowAlert(true);
       if (res===true) {
+        refresh();
         setAlertType('success');
       } else {
         setLoading(false);

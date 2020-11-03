@@ -9,7 +9,8 @@ import ItemTypes from './ItemTypes';
 import {updateItem, createItem} from '../../utils/store/store';
 
 const ItemForm = (props) => {
-  const {show, setShow, item, isNew, teamId} = props;
+  const {show, setShow, item, isNew, 
+    teamId, refresh} = props;
 
   const [allTypes, setAllTypes] = useState([]);
   const [picture, setPicture] = useState('');
@@ -70,6 +71,7 @@ const ItemForm = (props) => {
     if(res){
       setAlertType('success');
       setShowAlert(true);
+      refresh();
     } else {
       setAlertType('danger');
       setShowAlert(true);
@@ -114,7 +116,7 @@ const ItemForm = (props) => {
               isInvalid={errors.price}
               ref={register({
                   min: 0,
-                  required: "Required",
+                  required: true
                 }
               )}
             />
@@ -139,7 +141,7 @@ const ItemForm = (props) => {
               ref={register({
                   required: isNew ? "Required" : "",
                   pattern: {
-                    value: /^.*\.(jpg|JPG)$/,
+                    value: /^.*\.(jpg|JPG|jpeg|JPEG)$/,
                     message: "Must be a JPG file"
                   }
                 }
@@ -208,5 +210,6 @@ ItemForm.propTypes = {
   item: PropTypes.object.isRequired,
   teamId: PropTypes.string.isRequired,
   isNew: PropTypes.bool.isRequired,
+  refresh: PropTypes.func.isRequired
 }
 export default ItemForm;

@@ -16,7 +16,7 @@ export default async function fetchTeams(setTeams) {
         if(res.status!==200){
             return false;
         }
-        setTeams(res.data);
+        setTeams(res.data.teams);
         return true;
     } catch (err) {
         return false;

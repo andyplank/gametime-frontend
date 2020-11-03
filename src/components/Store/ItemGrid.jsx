@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
 
 import { Jumbotron , Container, Row, Col } from 'react-bootstrap';
@@ -14,25 +15,27 @@ const ItemGrid = () => {
   
   const activeItems = items.filter((item) => item.active);
   const grids = activeItems.map((item) => (
-    <Col xs={6} md={4} lg={3} key={item.item_id}>
+    <Col xs={6} md={4} lg={3} key={item.item_id} className="d-flex align-items-end">
       <div>
-        <Link to={`/${teamId}/store/item/${item.item_id}`}>
-          <img
-            alt={item.name}
-            className="item"
-            src={item.picture} 
-            onError={(e)=>{e.target.onerror = null; e.target.src=notFoundIMG}}
-          />
-        </Link>
-      </div>
-      <div className="text-center">
-        <h6>{item.name}</h6>
-      </div>
-      <div className="text-right">
-        <h5>
-          $
-          {item.price}
-        </h5>
+        <div className="w-100">
+          <Link to={`/${teamId}/store/item/${item.item_id}`}>
+            <img
+              alt={item.name}
+              className="w-100"
+              src={item.picture} 
+              onError={(e)=>{e.target.onerror = null; e.target.src=notFoundIMG}}
+            />
+          </Link>
+        </div>
+        <div className="text-center">
+          <h6>{item.name}</h6>
+        </div>
+        <div className="text-right">
+          <h5>
+            $
+            {item.price}
+          </h5>
+        </div>
       </div>
     </Col>
   ));

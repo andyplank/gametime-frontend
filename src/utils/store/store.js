@@ -74,7 +74,6 @@ export async function createItem(team_id, item, types, picture) {
         headers: headers,
         data: data
     }
-    console.log(config);
     try {
         const res = await networker(config);
         if(res.status!==200){
@@ -96,14 +95,12 @@ export async function updateItem(team_id, item, types, picture, item_id) {
         }),
         picture: picture
     }
-    data.price = parseInt(data.price, 4);
     const config = {
         method: 'put',
         url: `${url}/store/update`,
         headers: headers,
         data: data
     }
-    console.log(config);
     try {
         const res = await networker(config);
         if(res.status!==200){

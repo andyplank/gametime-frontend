@@ -16,11 +16,11 @@ const Management = () => {
     const team_id = '8a1addb0-db22-415e-bbfd-1da2dc193e28';
 
     const refresh = () => {
-        fetchItems(setItems, team_id);
+      fetchItems(setItems, team_id);
     }
     
     useEffect(() => {
-        refresh();
+      refresh();
     }, [])
 
     const handleDetails = (item) => {
@@ -55,6 +55,7 @@ const Management = () => {
           setShow={setShow}
           item={selected}
           team_id={team_id}
+          refresh={refresh}
         />
         <ItemForm
           show={showDetails} 
@@ -64,12 +65,13 @@ const Management = () => {
             selected.name === undefined
           }
           teamId={team_id}
+          refresh={refresh}
         />
         <Jumbotron className="text-center">
           <h3>Store Manager</h3>
         </Jumbotron>
-        <Container>
-          <Button onClick={() => handleDetails({})}> Create New </Button>
+        <Container className="mb-4">
+          <Button onClick={() => handleDetails({})}>Add Item</Button>
           <Row className="text-center py-2 border-bottom h5">
             <Col>
               Item Name

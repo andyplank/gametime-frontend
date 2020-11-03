@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { InputGroup} from 'react-bootstrap';
+import { InputGroup } from 'react-bootstrap';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -47,8 +47,8 @@ const SearchBar = () => {
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
-          if(newValue && newValue.id !== undefined){
-            setTeamID(newValue.id)
+          if(newValue && newValue.team_id !== undefined){
+            setTeamID(newValue.team_id)
           }
         }}
         inputValue={inputValue}
@@ -62,12 +62,12 @@ const SearchBar = () => {
         onClose={() => {
           setOpen(false);
         }}
-        getOptionLabel={(option) => option.label !== undefined ? option.label : ''}
+        getOptionLabel={(option) => option.name !== undefined ? option.name : ''}
         options={options}
         loading={loading}
         renderOption={(option) => (
           <>
-            {option.label}
+            {option.name}
           </>
         )}
         renderInput={(params) => (
