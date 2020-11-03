@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Form, Modal } from 'react-bootstrap';
@@ -28,7 +27,7 @@ const ItemForm = (props) => {
     }
   }, [picture])
 
-  const { register, handleSubmit, errors, formState, reset, setError, trigger } = useForm({
+  const { register, handleSubmit, errors, formState, reset, setError } = useForm({
     mode: 'all',
     reValidateMode: 'onChange',
   });
@@ -175,6 +174,15 @@ const ItemForm = (props) => {
         <Modal.Footer>
           <Form.Group className="py-2">
             <Button
+              id="resetItemBtn"
+              type="button"
+              variant="secondary"
+              onClick={() => { setShow(false) }}
+              className="mx-3"
+            >
+              Close
+            </Button>
+            <Button
               id="purchaseItemBtn"
               type="submit"
               variant="primary"
@@ -183,16 +191,6 @@ const ItemForm = (props) => {
             >
               {isLoading ? 'Saving' : 'Save'}
             </Button> 
-
-            <Button
-              id="resetItemBtn"
-              type="button"
-              variant="secondary"
-              onClick={() => {reset(); setShowAlert(false) }}
-              className="mx-3"
-            >
-              Reset
-            </Button>
           </Form.Group>
 
         </Modal.Footer>
@@ -206,8 +204,7 @@ const ItemForm = (props) => {
 ItemForm.propTypes = {
   show: PropTypes.bool.isRequired,
   setShow: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  item: PropTypes.object.isRequired,
+  item: PropTypes.instanceOf(Object).isRequired,
   teamId: PropTypes.string.isRequired,
   isNew: PropTypes.bool.isRequired,
   refresh: PropTypes.func.isRequired

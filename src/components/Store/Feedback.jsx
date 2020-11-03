@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Alert } from 'react-bootstrap';
 
@@ -30,4 +30,9 @@ const Feedback = (props) => {
   );
 }
 
+Feedback.propTypes = {
+  alertType: PropTypes.string.isRequired,
+  showAlert: PropTypes.bool.isRequired,
+  setShowAlert: PropTypes.func.isRequired
+}
 export default Feedback;

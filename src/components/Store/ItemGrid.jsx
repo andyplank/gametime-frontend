@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
 
 import { Jumbotron , Container, Row, Col } from 'react-bootstrap';

@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import React, {useState} from 'react';
 import { Button, Form, Col } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 const ItemTypes = (props) => {
 
@@ -54,7 +54,7 @@ const ItemTypes = (props) => {
             />
           </Col>
           <Col>
-            <Button onClick={() => {addType()}}>Add</Button>
+            <Button variant="primary" onClick={() => {addType()}}>Add</Button>
           </Col>
         </Form.Row>
         { typeMap}
@@ -62,4 +62,8 @@ const ItemTypes = (props) => {
     );
 }
 
+ItemTypes.propTypes = {
+  types: PropTypes.instanceOf(Array).isRequired,
+  setTypes: PropTypes.func.isRequired
+}
 export default ItemTypes;

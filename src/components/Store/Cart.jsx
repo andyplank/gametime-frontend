@@ -38,8 +38,7 @@ const Cart = () => {
 
     const items = cart.map((elm, index) => {
       return (
-        // eslint-disable-next-line react/no-array-index-key
-        <Row key={`cart-item-${elm.item_id}-${index}`} className="pt-3 d-flex align-items-center">
+        <Row key={`cart-item-${elm.item_id}-${elm.type}`} className="pt-3 d-flex align-items-center">
           <Col>
             {elm.name}
           </Col>

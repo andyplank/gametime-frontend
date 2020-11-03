@@ -37,11 +37,10 @@ const CheckOut = () => {
 
   let total = 0;
 
-  const items = cart.map((elm, index) => {
+  const items = cart.map((elm) => {
     total += elm.quantity*elm.price;
     return (
-      // eslint-disable-next-line react/no-array-index-key
-      <Row key={`cart-item-${index}`} className="pt-2">
+      <Row key={`cart-item-${elm.item_id}-${elm.type}`} className="pt-2">
         <Col>
           {elm.name}
         </Col>

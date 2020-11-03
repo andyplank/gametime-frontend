@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import React, {useState} from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import { deleteItem } from '../../utils/store/store'
 import Feedback from './Feedback';
 
@@ -58,4 +58,11 @@ const Confirm = (props) => {
     );
 }
 
+Confirm.propTypes = {
+  show: PropTypes.bool.isRequired,
+  setShow: PropTypes.func.isRequired,
+  item: PropTypes.instanceOf(Object).isRequired,
+  team_id: PropTypes.string.isRequired,
+  refresh: PropTypes.func.isRequired
+}
 export default Confirm;

@@ -34,16 +34,21 @@ const Management = () => {
       setShow(true);
     }
 
-    const itemMap = items.map((elm, index) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <Row key={`item-options-${index}`} className="text-center py-2">
-        <Col>
+    const itemMap = items.map((elm) => (
+      <Row key={`item-options-${elm.item_id}`} className="text-center py-2">
+        <Col md={4}>
+          {elm.item_id}
+        </Col>
+        <Col md={1}>
+          {elm.active ? "Active" : "Inactive"}
+        </Col>
+        <Col md={3}>
           {elm.name}
         </Col>
-        <Col>
-          <Button onClick={() => handleDetails(elm)}>Edit Details</Button>
+        <Col md={2}>
+          <Button variant="info" onClick={() => handleDetails(elm)}>Edit Details</Button>
         </Col>
-        <Col>
+        <Col md={2}>
           <Button variant="danger" onClick={() => handleDelete(elm)}>Delete</Button>
         </Col>
       </Row>
@@ -70,24 +75,28 @@ const Management = () => {
         />
         <Jumbotron className="text-center">
           <h3>Store Manager</h3>
+          <div className="pt-3">
+            <Button onClick={() => handleDetails({})}>Add Item</Button>
+            <Link to={`/${team_id}/store`} className="ml-4"> 
+              <Button>View the store</Button>
+            </Link>
+          </div>
         </Jumbotron>
         <Container className="mb-4">
-          <div className="w-100 d-flex justify-content-left pt-4">
-            <div>
-              <Button onClick={() => handleDetails({})}>Add Item</Button>
-              <Link to={`/${team_id}/store`} className="ml-4"> 
-                <Button>View the store</Button>
-              </Link>
-            </div>
-          </div>
           <Row className="text-center py-2 border-bottom h5">
-            <Col>
+            <Col md={4}>
+              Item ID
+            </Col>
+            <Col md={1}>
+              Status
+            </Col>
+            <Col md={3}>
               Item Name
             </Col>
-            <Col>
+            <Col md={2}>
               Edit item
             </Col>
-            <Col>
+            <Col md={2}>
               Delete
             </Col>
           </Row>
