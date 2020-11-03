@@ -18,7 +18,7 @@ export async function getTeamData(teamId, playerId) {
     }
 
     const res = await networker(config);
-    
+
     return res.data;
 }
 
@@ -77,8 +77,8 @@ export async function joinTeam(teamId) {
     }
 
     const res = await networker(config);
-
     return res;
+
 }
 
 export async function removeFromTeam(teamId, userId) {

@@ -20,6 +20,8 @@ import { getOrders, setOrderStatus }  from '../../utils/orders/orders';
 import Alert from '@material-ui/lab/Alert';
 import './Orders.scss';
 
+import {Container} from 'react-bootstrap';
+
 const mockData = [
 	{
 		order_id: "ABC",

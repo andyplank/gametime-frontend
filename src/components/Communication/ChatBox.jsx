@@ -31,7 +31,7 @@ const ChatBox = () => {
     setSending(true);
     let res;
     if(selected.group_id){ 
-      // Fix sender id
+      // TODO: Fix sender id
       res = await sendGroupMessage(selected.group_id, selected.group_id, message);
     } else {
       res = await sendPlayerMessage(selected.user_id, message);

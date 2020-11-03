@@ -1,4 +1,69 @@
-@import "../../common/global";
+@import '../../common/global';
+
+.LandingImage {
+  display: flex;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("https://149366112.v2.pressablecdn.com/wp-content/uploads/2020/02/shutterstock_114589507-scaled.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  height: 100vh
+}
+
+.no-blue {
+  border-bottom: white !important;
+}
+
+.no-blue:focus {
+  border-bottom: white !important;
+}
+
+.LandingText {
+  text-align: center;
+  border-color: white;
+  color: white;
+} 
+
+.landing-text {
+  font-size: 5rem;
+}
+
+.search-bar {
+  background-color: white !important;
+  border-bottom-left-radius: 1rem !important;
+  border-top-left-radius: 1rem !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.search-button {
+  background-color: #0275d8 !important;
+  min-width: 60px;
+  color: white !important;
+  border-top-right-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}
+
+.w-75-md {
+  width: 100% !important;
+}
+@media only screen and (min-width: 768px) {
+  .w-75-md {
+    width: 75% !important;
+  }
+}
+
+.cover {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.grow {
+  flex-grow: 2;
+}
 
 .mission-heading {
   display: block;
@@ -37,4 +102,3 @@
 .grid-image {
   width: 60%;
 }
-

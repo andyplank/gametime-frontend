@@ -1,12 +1,18 @@
 import React from 'react'
-import { Jumbotron, Container, Row, Col } from "react-bootstrap";
+import { Jumbotron, Container, Row, Col, Button } from "react-bootstrap";
+import { Link } from 'react-router-dom';
 
 const NotFound = () => {
     return (
       <div className="fill-vert">
         <Jumbotron className="text-center">
           <h1>Whoops!</h1>
-          <h3>It looks like this page does not exist</h3>
+          <h3>It looks like this page does not exist</h3>          
+          <div className="mt-3">
+            <Link to="/" className="no-link">
+              <Button variant="outline-secondary">Return home</Button>
+            </Link>
+          </div>
         </Jumbotron>
         <div className="text-center">
           <h4>Blame one of these guys</h4>
