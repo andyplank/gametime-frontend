@@ -56,7 +56,7 @@ const Cart = () => {
           </Col>
           <Col>
             $
-            {elm.quantity*elm.price}
+            {(elm.quantity*elm.price).toFixed(2)}
           </Col>
           <Col>
             <Button variant="danger" onClick={() => handleRemove(index)}>Delete</Button>
