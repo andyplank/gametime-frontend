@@ -18,15 +18,16 @@ const ItemDetails = () => {
   const refresh = () => {
     if(items.length !== 0){
       const temp = items.find((elm) => elm.item_id === itemId);
-      setLoading(false);
-      if(temp===undefined){
-        return;
-      }
-      setItem(temp);
-      if(Array.isArray(temp.types) && temp.types.length > 0){
-        setType(temp.types[0].label);
+      if(temp !== undefined){
+        setItem(temp);
+        if(Array.isArray(temp.types) && temp.types.length > 0){
+          setType(temp.types[0].label);
+        }
+      } else {
+        setItem({});
       }
     }
+    setLoading(false);
   }
 
   useEffect(() => {
