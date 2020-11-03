@@ -43,14 +43,20 @@ const SignedOutHeader = () => {
 
 const SignedInHeader = () => {
   function selector(store) {
+    let role = 'Member';
+    if (store.user.teams.length > 0) {
+      const perm_level =
+        store.user.teams[store.status.selected_team].permission_level;
+      if (perm_level === 2) role = 'Owner';
+      else if (perm_level === 1) role = 'Administrator';
+      else if (perm_level === 0) role = 'Player';
+    }
+
     return {
       first_name: store.user.first_name,
       last_name: store.user.last_name,
-      role:
-        store.teams.length > 0
-          ? store.teams[store.status.selected_team].role
-          : '',
-      teams: store.teams,
+      role: role,
+      teams: store.user.teams,
       selected: store.status.selected_team,
     };
   }
