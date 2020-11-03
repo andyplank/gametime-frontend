@@ -26,7 +26,7 @@ const SignedOutHeader = () => {
   }
 
   return (
-    <Navbar>
+    <Navbar className="border-bottom">
       <Navbar.Brand style={{ fontFamily: 'SignPainter', fontSize: 42 }}>
         <Link to="/" className="text-decoration-none text-reset">
           GameTime

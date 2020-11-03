@@ -35,8 +35,7 @@ const CreateTeamModal = () => {
   const [teamName, setTeamName] = useState('');
 
   function handleCreateClose() {
-    console.log('closing team modal');
-    setTeamName('');
+    setTeamName("");
     setShow(false);
   }
 
@@ -128,8 +127,7 @@ const Account = () => {
 
   useEffect(() => {
     getPic();
-    console.log('pic', profPicture);
-  }, []);
+  },[])
 
   async function onRemoveNumber(target) {
     // Call API to delete number
