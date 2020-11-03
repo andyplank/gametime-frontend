@@ -16,7 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { useSelector } from 'react-redux';
 import Collapse from '@material-ui/core/Collapse';
-import getOrders from '../../utils/orders/orders';
+import { getOrders, setOrderStatus }  from '../../utils/orders/orders';
 import './Orders.scss';
 
 const mockData = [
@@ -92,10 +92,17 @@ const Orders = (props) => {
 	function Row(props) {
 		const { row } = props;
 		const [open, setOpen] = React.useState(false);
+		console.log(row);
 
-		const handleStatusChange = (status, order_id) => {
-			console.log(`changing ${order_id} to`, status);
-			// set orders here to rerender
+		const handleStatusChange = async (transaction_id, status) => {
+			await setOrderStatus(transaction_id, status);
+			const tempOrders = orders.map((order) => {
+				if(order.transaction_id === transaction_id){
+					order.status = status;
+				}
+				return order;
+			});
+			setOrders(tempOrders);
 		}
 	  
 		return (
@@ -112,7 +119,7 @@ const Orders = (props) => {
 						<Select
 						label="Status"
 						value={row.status}
-						onChange={(event) => handleStatusChange(event.target.value, row.order_id)}
+						onChange={(event) => handleStatusChange(row.transaction_id, event.target.value)}
 						>
 							<MenuItem value={0}>Pending</MenuItem>
 							<MenuItem value={1}>Shipped</MenuItem>
