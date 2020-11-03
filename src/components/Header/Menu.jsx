@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import React from 'react';
 import './Menu.scss';
 import { Row, Card, ListGroup } from 'react-bootstrap';
@@ -12,11 +13,13 @@ import {
   MdAssignmentTurnedIn,
 } from 'react-icons/md';
 import PropTypes from 'prop-types';
+import './Menu.scss';
 
 const Menu = (props) => {
   const history = useHistory();
 
   const { first_name, last_name, role } = props;
+  const name = `${first_name} ${last_name}`;
   const accountIconSize = 60;
   const linkIconSize = 24;
 
@@ -29,7 +32,7 @@ const Menu = (props) => {
             <Row>
               <MdAccountCircle size={accountIconSize} />
               <div className="menu-account-text">
-                <span className="menu-account-heading">{`${first_name} ${last_name || ""}`}</span>
+                <span className="menu-account-heading">{name}</span>
                 <span className="menu-account-subheading">
                   {role && role.charAt(0).toUpperCase() + role.slice(1)}
                 </span>
@@ -37,30 +40,38 @@ const Menu = (props) => {
             </Row>
           </ListGroup.Item>
           {/* Links */}
-          <ListGroup.Item onClick={() => history.push('home')}>
-            <Row className="align-items-center">
-              <MdHome size={linkIconSize} className="mx-sm-2" />
-              Homepage
-            </Row>
-          </ListGroup.Item>
-          <ListGroup.Item onClick={() => history.push('team')}>
-            <Row className="align-items-center">
-              <MdAssignmentTurnedIn size={linkIconSize} className="mx-sm-2" />
-              Management
-            </Row>
-          </ListGroup.Item>
-          <ListGroup.Item onClick={() => history.push('message')}>
-            <Row className="align-items-center">
-              <MdMessage size={linkIconSize} className="mx-sm-2" />
-              Messaging
-            </Row>
-          </ListGroup.Item>
-          <ListGroup.Item onClick={() => history.push('documentation')}>
-            <Row className="align-items-center">
-              <MdFolder size={linkIconSize} className="mx-sm-2" />
-              Documentation
-            </Row>
-          </ListGroup.Item>
+          {role !== 'Member' && (
+            <ListGroup.Item onClick={() => history.push('home')}>
+              <Row className="align-items-center">
+                <MdHome size={linkIconSize} className="mx-sm-2" />
+                Homepage
+              </Row>
+            </ListGroup.Item>
+          )}
+          {role === 'Owner' && (
+            <ListGroup.Item onClick={() => history.push('team')}>
+              <Row className="align-items-center">
+                <MdAssignmentTurnedIn size={linkIconSize} className="mx-sm-2" />
+                Management
+              </Row>
+            </ListGroup.Item>
+          )}
+          {role !== 'Member' && (
+            <ListGroup.Item onClick={() => history.push('message')}>
+              <Row className="align-items-center">
+                <MdMessage size={linkIconSize} className="mx-sm-2" />
+                Messaging
+              </Row>
+            </ListGroup.Item>
+          )}
+          {role !== 'Member' && (
+            <ListGroup.Item onClick={() => history.push('documentation')}>
+              <Row className="align-items-center">
+                <MdFolder size={linkIconSize} className="mx-sm-2" />
+                Documentation
+              </Row>
+            </ListGroup.Item>
+          )}
           <ListGroup.Item onClick={() => history.push('resources')}>
             <Row className="align-items-center">
               <MdHelp size={linkIconSize} className="mx-sm-2" />

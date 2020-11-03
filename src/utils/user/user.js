@@ -6,31 +6,37 @@ import networker from '../networker/networker';
  * @param {String} user_id The uuid of the user.
  * @return {data} the contents of the response body of the user request.
  */
-export async function getUser(user_id) {
+export async function getUser() {
   const endpoint = 'http://54.235.234.147:8080/user';
 
-  const params = {
-    id: user_id,
-  };
+  try {
+    const response = await networker.get(endpoint);
 
-  const response = await networker.get(endpoint, { params: { ...params } });
+    const user = {
+      id: response.data.user_id,
+      first_name: response.data.first_name,
+      last_name: response.data.last_name,
+      email_address: response.data.email,
+      profile_picture: response.data.profile_picture,
+      default_phone_number: response.data.phone_number,
+      extra_phone_numbers: response.data.extra_phone_numbers,
+      teams: response.data.teams,
+      groups: response.data.groups,
+    };
 
-  if (response.status !== 200) {
-    return null;
+    return {
+      success: true,
+      error: false,
+      user: user,
+    };
+  } catch (error) {
+    // Assume all non 2xx status codes are un-recoverable
+    return {
+      success: false,
+      error: true,
+      user: null,
+    };
   }
-
-
-  const user = {
-    id: response.data.user_id,
-    first_name: response.data.first_name,
-    last_name: response.data.last_name,
-    email_address: response.data.email,
-    default_phone_number: response.data.phone_number,
-    optional_phone_numbers: response.data.extra_phone_numbers,
-    teams: response.data.teams
-  };
-
-  return user;
 }
 
 /**
@@ -107,19 +113,19 @@ export async function setProfilePicture(user_id, picture, isFirst) {
 
   const data = {
     id: user_id,
-    profile_picture: picture
-  }
+    profile_picture: picture,
+  };
 
-  if(isFirst){
+  if (isFirst) {
     const response = await networker.post(endpoint, data);
-    if(response.status !== 200){
+    if (response.status !== 200) {
       return false;
     }
     return response;
   }
-    const response = await networker.put(endpoint, data);
-    if(response.status !== 200){
-      return false;
-    }
-    return response;
+  const response = await networker.put(endpoint, data);
+  if (response.status !== 200) {
+    return false;
+  }
+  return response;
 }
