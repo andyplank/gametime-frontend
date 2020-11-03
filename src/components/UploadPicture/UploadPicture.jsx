@@ -8,7 +8,7 @@ import "./UploadPicture.css"
 const UploadPicture = (props) => {
   const [picture, setPicture] = useState(null);
   const [showButtons, setShowButtons] = useState(false);
-  const [pictureObj, setPictureObj] = useState(null);
+  const [pictureObj, setPictureObj] = useState([]);
 
   function _handleReaderLoaded(readerEvt) {
     let binaryString = readerEvt.target.result;
@@ -30,13 +30,13 @@ const UploadPicture = (props) => {
 
   const onSavePicture = () => {
     props.savePicture(picture);
-    setPictureObj(null);
+    setPictureObj([]);
     setShowButtons(false);
   }
 
   return (
     <div style={{textAlign:"center"}}>
-      {!pictureObj &&
+      {pictureObj.length == 0 &&
         <ImageUploader
           withIcon={false}
           onChange={onDrop}
