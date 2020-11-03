@@ -17,6 +17,7 @@ import FormControl from '@material-ui/core/FormControl';
 import { useSelector } from 'react-redux';
 import Collapse from '@material-ui/core/Collapse';
 import { getOrders, setOrderStatus }  from '../../utils/orders/orders';
+import Alert from '@material-ui/lab/Alert';
 import './Orders.scss';
 
 const mockData = [
@@ -78,6 +79,8 @@ const Orders = (props) => {
 	}	
 
 	const [orders, setOrders] = useState([]);
+	const [alertMsg, setAlertMsg] = useState('');
+	const [isError, setIsError] = useState(false);
 	const state = useSelector(selector);
 
 	useEffect(() => {
@@ -95,14 +98,22 @@ const Orders = (props) => {
 		console.log(row);
 
 		const handleStatusChange = async (transaction_id, status) => {
-			await setOrderStatus(transaction_id, status);
-			const tempOrders = orders.map((order) => {
-				if(order.transaction_id === transaction_id){
-					order.status = status;
-				}
-				return order;
-			});
-			setOrders(tempOrders);
+			const res = await setOrderStatus(transaction_id, status);
+			if(res){
+				 setAlertMsg(`Status of Order: ${transaction_id} has been successfully updated`);
+				 setIsError(false);
+				 const tempOrders = orders.map((order) => {
+					if(order.transaction_id === transaction_id){
+						order.status = status;
+					}
+					return order;
+				});
+				setOrders(tempOrders);
+			}
+			else{
+				setIsError(true);
+				setAlertMsg('Something went wrong, please try again');
+			}
 		}
 	  
 		return (
@@ -157,9 +168,24 @@ const Orders = (props) => {
 		  </React.Fragment>
 		);
 	  }
+
+	const AlertMsg = () => {
+		if(alertMsg.length > 0) {
+			return (	
+				<Alert 
+					severity={isError ? "error" : "success"}
+					onClose={() => {setAlertMsg('')}}
+				> 
+					{alertMsg}
+				</Alert>
+			)
+		}
+		return null;
+	}
     
 	return (
 		<div className="fill-vert">
+			<AlertMsg/>
 			{orders.length > 0 ? 
 				orders.map((row, i) => (
 					<div key={i} className="orders-display">

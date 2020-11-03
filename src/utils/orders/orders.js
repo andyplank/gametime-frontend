@@ -39,5 +39,9 @@ export async function setOrderStatus(orderId, status) {
     }
 
     const res = await networker(config);
-    return res;
+    if(res.status === 200){
+        return res;
+    }
+    return null;
+    
 }
