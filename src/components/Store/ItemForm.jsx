@@ -60,6 +60,7 @@ const ItemForm = (props) => {
 
   const onSubmit = async (data) => {
     data.price = parseFloat(data.price);
+    data.name = data.name.trim();
     setLoading(true);
     let res;
     if (isNew){
