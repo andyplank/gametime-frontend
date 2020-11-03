@@ -74,7 +74,7 @@ const SearchBar = () => {
           <TextField
             {...params}
             label="Search for your team"
-            variant="outlined"
+            variant="filled"
             InputProps={{
               ...params.InputProps,
               className:"search-bar",

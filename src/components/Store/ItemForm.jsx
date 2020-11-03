@@ -8,8 +8,14 @@ import ItemTypes from './ItemTypes';
 import {updateItem, createItem} from '../../utils/store/store';
 
 const ItemForm = (props) => {
-  const {show, setShow, item, isNew, 
-    teamId, refresh} = props;
+  const {
+    show, 
+    setShow, 
+    item, 
+    isNew, 
+    teamId, 
+    refresh
+  } = props;
 
   const [allTypes, setAllTypes] = useState([]);
   const [picture, setPicture] = useState('');
@@ -35,12 +41,13 @@ const ItemForm = (props) => {
   useEffect(() => {
     const temp = {...item};
     temp.picture = '';
-    reset(temp)
+    setPicture('');
+    reset(temp);
     const types = Array.isArray(item.types) 
       ? item.types 
       : [];
     setAllTypes(types);
-  }, [item]);
+  }, [item, show]);
 
 
   const closeModal = () => {
@@ -124,10 +131,10 @@ const ItemForm = (props) => {
                   }
                 )}
               />
-              <Form.Control.Feedback style={{display: 'block'}} type="invalid">
+              <Form.Control.Feedback className="d-block" type="invalid">
                 {errors.price && errors.price.message}
               </Form.Control.Feedback>
-              <Form.Control.Feedback style={{display: 'block'}} type="valid">
+              <Form.Control.Feedback className="d-block" type="valid">
                 {(formState.touched.price || formState.isSubmitted) && !errors.price && ('Looks Good')}
               </Form.Control.Feedback>
             </InputGroup>

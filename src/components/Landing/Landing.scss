@@ -1,6 +1,28 @@
 @import '../../common/global';
 
+.LandingImage {
+  display: flex;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("https://149366112.v2.pressablecdn.com/wp-content/uploads/2020/02/shutterstock_114589507-scaled.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.LandingText {
+  text-align: center;
+  border-color: white;
+  color: white;
+} 
+
+.landing-text {
+  font-size: 5rem;
+}
+
 .search-bar {
+  background-color: white !important;
   border-bottom-left-radius: 1rem !important;
   border-top-left-radius: 1rem !important;
   border-top-right-radius: 0 !important;
@@ -8,7 +30,9 @@
 }
 
 .search-button {
+  background-color: #0275d8 !important;
   min-width: 60px;
+  color: white !important;
   border-top-right-radius: 1rem !important;
   border-bottom-right-radius: 1rem !important;
 }
