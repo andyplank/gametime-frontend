@@ -1,4 +1,3 @@
-/* eslint-disable */ 
 import React from 'react';
 import './TeamManagement.scss';
 import './TeamManagement.css';
@@ -11,7 +10,7 @@ import Switch from '@material-ui/core/Switch';
 import CloseIcon from '@material-ui/icons/Close';
 import Modal from 'react-bootstrap/Modal';
 import Button from '@material-ui/core/Button';
-import PropTypes, { object } from 'prop-types';
+import PropTypes from 'prop-types';
 import { editPermission, removeFromTeam } from '../../utils/team/team'
 
 class PlayersDisplay extends React.Component {
@@ -147,4 +146,11 @@ class PlayersDisplay extends React.Component {
         )
     }    
 }
+
+PlayersDisplay.propTypes = {
+  refresh: PropTypes.func.isRequired,
+  players: PropTypes.arrayOf(PropTypes.object).isRequired,
+  teamId: PropTypes.string.isRequired,
+}
+
 export default PlayersDisplay;

@@ -1,7 +1,7 @@
-/* eslint-disable */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ImageUploader from "react-images-upload";
 import Button from '@material-ui/core/Button';
+import PropTypes from 'prop-types';
 import "./UploadPicture.css"
 
 
@@ -10,17 +10,17 @@ const UploadPicture = (props) => {
   const [showButtons, setShowButtons] = useState(false);
   const [pictureObj, setPictureObj] = useState([]);
 
-  function _handleReaderLoaded(readerEvt) {
-    let binaryString = readerEvt.target.result;
+  function handleReaderLoaded(readerEvt) {
+    const binaryString = readerEvt.target.result;
     setPicture(btoa(binaryString));
   }
   
-  const onDrop = (picture) => {
-    setPictureObj(picture);
-    if(picture.length > 0){
+  const onDrop = (pic) => {
+    setPictureObj(pic);
+    if(pic.length > 0){
       const reader = new FileReader();
-      reader.onload = _handleReaderLoaded;
-      reader.readAsBinaryString(picture[0]);
+      reader.onload = handleReaderLoaded;
+      reader.readAsBinaryString(pic[0]);
       setShowButtons(true);
     }
     else{
@@ -36,20 +36,23 @@ const UploadPicture = (props) => {
 
   return (
     <div style={{textAlign:"center"}}>
-      {pictureObj.length == 0 &&
-        <ImageUploader
-          withIcon={false}
-          onChange={onDrop}
-          imgExtension={[".jpg"]}
-          maxFileSize={5242880}
-          singleImage={true}
-          buttonText="Edit Picture"
-          withLabel={false}
-          withPreview={false}
-        />
+      {pictureObj.length === 0 &&
+        (
+          <ImageUploader
+            withIcon={false}
+            onChange={onDrop}
+            imgExtension={[".jpg"]}
+            maxFileSize={5242880}
+            singleImage
+            buttonText="Edit Picture"
+            withLabel={false}
+            withPreview={false}
+          />
+        )
       }
       {
         showButtons &&
+        ( 
           <>
             <Button 
               className="picture-button"
@@ -59,12 +62,19 @@ const UploadPicture = (props) => {
             >
               Save
             </Button>
-            <p>File Name: {pictureObj[0].name}</p>
+            <p>
+              File Name: 
+              {pictureObj[0].name}
+            </p>
           </>
+        )
       }
-
     </div>
   )
 }
+
+UploadPicture.propTypes = {
+  savePicture: PropTypes.func.isRequired,
+};
 
 export default UploadPicture;

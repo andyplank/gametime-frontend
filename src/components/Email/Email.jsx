@@ -1,11 +1,10 @@
-/* eslint-disable */
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import sendEmail from '../../utils/email/email';
 import './Email.css';
 
-const Email = (props) => {
+const Email = () => {
     function selector(store) {
         return {
           first_name: store.user.first_name,
@@ -36,18 +35,15 @@ const Email = (props) => {
             ${state.first_name} ${state.last_name}
         `)
     }
-
-    function validateEmail(email) 
+    function validateEmail(mail) 
     {
-        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email))
+        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail))
         {
             setIsValid(true);
             return true;
         }
-        else{
-            setIsValid(false);
-            return false;
-        }
+        setIsValid(false);
+        return false;
 
     }
 
@@ -63,32 +59,34 @@ const Email = (props) => {
     }
 
     return (
-        <div className="display">
-            <Form onSubmit={false}>
-                <Form.Group className="py-2" controlId="formBasicEmail">
-                    <Form.Label className="login-form-label">
-                        Send Fundraiser Info
-                    </Form.Label>
-                    <div className="txtbox">
-                        <Form.Control
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            isInvalid={!isValid}
-                            size="lg"
-                            placeholder="Enter email"
-                        />
-                        &nbsp;
-                        <Button onClick={handleEmailSend}>Send</Button>
-                    </div>
-                    {success != null && 
-                        <span className={success ? "email-success" : "email-error fade-out"}>
-                            {success ? "Email sent successfully" : "Oops! Something went wrong"}
-                        </span>
-                    }
-                </Form.Group> 
-            </Form>
-        </div>
+      <div className="display">
+        <Form onSubmit={false}>
+          <Form.Group className="py-2" controlId="formBasicEmail">
+            <Form.Label className="login-form-label">
+              Send Fundraiser Info
+            </Form.Label>
+            <div className="txtbox">
+              <Form.Control
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                isInvalid={!isValid}
+                size="lg"
+                placeholder="Enter email"
+              />
+              &nbsp;
+              <Button onClick={handleEmailSend}>Send</Button>
+            </div>
+            {success != null && 
+              (
+                <span className={success ? "email-success" : "email-error"}>
+                  {success ? "Email sent successfully" : "Oops! Something went wrong"}
+                </span>
+			  )
+            }
+          </Form.Group> 
+        </Form>
+      </div>
     );
 }
 
