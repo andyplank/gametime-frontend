@@ -2,3 +2,15 @@
     display:flex;
     justify-content: space-between;
 }
+
+.email-success {
+    color:green;
+}
+
+.email-error{
+    color: red;
+}
+
+.display {
+    width:25%;
+}

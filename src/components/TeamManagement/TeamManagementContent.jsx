@@ -1,9 +1,7 @@
-/* eslint-disable */ 
 import React from 'react';
 import './TeamManagement.scss';
 import './TeamManagement.css';
 import Button from '@material-ui/core/Button';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Modal from 'react-bootstrap/Modal';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types'
@@ -14,7 +12,7 @@ import {
   } from 'react-bootstrap';
 
 import PlayersDisplay from './PlayersDisplay';
-import { getTeamData, createTeam, editTeam } from '../../utils/team/team';
+import { getTeamData, editTeam } from '../../utils/team/team';
 
 const headerStyle = {
 textAlign: 'center',
@@ -28,7 +26,6 @@ class TeamManagementContent extends React.Component {
       this.state = {
         players: [],
         showTeamEdit: false,
-        showTeamCreate: false,
         showTeamInvite: false,
         teamNameError: false,
         teamName: '',
@@ -36,8 +33,6 @@ class TeamManagementContent extends React.Component {
       };
     }
 
-
-  //pass in teamId from redux into getTeamData
     async componentDidMount() {
       this.fetchPlayers();
     } 
@@ -156,56 +151,62 @@ class TeamManagementContent extends React.Component {
     }
   
     render() {
-      const { players, teamName } = this.state;
+      const { players } = this.state;
       const { teamId } = this.props;
       return(
-          <div style={{ height: "100%" }}>
-            {this.renderTeamEditModal()}
-            {this.renderInviteLinkModal()}
-            <h1 style={headerStyle}> 
-              TeamManagement 
-            </h1>
-            <Container fluid>
-              <Row>
-                <Col xs={6} md={2}>
-                  <h2 style={{ display: 'inline-block', paddingBottom: '2%' }}>
-                    Team Control
-                  </h2>
-                  <p>
-                    <Button
-                      className="btn-team"
-                      variant="contained"
-                      color="primary"
-                      onClick={() => this.handleTeamEditClick()}
-                    >
-                      Edit Team
-                    </Button>
-                  </p>
-                  <p>
-                    <Button
-                      className="btn-team"
-                      variant="contained"
-                      color="primary"
-                      onClick={() => this.handleTeamInviteClick()}
-                    >
-                      Show Invite Link
-                    </Button>
-                  </p>
-                  <br />
-                </Col>
-                <Col xs={12} md={10}>
-                  <div style={{ paddingLeft: '5%' }}>
-                    <h2>Players</h2>
-                    { players.length > 0 &&
-                      <PlayersDisplay players={players} refresh={() => this.fetchPlayers()} teamId={teamId} />
-                    }
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </div>
+        <div style={{ height: "100%" }}>
+          {this.renderTeamEditModal()}
+          {this.renderInviteLinkModal()}
+          <h1 style={headerStyle}> 
+            TeamManagement 
+          </h1>
+          <Container fluid>
+            <Row>
+              <Col xs={6} md={2}>
+                <h2 style={{ display: 'inline-block', paddingBottom: '2%' }}>
+                  Team Control
+                </h2>
+                <p>
+                  <Button
+                    className="btn-team"
+                    variant="contained"
+                    color="primary"
+                    onClick={() => this.handleTeamEditClick()}
+                  >
+                    Edit Team
+                  </Button>
+                </p>
+                <p>
+                  <Button
+                    className="btn-team"
+                    variant="contained"
+                    color="primary"
+                    onClick={() => this.handleTeamInviteClick()}
+                  >
+                    Show Invite Link
+                  </Button>
+                </p>
+                <br />
+              </Col>
+              <Col xs={12} md={10}>
+                <div style={{ paddingLeft: '5%' }}>
+                  <h2>Players</h2>
+                  { players.length > 0 &&
+                    <PlayersDisplay players={players} refresh={() => this.fetchPlayers()} teamId={teamId} />
+                  }
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </div>
       )
     };
+  }
+
+  TeamManagementContent.propTypes = {
+    teamId: PropTypes.string.isRequired,
+    playerId: PropTypes.string.isRequired,
+    dispatchTeamEdit: PropTypes.func.isRequired
   }
   
   export default TeamManagementContent;
