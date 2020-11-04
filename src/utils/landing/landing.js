@@ -1,6 +1,6 @@
 import networker from '../networker/networker';
+import API_URL from '../API_URL';
 
-const url = 'https://gametime-server.hubermjonathan.com:8080/';
 const headers = {
     'Content-Type': 'application/json'
 }
@@ -8,7 +8,7 @@ const headers = {
 export default async function fetchTeams(setTeams) {
     const config = {
         method: 'get',
-        url: `${url}/team/view/all`,
+        url: `${API_URL}/team/view/all`,
         headers: headers
     }
     try {

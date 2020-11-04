@@ -1,15 +1,25 @@
 @import '../../common/global';
 
+.no-select {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
+
 .LandingImage {
   display: flex;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("https://149366112.v2.pressablecdn.com/wp-content/uploads/2020/02/shutterstock_114589507-scaled.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+    url('https://149366112.v2.pressablecdn.com/wp-content/uploads/2020/02/shutterstock_114589507-scaled.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
   align-items: center;
   justify-content: center;
-  height: 100vh
+  height: 100vh;
 }
 
 .no-blue {
@@ -20,11 +30,16 @@
   border-bottom: white !important;
 }
 
+@media only screen and (max-width: 768px) {
+  .landing-text {
+    font-size: 3.15rem !important;
+  }
+}
+
 .LandingText {
   text-align: center;
-  border-color: white;
   color: white;
-} 
+}
 
 .landing-text {
   font-size: 5rem;

@@ -87,6 +87,9 @@ function reducer(state = default_state, action) {
     case 'SET_SIGNED_IN':
       copy.status.signed_in = action.payload;
       return copy;
+    case 'SET_TEAM':
+      copy.status.team = action.payload;
+      return copy;
     case 'SET_SELECTED_TEAM':
       copy.status.selected_team = action.payload;
       return copy;

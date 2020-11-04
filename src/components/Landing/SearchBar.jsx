@@ -40,7 +40,7 @@ const SearchBar = () => {
   }
 
   return (
-    <InputGroup className="d-flex">
+    <InputGroup className="d-flex w-100">
       <Autocomplete
         id="team-search-bar"
         className="grow no-blue"
@@ -86,10 +86,14 @@ const SearchBar = () => {
               ),
             }}
           />
-          )}
+        )}
       />
       <InputGroup.Append>
-        <Link to={`${teamId}/home`} className="no-link justify-content-center btn btn-outline-primary d-flex align-items-center search-button">
+        <Link
+          replace 
+          to={teamId!=='' ? `${teamId}/home` : '/'}
+          className="no-link justify-content-center btn btn-outline-primary d-flex align-items-center search-button"
+        >
           {' Go '}
         </Link>
       </InputGroup.Append>

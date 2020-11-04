@@ -18,7 +18,7 @@ import './Menu.scss';
 const Menu = (props) => {
   const history = useHistory();
 
-  const { first_name, last_name, role } = props;
+  const { first_name, last_name, role, team_id } = props;
   const name = `${first_name} ${last_name}`;
   const accountIconSize = 60;
   const linkIconSize = 24;
@@ -28,7 +28,7 @@ const Menu = (props) => {
       <Card style={{ width: '300px' }}>
         <ListGroup>
           {/* Account */}
-          <ListGroup.Item onClick={() => history.push('account')}>
+          <ListGroup.Item onClick={() => history.push('/account')}>
             <Row>
               <MdAccountCircle size={accountIconSize} />
               <div className="menu-account-text">
@@ -41,7 +41,7 @@ const Menu = (props) => {
           </ListGroup.Item>
           {/* Links */}
           {role !== 'Member' && (
-            <ListGroup.Item onClick={() => history.push('home')}>
+            <ListGroup.Item onClick={() => history.push(`/${team_id}/home`)}>
               <Row className="align-items-center">
                 <MdHome size={linkIconSize} className="mx-sm-2" />
                 Homepage
@@ -49,7 +49,7 @@ const Menu = (props) => {
             </ListGroup.Item>
           )}
           {role === 'Owner' && (
-            <ListGroup.Item onClick={() => history.push('team')}>
+            <ListGroup.Item onClick={() => history.push('/manage/team')}>
               <Row className="align-items-center">
                 <MdAssignmentTurnedIn size={linkIconSize} className="mx-sm-2" />
                 Management
@@ -57,7 +57,7 @@ const Menu = (props) => {
             </ListGroup.Item>
           )}
           {role !== 'Member' && (
-            <ListGroup.Item onClick={() => history.push('message')}>
+            <ListGroup.Item onClick={() => history.push('/message')}>
               <Row className="align-items-center">
                 <MdMessage size={linkIconSize} className="mx-sm-2" />
                 Messaging
@@ -65,14 +65,14 @@ const Menu = (props) => {
             </ListGroup.Item>
           )}
           {role !== 'Member' && (
-            <ListGroup.Item onClick={() => history.push('documentation')}>
+            <ListGroup.Item onClick={() => history.push('/documentation')}>
               <Row className="align-items-center">
                 <MdFolder size={linkIconSize} className="mx-sm-2" />
                 Documentation
               </Row>
             </ListGroup.Item>
           )}
-          <ListGroup.Item onClick={() => history.push('resources')}>
+          <ListGroup.Item onClick={() => history.push('/resources')}>
             <Row className="align-items-center">
               <MdHelp size={linkIconSize} className="mx-sm-2" />
               Resources

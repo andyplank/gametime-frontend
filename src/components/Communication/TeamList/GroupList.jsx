@@ -1,12 +1,15 @@
 import React, { useContext, useState } from 'react';
 
 import '../Communication.scss';
+import PropTypes from 'prop-types';
 import GroupCreator from '../GroupEditor/GroupCreator';
 import CommContext from '../context';
 
-const GroupList = () => {
+const GroupList = (props) => {
+  const { team_id } = props;
+
   const {
-    groups, selected, setSelected
+    groups, selected, setSelected, 
   } = useContext(CommContext);
 
   const [editorVis, setEditorVis] = useState(false);
@@ -35,6 +38,7 @@ const GroupList = () => {
       <GroupCreator
         editorVis={editorVis}
         setEditorVis={setEditorVis}
+        team_id={team_id}
       />
       <div className="px-2 d-flex justify-content-between align-items-center">
         <div className="h4">Groups</div>
@@ -62,5 +66,7 @@ const GroupList = () => {
   );
 };
 
-GroupList.propTypes = {};
+GroupList.propTypes = {
+  team_id: PropTypes.string.isRequired
+};
 export default GroupList;
