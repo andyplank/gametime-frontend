@@ -31,7 +31,7 @@ const Routes = () => {
         
         <Route path="/:teamId/store/" component={Store} />
         <Route path="/:teamId/home" component={Home} />
-        <Private path="/team/join" Component={JoinTeamPage} /> 
+        <Private path="/team/join/:teamId" Component={JoinTeamPage} /> 
         <Route component={NotFound} />
       </Switch>
       <Footer />

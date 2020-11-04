@@ -16,6 +16,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { useSelector } from 'react-redux';
 import Collapse from '@material-ui/core/Collapse';
+import { getOrders, setOrderStatus }  from '../../utils/orders/orders';
+import Alert from '@material-ui/lab/Alert';
+import './Orders.scss';
 
 import {Container} from 'react-bootstrap';
 
@@ -45,7 +48,7 @@ const mockData = [
 	},
 	{
 		order_id: "def",
-		status: 1,
+		status: 2,
 		buyer_email: 'li2718@purdue.edu',
 		buyer_address: '1225 West State Street',
 		items: [
@@ -72,27 +75,49 @@ const mockData = [
 const Orders = (props) => {
 	function selector(store) {
 		return {
-			teamId:
-				store.teams.length > 0
-					? store.teams[store.status.selected_team].id
-					: 0,
+			teams: store.user.teams,
+			selected: store.status.selected_team,
 		};
 	}	
 
 	const [orders, setOrders] = useState([]);
+	const [alertMsg, setAlertMsg] = useState('');
+	const [isError, setIsError] = useState(false);
 	const state = useSelector(selector);
 
 	useEffect(() => {
-		const orders = [] // call api to retrieve orders
-		setOrders(orders);
+		async function fetchOrders() {
+			console.log(state);
+			const orders = await getOrders(state.teams[state.selected].team_id);
+			console.log(orders);
+			setOrders(orders);
+		}
+		fetchOrders();
+
 	}, []);
 
 	function Row(props) {
 		const { row } = props;
 		const [open, setOpen] = React.useState(false);
+		console.log(row);
 
-		const handleStatusChange = (event) => {
-			// TODO call enpoint to chaqnge order status here
+		const handleStatusChange = async (transaction_id, status) => {
+			const res = await setOrderStatus(transaction_id, status);
+			if(res){
+				 setAlertMsg(`Status of Order: ${transaction_id} has been successfully updated`);
+				 setIsError(false);
+				 const tempOrders = orders.map((order) => {
+					if(order.transaction_id === transaction_id){
+						order.status = status;
+					}
+					return order;
+				});
+				setOrders(tempOrders);
+			}
+			else{
+				setIsError(true);
+				setAlertMsg('Something went wrong, please try again');
+			}
 		}
 	  
 		return (
@@ -108,12 +133,12 @@ const Orders = (props) => {
 					<InputLabel>Status</InputLabel>
 						<Select
 						label="Status"
-						value={1}
-						onChange={handleStatusChange}
+						value={row.status}
+						onChange={(event) => handleStatusChange(row.transaction_id, event.target.value)}
 						>
-							<MenuItem value={1}>Pending</MenuItem>
-							<MenuItem value={2}>Shipped</MenuItem>
-							<MenuItem value={3}>Completed</MenuItem>
+							<MenuItem value={0}>Pending</MenuItem>
+							<MenuItem value={1}>Shipped</MenuItem>
+							<MenuItem value={2}>Completed</MenuItem>
 						</Select>
 				</FormControl>
 			  </TableCell>
@@ -126,17 +151,17 @@ const Orders = (props) => {
 				<Table size="small" aria-label="Items">
 					<TableHead>
 						<TableRow>
-							<TableCell>item_id</TableCell>
-							<TableCell align="right">quantity</TableCell>
-							<TableCell align="right">type</TableCell>
+							<TableCell>Item Name</TableCell>
+							<TableCell align="right">Quantity</TableCell>
+							<TableCell align="right">Type</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
 						{row.items.map((item) => (
 							<TableRow key={item.item_id}>
-								<TableCell>{item.item_id}</TableCell>
+								<TableCell>{item.name}</TableCell>
 								<TableCell align="right">{item.quantity}</TableCell>
-								<TableCell align="right">{item.type.length > 0 ? item.type : "N/A"}</TableCell>
+								<TableCell align="right">{item.label && item.label.length > 0 ? item.label : "N/A"}</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
@@ -147,35 +172,48 @@ const Orders = (props) => {
 		  </React.Fragment>
 		);
 	  }
+
+	const AlertMsg = () => {
+		if(alertMsg.length > 0) {
+			return (	
+				<Alert 
+					severity={isError ? "error" : "success"}
+					onClose={() => {setAlertMsg('')}}
+				> 
+					{alertMsg}
+				</Alert>
+			)
+		}
+		return null;
+	}
     
 	return (
-		<div className="fill-vert">
-			<Container className="py-4">
-			<div className="text-center pb-2">
-				<h3>Team Orders</h3>
-			</div>
-			{mockData.map((row) => (
-				<div style={{width: "", paddingBottom: "3%"}}>
-					<TableContainer component={Paper}>
-					<Table aria-label="simple table" size="small">
-						<TableHead>
-						<TableRow>
-							<TableCell/>
-							<TableCell>Status</TableCell>
-							<TableCell align="right">Buyer's&nbsp;Email</TableCell>
-							<TableCell align="right">Address</TableCell>
-						</TableRow>
-						</TableHead>
-						<TableBody>
-							<Row key={row.order_id} row={row}/>
-						</TableBody>
-					</Table>
-				</TableContainer>
-			</div>
-			))}
-		</Container>
-		</div>
-
+		<div className="orders fill-vert">
+			<AlertMsg/>
+			{orders.length > 0 ? 
+				orders.map((row, i) => (
+					<div key={i} className="orders-display">
+						<TableContainer component={Paper}>
+						<Table aria-label="simple table" size="small">
+							<TableHead>
+							<TableRow>
+								<TableCell style={{width:'5%'}}/>
+								<TableCell style={{width:'25%'}}>Status</TableCell>
+								<TableCell style={{width:'10%'}} align="right">Buyer's&nbsp;Email</TableCell>
+								<TableCell style={{width:'25%'}} align="right">Address</TableCell>
+							</TableRow>
+							</TableHead>
+							<TableBody>
+								<Row key={row.order_id} row={row}/>
+							</TableBody>
+						</Table>
+					</TableContainer>
+				</div>
+				))
+			:
+			<p>No orders currently exist for this team</p>
+			}
+		</ div>
 	)   
     
     

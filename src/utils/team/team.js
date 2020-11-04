@@ -59,7 +59,6 @@ export async function editTeam(teamId, name) {
 
     const res = await networker(config);
     return res;
-
 }
 
 export async function joinTeam(teamId) {
@@ -113,5 +112,4 @@ export async function editPermission(teamId, userId, permission) {
 
     const res = await networker(config);
     return res;
-
 }
