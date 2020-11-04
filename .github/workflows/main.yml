@@ -22,7 +22,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: bundle
-          path: public/bundle
+          path: '~/public/bundle.js'
   deploy:
     name: Deploy
     needs: build
