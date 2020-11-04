@@ -11,11 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: install packages
+        run: npm i
       - name: test
         run: npm run test
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: install packages
+        run: npm i
       - name: build
         run: npm run build
