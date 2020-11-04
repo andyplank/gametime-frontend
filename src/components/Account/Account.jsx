@@ -261,6 +261,7 @@ const Account = () => {
             })}
           </div>
           <CreateTeamModal />
+          <Email />
         </div>
       </div>
     </div>

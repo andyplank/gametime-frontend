@@ -20,5 +20,8 @@ export default async function sendEmail(recipient, subject, body){
 
     const res = await networker(config);
 
-    return res.data;
+    if(res.status === 200){
+        return true;
+    }
+    return false;
 }
