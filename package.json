@@ -5,8 +5,8 @@
   "main": "src/App.jsx",
   "scripts": {
     "test": "jest",
-    "dev": "webpack-dev-server",
-    "build": "webpack --mode production"
+    "dev": "webpack-dev-server --env.dev",
+    "build": "webpack --env.API_URL=http://localhost:8000 --mode production"
   },
   "author": "Jon Huber",
   "license": "ISC",

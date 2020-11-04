@@ -1,6 +1,6 @@
 import networker from '../networker/networker';
+import API_URL from '../API_URL';
 
-const url = 'https://gametime-server.hubermjonathan.com:8080/';
 const headers = {
     'Content-Type': 'application/json'
 }
@@ -8,7 +8,7 @@ const headers = {
 export async function fetchItems(setItems, id) {
     const config = {
         method: 'get',
-        url: `${url}/store/items/?teamid=${id}`,
+        url: `${API_URL}/store/items/?teamid=${id}`,
         headers: headers
     }
     try {
@@ -25,7 +25,6 @@ export async function fetchItems(setItems, id) {
     }
 
 }
-
 
 export async function purchaseItems(buyer_info, items, team_id) {
     const itemDetails = items.map((item) => {
@@ -44,7 +43,7 @@ export async function purchaseItems(buyer_info, items, team_id) {
     }
     const config = {
         method: 'post',
-        url: `${url}/store/order`,
+        url: `${API_URL}/store/order`,
         headers: headers,
         data: data
     }
@@ -70,7 +69,7 @@ export async function createItem(team_id, item, types, picture) {
     }
     const config = {
         method: 'post',
-        url: `${url}/store/create`,
+        url: `${API_URL}/store/create`,
         headers: headers,
         data: data
     }
@@ -97,7 +96,7 @@ export async function updateItem(team_id, item, types, picture, item_id) {
     }
     const config = {
         method: 'put',
-        url: `${url}/store/update`,
+        url: `${API_URL}/store/update`,
         headers: headers,
         data: data
     }
@@ -120,7 +119,7 @@ export async function deleteItem(team_id, item_id) {
     }
     const config = {
         method: 'delete',
-        url: `${url}/store/delete`,
+        url: `${API_URL}/store/delete`,
         headers: headers,
         data: data
     }
@@ -141,7 +140,7 @@ export async function orders(team_id){
     }
     const config = {
         method: 'post',
-        url: `${url}/store/status`,
+        url: `${API_URL}/store/status`,
         headers: headers,
         data: data
     }

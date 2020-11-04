@@ -15,19 +15,8 @@ import CommContext from './context';
 import { fetchMembers, fetchGroups } from '../../utils/comm/comm';
 
 const Communication = () => {
-  // TODO: Remove temp vars
-  const temp = [
-    { first_name: 'Andy', user_id: '1' },
-    { first_name: 'Jim', user_id: '2' },
-    { first_name: 'Daniel', user_id: '3' },
-    { first_name: 'Jon', user_id: '4' },
-  ];
-  const temp2 = [
-    { name: 'Varsity', group_id: '10', members: [temp[0], temp[1]] },
-    { name: 'JV', group_id: '11', members: [] },
-  ];
-  const [members, setMembers] = useState(temp);
-  const [groups, setGroups] = useState(temp2);
+  const [members, setMembers] = useState([]);
+  const [groups, setGroups] = useState([]);
   const [selected, setSelected] = useState({});
 
   const selector = (store) => {
@@ -47,18 +36,16 @@ const Communication = () => {
       role: role,
       team_id:
         store.user.teams.length > 0
-          ? store.user.teams[store.status.selected_team].id
+          ? store.user.teams[store.status.selected_team].team_id
           : '',
     };
   };
 
-  // TODO: Use state
-  // eslint-disable-next-line no-unused-vars
   const state = useSelector(selector);
 
   const refresh = () => {
-    fetchMembers(setMembers);
-    fetchGroups(setGroups);
+    fetchMembers(setMembers, state.team_id);
+    fetchGroups(setGroups, state.team_id);
   };
 
   useEffect(() => {
@@ -80,7 +67,7 @@ const Communication = () => {
       <Container fluid className="fill-vert">
         <Row className="flex-fill">
           <Col md={3} className="bg-Primary px-0">
-            <GroupList />
+            <GroupList team_id={state.team_id} />
             <MemberList />
           </Col>
           <Col md={9}>

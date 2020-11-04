@@ -29,7 +29,7 @@ const Home = () => {
   return (
     <div className="fill-vert">
       <Jumbotron className="text-center">
-        <h1>Welcome to Gametime!</h1>
+        <h2>Team Page</h2>
       </Jumbotron>
       <Container>
         <Link to={`/${teamId}/store/`} className="no-link">

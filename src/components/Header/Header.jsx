@@ -41,6 +41,8 @@ const SignedOutHeader = () => {
   );
 };
 
+
+
 const SignedInHeader = () => {
   function selector(store) {
     let role = 'Member';
@@ -52,10 +54,20 @@ const SignedInHeader = () => {
       else if (perm_level === 0) role = 'Player';
     }
 
+    let team_id = 0;
+    try {
+      if (store.status.signed_in) {
+        team_id = store.user.teams[store.status.selected_team].team_id;
+      }
+    } catch (err) {
+      team_id = 0;
+    }
+    
     return {
       first_name: store.user.first_name,
       last_name: store.user.last_name,
       role: role,
+      team_id: team_id,
       teams: store.user.teams,
       selected: store.status.selected_team,
     };
@@ -81,7 +93,7 @@ const SignedInHeader = () => {
       {/* Navigation Header */}
       <Navbar className="border-bottom border-light">
         <Navbar.Brand style={{ fontFamily: 'SignPainter', fontSize: 42 }}>
-          <Link to="/home" className="text-decoration-none text-reset">
+          <Link to="/" className="text-decoration-none text-reset">
             GameTime
           </Link>
         </Navbar.Brand>

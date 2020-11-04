@@ -1,4 +1,5 @@
 import networker from '../networker/networker';
+import API_URL from '../API_URL';
 
 /**
  * Returns the response body of the teams request.
@@ -7,7 +8,7 @@ import networker from '../networker/networker';
  * @return {data} the contents of the response body of the teams request.
  */
 export default async function getTeams(user_id) {
-  const endpoint = 'https://gametime-server.hubermjonathan.com:8080/user/teams';
+  const endpoint = `${API_URL}/user/teams`;
 
   const params = {
     id: user_id,
