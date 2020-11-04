@@ -13,6 +13,8 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Landing from './components/Landing/Landing';
 
+import './assets/images/favicon.ico';
+
 import Routes from './components/Routing/Routes';
 import reducer from './reducers/reducer';
 import 'bootstrap/dist/css/bootstrap.css';

@@ -1,4 +1,5 @@
 import networker from '../networker/networker';
+import API_URL from '../API_URL';
 
 /**
  * Returns the response body of the user request.
@@ -7,7 +8,7 @@ import networker from '../networker/networker';
  * @return {data} the contents of the response body of the user request.
  */
 export async function getUser() {
-  const endpoint = 'http://54.235.234.147:8080/user';
+  const endpoint = `${API_URL}/user`;
 
   try {
     const response = await networker.get(endpoint);
@@ -47,7 +48,7 @@ export async function getUser() {
  * @return {message} whether or not the request succeeded.
  */
 export async function addPhoneNumber(user_id, phone_number) {
-  const endpoint = 'http://54.235.234.147:8080/user/phone/add';
+  const endpoint = `${API_URL}/user/phone/add`;
 
   const data = {
     id: user_id,
@@ -70,7 +71,7 @@ export async function addPhoneNumber(user_id, phone_number) {
  * @return {bool} whether or not the request succeeded.
  */
 export async function removePhoneNumber(user_id, phone_number) {
-  const endpoint = 'http://54.235.234.147:8080/user/phone/remove';
+  const endpoint = `${API_URL}/user/phone/remove`;
 
   const data = {
     id: user_id,
@@ -92,7 +93,7 @@ export async function removePhoneNumber(user_id, phone_number) {
  * Gets current profile picture of user
  */
 export async function getProfilePicture(user_id) {
-  const endpoint = 'http://54.235.234.147:8080/user/profilePicture';
+  const endpoint = `${API_URL}/user/profilePicture`;
 
   const data = {
     id: user_id,
@@ -109,7 +110,7 @@ export async function getProfilePicture(user_id) {
 }
 
 export async function setProfilePicture(user_id, picture, isFirst) {
-  const endpoint = 'http://54.235.234.147:8080/user/profilePicture';
+  const endpoint = `${API_URL}/user/profilePicture`;
 
   const data = {
     id: user_id,

@@ -42,7 +42,6 @@ const CreateTeamModal = () => {
   async function handleSaveTeamCreate() {
     if (teamName && teamName.length > 0 && teamName.length <= 30) {
       let team_id = await createTeam(state.id, teamName);
-      console.log('teamid', team_id);
       const newTeam = { name: teamName, permission_level: 2, team_id: team_id };
       dispatch({ type: 'SET_TEAMS', payload: state.teams.concat(newTeam) });
       setTeamName('');

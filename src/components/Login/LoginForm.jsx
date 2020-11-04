@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import login from '../../utils/auth/auth';
 import { getUser } from '../../utils/user/user';
 
@@ -15,16 +15,20 @@ const LoginForm = () => {
     const [loading, setLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
     const dispatch = useDispatch();
-    const history = useHistory();
 
-    const state = useSelector((store) => {
-        return { signed_in: store.status.signed_in };
+    const loggedIn = useSelector((store) => {
+      if(store.status.signed_in){
+        return true;
+      }
+      return false;
     });
-    
-    if (state.signed_in) {
-        history.push('/');
-    }
 
+    if(loggedIn){
+      return (
+        <Redirect to="/" />
+      );
+    }
+    
     async function onSubmit(data) {     
         // Do not allow multiple outstanding requests
         if (loading) {
@@ -41,15 +45,14 @@ const LoginForm = () => {
         if (!error && success) {
             const res = await getUser();
             if (!res.error && res.success) {
-                const newState = {
-                    user: res.user,
-                    status: {
-                            signed_in: true,
-                            selected_team: 0,
-                        },
-                    };
-                dispatch({ type: 'SET_STATE', payload: newState });
-                history.push('/');
+              const newState = {
+                  user: res.user,
+                  status: {
+                          signed_in: true,
+                          selected_team: 0,
+                      },
+                  };
+              dispatch({ type: 'SET_STATE', payload: newState });
             }
         } else {
           setErrorMsg(message);

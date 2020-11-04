@@ -1,10 +1,11 @@
 import networker from '../networker/networker';
+import API_URL from '../API_URL'
 
+const headers = {
+    'Content-Type': 'application/json'
+}
 
 export async function getTeamData(teamId, playerId) {
-    const headers = {
-        'Content-Type': 'application/json'
-    }
 
     const data = {
         team: teamId,
@@ -13,7 +14,7 @@ export async function getTeamData(teamId, playerId) {
 
     const config = {
         method: 'post',
-        url: 'http://54.235.234.147:8080/team/view/data',
+        url: `${API_URL}/team/view/data`,
         headers: headers,
         data: data
     }
@@ -24,9 +25,6 @@ export async function getTeamData(teamId, playerId) {
 }
 
 export async function createTeam(ownerId, name) {
-    const headers = {
-        'Content-Type': 'application/json'
-    }
 
     const data = {
         name: name,
@@ -35,7 +33,7 @@ export async function createTeam(ownerId, name) {
 
     const config = {
         method: 'post',
-        url: 'http://54.235.234.147:8080/team/create',
+        url: `${API_URL}/team/create`,
         headers: headers,
         data: data
     }
@@ -46,10 +44,7 @@ export async function createTeam(ownerId, name) {
 }
 
 export async function editTeam(teamId, name) {
-    const headers = {
-        'Content-Type': 'application/json',
-    }
-
+   
     const data = {
         team: teamId,
         name: name
@@ -57,7 +52,7 @@ export async function editTeam(teamId, name) {
 
     const config = {
         method: 'post',
-        url: 'http://54.235.234.147:8080/team/edit',
+        url: `${API_URL}/team/edit`,
         headers: headers,
         data: data
     }
@@ -68,13 +63,10 @@ export async function editTeam(teamId, name) {
 }
 
 export async function joinTeam(teamId) {
-    const headers = {
-        'Content-Type': 'application/json',
-    }
-
+    
     const config = {
         method: 'get',
-        url: `http://54.235.234.147:8080/team/join/${teamId}`,
+        url: `${API_URL}/team/join/${teamId}`,
         headers: headers
     }
 
@@ -84,9 +76,6 @@ export async function joinTeam(teamId) {
 }
 
 export async function removeFromTeam(teamId, userId) {
-    const headers = {
-        'Content-Type': 'application/json',
-    }
 
     const data = {
         team: teamId,
@@ -95,7 +84,7 @@ export async function removeFromTeam(teamId, userId) {
 
     const config = {
         method: 'post',
-        url: `http://54.235.234.147:8080/team/remove`,
+        url: `${API_URL}/team/remove`,
         headers: headers,
         data: data
     }
@@ -108,9 +97,6 @@ export async function removeFromTeam(teamId, userId) {
 }
 
 export async function editPermission(teamId, userId, permission) {
-    const headers = {
-        'Content-Type': 'application/json',
-    }
 
     const data = {
         team: teamId,
@@ -120,7 +106,7 @@ export async function editPermission(teamId, userId, permission) {
 
     const config = {
         method: 'post',
-        url: `http://54.235.234.147:8080/team/permissions`,
+        url: `${API_URL}/team/permissions`,
         headers: headers,
         data: data
     }

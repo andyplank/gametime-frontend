@@ -1,10 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom'
+import {  useSelector } from 'react-redux';
 
 const Private = (props) => {
     const { Component } = props;
-    const isAuthenticated = true;
+    const isAuthenticated = useSelector((store) => {
+      if(store.status.signed_in){
+        return true;
+      }
+      return false;
+    });
 
     return isAuthenticated ? (
       <Component />

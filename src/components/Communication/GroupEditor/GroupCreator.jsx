@@ -12,7 +12,7 @@ import CommContext from '../context';
 
 const GroupCreator = (props) => {
   const {
-    editorVis, setEditorVis
+    editorVis, setEditorVis, team_id
   } = props;
 
   const { members, refresh } = useContext(CommContext)
@@ -47,7 +47,7 @@ const GroupCreator = (props) => {
 
   const handleSubmit = async () => {
     setLoading(true);
-    const res = await createGroup(groupName, groupMembers);
+    const res = await createGroup(groupName, groupMembers, team_id);
     setLoading(false);
     if(res===true){
       setAlertMessage('Success!');
@@ -131,6 +131,7 @@ const GroupCreator = (props) => {
 GroupCreator.propTypes = {
   editorVis: PropTypes.bool.isRequired,
   setEditorVis: PropTypes.func.isRequired,
+  team_id: PropTypes.string.isRequired
 };
 
 export default GroupCreator;
