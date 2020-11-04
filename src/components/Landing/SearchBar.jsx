@@ -40,7 +40,7 @@ const SearchBar = () => {
   }
 
   return (
-    <InputGroup className="d-flex">
+    <InputGroup className="d-flex w-100">
       <Autocomplete
         id="team-search-bar"
         className="grow no-blue"
