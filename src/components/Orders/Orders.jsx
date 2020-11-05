@@ -48,7 +48,7 @@ const Orders = () => {
 		const [open, setOpen] = React.useState(false);
 
 		const handleStatusChange = async (transaction_id, status) => {
-			const res = await setOrderStatus(transaction_id, status);
+			const res = await setOrderStatus(state.teams[state.selected].team_id, transaction_id, status);
 			if(res){
 				 setAlertMsg(`Status of Order: ${transaction_id} has been successfully updated`);
 				 setIsError(false);
