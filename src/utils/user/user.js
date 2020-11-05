@@ -105,7 +105,6 @@ export async function getProfilePicture(user_id) {
     return false;
   }
 
-
   return response.data.profile_picture;
 }
 

@@ -1,0 +1,43 @@
+@import '../../common/global';
+
+.fundraiser-page-content {
+}
+
+.fundraiser-title-text {
+  display: block;
+  font-size: 3em;
+  font-weight: 500;
+  color: black;
+  text-align: center;
+  line-height: normal;
+}
+
+.fundraiser-heading-text {
+  display: block;
+  font-size: 2em;
+  font-weight: 500;
+  color: black;
+  text-align: center;
+  line-height: normal;
+}
+
+.fundraiser-caption-text {
+  // display: block;
+  font-size: 1.75em;
+  font-weight: 400;
+  color: black;
+  text-align: center;
+  line-height: normal;
+}
+
+.fundraiser-body-text {
+  font-size: 1.75em;
+  font-weight: 400;
+  color: black;
+  // text-align: center;
+  line-height: normal;
+}
+
+.fundraiser-loader {
+  color: $primary-color;
+}
