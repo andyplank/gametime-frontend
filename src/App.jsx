@@ -12,6 +12,7 @@ import { getUser } from './utils/user/user';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Landing from './components/Landing/Landing';
+import Verify from './components/Verify/Verify';
 
 import './assets/images/favicon.ico';
 
@@ -86,6 +87,7 @@ const App = () => {
         <Switch>
           <Route path="/login" exact component={Login} />
           <Route path="/register" exact component={Register} />
+          <Route path="/verify" exact component={Verify} />
           <Route path="/" exact component={Landing} />
           <Routes />
         </Switch>

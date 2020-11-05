@@ -6,17 +6,20 @@ import './Verify.scss';
 
 const Verify = () => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
   const [mutex, setMutex] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const history = useHistory();
 
-  async function handleSubmit() {
+  async function handleSubmit(event) {
+    event.preventDefault();
     // Do not allow multiple outstanding requests
     if (mutex) {
       return;
     }
+
+    if (!validate()) return;
+
     // Clear any pre-existing error messages, and mark as loading
     setErrorMsg('');
     setMutex(true);
@@ -24,18 +27,38 @@ const Verify = () => {
     // Query verify API
     const data = {
       email: email,
-      password: password,
-      code: code
+      code: code,
     };
 
     const { message, error, success } = await verify(data);
 
     if (!error && success) {
-      history.push('/home');
+      history.push('/');
     } else {
       setErrorMsg(message);
       setMutex(false);
     }
+  }
+
+  function validate() {
+    // Validate email address
+    const email_regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (email === '') {
+      setErrorMsg('Email address is a required field');
+      return false;
+    }
+    if (!email_regex.test(email)) {
+      setErrorMsg('Email address is not valid');
+      return false;
+    }
+
+    // Validate verification code
+    if (code === '') {
+      setErrorMsg('Verification code is a required field');
+      return false;
+    }
+
+    return true;
   }
 
   return (
@@ -56,17 +79,6 @@ const Verify = () => {
                   isInvalid={errorMsg !== ''}
                   size="lg"
                   placeholder="Enter email"
-                />
-              </Form.Group>
-              <Form.Group className="py-2" controlId="formBasicPassword">
-                <Form.Label className="verify-form-label">Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  isInvalid={errorMsg !== ''}
-                  size="lg"
-                  placeholder="Password"
                 />
               </Form.Group>
               <Form.Group className="py-2" controlId="formBasicCode">
