@@ -7,8 +7,9 @@ import TeamManagementContent from './TeamManagementContent';
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('<TeamManagementContent />', () => {
+  const dispatchTeamEdit = jest.fn();
     const wrapper = Enzyme.mount(
-      <TeamManagementContent />
+      <TeamManagementContent dispatchTeamEdit={dispatchTeamEdit} teamId='1' playerId='1' />
     );
 
      it('clicking edit team opens edit modal', () => {
