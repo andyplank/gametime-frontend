@@ -1,11 +1,9 @@
-/* eslint-disable */
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import login from '../../utils/auth/auth';
 import { getUser } from '../../utils/user/user';
-// import { getUser } from '../../utils/user/user';
 import './Login.scss';
 
 const Login = () => {
@@ -26,11 +24,16 @@ const Login = () => {
   }
 
   async function handleSubmit() {
-    console.log('handle submit fired');
     // Do not allow multiple outstanding requests
     if (mutex) {
       return;
     }
+
+    // Do not allow empty requests
+    if (email === '' || password === '') {
+      return;
+    }
+
     // Clear any pre-existing error messages, and mark as loading
     setMutex(true);
     setErrorMsg('');
@@ -39,16 +42,17 @@ const Login = () => {
     const { message, error, success } = await login(email, password);
 
     if (!error && success) {
+      // eslint-disable-next-line no-shadow
       const { success, error, user } = await getUser();
       if (!error && success) {
-        const state = {
+        const user_state = {
           user: user,
           status: {
             signed_in: true,
             selected_team: 0,
           },
         };
-        dispatch({ type: 'SET_STATE', payload: state });
+        dispatch({ type: 'SET_STATE', payload: user_state });
         history.push('/');
       }
     } else {

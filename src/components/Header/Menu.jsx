@@ -1,6 +1,4 @@
-/* eslint-disable*/
 import React from 'react';
-import './Menu.scss';
 import { Row, Card, ListGroup } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import {
@@ -8,9 +6,9 @@ import {
   MdHome,
   MdMessage,
   MdFolder,
-  MdHelp,
   MdPowerSettingsNew,
   MdAssignmentTurnedIn,
+  MdAttachMoney,
 } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import './Menu.scss';
@@ -72,12 +70,14 @@ const Menu = (props) => {
               </Row>
             </ListGroup.Item>
           )}
-          <ListGroup.Item onClick={() => history.push('resources')}>
-            <Row className="align-items-center">
-              <MdHelp size={linkIconSize} className="mx-sm-2" />
-              Resources
-            </Row>
-          </ListGroup.Item>
+          {role !== 'Member' && (
+            <ListGroup.Item onClick={() => history.push('fundraising')}>
+              <Row className="align-items-center">
+                <MdAttachMoney size={linkIconSize} className="mx-sm-2" />
+                Fundraising
+              </Row>
+            </ListGroup.Item>
+          )}
           <ListGroup.Item onClick={() => history.push('/logout')}>
             <Row className="align-items-center">
               <MdPowerSettingsNew size={linkIconSize} className="mx-sm-2" />

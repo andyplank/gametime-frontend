@@ -1,132 +1,131 @@
 import networker from '../networker/networker';
 
-
 export async function getTeamData(teamId, playerId) {
-    const headers = {
-        'Content-Type': 'application/json'
-    }
+  const headers = {
+    'Content-Type': 'application/json',
+  };
 
-    const data = {
-        team: teamId,
-        player: playerId
-    }
+  const data = {
+    team: teamId,
+    player: playerId,
+  };
 
-    const config = {
-        method: 'post',
-        url: 'http://54.235.234.147:8080/team/view/data',
-        headers: headers,
-        data: data
-    }
+  const config = {
+    method: 'post',
+    url: 'https://gametime-server.hubermjonathan.com:8080/team/view/data',
+    headers: headers,
+    data: data,
+  };
 
-    const res = await networker(config);
-    console.log(res.data);
+  const res = await networker(config);
+  console.log(res.data);
 
-    return res.data;
+  return res.data;
 }
 
 export async function createTeam(ownerId, name) {
-    const headers = {
-        'Content-Type': 'application/json'
-    }
+  const headers = {
+    'Content-Type': 'application/json',
+  };
 
-    const data = {
-        name: name,
-        owner: ownerId
-    }
+  const data = {
+    name: name,
+    owner: ownerId,
+  };
 
-    const config = {
-        method: 'post',
-        url: 'http://54.235.234.147:8080/team/create',
-        headers: headers,
-        data: data
-    }
+  const config = {
+    method: 'post',
+    url: 'https://gametime-server.hubermjonathan.com:8080/team/create',
+    headers: headers,
+    data: data,
+  };
 
-    const res = await networker(config);
+  const res = await networker(config);
 
-    return res.data.team_id;
+  return res.data.team_id;
 }
 
 export async function editTeam(teamId, name) {
-    const headers = {
-        'Content-Type': 'application/json',
-    }
+  const headers = {
+    'Content-Type': 'application/json',
+  };
 
-    const data = {
-        team: teamId,
-        name: name
-    }
+  const data = {
+    team: teamId,
+    name: name,
+  };
 
-    const config = {
-        method: 'post',
-        url: 'http://54.235.234.147:8080/team/edit',
-        headers: headers,
-        data: data
-    }
+  const config = {
+    method: 'post',
+    url: 'https://gametime-server.hubermjonathan.com:8080/team/edit',
+    headers: headers,
+    data: data,
+  };
 
-    const res = await networker(config);
+  const res = await networker(config);
 
-    console.log("edit team", res);
+  console.log('edit team', res);
 }
 
 export async function joinTeam(teamId) {
-    const headers = {
-        'Content-Type': 'application/json',
-    }
+  const headers = {
+    'Content-Type': 'application/json',
+  };
 
-    const config = {
-        method: 'get',
-        url: `http://54.235.234.147:8080/team/join/${teamId}`,
-        headers: headers
-    }
+  const config = {
+    method: 'get',
+    url: `https://gametime-server.hubermjonathan.com:8080/team/join/${teamId}`,
+    headers: headers,
+  };
 
-    const res = await networker(config);
+  const res = await networker(config);
 
-    console.log(res);
+  console.log(res);
 }
 
 export async function removeFromTeam(teamId, userId) {
-    const headers = {
-        'Content-Type': 'application/json',
-    }
+  const headers = {
+    'Content-Type': 'application/json',
+  };
 
-    const data = {
-        team: teamId,
-        user: userId
-    }
+  const data = {
+    team: teamId,
+    user: userId,
+  };
 
-    const config = {
-        method: 'post',
-        url: `http://54.235.234.147:8080/team/remove`,
-        headers: headers,
-        data: data
-    }
+  const config = {
+    method: 'post',
+    url: `https://gametime-server.hubermjonathan.com:8080/team/remove`,
+    headers: headers,
+    data: data,
+  };
 
-    const res = await networker(config);
-    if(res.status !== 200){
-        return null;
-    }
-    return res;
+  const res = await networker(config);
+  if (res.status !== 200) {
+    return null;
+  }
+  return res;
 }
 
 export async function editPermission(teamId, userId, permission) {
-    const headers = {
-        'Content-Type': 'application/json',
-    }
+  const headers = {
+    'Content-Type': 'application/json',
+  };
 
-    const data = {
-        team: teamId,
-        user: userId,
-        priv: permission
-    }
+  const data = {
+    team: teamId,
+    user: userId,
+    priv: permission,
+  };
 
-    const config = {
-        method: 'post',
-        url: `http://54.235.234.147:8080/team/permissions`,
-        headers: headers,
-        data: data
-    }
+  const config = {
+    method: 'post',
+    url: `https://gametime-server.hubermjonathan.com:8080/team/permissions`,
+    headers: headers,
+    data: data,
+  };
 
-    const res = await networker(config);
+  const res = await networker(config);
 
-    console.log(res);
+  console.log(res);
 }

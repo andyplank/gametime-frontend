@@ -7,7 +7,7 @@ import networker from '../networker/networker';
  * @return {data} the contents of the response body of the register request.
  */
 export async function register(data) {
-  const endpoint = 'http://54.235.234.147:8080/signup';
+  const endpoint = 'https://gametime-server.hubermjonathan.com:8080/signup';
 
   const body = {
     firstname: data.first_name,

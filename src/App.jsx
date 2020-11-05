@@ -1,4 +1,4 @@
-/* eslint-disable */
+// /* eslint-disable */
 import React, { useState, useEffect } from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import ReactDOM from 'react-dom';
@@ -17,6 +17,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 // Initialize Redux store
 const store = createStore(
   reducer,
+  // eslint-disable-next-line no-underscore-dangle
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
@@ -30,7 +31,6 @@ const App = () => {
     }
 
     const { success, error, user } = await getUser();
-    console.log('User: ' + user);
     if (success && !error) {
       const state = {
         user: user,
@@ -56,18 +56,17 @@ const App = () => {
         </div>
       </div>
     );
-  } else {
-    return (
-      <Router>
-        <Switch>
-          <Route path="/login" exact component={Login} />
-          <Route path="/register" exact component={Register} />
-
-          <Routes />
-        </Switch>
-      </Router>
-    );
   }
+  return (
+    <Router>
+      <Switch>
+        <Route path="/login" exact component={Login} />
+        <Route path="/register" exact component={Register} />
+
+        <Routes />
+      </Switch>
+    </Router>
+  );
 };
 
 ReactDOM.render(

@@ -13,7 +13,7 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 2018,
+    ecmaVersion: 2020,
     sourceType: 'module',
   },
   plugins: ['react'],
@@ -24,5 +24,6 @@ module.exports = {
     'object-shorthand': 'off',
     'no-param-reassign': 'off',
     'react/jsx-curly-newline': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
   },
 };
