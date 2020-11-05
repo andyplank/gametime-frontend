@@ -47,23 +47,23 @@ export async function verify(data) {
 
   const body = {
     email: data.email,
-    password: data.password,
     code: data.code,
   };
-  const response = await networker.post(endpoint, body);
 
-  if (response.status !== 200) {
+  try {
+    const response = await networker.post(endpoint, body);
+    const { success, error, message } = response.data;
+
+    return {
+      success: success,
+      error: error,
+      message: message,
+    };
+  } catch (e) {
     return {
       message: 'Something went wrong, please try again later',
       error: true,
       success: false,
     };
   }
-
-  const { message, error, success } = response.data;
-  return {
-    message: message,
-    error: error,
-    success: success,
-  };
 }

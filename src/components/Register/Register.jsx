@@ -9,28 +9,28 @@ const Register = () => {
   const [state, setState] = useState({
     first_name: {
       value: '',
-      errorMsg: ''
+      errorMsg: '',
     },
     last_name: {
       value: '',
-      errorMsg: ''
+      errorMsg: '',
     },
     email_address: {
       value: '',
-      errorMsg: ''
+      errorMsg: '',
     },
     password: {
       value: '',
-      errorMsgs: []
+      errorMsgs: [],
     },
     confirm_password: {
       value: '',
-      errorMsg: ''
+      errorMsg: '',
     },
     phone_number: {
       value: '',
-      errorMsg: ''
-    }
+      errorMsg: '',
+    },
   });
 
   const [loading, setLoading] = useState(false);
@@ -139,14 +139,12 @@ const Register = () => {
       last_name: state.last_name.value,
       email_address: state.email_address.value,
       phone_number: `+1${state.phone_number.value.replace(/[^0-9]/g, '')}`,
-      password: state.password.value
+      password: state.password.value,
     };
 
     const { message, error, success } = await register(data);
     if (success && !error) {
-      // Verification is currently disabled. Redirect back to home
-      // history.push('/verify');
-      history.push('/home');
+      history.push('/verify');
       return;
     }
 
@@ -173,8 +171,8 @@ const Register = () => {
                           ...state,
                           first_name: {
                             value: e.target.value,
-                            errorMsg: ''
-                          }
+                            errorMsg: '',
+                          },
                         })
                       }
                       size="lg"
@@ -198,8 +196,8 @@ const Register = () => {
                           ...state,
                           last_name: {
                             value: e.target.value,
-                            errorMsg: ''
-                          }
+                            errorMsg: '',
+                          },
                         })
                       }
                       size="lg"
@@ -223,8 +221,8 @@ const Register = () => {
                       ...state,
                       email_address: {
                         value: e.target.value,
-                        errorMsg: ''
-                      }
+                        errorMsg: '',
+                      },
                     })
                   }
                   size="lg"
@@ -246,8 +244,8 @@ const Register = () => {
                       ...state,
                       phone_number: {
                         value: e.target.value,
-                        errorMsg: ''
-                      }
+                        errorMsg: '',
+                      },
                     })
                   }
                   size="lg"
@@ -269,8 +267,8 @@ const Register = () => {
                       ...state,
                       password: {
                         value: e.target.value,
-                        errorMsgs: []
-                      }
+                        errorMsgs: [],
+                      },
                     })
                   }
                   size="lg"
@@ -296,8 +294,8 @@ const Register = () => {
                       ...state,
                       confirm_password: {
                         value: e.target.value,
-                        errorMsg: ''
-                      }
+                        errorMsg: '',
+                      },
                     })
                   }
                   size="lg"
