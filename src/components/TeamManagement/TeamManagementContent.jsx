@@ -9,16 +9,11 @@ import {
     Container,
     Row,
     Col,
+    Jumbotron
   } from 'react-bootstrap';
 
 import PlayersDisplay from './PlayersDisplay';
 import { getTeamData, editTeam } from '../../utils/team/team';
-
-const headerStyle = {
-textAlign: 'center',
-paddingBottom: '3%',
-};
-
 
 class TeamManagementContent extends React.Component {
     constructor(props) {
@@ -157,9 +152,11 @@ class TeamManagementContent extends React.Component {
         <div style={{ height: "100%" }}>
           {this.renderTeamEditModal()}
           {this.renderInviteLinkModal()}
-          <h1 style={headerStyle}> 
-            TeamManagement 
-          </h1>
+          <Jumbotron>
+            <h2 className="text-center"> 
+              TeamManagement 
+            </h2>
+          </Jumbotron>
           <Container fluid>
             <Row>
               <Col xs={6} md={2}>
