@@ -91,7 +91,7 @@ const SearchBar = () => {
       <InputGroup.Append>
         <Link
           replace 
-          to={teamId!=='' ? `${teamId}/home` : '/'}
+          to={teamId!=='' ? `/team/${teamId}/home` : '/'}
           className="no-link justify-content-center btn btn-outline-primary d-flex align-items-center search-button"
         >
           {' Go '}

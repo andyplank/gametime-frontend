@@ -41,7 +41,6 @@ const LoginForm = () => {
     
         // Query login API
         const { message, error, success } = await login(data.email, data.password);
-    
         if (!error && success) {
             const res = await getUser();
             if (!res.error && res.success) {

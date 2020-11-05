@@ -16,7 +16,7 @@ const ItemGrid = () => {
     return  (
       <Col xs={6} md={4} lg={3} key={item.item_id}>
         <Link
-          to={`/${teamId}/store/item/${item.item_id}`}
+          to={`/team/${teamId}/store/item/${item.item_id}`}
         >  
           <div className="square" style={{backgroundImage: `url('${item.picture}')`}} />
         </Link>

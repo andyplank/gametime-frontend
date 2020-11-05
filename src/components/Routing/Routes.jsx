@@ -22,25 +22,21 @@ const Routes = () => {
       <Switch>
         {/* <Route path="/logout" exact component={Logout} /> */}
         <Private path="/account" exact Component={Account} />
-        <Private path="/home" exact Component={Home} />
-        <Private path="/team" exact Component={TeamManagement} />
-        <Private path="/message" exact Component={Communication} />
-        {/* <Private path="/documentation" exact component={Documentation} /> */}
-        <Private path="/fundraising" exact Component={Fundraising} />
-        <Private path="/team/join" Component={JoinTeamPage} />
-        <Route path="/fundraiser/:team_id/:user_id" component={Fundraiser} />
-        <Route path="/fundraiser/:team_id" component={Fundraiser} />
+        <Private path="/join" Component={JoinTeamPage} />
+        <Private path="/join/:teamId" Component={JoinTeamPage} />
         <Private path="/message" exact Component={Communication} />
         <Private path="/manage/team" exact Component={TeamManagement} />
         <Private path="/manage/orders" exact Component={Orders} />
         <Private path="/manage/store" exact Component={Management} />
+        <Private path="/manage/fundraiser" exact Component={Fundraising} />
 
         {/* <Route path="/documentation" exact component={Documentation} /> */}
         {/* <Route path="/resources" exact component={Resources} /> */}
 
-        <Route path="/:teamId/store/" component={Store} />
-        <Route path="/:teamId/home" component={Home} />
-        <Private path="/team/join/:teamId" Component={JoinTeamPage} />
+        <Route path="/team/:team_id/fundraiser/:user_id" component={Fundraiser} />
+        <Route path="/team/:team_id/fundraiser" component={Fundraiser} />
+        <Route path="/team/:teamId/store/" component={Store} />
+        <Route path="/team/:teamId/home" component={Home} />
         <Route component={NotFound} />
       </Switch>
       <Footer />

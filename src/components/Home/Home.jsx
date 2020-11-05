@@ -32,7 +32,7 @@ const Home = () => {
         <h2>Team Page</h2>
       </Jumbotron>
       <Container>
-        <Link to={`/${teamId}/store/`} className="no-link">
+        <Link to={`/team/${teamId}/store/`} className="no-link">
           <Button>Go to team store</Button>
         </Link>
       </Container>

@@ -76,7 +76,7 @@ const Store = () => {
   const shoppingCartBadge = (
     <div className="wrap">
       <div className="absolute">
-        <Link to={`/${teamId}/store/cart`} className="no-link">
+        <Link to={`/team/${teamId}/store/cart`} className="no-link">
           <Badge badgeContent={cartLen} showZero color="primary">
             <ShoppingCartRoundedIcon style={{color: 'black'}} fontSize="large" />
           </Badge>
@@ -100,12 +100,12 @@ const Store = () => {
         {location.pathname!==`/${teamId}/store/cart` && shoppingCartBadge}
         {!loading && (
           <Switch>
-            <Route path="/:teamId/store/edit" component={ItemForm} />
-            <Route path="/:teamId/store/item/:itemId" component={ItemDetails} />
-            <Route path="/:teamId/store/cart/" exact component={Cart} />
-            <Route path="/:teamId/store/checkout/" exact component={CheckOut} />
-            <Route path="/:teamId/store" exact component={ItemGrid} />
-            <Route component={() => (<Redirect to={{ pathname: `/${teamId}/store` }} />)} />
+            <Route path="/team/:teamId/store/edit" component={ItemForm} />
+            <Route path="/team/:teamId/store/item/:itemId" component={ItemDetails} />
+            <Route path="/team/:teamId/store/cart/" exact component={Cart} />
+            <Route path="/team/:teamId/store/checkout/" exact component={CheckOut} />
+            <Route path="/team/:teamId/store" exact component={ItemGrid} />
+            <Route component={() => (<Redirect to={{ pathname: `/team/${teamId}/store` }} />)} />
           </Switch>
         )}
       </StoreContext.Provider>
