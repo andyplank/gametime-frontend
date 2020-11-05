@@ -21,12 +21,13 @@ export async function getOrders(teamId) {
 }
   
 
-export async function setOrderStatus(orderId, status) {
+export async function setOrderStatus(teamId, orderId, status) {
     const headers = {
         'Content-Type': 'application/json'
     }
 
     const data = {
+        team_id: teamId,
         order_id: orderId,
         status: status
     }
