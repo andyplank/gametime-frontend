@@ -39,7 +39,7 @@ const Menu = (props) => {
           </ListGroup.Item>
           {/* Links */}
           {role !== 'Member' && (
-            <ListGroup.Item onClick={() => history.push(`/${team_id}/home`)}>
+            <ListGroup.Item onClick={() => history.push(`/team/${team_id}/home`)}>
               <Row className="align-items-center">
                 <MdHome size={linkIconSize} className="mx-sm-2" />
                 Homepage
@@ -63,15 +63,15 @@ const Menu = (props) => {
             </ListGroup.Item>
           )}
           {role !== 'Member' && (
-            <ListGroup.Item onClick={() => history.push('/documentation')}>
+            <ListGroup.Item onClick={() => history.push('/manage/store')}>
               <Row className="align-items-center">
                 <MdFolder size={linkIconSize} className="mx-sm-2" />
-                Documentation
+                Store
               </Row>
             </ListGroup.Item>
           )}
           {role !== 'Member' && (
-            <ListGroup.Item onClick={() => history.push('fundraising')}>
+            <ListGroup.Item onClick={() => history.push('/manage/fundraiser')}>
               <Row className="align-items-center">
                 <MdAttachMoney size={linkIconSize} className="mx-sm-2" />
                 Fundraising

@@ -36,13 +36,13 @@ class PlayersDisplay extends React.Component {
     }
 
     async handleAdminChange(index) {
-        const { players, teamId } = this.props;
+        const { players, team_id } = this.props;
         const { adminChecked } = this.state;
         const newArr = adminChecked;
         newArr[index] = !newArr[index];
         this.setState({adminChecked: newArr});
         const perm = newArr[index] ? 1 : 0;
-        await editPermission(teamId, players[index].user_id, perm);
+        await editPermission(team_id, players[index].user_id, perm);
     };
 
     showRemoveModal(player){
@@ -65,9 +65,9 @@ class PlayersDisplay extends React.Component {
     async handlePlayerRemove() {
         // TODO call remove endpoint
         const { player } = this.state;
-        const { refresh, teamId } = this.props;
+        const { refresh, team_id } = this.props;
         this.setState({ showPlayerRemove: false });
-        await removeFromTeam(teamId, player.user_id);
+        await removeFromTeam(team_id, player.user_id);
         await refresh();
     }
 
@@ -150,7 +150,7 @@ class PlayersDisplay extends React.Component {
 PlayersDisplay.propTypes = {
   refresh: PropTypes.func.isRequired,
   players: PropTypes.arrayOf(PropTypes.object).isRequired,
-  teamId: PropTypes.string.isRequired,
+  team_id: PropTypes.string.isRequired,
 }
 
 export default PlayersDisplay;

@@ -58,7 +58,7 @@ const GroupList = (props) => {
       <ul className="list-group">
         {groups.length !== 0 ? groupButtons : (
           <li className="px-4 py-2">
-            <h6>There are no groups, try creating one!</h6>
+            There are no groups, try creating one!
           </li>
       )}
       </ul>

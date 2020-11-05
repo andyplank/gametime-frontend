@@ -60,7 +60,7 @@ const Email = () => {
 
     return (
       <div className="display">
-        <Form onSubmit={false}>
+        <Form onSubmit={undefined}>
           <Form.Group className="py-2" controlId="formBasicEmail">
             <Form.Label className="login-form-label">
               Send Fundraiser Info

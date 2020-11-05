@@ -12,6 +12,7 @@ import { getUser } from './utils/user/user';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Landing from './components/Landing/Landing';
+import Logout from './components/Logout/Logout';
 
 import './assets/images/favicon.ico';
 
@@ -85,6 +86,7 @@ const App = () => {
       <Router>
         <Switch>
           <Route path="/login" exact component={Login} />
+          <Route path="/logout" exact component={Logout} />
           <Route path="/register" exact component={Register} />
           <Route path="/" exact component={Landing} />
           <Routes />

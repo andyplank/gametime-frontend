@@ -11,6 +11,26 @@ import {
 } from '../../utils/fundraising/fundraising';
 import './Fundraising.scss';
 
+const defaultState = {
+  statusMessage: '',
+  isActive: false,
+  donation_goal: {
+    value: '',
+    error: '',
+    isValid: true,
+  },
+  end_date: {
+    value: '',
+    error: '',
+    isValid: true,
+  },
+  description: {
+    value: '',
+    error: '',
+    isValid: true,
+  },
+}
+
 const Fundraising = () => {
   // Extract team data from the redux store
   const { user, team } = useSelector((store) => {
@@ -23,6 +43,7 @@ const Fundraising = () => {
   // Determine if a fundraiser already exists, and if so, extract data
   useEffect(() => {
     async function initState() {
+      setState(defaultState);
       // If team owner, get team fundraising data
       let response;
       if (team.permission_level === 2) {
@@ -63,25 +84,7 @@ const Fundraising = () => {
     initState();
   }, [team.team_id]);
 
-  const [state, setState] = useState({
-    statusMessage: '',
-    isActive: false,
-    donation_goal: {
-      value: '',
-      error: '',
-      isValid: true,
-    },
-    end_date: {
-      value: '',
-      error: '',
-      isValid: true,
-    },
-    description: {
-      value: '',
-      error: '',
-      isValid: true,
-    },
-  });
+  const [state, setState] = useState(defaultState);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -228,7 +231,7 @@ const Fundraising = () => {
   }
 
   return (
-    <div className="fundraising-page-wrapper d-flex flex-column align-items-center">
+    <div className="fill-vert fundraising-page-wrapper d-flex flex-column align-items-center">
       <div className="fundraising-page-content w-75">
         <div className="fundraising-title py-4">
           <span className="fundraising-title-text">Team Fundraising</span>

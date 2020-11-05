@@ -9,7 +9,7 @@ import StoreContext from './context';
 const ItemDetails = () => {
 
   const { items, addCart } = useContext(StoreContext);
-  const { teamId, itemId } = useParams();
+  const { team_id, itemId } = useParams();
 
   const [loading, setLoading] = useState(true);
   const [item, setItem] = useState({})
@@ -51,7 +51,7 @@ const ItemDetails = () => {
       <Container className="py-4 text-center">
         <h4>That item was not found</h4>
         <div className="text-center py-4">
-          <Link to={`/team/${teamId}/store/`} className="no-link">
+          <Link to={`/team/${team_id}/store/`} className="no-link">
             <Button variant="outline-secondary">Return to store</Button>
           </Link>
         </div>
@@ -80,7 +80,7 @@ const ItemDetails = () => {
   return (
     <Container className="py-4">
       <div className="pb-2">
-        <Link to={`/team/${teamId}/store/`}>
+        <Link to={`/team/${team_id}/store/`}>
           Return to store
         </Link>
       </div>
@@ -106,7 +106,7 @@ const ItemDetails = () => {
               </Button>
             </div>
             <div>
-              <Link to={`/team/${teamId}/store/checkout`}>
+              <Link to={`/team/${team_id}/store/checkout`}>
                 <Button>
                   Checkout
                 </Button>

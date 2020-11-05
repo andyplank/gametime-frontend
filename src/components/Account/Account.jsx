@@ -215,9 +215,10 @@ const Account = () => {
           <span className="d-block py-2 account-heading">
             Registered Phone Numbers
           </span>
-          {state.extra_phone_numbers.map((num) => {
+          {state.extra_phone_numbers.map((num, index) => {
             return (
               <PhoneNumberRow
+                key={`phone-registered-${index}`}
                 number={num}
                 onClick={() => onRemoveNumber(num)}
               />
@@ -250,9 +251,10 @@ const Account = () => {
                 <p>You have not joined any teams.</p>
               )}
             </span>
-            {state.teams.map((team) => {
+            {state.teams.map((team, index) => {
               return (
                 <PhoneNumberRow
+                  key={`phone-${index}`}
                   number={team.name}
                   onClick={() => onRemoveTeam(team)}
                 />

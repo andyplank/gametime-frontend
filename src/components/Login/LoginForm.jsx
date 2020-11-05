@@ -16,16 +16,27 @@ const LoginForm = () => {
     const [errorMsg, setErrorMsg] = useState('');
     const dispatch = useDispatch();
 
-    const loggedIn = useSelector((store) => {
+    const { loggedIn, team_id} = useSelector((store) => {
       if(store.status.signed_in){
-        return true;
+        let id = '';
+        try {
+          id = store.user.teams[store.status.selected_team].team_id;
+        } catch (err) {
+          return {loggedIn: true, team_id: ''};
+        }
+        return {loggedIn: true, team_id: id};
       }
-      return false;
+      return {loggedIn: false, team_id: ''};
     });
 
     if(loggedIn){
+      if(team_id!==''){
+        return (
+          <Redirect to={`/team/${team_id}/home`} />
+        );
+      } 
       return (
-        <Redirect to="/" />
+        <Redirect to='/' />
       );
     }
     
@@ -52,11 +63,13 @@ const LoginForm = () => {
                       },
                   };
               dispatch({ type: 'SET_STATE', payload: newState });
+              return;
             }
         } else {
           setErrorMsg(message);
           setLoading(false);
         }
+        setLoading(false);
     }
 
     return (
@@ -84,6 +97,7 @@ const LoginForm = () => {
           <Form.Control
             type="password"
             name="password"
+            autoComplete="true"
             size="lg"
             isInvalid={errors.password}
             ref={register({

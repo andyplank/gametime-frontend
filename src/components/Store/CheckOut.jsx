@@ -13,13 +13,13 @@ const CheckOut = () => {
     mode: 'all',
     reValidateMode: 'onChange',
   });
-  const { teamId }  = useParams();
+  const { team_id }  = useParams();
 
   const { cart, updateCart } = useContext(StoreContext);
 
   const onSubmit = async (data) => {
     setLoading(true);
-    const res = await purchaseItems(data, cart, teamId);
+    const res = await purchaseItems(data, cart, team_id);
     if(res===true){
       setAlertType('success');
       setShowAlert(true);
@@ -69,7 +69,7 @@ const CheckOut = () => {
           <h2>Success!</h2>
           <h4>Your order has been placed</h4>
           <div className="my-3">
-            <Link to={`/team/${teamId}/store/`} className="no-link">
+            <Link to={`/team/${team_id}/store/`} className="no-link">
               <Button variant="outline-secondary">Return to store</Button>
             </Link>
           </div>
@@ -86,7 +86,7 @@ const CheckOut = () => {
           <h2>Your cart is empty</h2>
           <h4>Try adding an item first</h4>
           <div className="mt-3">
-            <Link to={`/team/${teamId}/store/`} className="no-link">
+            <Link to={`/team/${team_id}/store/`} className="no-link">
               <Button variant="outline-secondary">Return to store</Button>
             </Link>
           </div>
@@ -123,7 +123,7 @@ const CheckOut = () => {
         <div className="pt-2"> 
           <h4>
             Total: $
-            {total}
+            {total.toFixed(2)}
           </h4>
         </div>
       </Container>
@@ -271,7 +271,7 @@ const CheckOut = () => {
               Reset
             </Button>
 
-            <Link to={`/team/${teamId}/store/`} className="no-link">
+            <Link to={`/team/${team_id}/store/`} className="no-link">
               <Button variant="outline-secondary">Return to store</Button>
             </Link>
           </Form.Group>

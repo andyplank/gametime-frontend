@@ -1,45 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams , Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import PropTypes from 'prop-types';
 import './Fundraiser.scss';
 import fans from '../../assets/images/fans.jpg';
+
 import {
-  getPlayerFundraiser,
   getTeamFundraiser,
 } from '../../utils/fundraising/fundraising';
 
-const Fundraiser = () => {
-  const { team_id, user_id } = useParams();
+import { fetchMembers } from '../../utils/comm/comm';
+
+const TeamFund = () => {
+  const { team_id } = useParams();
   const [state, setState] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [players, setPlayers] = useState([]);
+
+  const initState = async () => {
+    setState(null);
+    fetchMembers(setPlayers, team_id);
+    const response = await getTeamFundraiser(team_id);
+    const { success, error, fundraiser } = response;
+    if (success && !error) {
+      setState({
+        team_name: fundraiser.team_name || '',
+        donation_goal: fundraiser.donation_goal.toString() || '',
+        donation_total: fundraiser.donation_total.toString() || '',
+        start_timestamp: fundraiser.start_timestamp,
+        end_timestamp: fundraiser.end_timestamp,
+        description: fundraiser.description.toString() || '',
+      });
+    }
+    setLoading(false);
+  }
 
   useEffect(() => {
-    async function initState() {
-      setState(null);
-      let response;
-      if (team_id != null && user_id != null) {
-        response = await getPlayerFundraiser(team_id, user_id);
-      } else if (team_id != null) {
-        response = await getTeamFundraiser(team_id);
-      }
-      const { success, error, fundraiser } = response;
-      if (success && !error) {
-        setState({
-          isPlayer: user_id != null,
-          first_name: fundraiser.first_name || '',
-          last_name: fundraiser.last_name || '',
-          team_name: fundraiser.team_name || '',
-          donation_goal: fundraiser.donation_goal.toString() || '',
-          donation_total: fundraiser.donation_total.toString() || '',
-          start_timestamp: fundraiser.start_timestamp,
-          end_timestamp: fundraiser.end_timestamp,
-          description: fundraiser.description.toString() || '',
-        });
-      }
-      setLoading(false);
-    }
     initState();
   }, [team_id]);
 
@@ -58,7 +55,7 @@ const Fundraiser = () => {
     )
   }
 
-  return (<div className="fill-vert"><Content {...state} /></div>)
+  return (<div className="fill-vert"><Content {...state} players={players} /></div>)
 
 };
 
@@ -76,10 +73,8 @@ const Content = (props) => {
   const [remainingString, setRemainingString] = useState();
 
   const {
-    isPlayer,
-    first_name,
-    last_name,
     team_name,
+    players,
     donation_goal,
     donation_total,
     start_timestamp,
@@ -168,6 +163,27 @@ const Content = (props) => {
     duration_percent = 0;
   }
 
+  let playersList = <></>
+  if (players.length !== 0){ 
+    playersList = (
+      <div className="py-4">
+        <h4>Player List</h4>
+        <div>
+          {players.map((elm, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <div key={`${elm.user_id}-${index}-link`}>
+              <Link to={elm.user_id}>
+                {elm.first_name} 
+                {' '}
+                {elm.last_name}
+              </Link>
+            </div>
+          ))} 
+        </div>
+      </div>
+    )
+  }
+
   return (
     <>
       <div className="fundraiser-page-wrapper d-flex flex-column align-items-center pb-4">
@@ -177,16 +193,9 @@ const Content = (props) => {
           </div>
           <div className="d-flex justify-content-center py-3">
             <div className="d-flex flex-column align-items-center justify-content-center w-50">
-              {isPlayer && (
-                <span className="fundraiser-heading-text py-3">
-                  {`${first_name} ${last_name}'s Personal Fundraiser`}
-                </span>
-              )}
-              {!isPlayer && (
-                <span className="fundraiser-heading-text py-3">
-                  Team Fundraiser
-                </span>
-              )}
+              <span className="fundraiser-heading-text py-3">
+                Team Fundraiser
+              </span>
               <span className="fundraiser-body-text">{description}</span>
             </div>
             <div className="d-flex flex-column align-items-center justify-content-center w-50">
@@ -243,15 +252,15 @@ const Content = (props) => {
           <div className="fundraiser-donate-button text-center">
             <Button variant="primary">Donate Now</Button>
           </div>
+          {playersList}
         </div>
       </div>
     </>
   );
 };
+
 Content.propTypes = {
-  isPlayer: PropTypes.bool.isRequired,
-  first_name: PropTypes.string.isRequired,
-  last_name: PropTypes.string.isRequired,
+  players: PropTypes.instanceOf(Array).isRequired,
   team_name: PropTypes.string.isRequired,
   donation_goal: PropTypes.string.isRequired,
   donation_total: PropTypes.string.isRequired,
@@ -260,4 +269,4 @@ Content.propTypes = {
   description: PropTypes.string.isRequired,
 };
 
-export default Fundraiser;
+export default TeamFund;

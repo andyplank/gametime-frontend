@@ -13,7 +13,7 @@ const ItemForm = (props) => {
     setShow, 
     item, 
     isNew, 
-    teamId, 
+    team_id, 
     refresh
   } = props;
 
@@ -71,9 +71,9 @@ const ItemForm = (props) => {
     setLoading(true);
     let res;
     if (isNew){
-      res = await createItem(teamId, data, allTypes, picture);
+      res = await createItem(team_id, data, allTypes, picture);
     } else {
-      res = await updateItem(teamId, data, allTypes, picture, item.item_id);
+      res = await updateItem(team_id, data, allTypes, picture, item.item_id);
     }
     if(res){
       setAlertType('success');
@@ -219,7 +219,7 @@ ItemForm.propTypes = {
   show: PropTypes.bool.isRequired,
   setShow: PropTypes.func.isRequired,
   item: PropTypes.instanceOf(Object).isRequired,
-  teamId: PropTypes.string.isRequired,
+  team_id: PropTypes.string.isRequired,
   isNew: PropTypes.bool.isRequired,
   refresh: PropTypes.func.isRequired
 }

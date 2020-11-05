@@ -86,7 +86,7 @@ const Management = () => {
         isNew={
           selected.name === undefined
         }
-        teamId={team_id}
+        team_id={team_id}
         refresh={refresh}
       />
       <Jumbotron className="text-center">
