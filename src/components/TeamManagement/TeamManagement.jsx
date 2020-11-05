@@ -29,13 +29,13 @@ const TeamManagement = () => {
   }
 
   return (
-    <>
+    <div className="fill-vert">
       <TeamManagementContent
-        teamId={state.teams[state.selected].team_id}
+        team_id={state.teams[state.selected].team_id}
         playerId={state.user}
         dispatchTeamEdit={dispatchTeamEdit}
       />
-    </>
+    </div>
   );
 };
 

@@ -7,7 +7,7 @@ import StoreContext from './context';
 const Cart = () => {
 
     const { cart, removeCart, updateQuantity } = useContext(StoreContext);
-    const { teamId }  = useParams();
+    const { team_id }  = useParams();
 
     const handleRemove = (index) => {
       removeCart(index);
@@ -30,7 +30,7 @@ const Cart = () => {
 
     const continueShopping = (
       <div className="text-center py-4">
-        <Link to={`/${teamId}/store/`} className="no-link">
+        <Link to={`/team/${team_id}/store/`} className="no-link">
           <Button variant="outline-secondary">Return to store</Button>
         </Link>
       </div>
@@ -84,7 +84,7 @@ const Cart = () => {
 
           <div>
             <h2 className="pb-2">Ready to checkout?</h2>
-            <Link to={`/${teamId}/store/checkout`} className="no-link">
+            <Link to={`/team/${team_id}/store/checkout`} className="no-link">
               <Button variant="outline-primary">Checkout</Button>
             </Link>
           </div>

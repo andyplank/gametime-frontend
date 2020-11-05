@@ -12,7 +12,7 @@ import landing from '../../utils/landing/landing';
 const SearchBar = () => {
   const [value, setValue] = useState(null);  
   const [inputValue, setInputValue] = useState('');
-  const [teamId, setTeamID] = useState('');  
+  const [team_id, setID] = useState('');  
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState([]);
   const loading = open && options.length === 0;
@@ -48,7 +48,7 @@ const SearchBar = () => {
         onChange={(event, newValue) => {
           setValue(newValue);
           if(newValue && newValue.team_id !== undefined){
-            setTeamID(newValue.team_id)
+            setID(newValue.team_id)
           }
         }}
         inputValue={inputValue}
@@ -91,7 +91,7 @@ const SearchBar = () => {
       <InputGroup.Append>
         <Link
           replace 
-          to={teamId!=='' ? `${teamId}/home` : '/'}
+          to={team_id!=='' ? `/team/${team_id}/home` : '/'}
           className="no-link justify-content-center btn btn-outline-primary d-flex align-items-center search-button"
         >
           {' Go '}

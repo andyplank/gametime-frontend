@@ -81,6 +81,9 @@ function reducer(state = default_state, action) {
       copy.user.teams.splice(index, 1);
       return copy;
     }
+    case 'SET_DEFAULT': {
+      return default_state;
+    }
     case 'SET_TEAMS':
       copy.user.teams = action.payload;
       return copy;

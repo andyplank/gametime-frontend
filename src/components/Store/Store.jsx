@@ -18,7 +18,7 @@ import './Store.scss';
 const Store = () => {
     
 
-  const { teamId } = useParams();
+  const { team_id } = useParams();
   const location = useLocation();
 
   const [items, setItems] = useState([]);
@@ -27,13 +27,13 @@ const Store = () => {
   const [loading, setLoading] = useState(true);
 
   const refresh = async () => {
-    await fetchItems(setItems, teamId);
+    await fetchItems(setItems, team_id);
     setLoading(false);
   }
 
   useEffect(() => {
     refresh();
-  }, [teamId])
+  }, [team_id])
 
   const addCart = (item) => {
     const temp = [...cart];
@@ -76,7 +76,7 @@ const Store = () => {
   const shoppingCartBadge = (
     <div className="wrap">
       <div className="absolute">
-        <Link to={`/${teamId}/store/cart`} className="no-link">
+        <Link to={`/team/${team_id}/store/cart`} className="no-link">
           <Badge badgeContent={cartLen} showZero color="primary">
             <ShoppingCartRoundedIcon style={{color: 'black'}} fontSize="large" />
           </Badge>
@@ -97,15 +97,15 @@ const Store = () => {
             updateQuantity
           }}
       >
-        {location.pathname!==`/${teamId}/store/cart` && shoppingCartBadge}
+        {location.pathname!==`/${team_id}/store/cart` && shoppingCartBadge}
         {!loading && (
           <Switch>
-            <Route path="/:teamId/store/edit" component={ItemForm} />
-            <Route path="/:teamId/store/item/:itemId" component={ItemDetails} />
-            <Route path="/:teamId/store/cart/" exact component={Cart} />
-            <Route path="/:teamId/store/checkout/" exact component={CheckOut} />
-            <Route path="/:teamId/store" exact component={ItemGrid} />
-            <Route component={() => (<Redirect to={{ pathname: `/${teamId}/store` }} />)} />
+            <Route path="/team/:team_id/store/edit" component={ItemForm} />
+            <Route path="/team/:team_id/store/item/:itemId" component={ItemDetails} />
+            <Route path="/team/:team_id/store/cart/" exact component={Cart} />
+            <Route path="/team/:team_id/store/checkout/" exact component={CheckOut} />
+            <Route path="/team/:team_id/store" exact component={ItemGrid} />
+            <Route component={() => (<Redirect to={{ pathname: `/team/${team_id}/store` }} />)} />
           </Switch>
         )}
       </StoreContext.Provider>

@@ -7,7 +7,7 @@ import { Link, useParams} from 'react-router-dom';
 
 const Home = () => {
 
-  const { teamId } = useParams();
+  const { team_id } = useParams();
 
   function selector(store) {
     return {
@@ -32,9 +32,18 @@ const Home = () => {
         <h2>Team Page</h2>
       </Jumbotron>
       <Container>
-        <Link to={`/${teamId}/store/`} className="no-link">
-          <Button>Go to team store</Button>
-        </Link>
+
+        <div className="py-2">
+          <Link to={`/team/${team_id}/store/`} className="no-link">
+            <Button>Go to team store</Button>
+          </Link>
+        </div>
+        <div className="py-2">
+          <Link to={`/team/${team_id}/fundraiser/`} className="no-link">
+            <Button>Go to team fundraiser</Button>
+          </Link>
+        </div>
+
       </Container>
     </div>
   );

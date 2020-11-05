@@ -7,7 +7,7 @@ import StoreContext from './context';
 import './Store.scss';
 
 const ItemGrid = () => {
-  const { teamId } = useParams();
+  const { team_id } = useParams();
   const { items } = useContext(StoreContext);
   
   const activeItems = items.filter((item) => item.active);
@@ -16,7 +16,7 @@ const ItemGrid = () => {
     return  (
       <Col xs={6} md={4} lg={3} key={item.item_id}>
         <Link
-          to={`/${teamId}/store/item/${item.item_id}`}
+          to={`/team/${team_id}/store/item/${item.item_id}`}
         >  
           <div className="square" style={{backgroundImage: `url('${item.picture}')`}} />
         </Link>

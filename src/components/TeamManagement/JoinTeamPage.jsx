@@ -21,16 +21,16 @@ const JoinTeamPage = () => {
 
     useEffect(() => {
         const join = async () => {
-          let teamId = "";
-          teamId += window.location.href;
-          teamId = teamId.substr(teamId.lastIndexOf("/")+1);
-          setTeam(teamId);
-          await joinTeam(teamId);
+          let team_id = "";
+          team_id += window.location.href;
+          team_id = team_id.substr(team_id.lastIndexOf("/")+1);
+          setTeam(team_id);
+          await joinTeam(team_id);
         }
         join();
       },[]);
 
-    return (state.signed_in && team) && <Redirect to={{ pathname: `/${team}/home` }} />
+    return (state.signed_in && team) && <Redirect to={{ pathname: `/team/${team}/home` }} />
 };
 
 

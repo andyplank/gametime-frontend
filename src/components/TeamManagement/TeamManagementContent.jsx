@@ -9,16 +9,11 @@ import {
     Container,
     Row,
     Col,
+    Jumbotron
   } from 'react-bootstrap';
 
 import PlayersDisplay from './PlayersDisplay';
 import { getTeamData, editTeam } from '../../utils/team/team';
-
-const headerStyle = {
-textAlign: 'center',
-paddingBottom: '3%',
-};
-
 
 class TeamManagementContent extends React.Component {
     constructor(props) {
@@ -29,7 +24,7 @@ class TeamManagementContent extends React.Component {
         showTeamInvite: false,
         teamNameError: false,
         teamName: '',
-        inviteLink: `${window.location.hostname}:8080/?#/team/join/${props.teamId}`
+        inviteLink: `${window.location.hostname}:8080/#/join/${props.team_id}`
       };
     }
 
@@ -39,8 +34,8 @@ class TeamManagementContent extends React.Component {
     
     // call getTeamData again to refresh the players list
     async fetchPlayers() {
-      const { teamId, playerId } = this.props;
-      const data = await getTeamData(teamId, playerId)
+      const { team_id, playerId } = this.props;
+      const data = await getTeamData(team_id, playerId)
       this.setState({ players: data.users });
     }
   
@@ -74,9 +69,9 @@ class TeamManagementContent extends React.Component {
   
     async handleSaveTeamEdits() {
       const { teamName } = this.state;
-      const { teamId, dispatchTeamEdit } = this.props;
+      const { team_id, dispatchTeamEdit } = this.props;
       if(this.validateFields()){
-        await editTeam(teamId, teamName);
+        await editTeam(team_id, teamName);
         this.setState({ showTeamEdit: false });
         dispatchTeamEdit(teamName);
       }
@@ -142,7 +137,7 @@ class TeamManagementContent extends React.Component {
             <Modal.Title> Invite Link </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <a href={inviteLink}>
+            <a target="_blank" rel="noopener noreferrer" href={inviteLink}>
               {inviteLink}
             </a>
           </Modal.Body>
@@ -152,14 +147,16 @@ class TeamManagementContent extends React.Component {
   
     render() {
       const { players } = this.state;
-      const { teamId } = this.props;
+      const { team_id } = this.props;
       return(
         <div style={{ height: "100%" }}>
           {this.renderTeamEditModal()}
           {this.renderInviteLinkModal()}
-          <h1 style={headerStyle}> 
-            TeamManagement 
-          </h1>
+          <Jumbotron>
+            <h2 className="text-center"> 
+              TeamManagement 
+            </h2>
+          </Jumbotron>
           <Container fluid>
             <Row>
               <Col xs={6} md={2}>
@@ -192,7 +189,7 @@ class TeamManagementContent extends React.Component {
                 <div style={{ paddingLeft: '5%' }}>
                   <h2>Players</h2>
                   { players.length > 0 &&
-                    <PlayersDisplay players={players} refresh={() => this.fetchPlayers()} teamId={teamId} />
+                    <PlayersDisplay players={players} refresh={() => this.fetchPlayers()} team_id={team_id} />
                   }
                 </div>
               </Col>
@@ -204,7 +201,7 @@ class TeamManagementContent extends React.Component {
   }
 
   TeamManagementContent.propTypes = {
-    teamId: PropTypes.string.isRequired,
+    team_id: PropTypes.string.isRequired,
     playerId: PropTypes.string.isRequired,
     dispatchTeamEdit: PropTypes.func.isRequired
   }

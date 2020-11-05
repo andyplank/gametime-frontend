@@ -6,6 +6,7 @@ import Communication from '../Communication/Communication';
 import TeamManagement from '../TeamManagement/TeamManagement';
 import Fundraising from '../Fundraising/Fundraising';
 import Fundraiser from '../Fundraiser/Fundraiser';
+import TeamFund from '../Fundraiser/TeamFund';
 import Orders from '../Orders/Orders';
 import JoinTeamPage from '../TeamManagement/JoinTeamPage';
 import Management from '../Store/Management';
@@ -20,27 +21,22 @@ const Routes = () => {
     <div className="full-screen">
       <Header />
       <Switch>
-        {/* <Route path="/logout" exact component={Logout} /> */}
         <Private path="/account" exact Component={Account} />
-        <Private path="/home" exact Component={Home} />
-        <Private path="/team" exact Component={TeamManagement} />
-        <Private path="/message" exact Component={Communication} />
-        {/* <Private path="/documentation" exact component={Documentation} /> */}
-        <Private path="/fundraising" exact Component={Fundraising} />
-        <Private path="/team/join" Component={JoinTeamPage} />
-        <Route path="/fundraiser/:team_id/:user_id" component={Fundraiser} />
-        <Route path="/fundraiser/:team_id" component={Fundraiser} />
+        <Private path="/join/:team_id" Component={JoinTeamPage} />
         <Private path="/message" exact Component={Communication} />
         <Private path="/manage/team" exact Component={TeamManagement} />
         <Private path="/manage/orders" exact Component={Orders} />
         <Private path="/manage/store" exact Component={Management} />
+        <Private path="/manage/fundraiser" exact Component={Fundraising} />
 
         {/* <Route path="/documentation" exact component={Documentation} /> */}
         {/* <Route path="/resources" exact component={Resources} /> */}
 
-        <Route path="/:teamId/store/" component={Store} />
-        <Route path="/:teamId/home" component={Home} />
-        <Private path="/team/join/:teamId" Component={JoinTeamPage} />
+        <Route path="/team/:team_id/fundraiser" exact component={TeamFund} />
+        <Route path="/team/:team_id/fundraiser/:user_id" component={Fundraiser} />
+        <Route path="/team/:team_id/store/" component={Store} />
+        <Route path="/team/:team_id/home" component={Home} />
+        <Route path="/notFound" exact component={NotFound} />
         <Route component={NotFound} />
       </Switch>
       <Footer />
