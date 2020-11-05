@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import './TeamManagement.scss';
 import './TeamManagement.css';
@@ -21,7 +20,7 @@ const TeamManagement = () => {
     dispatch({
       type: 'SET_TEAMS',
       payload: state.teams.map((t) => {
-        if (t.team_id == state.teams[state.selected].team_id) {
+        if (t.team_id === state.teams[state.selected].team_id) {
           t.name = teamName;
         }
         return t;

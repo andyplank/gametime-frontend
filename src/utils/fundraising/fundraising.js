@@ -1,4 +1,5 @@
 import networker from '../networker/networker';
+import API_URL from '../API_URL';
 
 /**
  * Retrieves team fundraiser data
@@ -7,7 +8,7 @@ import networker from '../networker/networker';
  * @return {success, error, message, fundraiser}
  */
 export async function getTeamFundraiser(team_id) {
-  const endpoint = `https://gametime-server.hubermjonathan.com:8080/fundraising/id/${team_id}`;
+  const endpoint = `${API_URL}/fundraising/id/${team_id}`;
 
   try {
     const response = await networker.get(endpoint);
@@ -48,7 +49,7 @@ export async function getTeamFundraiser(team_id) {
  * @return {success, error, message, fundraiser}
  */
 export async function getPlayerFundraiser(team_id, user_id) {
-  const endpoint = `https://gametime-server.hubermjonathan.com:8080/fundraising/id/${team_id}/${user_id}`;
+  const endpoint = `${API_URL}/fundraising/id/${team_id}/${user_id}`;
 
   try {
     const response = await networker.get(endpoint);
@@ -91,7 +92,7 @@ export async function getPlayerFundraiser(team_id, user_id) {
  * @return {success, error, message, fundraiser}
  */
 export async function createTeamFundraiser(data) {
-  const endpoint = `https://gametime-server.hubermjonathan.com:8080/fundraising/start`;
+  const endpoint = `${API_URL}/fundraising/start`;
 
   try {
     const body = {
@@ -130,7 +131,7 @@ export async function createTeamFundraiser(data) {
  * @return {success, error, message, fundraiser}
  */
 export async function createPlayerFundraiser(data) {
-  const endpoint = `https://gametime-server.hubermjonathan.com:8080/fundraising/start`;
+  const endpoint = `${API_URL}/fundraising/start`;
 
   try {
     const body = {
@@ -168,7 +169,7 @@ export async function createPlayerFundraiser(data) {
  * @return {success, error, message, fundraiser}
  */
 export async function editTeamFundraiser(data) {
-  const endpoint = `https://gametime-server.hubermjonathan.com:8080/fundraising/edit`;
+  const endpoint = `${API_URL}/fundraising/edit`;
 
   try {
     const body = {
@@ -206,7 +207,7 @@ export async function editTeamFundraiser(data) {
  * @return {success, error, message, fundraiser}
  */
 export async function editPlayerFundraiser(data) {
-  const endpoint = `https://gametime-server.hubermjonathan.com:8080/fundraising/edit`;
+  const endpoint = `${API_URL}/fundraising/edit`;
 
   try {
     const body = {

@@ -1,0 +1,25 @@
+.break {
+  min-height: 10vh;
+}
+
+.wrap {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+  top: 2.5vh;
+  right: 2.5vw;
+}
+
+.quarter {
+  margin-top: 20vh;
+}
+
+.square {
+  background-color: #778899;
+  width: 100%;
+  padding-bottom: 100%;
+  background-size: cover;
+  background-position: center;
+}

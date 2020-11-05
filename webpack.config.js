@@ -6,6 +6,15 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        enforce: 'pre',
+        use: ['source-map-loader'],
+      },
+      {
+        test: /\.ico$/,
+        loader: 'file-loader?name=[name].[ext]'  // <-- retain original file name
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         enforce: 'pre',

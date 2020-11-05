@@ -18,6 +18,7 @@ import { removeFromTeam, createTeam } from '../../utils/team/team';
 import UploadPicture from '../UploadPicture/UploadPicture';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
+import Email from '../Email/Email';
 
 const CreateTeamModal = () => {
   function selector(store) {
@@ -35,15 +36,13 @@ const CreateTeamModal = () => {
   const [teamName, setTeamName] = useState('');
 
   function handleCreateClose() {
-    console.log('closing team modal');
-    setTeamName('');
+    setTeamName("");
     setShow(false);
   }
 
   async function handleSaveTeamCreate() {
     if (teamName && teamName.length > 0 && teamName.length <= 30) {
       let team_id = await createTeam(state.id, teamName);
-      console.log('teamid', team_id);
       const newTeam = { name: teamName, permission_level: 2, team_id: team_id };
       dispatch({ type: 'SET_TEAMS', payload: state.teams.concat(newTeam) });
       setTeamName('');
@@ -128,8 +127,7 @@ const Account = () => {
 
   useEffect(() => {
     getPic();
-    console.log('pic', profPicture);
-  }, []);
+  },[])
 
   async function onRemoveNumber(target) {
     // Call API to delete number
@@ -262,6 +260,7 @@ const Account = () => {
             })}
           </div>
           <CreateTeamModal />
+          <Email />
         </div>
       </div>
     </div>

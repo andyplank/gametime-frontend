@@ -1,13 +1,11 @@
 import networker from '../networker/networker';
+import API_URL from '../API_URL';
 
-const url = 'https://gametime-server.hubermjonathan.com:8080/';
 const headers = {
   'Content-Type': 'application/json',
 };
-// Fix later
-const team_id = 1;
 
-export async function createGroup(groupName, groupMembers) {
+export async function createGroup(groupName, groupMembers, team_id) {
   const data = {
     name: groupName,
     team_id: team_id,
@@ -15,7 +13,7 @@ export async function createGroup(groupName, groupMembers) {
   };
   const config = {
     method: 'post',
-    url: `${url}/group`,
+    url: `${API_URL}/group`,
     headers: headers,
     data: data,
   };
@@ -47,7 +45,7 @@ export async function addMembers(selected, initMembers, groupMembers) {
   };
   const config = {
     method: 'put',
-    url: `${url}/group/addMembers`,
+    url: `${API_URL}/group/addMembers`,
     headers: headers,
     data: data,
   };
@@ -61,20 +59,20 @@ export async function removeMembers(selected, initMembers, groupMembers) {
   };
   const config = {
     method: 'delete',
-    url: `${url}/group/deleteMembers`,
+    url: `${API_URL}/group/deleteMembers`,
     headers: headers,
     data: data,
   };
   return networker(config);
 }
 
-export async function fetchMembers(setMembers) {
+export async function fetchMembers(setMembers, team_id) {
   const data = {
-    team: 1,
+    team: team_id,
   };
   const config = {
     method: 'post',
-    url: `${url}/team/view/data`,
+    url: `${API_URL}/team/view/data`,
     headers: headers,
     data: data,
   };
@@ -89,13 +87,13 @@ export async function fetchMembers(setMembers) {
   return false;
 }
 
-export async function fetchGroups(setGroups) {
+export async function fetchGroups(setGroups, team_id) {
   const data = {
     team: team_id,
   };
   const config = {
     method: 'get',
-    url: `${url}/team/view/groups?id=${team_id}`,
+    url: `${API_URL}/team/view/groups?id=${team_id}`,
     headers: headers,
     data: data,
   };
@@ -118,7 +116,7 @@ export async function sendGroupMessage(sender_id, group_id, message) {
   };
   const config = {
     method: 'post',
-    url: `${url}/sendGroupMessage`,
+    url: `${API_URL}/sendGroupMessage`,
     headers: headers,
     data: data,
   };
@@ -142,7 +140,7 @@ export async function sendPlayerMessage(recepientID, message) {
 
   const config = {
     method: 'post',
-    url: `${url}/sendPlayerMessage`,
+    url: `${API_URL}/sendPlayerMessage`,
     headers: headers,
     data: data,
   };
