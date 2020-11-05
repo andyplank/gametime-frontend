@@ -93,8 +93,11 @@ const Management = () => {
         <h3>Store Manager</h3>
         <div className="pt-3">
           <Button onClick={() => handleDetails({})}>Add Item</Button>
-          <Link to={`/team/${team_id}/store`} className="ml-4"> 
+          <Link to={`/team/${team_id}/store`} className="mx-4"> 
             <Button>View the store</Button>
+          </Link>
+          <Link to='/manage/orders'> 
+            <Button>View Orders</Button>
           </Link>
         </div>
       </Jumbotron>

@@ -7,6 +7,7 @@ import './Email.css';
 const Email = () => {
     function selector(store) {
         return {
+          id: store.user.id,
           first_name: store.user.first_name,
           last_name: store.user.last_name,
           teams: store.user.teams,
@@ -29,7 +30,7 @@ const Email = () => {
 
             To donate, simply click the link to my fundraiser below:
 
-            [LINK HERE]
+            https://gametime-4cb53.web.app/#/fundraiser/${state.teams[state.selected].team_id}/${state.id}
             
             Sincerely,
             ${state.first_name} ${state.last_name}
