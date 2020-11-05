@@ -1,4 +1,4 @@
-/* eslint-disable */
+// /* eslint-disable */
 import React, { useState, useEffect } from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import ReactDOM from 'react-dom';
@@ -22,6 +22,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 // Initialize Redux store
 const store = createStore(
   reducer,
+  // eslint-disable-next-line no-underscore-dangle
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
@@ -44,7 +45,6 @@ const App = () => {
       },
     },
   });
-
 
   async function initStore() {
     if (cookie.get('access_token') == null) {
@@ -74,15 +74,15 @@ const App = () => {
     return (
       <div className="vw-100 vh-100 d-flex justify-content-center align-items-center">
         <div className="fundraiser-loader">
-          <CircularProgress/>
+          <CircularProgress />
         </div>
       </div>
     );
-  } 
+  }
 
   return (
     <MuiThemeProvider theme={theme}>
-    <Router>
+      <Router>
         <Switch>
           <Route path="/login" exact component={Login} />
           <Route path="/register" exact component={Register} />
