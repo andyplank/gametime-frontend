@@ -44,7 +44,7 @@ const TeamFund = () => {
     return (<Loader />);
   }
 
-  if(state!==null) {
+  if(state===null) {
     return (
       <div className="fill-vert">
         <div className="text-center py-4">
