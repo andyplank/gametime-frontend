@@ -6,14 +6,14 @@ import './Email.css';
 
 const Email = () => {
     function selector(store) {
-        return {
-          id: store.user.id,
-          first_name: store.user.first_name,
-          last_name: store.user.last_name,
-          teams: store.user.teams,
-          selected: store.status.selected_team,
-        };
-      }
+      return {
+        id: store.user.id,
+        first_name: store.user.first_name,
+        last_name: store.user.last_name,
+        teams: store.user.teams,
+        selected: store.status.selected_team,
+      };
+    }
     const state = useSelector(selector);
 
     const [email, setEmail] = useState('');
@@ -24,13 +24,13 @@ const Email = () => {
         return (
             `Hello!
 
-            My name is ${state.first_name} ${state.last_name} and im a player on the team, ${state.teams[state.selected].name}.
+            My name is ${state.first_name} ${state.last_name} and im a player on, ${state.teams[state.selected].name}.
 
             Would you be willing to make a contribution to my fundrasier? A purchase of any amount would mean the world to me and my team!
 
             To donate, simply click the link to my fundraiser below:
 
-            https://gametime-4cb53.web.app/#/fundraiser/${state.teams[state.selected].team_id}/${state.id}
+            https://gametime.hubermjonathan.com/#/team/${state.teams[state.selected].team_id}/fundraiser/${state.id}
             
             Sincerely,
             ${state.first_name} ${state.last_name}
@@ -40,12 +40,11 @@ const Email = () => {
     {
         if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail))
         {
-            setIsValid(true);
-            return true;
+          setIsValid(true);
+          return true;
         }
         setIsValid(false);
         return false;
-
     }
 
     async function handleEmailSend(){
