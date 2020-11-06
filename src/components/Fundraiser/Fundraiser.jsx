@@ -5,7 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import PropTypes from 'prop-types';
 import './Fundraiser.scss';
 import fans from '../../assets/images/fans.jpg';
-import Email from '../Email/Email';
+
 import {
   getPlayerFundraiser,
   getTeamFundraiser,
@@ -52,7 +52,7 @@ const Fundraiser = () => {
     return (
       <div className="fill-vert">
         <div className="text-center py-4">
-          <h3>Sorry, this team has no fundraiser yet</h3>
+          <h3>Sorry, there is no fundraiser here yet</h3>
           <h4>Contact your team administrator for more information</h4>
         </div>
       </div>
@@ -244,7 +244,6 @@ const Content = (props) => {
           <div className="fundraiser-donate-button text-center">
             <Button variant="primary">Donate Now</Button>
           </div>
-          <p>{isPlayer && <Email />}</p>
         </div>
       </div>
     </>

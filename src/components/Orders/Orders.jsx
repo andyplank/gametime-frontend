@@ -113,7 +113,7 @@ const Orders = () => {
                   <TableCell align="right">{item.quantity}</TableCell>
                   <TableCell align="right">{item.label && item.label.length > 0 ? item.label : "N/A"}</TableCell>
                 </TableRow>
-    ))}
+              ))}
             </TableBody>
           </Table>
         </Collapse>

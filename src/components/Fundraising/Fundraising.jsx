@@ -10,6 +10,7 @@ import {
   editTeamFundraiser,
 } from '../../utils/fundraising/fundraising';
 import './Fundraising.scss';
+import Email from '../Email/Email';
 
 const defaultState = {
   statusMessage: '',
@@ -234,7 +235,7 @@ const Fundraising = () => {
     <div className="fill-vert fundraising-page-wrapper d-flex flex-column align-items-center">
       <div className="fundraising-page-content w-75">
         <div className="fundraising-title py-4">
-          <span className="fundraising-title-text">Team Fundraising</span>
+          <span className="fundraising-title-text">Manage Fundraiser</span>
         </div>
         <form onSubmit={handleSubmit} noValidate>
           <div className="form-row">
@@ -368,6 +369,9 @@ const Fundraising = () => {
             )}
           </div>
         </form>
+        <div>
+          {state.isActive && team.permission_level !== 2 && <Email />}
+        </div>
       </div>
       {state.statusMessage !== '' && (
         <div className="d-flex justify-content-center">

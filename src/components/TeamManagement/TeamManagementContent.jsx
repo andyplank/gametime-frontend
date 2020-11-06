@@ -154,7 +154,7 @@ class TeamManagementContent extends React.Component {
           {this.renderInviteLinkModal()}
           <Jumbotron>
             <h2 className="text-center"> 
-              TeamManagement 
+              Team Management 
             </h2>
           </Jumbotron>
           <Container fluid>

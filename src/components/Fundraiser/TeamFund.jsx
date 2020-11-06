@@ -44,7 +44,7 @@ const TeamFund = () => {
     return (<Loader />);
   }
 
-  if(state===null) {
+  if(state!==null) {
     return (
       <div className="fill-vert">
         <div className="text-center py-4">
@@ -163,23 +163,28 @@ const Content = (props) => {
     duration_percent = 0;
   }
 
+
   let playersList = <></>
   if (players.length !== 0){ 
     playersList = (
       <div className="py-4">
-        <h4>Player List</h4>
-        <div>
-          {players.map((elm, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <div key={`${elm.user_id}-${index}-link`}>
-              <Link to={elm.user_id}>
-                {elm.first_name} 
-                {' '}
-                {elm.last_name}
-              </Link>
-            </div>
-          ))} 
-        </div>
+        <h4>These players need your help!</h4>
+        <ul>
+          {players.map((elm, index) => {
+            if(elm.permission_level===2){ return null }
+
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <li key={`${elm.user_id}-${index}-link`}>
+                <Link to={elm.user_id}>
+                  {elm.first_name} 
+                  {' '}
+                  {elm.last_name}
+                </Link>
+              </li>
+            )
+          })} 
+        </ul>
       </div>
     )
   }
@@ -188,7 +193,7 @@ const Content = (props) => {
     <>
       <div className="fundraiser-page-wrapper d-flex flex-column align-items-center pb-4">
         <div className="fundraiser-page-content w-75">
-          <div className="fundraiser-heading py-4">
+          <div className="fundraiser-heading py-2">
             <span className="fundraiser-title-text">{team_name}</span>
           </div>
           <div className="d-flex justify-content-center py-3">
@@ -197,6 +202,7 @@ const Content = (props) => {
                 Team Fundraiser
               </span>
               <span className="fundraiser-body-text">{description}</span>
+              {playersList}
             </div>
             <div className="d-flex flex-column align-items-center justify-content-center w-50">
               <img src={fans} className="w-100" alt="Cheering Fans in Stands" />
@@ -252,7 +258,6 @@ const Content = (props) => {
           <div className="fundraiser-donate-button text-center">
             <Button variant="primary">Donate Now</Button>
           </div>
-          {playersList}
         </div>
       </div>
     </>
