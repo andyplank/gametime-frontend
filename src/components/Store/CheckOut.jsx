@@ -81,7 +81,7 @@ const CheckOut = () => {
   // No items in the cart
   if(cart.length===0){
     return (
-      <div className="text-center quarter">
+      <div className="text-center quarter" id="empty-cart">
         <Container className="pb-4 mb-4">
           <h2>Your cart is empty</h2>
           <h4>Try adding an item first</h4>

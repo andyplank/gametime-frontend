@@ -15,7 +15,7 @@ describe('<PlayersDisplay />', () => {
   ];
   const refresh = jest.fn();
   const wrapper = Enzyme.shallow(
-    <PlayersDisplay teamId='1' players={testPlayers} refresh={refresh}/>,
+    <PlayersDisplay team_id='1' players={testPlayers} refresh={refresh} />,
   );
 
   it('clicking item should call the handler', () => {

@@ -48,7 +48,7 @@ const ItemDetails = () => {
   // Item was not found. Display an error
   if(item.name===undefined){
     return (
-      <Container className="py-4 text-center">
+      <Container className="py-4 text-center" id="item-not-found">
         <h4>That item was not found</h4>
         <div className="text-center py-4">
           <Link to={`/team/${team_id}/store/`} className="no-link">

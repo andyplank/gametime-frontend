@@ -24,7 +24,7 @@ class TeamManagementContent extends React.Component {
         showTeamInvite: false,
         teamNameError: false,
         teamName: '',
-        inviteLink: `${window.location.hostname}:8080/#/join/${props.team_id}`
+        inviteLink: `${window.location.hostname}/#/join/${props.team_id}`
       };
     }
 
@@ -137,7 +137,7 @@ class TeamManagementContent extends React.Component {
             <Modal.Title> Invite Link </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <a target="_blank" rel="noopener noreferrer" href={inviteLink}>
+            <a href={inviteLink}>
               {inviteLink}
             </a>
           </Modal.Body>

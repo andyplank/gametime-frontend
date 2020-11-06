@@ -8,7 +8,7 @@ $primary-color: #174ceb;
 $primary-color-dark: #0025b7;
 $primary-color-light: #6c78ff;
 $secondary-color: #c8c8cc;
-$secondary-color-dark: #97979b;
+$secondary-color-dark:#333333;
 $secondary-color-light: #fbfbff;
 
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
@@ -27,6 +27,7 @@ $secondary-color-light: #fbfbff;
 
 .bg-secondary-dark {
   background-color: $secondary-color-dark;
+  color: #cecece
 }
 
 .full-screen {

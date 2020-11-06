@@ -68,7 +68,7 @@ const Cart = () => {
     if(cart.length === 0){
       return (
         <>
-          <Jumbotron className="text-center">
+          <Jumbotron className="text-center" id="empty-cart">
             <h2>
               There are no items in your cart!
             </h2>
