@@ -39,7 +39,7 @@ const ItemGrid = () => {
 
   if(items.length === 0){
     return (
-      <div className="text-center py-4">
+      <div className="text-center py-4" id="no-items">
         <h3>Sorry, there are no items in the store yet!</h3>
         <h4>Contact your team administrator for more information</h4>
       </div>

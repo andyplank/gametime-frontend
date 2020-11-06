@@ -129,6 +129,7 @@ const Orders = () => {
   <Alert 
     severity={isError ? "error" : "success"}
     onClose={() => {setAlertMsg('')}}
+    className="mx-2"
   > 
     {alertMsg}
   </Alert>
@@ -161,7 +162,7 @@ const Orders = () => {
       </div>
   ))
   :
-    <p>No orders currently exist for this team</p>
+    <h2 className="text-center">No orders currently exist for this team</h2>
   }
   </div>
 	)   

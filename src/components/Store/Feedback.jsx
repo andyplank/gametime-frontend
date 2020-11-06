@@ -20,6 +20,7 @@ const Feedback = (props) => {
       dismissible
       onClose={() => setShowAlert(false)}
       className="mt-4"
+      id="alert-feedback"
     >
       {alertType === 'danger' ?
       'Error something went wrong.'
