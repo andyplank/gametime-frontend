@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import Account from '../Account/Account';
 import Home from '../Home/Home';
 import Communication from '../Communication/Communication';
+import Business from '../Business/Business';
 import TeamManagement from '../TeamManagement/TeamManagement';
 import Fundraising from '../Fundraising/Fundraising';
 import Fundraiser from '../Fundraiser/Fundraiser';
@@ -28,6 +29,8 @@ const Routes = () => {
         <Private path="/manage/orders" exact Component={Orders} />
         <Private path="/manage/store" exact Component={Management} />
         <Private path="/manage/fundraiser" exact Component={Fundraising} />
+        <Route path="/manage/business" exact component={Business} />
+
 
         {/* <Route path="/documentation" exact component={Documentation} /> */}
         {/* <Route path="/resources" exact component={Resources} /> */}

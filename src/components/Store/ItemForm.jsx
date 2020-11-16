@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Form, Modal, InputGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import Feedback from './Feedback';
+import Feedback from '../Common/Feedback';
 import ItemTypes from './ItemTypes';
 
 import {updateItem, createItem} from '../../utils/store/store';
