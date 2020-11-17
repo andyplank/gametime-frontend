@@ -6,6 +6,7 @@ const headers = {
 }
 
 export async function fetchSponsorships(setSponsorships, id) {
+    setSponsorships([{name: 'Sponsorship 1', sponsor_id: 1}])
     const config = {
         method: 'get',
         url: `${API_URL}/sponsorships/?teamid=${id}`,
@@ -48,18 +49,15 @@ export async function fetchPromotions(setPromotions, id) {
 }
 
 
-export async function createItem(team_id, item, types, picture) {
+export async function createSponsor(team_id, name, picture) {
     const data = {
-        ...item,
+        name: name,
         team_id: team_id,
-        types: types.map((elm) => {
-            return elm.label;
-        }),
         picture: picture
     }
     const config = {
         method: 'post',
-        url: `${API_URL}/store/create`,
+        url: `${API_URL}/sponsor/create`,
         headers: headers,
         data: data
     }
@@ -74,7 +72,29 @@ export async function createItem(team_id, item, types, picture) {
     }
 }
 
-
+export async function createPromotion(team_id, name, description, picture) {
+    const data = {
+        name: name,
+        description: description,
+        team_id: team_id,
+        picture: picture
+    }
+    const config = {
+        method: 'post',
+        url: `${API_URL}/promotion/create`,
+        headers: headers,
+        data: data
+    }
+    try {
+        const res = await networker(config);
+        if(res.status!==200){
+            return false;
+        }
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
 
 export async function deleteSponsorship(team_id, sponsorship_id) {
     const data = {

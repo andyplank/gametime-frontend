@@ -62,7 +62,11 @@ const ItemForm = (props) => {
       const dataURL = reader.result;
       setPicture(dataURL);
     };
-    reader.readAsDataURL(input.files[0]);
+    try {
+      reader.readAsDataURL(input.files[0]);
+    } catch (err) {
+        setPicture('');
+    }
   }
 
   const onSubmit = async (data) => {

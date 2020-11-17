@@ -7,8 +7,13 @@ import { useSelector } from 'react-redux';
 import Confirm from '../Common/Confirm';
 
 import { fetchSponsorships, fetchPromotions, deleteSponsorship, deletePromotion } from '../../utils/business/business'
+import Sponsorship from "./Sponsorship";
+import Promotion from './Promotion';
 
 const Business = () => {
+
+  const [showSponsorships, setShowSponsorships] = useState(false);
+  const [showPromotions, setShowPromotions] = useState(false);
 
   const [promotions, setPromotions] = useState([]);
   const [sponsorships, setSponsorships] = useState([]);
@@ -21,9 +26,9 @@ const Business = () => {
         return store.user.teams[store.status.selected_team].team_id;
       }
     } catch (err) {
-      return 0;
+      return '0';
     }
-    return 0;
+    return '0';
   });
 
   // if(team_id===0) return (<Redirect to='/' />);
@@ -40,7 +45,7 @@ const Business = () => {
   const handleDelete = (item) => {
     const deleteFunc = item.promotion_id 
       ? () => deletePromotion(team_id, item.promotion_id) 
-      : () => deleteSponsorship(team_id, item.sponsorship_id)
+      : () => deleteSponsorship(team_id, item.sponsor_id)
     setSelected({
       ...item,
       deleteFunc: deleteFunc
@@ -49,29 +54,20 @@ const Business = () => {
   }
 
   const sponsorshipsContent = sponsorships.map((elm) => (
-    <div>
+    <div key={elm.sponsor_id}>
+      <span>{elm.name}</span>
       <Button variant="danger" onClick={() => handleDelete(elm)}>Delete</Button>
     </div>
   ));
   const promotionsContent = promotions.map((elm) => (
-    <div>
+    <div key={elm.promotion_id}>
+      <span>{elm.name}</span>
       <Button variant="danger" onClick={() => handleDelete(elm)}>Delete</Button>
     </div>
   ));
 
   return (
     <div className="fill-vert text-center">
-      <Jumbotron className="text-center">
-        <h3>Manage Businesses</h3>
-        <div className="pt-3">
-          <Link to='sponsorship' className="mx-4"> 
-            <Button>Add Sponsorship</Button>
-          </Link>
-          <Link to='promotions'> 
-            <Button>Add Promotion</Button>
-          </Link>
-        </div>
-      </Jumbotron>
       <Confirm 
         show={show}
         setShow={setShow}
@@ -79,6 +75,25 @@ const Business = () => {
         refresh={refresh}
         deleteFunc={selected.deleteFunc}
       />
+      <Sponsorship 
+        show={showSponsorships}
+        setShow={setShowSponsorships}
+        team_id={team_id}
+        refresh={refresh}
+      />
+      <Promotion
+        show={showPromotions}
+        setShow={setShowPromotions}
+        team_id={team_id}
+        refresh={refresh}
+      />
+      <Jumbotron className="text-center">
+        <h3>Manage Businesses</h3>
+        <div className="pt-3">
+          <Button onClick={() => setShowSponsorships(true)}>Add Sponsorship</Button>
+          <Button onClick={() => setShowPromotions(true)}>Add Promotion</Button>
+        </div>
+      </Jumbotron>
       <h4>Current Sponsorships</h4>
       <div className="pt-3">
         {sponsorshipsContent}
