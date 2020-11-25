@@ -5,10 +5,8 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
-import GetAppIcon from '@material-ui/icons/GetApp';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import BlockIcon from '@material-ui/icons/Block';
-import downloadPicture from '../../utils/photos/photos'
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
 import Modal from 'react-bootstrap/Modal';
 import Button from '@material-ui/core/Button';
 import { useSelector } from 'react-redux';
@@ -19,7 +17,7 @@ const p =  [
         file_id: 0,
         name: "1",
         url: "https://i.picsum.photos/id/649/200/300.jpg?hmac=3hfKZ0fzc7Ie_jSDrRCLD-bO3e71sZ_5xyZmJQXyNFg",
-        active: true
+        active: false
     },
     {
         file_id: 1,
@@ -43,7 +41,7 @@ const p =  [
         file_id: 4,
         name: "2",
         url: "https://i.picsum.photos/id/1029/200/300.jpg?hmac=VpePgDBTGFZYhRTeOD9o6nCvZB_01SrIHCMMkoZal_A",
-        active: true
+        active: false
     },
     {
         file_id: 5,
@@ -59,6 +57,7 @@ const p =  [
     },
 ]
 
+ 
 const useStyles = makeStyles((theme) => ({
     titleBar: {
         background:
@@ -70,8 +69,7 @@ const useStyles = makeStyles((theme) => ({
       },
 }));
 
-
-const TeamPhotos = (props) => {
+const ApprovePhotos = (props) => {
 	function selector(store) {
 		return {
             permissionLevel: store.user.teams[store.status.selected_team] 
@@ -86,33 +84,32 @@ const TeamPhotos = (props) => {
     const state = useSelector(selector);
     const classes = useStyles();
     const [photos, setPhotos] = useState(p);
-    const [toRemove, setToRemove] = useState({});
-    const [showRemove, setShowRemove] = useState(false);
+    const [toApprove, setToApprove] = useState({});
+    const [showApprove, setShowApprove] = useState(false);
 
-    const handleRemove = (photo) => {
-        //call endpoint to set photo not active
+    const handleApprove = (photo) => {
+        // call endpoint to set photo active
         setPhotos(photos.filter(p => p.file_id !== photo.file_id));
-        setShowRemove(false);
+        setShowApprove(false);
     }
 
-
-    const PhotoRemoveModal = () => {
-        const removeMsg = 'Are you sure you want to remove this photo?';
+    const PhotoApproveModal = () => {
+        const msg = 'Approve this photo?';
         return (
             <Modal
-                show={showRemove}
-                onHide={() => setShowRemove(false)}
+                show={showApprove}
+                onHide={() => setShowApprove(false)}
             >
             <Modal.Header closeButton>
-                <Modal.Title>Remove Team Photo</Modal.Title>
+                <Modal.Title>Approve Photo</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {removeMsg}
+                {msg}
             </Modal.Body>
             <Modal.Footer>
-                <Button style={{backgroundColor:'red'}}variant="contained" color="primary" onClick={() => setShowRemove(false)}>No</Button>
+                <Button style={{backgroundColor:'red'}}variant="contained" color="primary" onClick={() => setShowApprove(false)}>No</Button>
                 &nbsp;
-                <Button variant="contained" color="primary" onClick={() => handleRemove(toRemove)}>Yes</Button>
+                <Button variant="contained" color="primary" onClick={() => handleApprove(toApprove)}>Yes</Button>
             </Modal.Footer>
             </Modal>
         )
@@ -121,9 +118,9 @@ const TeamPhotos = (props) => {
     return (
         <div className="fill-vert gallery">
             <div>
-                <PhotoRemoveModal/>
+                <PhotoApproveModal/>
                 <GridList cellHeight={160} cols={3}>
-                    {photos.map((tile) => tile.active && (
+                    {photos.map((tile) => !tile.active && (
                         <GridListTile key={tile.file_id}>
                             <img src={tile.url}/>
                             <GridListTileBar
@@ -132,19 +129,13 @@ const TeamPhotos = (props) => {
                                 actionIcon={
                                     <>
                                         <IconButton 
-                                            className={classes.icon}
-                                            onClick={() => downloadPicture(tile)}
-                                        >
-                                            <GetAppIcon />
-                                        </IconButton>
-                                        <IconButton 
                                             className={classes.icon} 
                                             onClick={() => { 
-                                                setShowRemove(true); 
-                                                setToRemove(tile)
+                                                setShowApprove(true); 
+                                                setToApprove(tile)
                                             }}
                                         >
-                                            <DeleteOutlineIcon />
+                                            <CheckIcon />
                                         </IconButton>
                                     </>
                                 }
@@ -159,5 +150,5 @@ const TeamPhotos = (props) => {
     );
 }
 
-export default TeamPhotos;
+export default ApprovePhotos;
 
