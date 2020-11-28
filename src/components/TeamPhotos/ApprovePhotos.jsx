@@ -83,14 +83,25 @@ const ApprovePhotos = (props) => {
     
     const state = useSelector(selector);
     const classes = useStyles();
-    const [photos, setPhotos] = useState(p);
+    const [photos, setPhotos] = useState([]);
     const [toApprove, setToApprove] = useState({});
     const [showApprove, setShowApprove] = useState(false);
 
+    useEffect(() => {
+        async function fetchPhotos() {
+            const res = p;//replace this with endpoint later
+            setPhotos(res);
+		}
+        fetchPhotos();
+    });
+
     const handleApprove = (photo) => {
         // call endpoint to set photo active
-        setPhotos(photos.filter(p => p.file_id !== photo.file_id));
+        const p = photos;
+        p.forEach(p => p.file_id === photo.file_id ? p.active = true : p.active = p.active);
+        setPhotos(p);
         setShowApprove(false);
+        console.log(photos)
     }
 
     const PhotoApproveModal = () => {
@@ -115,7 +126,7 @@ const ApprovePhotos = (props) => {
         )
     }
     
-    return (
+    return !photos.every(p => p.active) ? (
         <div className="fill-vert gallery">
             <div>
                 <PhotoApproveModal/>
@@ -147,7 +158,13 @@ const ApprovePhotos = (props) => {
                 </GridList>
             </div>
         </div>
-    );
+    )
+    :
+    (
+        <div className="fill-vert gallery">
+            <h3>There are currently no photos available to approve.</h3>
+        </div>
+    )
 }
 
 export default ApprovePhotos;

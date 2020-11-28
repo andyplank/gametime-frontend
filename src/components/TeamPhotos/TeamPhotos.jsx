@@ -85,13 +85,24 @@ const TeamPhotos = (props) => {
     
     const state = useSelector(selector);
     const classes = useStyles();
-    const [photos, setPhotos] = useState(p);
+    const [photos, setPhotos] = useState([]);
     const [toRemove, setToRemove] = useState({});
     const [showRemove, setShowRemove] = useState(false);
+    
+
+    useEffect(() => {
+        async function fetchPhotos() {
+            const res = p;//replace this with endpoint later
+            setPhotos(res);
+		}
+		fetchPhotos();
+    });
 
     const handleRemove = (photo) => {
         //call endpoint to set photo not active
-        setPhotos(photos.filter(p => p.file_id !== photo.file_id));
+        const p = photos;
+        p.forEach(p => p.file_id === photo.file_id ? p.active = false : p.active = p.active);
+        setPhotos(p);
         setShowRemove(false);
     }
 
@@ -118,7 +129,7 @@ const TeamPhotos = (props) => {
         )
     }
     
-    return (
+    return photos.some(p => p.active) ? (
         <div className="fill-vert gallery">
             <div>
                 <PhotoRemoveModal/>
@@ -156,7 +167,13 @@ const TeamPhotos = (props) => {
                 </GridList>
             </div>
         </div>
-    );
+    ) 
+    : 
+    (
+        <div className="fill-vert">
+            <h3>There are no available photos at this time for the team.</h3>
+        </div>
+    )
 }
 
 export default TeamPhotos;
