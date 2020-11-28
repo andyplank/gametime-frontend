@@ -62,7 +62,7 @@ const Promotion = (props) => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    const res = await createPromotion(team_id, data.name, data.description, picture);
+    const res = await createPromotion(team_id, data.name, data.description, data.start, data.end, picture);
     if(res){
       setAlertType('success');
       setShowAlert(true);

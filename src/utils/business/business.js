@@ -6,7 +6,6 @@ const headers = {
 }
 
 export async function fetchSponsorships(setSponsorships, id) {
-    setSponsorships([{name: 'Sponsorship 1', sponsor_id: 1}])
     const config = {
         method: 'get',
         url: `${API_URL}/sponsorships/?teamid=${id}`,
@@ -72,11 +71,13 @@ export async function createSponsor(team_id, name, picture) {
     }
 }
 
-export async function createPromotion(team_id, name, description, picture) {
+export async function createPromotion(team_id, name, description, start, end, picture) {
     const data = {
         name: name,
         description: description,
         team_id: team_id,
+        start_time: start,
+        end_time: end,
         picture: picture
     }
     const config = {

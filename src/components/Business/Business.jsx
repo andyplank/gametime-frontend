@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { Button, Jumbotron } from 'react-bootstrap';
-// eslint-disable-next-line no-unused-vars
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 
 import Confirm from '../Common/Confirm';
@@ -31,7 +30,7 @@ const Business = () => {
     return '0';
   });
 
-  // if(team_id===0) return (<Redirect to='/' />);
+  if(team_id===0) return (<Redirect to='/' />);
 
   const refresh = () => {
     fetchSponsorships(setSponsorships, team_id);
@@ -90,8 +89,8 @@ const Business = () => {
       <Jumbotron className="text-center">
         <h3>Manage Businesses</h3>
         <div className="pt-3">
-          <Button onClick={() => setShowSponsorships(true)}>Add Sponsorship</Button>
-          <Button onClick={() => setShowPromotions(true)}>Add Promotion</Button>
+          <Button className="mr-1" onClick={() => setShowSponsorships(true)}>Add Sponsorship</Button>
+          <Button className="ml-1" onClick={() => setShowPromotions(true)}>Add Promotion</Button>
         </div>
       </Jumbotron>
       <h4>Current Sponsorships</h4>
