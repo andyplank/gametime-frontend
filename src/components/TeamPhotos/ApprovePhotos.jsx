@@ -130,7 +130,7 @@ const ApprovePhotos = (props) => {
         <div className="fill-vert gallery">
             <div>
                 <PhotoApproveModal/>
-                <GridList cellHeight={160} cols={3}>
+                <GridList cellHeight={200} cols={3}>
                     {photos.map((tile) => !tile.active && (
                         <GridListTile key={tile.file_id}>
                             <img src={tile.url}/>

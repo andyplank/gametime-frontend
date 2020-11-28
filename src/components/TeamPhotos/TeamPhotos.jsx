@@ -7,10 +7,11 @@ import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import BlockIcon from '@material-ui/icons/Block';
 import downloadPicture from '../../utils/photos/photos'
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Modal from 'react-bootstrap/Modal';
 import Button from '@material-ui/core/Button';
+import UploadPicture from '../UploadPicture/UploadPicture'
 import { useSelector } from 'react-redux';
 import './TeamPhotos.scss';
 
@@ -88,6 +89,7 @@ const TeamPhotos = (props) => {
     const [photos, setPhotos] = useState([]);
     const [toRemove, setToRemove] = useState({});
     const [showRemove, setShowRemove] = useState(false);
+    const [showUpload, setShowUpload] = useState(false);
     
 
     useEffect(() => {
@@ -128,52 +130,96 @@ const TeamPhotos = (props) => {
             </Modal>
         )
     }
+
+    function savePicture(picture) {
+        const saveObj = {
+            team_id: 0, //get from selector or params
+            picture: `data:image/jpeg;base64,${picture.picture}`,
+            name: picture.name,
+            active: false,
+        }
+        //call endpoint to save team photo
+        console.log(saveObj);
+    }
+
+    const PhotoUploadModal = () => {
+        const removeMsg = 'Are you sure you want to remove this photo?';
+        return (
+            <Modal
+                show={showUpload}
+                onHide={() => setShowUpload(false)}
+            >
+            <Modal.Header closeButton>
+                <Modal.Title>Photo Upload</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <UploadPicture 
+                    savePicture={savePicture} 
+                    hideModal={() => setShowUpload(false)}
+                    label="Open"
+                />
+            </Modal.Body>
+            </Modal>
+        )
+    }
     
-    return photos.some(p => p.active) ? (
-        <div className="fill-vert gallery">
-            <div>
-                <PhotoRemoveModal/>
-                <GridList cellHeight={160} cols={3}>
-                    {photos.map((tile) => tile.active && (
-                        <GridListTile key={tile.file_id}>
-                            <img src={tile.url}/>
-                            <GridListTileBar
-                                title={tile.title}
-                                titlePosition="bottom"
-                                actionIcon={
-                                    <>
-                                        <IconButton 
-                                            className={classes.icon}
-                                            onClick={() => downloadPicture(tile)}
-                                        >
-                                            <GetAppIcon />
-                                        </IconButton>
-                                        <IconButton 
-                                            className={classes.icon} 
-                                            onClick={() => { 
-                                                setShowRemove(true); 
-                                                setToRemove(tile)
-                                            }}
-                                        >
-                                            <DeleteOutlineIcon />
-                                        </IconButton>
-                                    </>
-                                }
-                                actionPosition="left"
-                                className={classes.titleBar}
-                            />
-                        </GridListTile>
-                    ))}
-                </GridList>
+    return <div className="fill-vert">
+    {
+        <div className="center">
+            <PhotoUploadModal /> 
+            <IconButton onClick={() => setShowUpload(true)}>
+                <AddCircleOutlineIcon style={{fontSize:60}}/>
+            </IconButton>
+        </div>
+    }
+    {
+        photos.some(p => p.active) ? (
+            <div className="gallery">
+                <div>
+                    <PhotoRemoveModal/>
+                    <GridList cellHeight={200} cols={3}>
+                        {photos.map((tile) => tile.active && (
+                            <GridListTile key={tile.file_id}>
+                                <img src={tile.url}/>
+                                <GridListTileBar
+                                    title={tile.title}
+                                    titlePosition="bottom"
+                                    actionIcon={
+                                        <>
+                                            <IconButton 
+                                                className={classes.icon}
+                                                onClick={() => downloadPicture(tile)}
+                                            >
+                                                <GetAppIcon />
+                                            </IconButton>
+                                            <IconButton 
+                                                className={classes.icon} 
+                                                onClick={() => { 
+                                                    setShowRemove(true); 
+                                                    setToRemove(tile)
+                                                }}
+                                            >
+                                                <DeleteOutlineIcon />
+                                            </IconButton>
+                                        </>
+                                    }
+                                    actionPosition="left"
+                                    className={classes.titleBar}
+                                />
+                            </GridListTile>
+                        ))}
+                    </GridList>
+                </div>
             </div>
-        </div>
-    ) 
-    : 
-    (
-        <div className="fill-vert">
-            <h3>There are no available photos at this time for the team.</h3>
-        </div>
-    )
+        ) 
+        : 
+        (
+            <div className="gallery">
+                <h3>There are no available photos at this time for the team.</h3>
+            </div>
+        )
+    }
+    </ div>
 }
 
 export default TeamPhotos;

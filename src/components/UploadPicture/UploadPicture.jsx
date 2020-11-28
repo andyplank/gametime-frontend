@@ -9,6 +9,7 @@ const UploadPicture = (props) => {
   const [picture, setPicture] = useState(null);
   const [showButtons, setShowButtons] = useState(false);
   const [pictureObj, setPictureObj] = useState([]);
+  const { label } = props;
 
   function handleReaderLoaded(readerEvt) {
     const binaryString = readerEvt.target.result;
@@ -29,9 +30,13 @@ const UploadPicture = (props) => {
   }
 
   const onSavePicture = () => {
-    props.savePicture(picture);
+    const {savePicture, hideModal} = props;
+    savePicture({picture: picture, name: pictureObj[0].name});
     setPictureObj([]);
     setShowButtons(false);
+    if(hideModal){
+      hideModal();
+    }
   }
 
   return (
@@ -44,7 +49,7 @@ const UploadPicture = (props) => {
             imgExtension={[".jpg"]}
             maxFileSize={5242880}
             singleImage
-            buttonText="Edit Picture"
+            buttonText={label || "Edit Picture"}
             withLabel={false}
             withPreview={false}
           />
@@ -75,6 +80,13 @@ const UploadPicture = (props) => {
 
 UploadPicture.propTypes = {
   savePicture: PropTypes.func.isRequired,
+  hideModal: PropTypes.func,
+  label: PropTypes.string
 };
+
+UploadPicture.defaultProps = {
+  hideModal: null,
+  label: null
+}
 
 export default UploadPicture;

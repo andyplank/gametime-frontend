@@ -159,7 +159,7 @@ const Account = () => {
   }
 
   async function onSavePicture(picture) {
-    const formattedPicture = `data:image/jpeg;base64,${picture}`;
+    const formattedPicture = `data:image/jpeg;base64,${picture.picture}`;
     setProfilePicture(state.id, formattedPicture, profPicture == null);
     setProfPicture(formattedPicture);
   }
