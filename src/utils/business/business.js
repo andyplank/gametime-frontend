@@ -5,6 +5,30 @@ const headers = {
     'Content-Type': 'application/json'
 }
 
+export async function contact(team_id, name, email, text) {
+    const data = {
+        team_id: team_id,
+        name: name,
+        email: email,
+        text: text
+    }
+    const config = {
+        method: 'post',
+        url: `${API_URL}/contact`,
+        headers: headers,
+        data: data
+    }
+    try {
+        const res = await networker(config);
+        if(res.status!==200){
+            return false;
+        } 
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
+
 export async function fetchSponsorships(setSponsorships, id) {
     const config = {
         method: 'get',
@@ -23,7 +47,6 @@ export async function fetchSponsorships(setSponsorships, id) {
     } catch (err) {
         return false;
     }
-
 }
 
 export async function fetchPromotions(setPromotions, id) {

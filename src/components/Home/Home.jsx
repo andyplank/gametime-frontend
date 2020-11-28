@@ -4,6 +4,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import {Button, Container} from 'react-bootstrap';
 import './Home.scss';
 import { Link, useParams} from 'react-router-dom';
+import Contact from './Contact';
 
 const Home = () => {
 
@@ -43,6 +44,8 @@ const Home = () => {
             <Button>Go to team fundraiser</Button>
           </Link>
         </div>
+
+        <Contact />
 
       </Container>
     </div>
