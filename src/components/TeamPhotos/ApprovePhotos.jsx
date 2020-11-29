@@ -96,7 +96,14 @@ const ApprovePhotos = (props) => {
     });
 
     const handleApprove = (photo) => {
-        // call endpoint to set photo active
+        // call endpoint to set photo active]
+
+        let apiObj = {
+            team_id: 0, //replace with teamId from selector
+            file_id: photo.file_id,
+            active: true
+        }
+
         const p = photos;
         p.forEach(p => p.file_id === photo.file_id ? p.active = true : p.active = p.active);
         setPhotos(p);

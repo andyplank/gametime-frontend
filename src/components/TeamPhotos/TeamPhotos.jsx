@@ -102,12 +102,16 @@ const TeamPhotos = (props) => {
 
     const handleRemove = (photo) => {
         //call endpoint to set photo not active
+        let apiObj = {
+            team_id: 0, //replace with teamId from selector
+            file_id: photo.file_id,
+            active: false
+        }
         const p = photos;
         p.forEach(p => p.file_id === photo.file_id ? p.active = false : p.active = p.active);
         setPhotos(p);
         setShowRemove(false);
     }
-
 
     const PhotoRemoveModal = () => {
         const removeMsg = 'Are you sure you want to remove this photo?';
