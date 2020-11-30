@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { deleteItem } from '../../utils/store/store'
 import Feedback from './Feedback';
 
 const Confirm = (props) => {
-    const {show, setShow, item, team_id, refresh} = props;
+    const {show, setShow, text, refresh, deleteFunc} = props;
     
     const [showAlert, setShowAlert] = useState(false);
     const [alertType, setAlertType] = useState('danger');
@@ -13,7 +12,7 @@ const Confirm = (props) => {
 
     const handleSubmit = async () => {
       setLoading(true);
-      const res = await deleteItem(team_id, item.item_id);
+      const res = await deleteFunc();
       setShowAlert(true);
       if (res===true) {
         refresh();
@@ -33,7 +32,7 @@ const Confirm = (props) => {
         <Modal.Body>
           Are you sure you want to delete
           {' '}
-          {item.name}
+          {text}
           <Feedback 
             alertType={alertType}
             showAlert={showAlert}
@@ -61,8 +60,8 @@ const Confirm = (props) => {
 Confirm.propTypes = {
   show: PropTypes.bool.isRequired,
   setShow: PropTypes.func.isRequired,
-  item: PropTypes.instanceOf(Object).isRequired,
-  team_id: PropTypes.string.isRequired,
-  refresh: PropTypes.func.isRequired
+  text: PropTypes.string.isRequired,
+  refresh: PropTypes.func.isRequired,
+  deleteFunc: PropTypes.func.isRequired
 }
 export default Confirm;

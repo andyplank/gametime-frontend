@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Form, Modal, InputGroup } from 'react-bootstrap';
+import { Button, Form, Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+
 import Feedback from '../Common/Feedback';
-import ItemTypes from './ItemTypes';
 
-import {updateItem, createItem} from '../../utils/store/store';
+import { createSponsor } from '../../utils/business/business';
 
-const ItemForm = (props) => {
+const Sponsorship = (props) => {
   const {
     show, 
     setShow, 
-    item, 
-    isNew, 
     team_id, 
     refresh
   } = props;
 
-  const [allTypes, setAllTypes] = useState([]);
   const [picture, setPicture] = useState('');
 
   const [showAlert, setShowAlert] = useState(false);
@@ -39,15 +36,9 @@ const ItemForm = (props) => {
   });
 
   useEffect(() => {
-    const temp = {...item};
-    temp.picture = '';
     setPicture('');
-    reset(temp);
-    const types = Array.isArray(item.types) 
-      ? item.types 
-      : [];
-    setAllTypes(types);
-  }, [item, show]);
+    reset();
+  }, [show]);
 
 
   const closeModal = () => {
@@ -63,22 +54,15 @@ const ItemForm = (props) => {
       setPicture(dataURL);
     };
     try {
-      reader.readAsDataURL(input.files[0]);
+        reader.readAsDataURL(input.files[0]);
     } catch (err) {
         setPicture('');
     }
   }
 
   const onSubmit = async (data) => {
-    data.price = parseFloat(data.price);
-    data.name = data.name.trim();
     setLoading(true);
-    let res;
-    if (isNew){
-      res = await createItem(team_id, data, allTypes, picture);
-    } else {
-      res = await updateItem(team_id, data, allTypes, picture, item.item_id);
-    }
+    const res = await createSponsor(team_id, data.name, picture);
     if(res){
       setAlertType('success');
       setShowAlert(true);
@@ -93,13 +77,13 @@ const ItemForm = (props) => {
   return (
     <Modal show={show} onHide={() => closeModal()}>
       <Modal.Header closeButton>
-        <Modal.Title>Item Details</Modal.Title>
+        <Modal.Title>Sponsorship Details</Modal.Title>
       </Modal.Header>
       <Form noValidate onSubmit={handleSubmit(onSubmit)} autoComplete="off">
     
         <Modal.Body>
           <Form.Group>
-            <Form.Label>Item Name</Form.Label>
+            <Form.Label>Sponsorship Name</Form.Label>
             <Form.Control 
               type="new-password"
               name="name"
@@ -119,33 +103,6 @@ const ItemForm = (props) => {
           </Form.Group>
 
           <Form.Group>
-            <Form.Label>Price</Form.Label>
-            <InputGroup className="mb-3">
-              <InputGroup.Prepend>
-                <InputGroup.Text>$</InputGroup.Text>
-              </InputGroup.Prepend>
-              <Form.Control 
-                type="number"
-                name="price"
-                isValid={(formState.touched.price || formState.isSubmitted) && !errors.price}
-                isInvalid={errors.price}
-                ref={register({
-                    required: "Required",
-                    min: 0
-                  }
-                )}
-              />
-              <Form.Control.Feedback className="d-block" type="invalid">
-                {errors.price && errors.price.message}
-              </Form.Control.Feedback>
-              <Form.Control.Feedback className="d-block" type="valid">
-                {(formState.touched.price || formState.isSubmitted) && !errors.price && ('Looks Good')}
-              </Form.Control.Feedback>
-            </InputGroup>
-
-          </Form.Group>
-
-          <Form.Group>
             <Form.Label>Picture</Form.Label>
             <Form.Control 
               type="file"
@@ -156,7 +113,7 @@ const ItemForm = (props) => {
               isValid={picture!=='' && !errors.picture}
               isInvalid={picture==='' && errors.picture}
               ref={register({
-                  required: isNew ? "Required" : "",
+                  required: "Required",
                   pattern: {
                     value: /^.*\.(jpg|JPG|jpeg|JPEG)$/,
                     message: "Must be a JPG file"
@@ -171,17 +128,6 @@ const ItemForm = (props) => {
               {errors.picture && errors.picture.message}
             </Form.Control.Feedback>
           </Form.Group>
-
-          <Form.Group className="text-left">
-            <Form.Check
-              label="Is active"
-              type="checkbox"
-              name="active"
-              ref={register()}
-            />
-          </Form.Group>
-
-          <ItemTypes types={allTypes} setTypes={setAllTypes} />
 
           <Feedback 
             alertType={alertType}
@@ -219,12 +165,10 @@ const ItemForm = (props) => {
     )
 };
 
-ItemForm.propTypes = {
+Sponsorship.propTypes = {
   show: PropTypes.bool.isRequired,
   setShow: PropTypes.func.isRequired,
-  item: PropTypes.instanceOf(Object).isRequired,
   team_id: PropTypes.string.isRequired,
-  isNew: PropTypes.bool.isRequired,
   refresh: PropTypes.func.isRequired
 }
-export default ItemForm;
+export default Sponsorship;

@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { Button, Form, Modal, InputGroup } from 'react-bootstrap';
+import { useForm, Controller } from "react-hook-form";
+import { Button, Form, Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import TextField from '@material-ui/core/TextField';
 import Feedback from '../Common/Feedback';
-import ItemTypes from './ItemTypes';
 
-import {updateItem, createItem} from '../../utils/store/store';
+import { createPromotion } from '../../utils/business/business';
 
-const ItemForm = (props) => {
+const Promotion = (props) => {
   const {
     show, 
     setShow, 
-    item, 
-    isNew, 
     team_id, 
     refresh
   } = props;
 
-  const [allTypes, setAllTypes] = useState([]);
   const [picture, setPicture] = useState('');
 
   const [showAlert, setShowAlert] = useState(false);
@@ -33,21 +30,15 @@ const ItemForm = (props) => {
     }
   }, [picture])
 
-  const { register, handleSubmit, errors, formState, reset, setError } = useForm({
+  const { register, handleSubmit, errors, formState, reset, setError, control } = useForm({
     mode: 'all',
     reValidateMode: 'onChange',
   });
 
   useEffect(() => {
-    const temp = {...item};
-    temp.picture = '';
     setPicture('');
-    reset(temp);
-    const types = Array.isArray(item.types) 
-      ? item.types 
-      : [];
-    setAllTypes(types);
-  }, [item, show]);
+    reset();
+  }, [show]);
 
 
   const closeModal = () => {
@@ -63,22 +54,15 @@ const ItemForm = (props) => {
       setPicture(dataURL);
     };
     try {
-      reader.readAsDataURL(input.files[0]);
+        reader.readAsDataURL(input.files[0]);
     } catch (err) {
         setPicture('');
     }
   }
 
   const onSubmit = async (data) => {
-    data.price = parseFloat(data.price);
-    data.name = data.name.trim();
     setLoading(true);
-    let res;
-    if (isNew){
-      res = await createItem(team_id, data, allTypes, picture);
-    } else {
-      res = await updateItem(team_id, data, allTypes, picture, item.item_id);
-    }
+    const res = await createPromotion(team_id, data.name, data.description, data.start, data.end, picture);
     if(res){
       setAlertType('success');
       setShowAlert(true);
@@ -93,13 +77,13 @@ const ItemForm = (props) => {
   return (
     <Modal show={show} onHide={() => closeModal()}>
       <Modal.Header closeButton>
-        <Modal.Title>Item Details</Modal.Title>
+        <Modal.Title>Promotion Details</Modal.Title>
       </Modal.Header>
       <Form noValidate onSubmit={handleSubmit(onSubmit)} autoComplete="off">
     
         <Modal.Body>
           <Form.Group>
-            <Form.Label>Item Name</Form.Label>
+            <Form.Label>Name</Form.Label>
             <Form.Control 
               type="new-password"
               name="name"
@@ -119,30 +103,69 @@ const ItemForm = (props) => {
           </Form.Group>
 
           <Form.Group>
-            <Form.Label>Price</Form.Label>
-            <InputGroup className="mb-3">
-              <InputGroup.Prepend>
-                <InputGroup.Text>$</InputGroup.Text>
-              </InputGroup.Prepend>
-              <Form.Control 
-                type="number"
-                name="price"
-                isValid={(formState.touched.price || formState.isSubmitted) && !errors.price}
-                isInvalid={errors.price}
-                ref={register({
+            <Form.Label>Description</Form.Label>
+            <Form.Control 
+              type="text-field"
+              name="description"
+              isValid={(formState.touched.description || formState.isSubmitted) && !errors.description}
+              isInvalid={errors.description}
+              ref={register({
                     required: "Required",
-                    min: 0
-                  }
-                )}
-              />
-              <Form.Control.Feedback className="d-block" type="invalid">
-                {errors.price && errors.price.message}
-              </Form.Control.Feedback>
-              <Form.Control.Feedback className="d-block" type="valid">
-                {(formState.touched.price || formState.isSubmitted) && !errors.price && ('Looks Good')}
-              </Form.Control.Feedback>
-            </InputGroup>
+                }
+              )}
+            />
+            <Form.Control.Feedback type="valid">
+              Looks Good
+            </Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              {errors.description && errors.description.message}
+            </Form.Control.Feedback>
+          </Form.Group>
 
+          <Form.Group>
+            <Form.Label>Start</Form.Label>
+            <div>
+              <Controller
+                as={(
+                  <TextField
+                    type="datetime-local"
+                  />
+                )}
+                name="start"
+                defaultValue=""
+                control={control}
+                rules={{ required: "Required" }}
+              />
+            </div>
+            <div className="valid-feedback d-block">
+              {(formState.touched.start || formState.isSubmitted) && !errors.start && 'Looks Good'}
+            </div>
+            <div className="invalid-feedback d-block">
+              {errors.start && errors.start.message}
+            </div>
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label>End</Form.Label>
+            <div>
+              <Controller
+                as={(
+                  <TextField
+                    type="datetime-local"
+                  />
+                )}
+                name="end"
+                defaultValue=""
+                control={control}
+                rules={{ required: "Required" }}
+              />
+            </div>
+            <div className="valid-feedback d-block">
+              {(formState.touched.end || formState.isSubmitted) && !errors.end && 'Looks Good'}
+            </div>
+            <div className="invalid-feedback d-block">
+              {errors.end && errors.end.message}
+            </div>
           </Form.Group>
 
           <Form.Group>
@@ -156,7 +179,7 @@ const ItemForm = (props) => {
               isValid={picture!=='' && !errors.picture}
               isInvalid={picture==='' && errors.picture}
               ref={register({
-                  required: isNew ? "Required" : "",
+                  required: "Required",
                   pattern: {
                     value: /^.*\.(jpg|JPG|jpeg|JPEG)$/,
                     message: "Must be a JPG file"
@@ -171,17 +194,6 @@ const ItemForm = (props) => {
               {errors.picture && errors.picture.message}
             </Form.Control.Feedback>
           </Form.Group>
-
-          <Form.Group className="text-left">
-            <Form.Check
-              label="Is active"
-              type="checkbox"
-              name="active"
-              ref={register()}
-            />
-          </Form.Group>
-
-          <ItemTypes types={allTypes} setTypes={setAllTypes} />
 
           <Feedback 
             alertType={alertType}
@@ -219,12 +231,10 @@ const ItemForm = (props) => {
     )
 };
 
-ItemForm.propTypes = {
+Promotion.propTypes = {
   show: PropTypes.bool.isRequired,
   setShow: PropTypes.func.isRequired,
-  item: PropTypes.instanceOf(Object).isRequired,
   team_id: PropTypes.string.isRequired,
-  isNew: PropTypes.bool.isRequired,
   refresh: PropTypes.func.isRequired
 }
-export default ItemForm;
+export default Promotion;
