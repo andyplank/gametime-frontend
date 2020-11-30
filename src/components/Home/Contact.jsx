@@ -9,7 +9,6 @@ import { contact } from '../../utils/business/business';
 const Contact = () => {
 
   const { team_id } = useParams();
-
   const [showAlert, setShowAlert] = useState(false);
   const [alertType, setAlertType] = useState('danger');
   const [isLoading, setLoading] = useState(false);
@@ -20,7 +19,7 @@ const Contact = () => {
   });
 
   useEffect(() => {
-      reset()
+    reset()
   }, []);
 
   const onSubmit = async (data) => {
@@ -29,6 +28,7 @@ const Contact = () => {
     if(res){
       setAlertType('success');
       setShowAlert(true);
+      reset()
     } else {
       setAlertType('danger');
       setShowAlert(true);
@@ -73,9 +73,9 @@ const Contact = () => {
                   isValid={(formState.touched.email || formState.isSubmitted) && !errors.email}
                   isInvalid={errors.email}
                   ref={register({
-                required: "Required",
-            }
-          )}
+                        required: "Required",
+                    }
+                  )}
                 />
                 <Form.Control.Feedback type="valid">
                   Looks Good

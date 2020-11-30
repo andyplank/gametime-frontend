@@ -8,13 +8,12 @@ const headers = {
 export async function contact(team_id, name, email, text) {
     const data = {
         team_id: team_id,
-        name: name,
-        email: email,
-        text: text
+        subject: 'Research Opportunity',
+        body: `Name: ${name}\r\nEmail: ${email}\r\nMessage: ${text}`
     }
     const config = {
         method: 'post',
-        url: `${API_URL}/contact`,
+        url: `${API_URL}/sponsors/contact`,
         headers: headers,
         data: data
     }
