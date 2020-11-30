@@ -6,37 +6,67 @@ import './Home.scss';
 import { Link, useParams} from 'react-router-dom';
 import Contact from './Contact';
 
-import { fetchSponsorships } from '../../utils/business/business';
+import StoreImage from '../../assets/images/store.jpg';
+import FundImage from '../../assets/images/charity.jpg';
+
+
+import { fetchSponsorships, fetchPromotions } from '../../utils/business/business';
 
 const Home = () => {
 
   const { team_id } = useParams();
-  const [banners, setBanners] = useState([{sponsor_id: 1, link: 'https://i.imgur.com/KGK9Y2V.jpg'}, {sponsor_id: 2, link: 'https://i.imgur.com/KGK9Y2V.jpg'}]);
-  const [promotions, setPromotions] = useState(['https://i.imgur.com/KGK9Y2V.jpg', 'https://i.imgur.com/KGK9Y2V.jpg']);
+  const [banners, setBanners] = useState([]);
+  const [promotions, setPromotions] = useState([]);
 
   const refresh = async () => {
     await fetchSponsorships(setBanners, team_id);
+    await fetchPromotions(setPromotions, team_id);
   }
 
   useEffect(() => {
     refresh();
   }, [team_id])
 
+  useEffect(() => {
+    const filtered = promotions.filter((elm) => {
+      return new Date(elm.start_time).getTime() < Date.now() && new Date(elm.end_time).getTime() > Date.now();
+    });
+    if(filtered.length !== promotions.length) {
+      setPromotions(filtered);
+    }
+  }, [promotions])
+
   const bannerContent = banners.map((elm, index) => {
     return (
       <Carousel.Item key={elm.sponsor_id}>
         <img
           className="d-block w-100"
-          src={elm.link}
-          alt={index}
+          src={elm.picture}
+          alt={`${index}-banner`}
         />
       </Carousel.Item>
     );
   });
 
+  const promoContent = promotions.map((elm, index) => {
+    return (
+      <Carousel.Item key={elm.promotion_id}>
+        <img
+          className="d-block w-100"
+          src={elm.picture}
+          alt={`${index}-promo`}
+        />
+        <Carousel.Caption>
+          <h3>{elm.name}</h3>
+          <p>{elm.description}</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+    );
+  })
+
   return (
     <div className="fill-vert">
-      <Carousel controls={false} indicators={false} interval={2000}>
+      <Carousel controls={false} indicators={false} interval={2000} className="banner">
         {bannerContent}
       </Carousel>
       <Jumbotron className="text-center">
@@ -44,27 +74,32 @@ const Home = () => {
       </Jumbotron>
       <Container>
 
-        <Row className="py-3">
-        
-          <Col md={6}>
+        <Row className="py-2">
+          <Col md={6} className="py-1">
             <Link to={`/team/${team_id}/fundraiser/`} className="no-link">
-
-              <img src="https://www.halo.com/blog/wp-content/uploads/2020/01/pic-05-charity-1024x439.jpg" alt="Snow" className="w-100 grayscale rounded" />
+              <img src={FundImage} alt="Snow" className="w-100 grayscale rounded" />
               <div className="centered text-white"><h3>Team Fundraiser</h3></div>
             </Link>
           </Col>
 
-          <Col md={6}>
+          <Col md={6} className="py-1">
             <Link to={`/team/${team_id}/store/`} className="no-link">
-              <img src="https://www.halo.com/blog/wp-content/uploads/2020/01/pic-05-charity-1024x439.jpg" alt="Snow" className="w-100 grayscale rounded" />
+              <img src={StoreImage} alt="Snow" className="w-100 grayscale rounded" />
               <div className="centered text-white"><h3>Team Store</h3></div>
             </Link>
           </Col>
-        
         </Row>
 
+        {promotions.length !== 0 && (
+          <div className="text-center py-4">
+            <h5>Promotions!</h5>
+            <Carousel className="promo">
+              {promoContent}          
+            </Carousel>
+          </div>
+          )
+        }
         <Contact />
-
       </Container>
     </div>
   );

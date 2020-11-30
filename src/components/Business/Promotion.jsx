@@ -128,7 +128,6 @@ const Promotion = (props) => {
               <Controller
                 as={(
                   <TextField
-                    id="datetime-local"
                     type="datetime-local"
                   />
                 )}
@@ -152,7 +151,6 @@ const Promotion = (props) => {
               <Controller
                 as={(
                   <TextField
-                    id="datetime-local"
                     type="datetime-local"
                   />
                 )}

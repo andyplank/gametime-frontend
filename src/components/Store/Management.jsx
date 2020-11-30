@@ -42,7 +42,7 @@ const Management = () => {
   }
 
   const handleDelete = (item) => {
-    const deleteFunc = () => deleteItem(team_id, selected.item_id)
+    const deleteFunc = () => deleteItem(team_id, item.item_id)
     setSelected({
       ...item,
       deleteFunc: deleteFunc

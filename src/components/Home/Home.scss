@@ -17,21 +17,22 @@
     transform: translate(-50%, -50%);
 }
 
-.carousel .carousel-item {
+.banner .carousel .carousel-item {
     height: 100px;
 }
   
-.carousel-item img {
+.banner .carousel-item img {
     object-position: center;
     object-fit: cover;
-    min-height: 100px;
+    max-height: 100px;
 }
 
-.banner {
-    background-color: #778899;
-    width: 100%;
-    padding-bottom: 100px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
+.promo .carousel .carousel-item {
+    height: 400px;
+}
+  
+.promo .carousel-item img {
+    object-position: center;
+    object-fit: cover;
+    height: 400px;
+}

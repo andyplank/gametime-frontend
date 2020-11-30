@@ -29,10 +29,10 @@ export async function contact(team_id, name, email, text) {
     }
 }
 
-export async function fetchSponsorships(setSponsorships, id) {
+export async function fetchSponsorships(setSponsors, id) {
     const config = {
         method: 'get',
-        url: `${API_URL}/sponsorships/?teamid=${id}`,
+        url: `${API_URL}/sponsors?team_id=${id}`,
         headers: headers
     }
     try {
@@ -40,8 +40,8 @@ export async function fetchSponsorships(setSponsorships, id) {
         if(res.status!==200){
             return false;
         } 
-        if(Array.isArray(res.data.sponsorships)){
-            setSponsorships(res.data.sponsorships);
+        if(Array.isArray(res.data.sponsors)){
+            setSponsors(res.data.sponsors);
         }
         return true;
     } catch (err) {
@@ -52,7 +52,7 @@ export async function fetchSponsorships(setSponsorships, id) {
 export async function fetchPromotions(setPromotions, id) {
     const config = {
         method: 'get',
-        url: `${API_URL}/promotions/?teamid=${id}`,
+        url: `${API_URL}/promotions?team_id=${id}`,
         headers: headers
     }
     try {
@@ -79,7 +79,7 @@ export async function createSponsor(team_id, name, picture) {
     }
     const config = {
         method: 'post',
-        url: `${API_URL}/sponsor/create`,
+        url: `${API_URL}/sponsors`,
         headers: headers,
         data: data
     }
@@ -92,6 +92,10 @@ export async function createSponsor(team_id, name, picture) {
     } catch (err) {
         return false;
     }
+}
+
+const parseTime = (datestring) => {
+    return new Date(datestring).getTime() / 1000
 }
 
 export async function createPromotion(team_id, name, description, start, end, picture) {
@@ -99,13 +103,13 @@ export async function createPromotion(team_id, name, description, start, end, pi
         name: name,
         description: description,
         team_id: team_id,
-        start_time: start,
-        end_time: end,
+        start_time: parseTime(start),
+        end_time: parseTime(end),
         picture: picture
     }
     const config = {
         method: 'post',
-        url: `${API_URL}/promotion/create`,
+        url: `${API_URL}/promotions`,
         headers: headers,
         data: data
     }
@@ -120,14 +124,14 @@ export async function createPromotion(team_id, name, description, start, end, pi
     }
 }
 
-export async function deleteSponsorship(team_id, sponsorship_id) {
+export async function deleteSponsorship(team_id, sponsor_id) {
     const data = {
         team_id: team_id,
-        sponsorship_id: sponsorship_id
+        sponsor_id: sponsor_id
     }
     const config = {
         method: 'delete',
-        url: `${API_URL}/sponsorship/delete`,
+        url: `${API_URL}/sponsors`,
         headers: headers,
         data: data
     }
@@ -149,7 +153,7 @@ export async function deletePromotion(team_id, promotion_id) {
     }
     const config = {
         method: 'delete',
-        url: `${API_URL}/promotion/delete`,
+        url: `${API_URL}/promotions`,
         headers: headers,
         data: data
     }

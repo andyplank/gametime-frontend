@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Button, Jumbotron } from 'react-bootstrap';
+import { Button, Jumbotron, Container } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 
@@ -15,7 +15,7 @@ const Business = () => {
   const [showPromotions, setShowPromotions] = useState(false);
 
   const [promotions, setPromotions] = useState([]);
-  const [sponsorships, setSponsorships] = useState([]);
+  const [sponsors, setSponsorships] = useState([]);
   const [selected, setSelected] = useState({name: '', deleteFunc: () => {}});
   const [show, setShow] = useState(false);
 
@@ -30,7 +30,7 @@ const Business = () => {
     return '0';
   });
 
-  if(team_id===0) return (<Redirect to='/' />);
+  if(team_id==='0') return (<Redirect to='/' />);
 
   const refresh = () => {
     fetchSponsorships(setSponsorships, team_id);
@@ -45,28 +45,29 @@ const Business = () => {
     const deleteFunc = item.promotion_id 
       ? () => deletePromotion(team_id, item.promotion_id) 
       : () => deleteSponsorship(team_id, item.sponsor_id)
-    setSelected({
+    
+      setSelected({
       ...item,
       deleteFunc: deleteFunc
     });
     setShow(true);
   }
 
-  const sponsorshipsContent = sponsorships.map((elm) => (
-    <div key={elm.sponsor_id}>
-      <span>{elm.name}</span>
-      <Button variant="danger" onClick={() => handleDelete(elm)}>Delete</Button>
+  const sponsorsContent = sponsors.map((elm) => (
+    <div key={elm.sponsor_id} className="py-1">
+      <Button className="mr-3 " variant="danger" onClick={() => handleDelete(elm)}>Delete</Button>
+      <span className="h6">{elm.name}</span>
     </div>
   ));
   const promotionsContent = promotions.map((elm) => (
-    <div key={elm.promotion_id}>
-      <span>{elm.name}</span>
-      <Button variant="danger" onClick={() => handleDelete(elm)}>Delete</Button>
+    <div key={elm.promotion_id} className="py-1">
+      <Button className="mr-3 " variant="danger" onClick={() => handleDelete(elm)}>Delete</Button>
+      <span className="h6">{elm.name}</span>
     </div>
   ));
 
   return (
-    <div className="fill-vert text-center">
+    <div className="fill-vert">
       <Confirm 
         show={show}
         setShow={setShow}
@@ -93,14 +94,16 @@ const Business = () => {
           <Button className="ml-1" onClick={() => setShowPromotions(true)}>Add Promotion</Button>
         </div>
       </Jumbotron>
-      <h4>Current Sponsorships</h4>
-      <div className="pt-3">
-        {sponsorshipsContent}
-      </div>      
-      <h4>Current Promotions</h4>
-      <div className="pt-3">
-        {promotionsContent}
-      </div>      
+      <Container>
+        <h4>Current Sponsorships</h4>
+        <div className="pt-2 pb-2">
+          {sponsorsContent}
+        </div>      
+        <h4>Current Promotions</h4>
+        <div className="pt-2 pb-2">
+          {promotionsContent}
+        </div>
+      </Container>
     </div>      
     )
 };
