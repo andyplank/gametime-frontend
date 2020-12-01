@@ -170,7 +170,7 @@ const TeamPhotos = () => {
                                         <>
                                             <IconButton 
                                                 className={classes.icon}
-                                                onClick={() => downloadPicture(tile)}
+                                                onClick={() => window.open(tile.url, "_blank")}
                                             >
                                                 <GetAppIcon />
                                             </IconButton>
