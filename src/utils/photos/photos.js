@@ -21,7 +21,6 @@ export async function downloadPicture(pic) {
     .catch((error) => console.log(error));
  }
 
-
 export async function getPhotos(team_id){
     const headers = {
         'Content-Type': 'application/json'
@@ -35,10 +34,10 @@ export async function getPhotos(team_id){
         method: 'get',
         url: 'https://gametime-server.hubermjonathan.com:8080/photos',
         headers: headers,
-        data: data
+        params: data
     }
 
-    const res = await networker(config);
+    const res = await axios(config);
     return res.data.photos;
 }
 
@@ -62,7 +61,8 @@ export async function uploadPhoto(photo){
     }
 
     const res = await networker(config);
-    return res;
+
+    return res.status === 200;
 }
 
 export async function setPhotoVisibility(photo){
@@ -72,7 +72,7 @@ export async function setPhotoVisibility(photo){
 
     const data = {
         team_id: photo.team_id,
-        pfile_id: photo.file_id,
+        file_id: photo.file_id,
         active: photo.active
     }
 
@@ -84,5 +84,5 @@ export async function setPhotoVisibility(photo){
     }
 
     const res = await networker(config);
-    return res;
+    return res.status === 200;
 }

@@ -43,6 +43,16 @@ const Home = () => {
             <Button>Go to team fundraiser</Button>
           </Link>
         </div>
+        <div className="py-2">
+          <Link to={`/team/${team_id}/photos/`} className="no-link">
+            <Button>Go to team photos</Button>
+          </Link>
+        </div>
+        <div className="py-2">
+          <Link to={`/team/${team_id}/photos/approve`} className="no-link">
+            <Button>Approve Photos</Button>
+          </Link>
+        </div>
 
       </Container>
     </div>

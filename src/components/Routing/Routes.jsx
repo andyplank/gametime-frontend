@@ -35,8 +35,8 @@ const Routes = () => {
         {/* <Route path="/documentation" exact component={Documentation} /> */}
         {/* <Route path="/resources" exact component={Resources} /> */}
 
-        <Route path="/team/photos/approve" exact component={ApprovePhotos} />
-        <Route path="/team/photos" exact component={TeamPhotos} />
+        <Route path="/team/:team_id/photos/approve" exact component={ApprovePhotos} />
+        <Route path="/team/:team_id/photos" exact component={TeamPhotos} />
         <Route path="/team/:team_id/fundraiser" exact component={TeamFund} />
         <Route path="/team/:team_id/fundraiser/:user_id" component={Fundraiser} />
         <Route path="/team/:team_id/store/" component={Store} />
