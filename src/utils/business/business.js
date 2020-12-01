@@ -1,8 +1,30 @@
+import {loadStripe} from '@stripe/stripe-js';
 import networker from '../networker/networker';
 import API_URL from '../API_URL';
 
+
 const headers = {
     'Content-Type': 'application/json'
+}
+
+export async function addBank(team_id, name, routing, account){
+    const stripe = await loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+    const token = await stripe.createToken('bank_account', {
+        bank_account: {
+            country: 'US',
+            currency: 'usd',
+            account_holder_name: name,
+            account_holder_type: 'individual',
+            routing_number: routing,
+            account_number: account,
+        },
+    });
+    console.log(token);
+    console.log(team_id);
+    if(token.error){
+        return false;
+    }
+    return true;
 }
 
 export async function contact(team_id, name, email, text) {

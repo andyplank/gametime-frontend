@@ -3,6 +3,7 @@ import './TeamManagement.scss';
 import './TeamManagement.css';
 import { useSelector, useDispatch } from 'react-redux';
 import TeamManagementContent from './TeamManagementContent';
+import BankInfo from './BankInfo';
 
 const TeamManagement = () => {
   function selector(store) {
@@ -34,6 +35,9 @@ const TeamManagement = () => {
         team_id={state.teams[state.selected].team_id}
         playerId={state.user}
         dispatchTeamEdit={dispatchTeamEdit}
+      />
+      <BankInfo 
+        team_id={state.teams[state.selected].team_id}
       />
     </div>
   );
