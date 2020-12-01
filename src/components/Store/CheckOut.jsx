@@ -6,7 +6,7 @@ import { useParams, Link } from 'react-router-dom';
 import { purchaseItems } from '../../utils/store/store';
 
 import StoreContext from './context';
-import Feedback from "./Feedback";
+import Feedback from "../Common/Feedback";
 
 const CheckOut = () => {
   const { register, handleSubmit, errors, formState, reset } = useForm({

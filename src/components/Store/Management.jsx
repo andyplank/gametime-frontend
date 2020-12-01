@@ -4,14 +4,14 @@ import {Jumbotron, Row, Col, Container, Button} from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 import ItemForm from './ItemForm';
-import Confirm from './Confirm';
+import Confirm from '../Common/Confirm';
 
-import { fetchItems } from '../../utils/store/store'
+import { fetchItems, deleteItem } from '../../utils/store/store'
 
 const Management = () => {
     
   const [items, setItems] = useState([]);
-  const [selected, setSelected] = useState({});
+  const [selected, setSelected] = useState({name: '', deleteFunc: () => {}});
   const [show, setShow] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
@@ -42,7 +42,11 @@ const Management = () => {
   }
 
   const handleDelete = (item) => {
-    setSelected(item);
+    const deleteFunc = () => deleteItem(team_id, item.item_id)
+    setSelected({
+      ...item,
+      deleteFunc: deleteFunc
+    });
     setShow(true);
   }
 
@@ -75,9 +79,9 @@ const Management = () => {
       <Confirm 
         show={show}
         setShow={setShow}
-        item={selected}
-        team_id={team_id}
+        text={selected.name}
         refresh={refresh}
+        deleteFunc={selected.deleteFunc}
       />
       <ItemForm
         show={showDetails} 

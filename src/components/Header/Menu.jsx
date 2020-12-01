@@ -71,6 +71,14 @@ const Menu = (props) => {
             </ListGroup.Item>
           )}
           {role !== 'Member' && (
+            <ListGroup.Item onClick={() => history.push('/manage/business')}>
+              <Row className="align-items-center">
+                <MdFolder size={linkIconSize} className="mx-sm-2" />
+                Sponsors
+              </Row>
+            </ListGroup.Item>
+          )}
+          {role !== 'Member' && (
             <ListGroup.Item onClick={() => history.push('/manage/fundraiser')}>
               <Row className="align-items-center">
                 <MdAttachMoney size={linkIconSize} className="mx-sm-2" />

@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import './Landing.scss';
 import { Link } from 'react-router-dom';
@@ -12,7 +11,7 @@ const Landing = () => {
       <div className="LandingText pb-4">
         <Container>
           <div className="">
-            <h1 className="no-select gametime-font landing-text">It's GameTime</h1>
+            <h1 className="no-select gametime-font landing-text">It&apos;s GameTime</h1>
           </div>
           <div />
           <div className="pt-2 ">
