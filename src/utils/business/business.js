@@ -8,7 +8,7 @@ const headers = {
 }
 
 export async function addBank(team_id, name, routing, account){
-    const stripe = await loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+    const stripe = await loadStripe('pk_test_51HpQWQH5nNgIxkMEMsc0KLCcjXej4FfNgN8iPf61bsgRYnk0xsFOSwuvBWRaKTgRyY6oK95a7S0fa0HoTUQLwheu00j3NVwfEN');
     const token = await stripe.createToken('bank_account', {
         bank_account: {
             country: 'US',
@@ -19,12 +19,28 @@ export async function addBank(team_id, name, routing, account){
             account_number: account,
         },
     });
-    console.log(token);
-    console.log(team_id);
     if(token.error){
         return false;
     }
-    return true;
+    const data = {
+        team_id: team_id,
+        bank_id: token.token
+    }
+    const config = {
+        method: 'post',
+        url: `${API_URL}/team/updateBank`,
+        headers: headers,
+        data: data
+    }
+    try {
+        const res = await networker(config);
+        if(res.status!==200){
+            return false;
+        } 
+        return true;
+    } catch (err) {
+        return false;
+    }
 }
 
 export async function contact(team_id, name, email, text) {
