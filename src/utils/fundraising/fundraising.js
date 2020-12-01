@@ -2,6 +2,40 @@ import networker from '../networker/networker';
 import API_URL from '../API_URL';
 
 /**
+ * Creates a donation session
+ *
+ * @param {String} team_id The uuid of the team.
+ * @return {success, error, message, fundraiser}
+ */
+export async function createSession(donation_amount, email, team_id, player_id) {
+  const data = { 
+      success_url: `http://localhost:8080/#/team/${team_id}/store/success`,
+      cancel_url: `http://localhost:8080/#/team/${team_id}/fundraiser`,
+      team_id: team_id,
+      player_id: player_id,
+      email: email,
+      donation_amount: donation_amount, 
+  }
+  const config = {
+      method: 'post',
+      url: `${API_URL}/createDonationSession`,
+      headers: {    
+        'Content-Type': 'application/json'
+      },
+      data: data
+  }
+  try {
+      const res = await networker(config);
+      if(res.status!==200){
+          return false;
+      }
+      return res.data.id;
+  } catch (err) {
+      return false;
+  }
+}
+
+/**
  * Retrieves team fundraiser data
  *
  * @param {String} team_id The uuid of the team.

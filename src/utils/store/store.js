@@ -5,6 +5,38 @@ const headers = {
     'Content-Type': 'application/json'
 }
 
+export async function createSession(buyer_info, items, team_id) {
+    const itemDetails = items.map((item) => {
+        const temp = [];
+        temp.push(item.item_id);
+        temp.push(item.quantity);
+        return temp;
+    });
+    const data = { 
+        success_url: `http://localhost:8080/#/team/${team_id}/store/success`,
+        cancel_url: `http://localhost:8080/#/team/${team_id}/store/checkout`,
+        team_id: team_id,
+        email: buyer_info.email,
+        address: buyer_info.address, 
+        item_ids: itemDetails
+    }
+    const config = {
+        method: 'post',
+        url: `${API_URL}/createCheckoutSession`,
+        headers: headers,
+        data: data
+    }
+    try {
+        const res = await networker(config);
+        if(res.status!==200){
+            return false;
+        }
+        return res.data.id;
+    } catch (err) {
+        return false;
+    }
+}
+
 export async function fetchItems(setItems, id) {
     const config = {
         method: 'get',

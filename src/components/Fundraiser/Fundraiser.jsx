@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import PropTypes from 'prop-types';
 import './Fundraiser.scss';
 import fans from '../../assets/images/fans.jpg';
+import Donate from './Donate';
 
 import {
   getPlayerFundraiser,
@@ -59,7 +59,7 @@ const Fundraiser = () => {
     )
   }
 
-  return (<div className="fill-vert"><Content {...state} /></div>)
+  return (<div className="fill-vert"><Content {...state} player_id={user_id} team_id={team_id} /></div>)
 
 };
 
@@ -77,6 +77,8 @@ const Content = (props) => {
   const [remainingString, setRemainingString] = useState();
 
   const {
+    team_id,
+    player_id,
     isPlayer,
     first_name,
     last_name,
@@ -241,15 +243,18 @@ const Content = (props) => {
               </span>
             </div>
           </div>
-          <div className="fundraiser-donate-button text-center">
-            <Button variant="primary">Donate Now</Button>
-          </div>
+          <Donate 
+            team_id={team_id}
+            player_id={player_id}
+          />
         </div>
       </div>
     </>
   );
 };
 Content.propTypes = {
+  team_id: PropTypes.string.isRequired,
+  player_id: PropTypes.string.isRequired,
   isPlayer: PropTypes.bool.isRequired,
   first_name: PropTypes.string.isRequired,
   last_name: PropTypes.string.isRequired,
