@@ -67,7 +67,7 @@ const CheckOut = () => {
       <div className="text-center quarter">
         <Container className="pb-4 mb-4">
           <h2>Success!</h2>
-          <h4>Your order has been placed</h4>
+          <h4>Your order has been placed. A receipt has been sent to your email.</h4>
           <div className="my-3">
             <Link to={`/team/${team_id}/store/`} className="no-link">
               <Button variant="outline-secondary">Return to store</Button>
