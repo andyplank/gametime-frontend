@@ -12,7 +12,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Modal from 'react-bootstrap/Modal';
 import Button from '@material-ui/core/Button';
 import UploadPicture from '../UploadPicture/UploadPicture'
-import Feedback from '../Store/Feedback';
+import Feedback from '../Common/Feedback';
 import { useSelector } from 'react-redux';
 import { downloadPicture, getPhotos, uploadPhoto, setPhotoVisibility } from '../../utils/photos/photos'
 import './TeamPhotos.scss';

@@ -81,21 +81,21 @@ const Home = () => {
               <div className="centered text-white"><h3>Team Fundraiser</h3></div>
             </Link>
           </Col>
-        <div className="py-2">
-          <Link to={`/team/${team_id}/store/`} className="no-link">
-            <Button>Go to team store</Button>
-          </Link>
-        </div>
-        <div className="py-2">
-          <Link to={`/team/${team_id}/photos/`} className="no-link">
-            <Button>Go to team photos</Button>
-          </Link>
-        </div>
-        <div className="py-2">
-          <Link to={`/team/${team_id}/photos/approve`} className="no-link">
-            <Button>Approve Photos</Button>
-          </Link>
-        </div>
+          <div className="py-2">
+            <Link to={`/team/${team_id}/store/`} className="no-link">
+              <Button>Go to team store</Button>
+            </Link>
+          </div>
+          <div className="py-2">
+            <Link to={`/team/${team_id}/photos/`} className="no-link">
+              <Button>Go to team photos</Button>
+            </Link>
+          </div>
+          <div className="py-2">
+            <Link to={`/team/${team_id}/photos/approve`} className="no-link">
+              <Button>Approve Photos</Button>
+            </Link>
+          </div>
 
           <Col md={6} className="py-1">
             <Link to={`/team/${team_id}/store/`} className="no-link">

@@ -10,7 +10,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import Modal from 'react-bootstrap/Modal';
 import Button from '@material-ui/core/Button';
-import Feedback from '../Store/Feedback';
+import Feedback from '../Common/Feedback';
 import { useSelector } from 'react-redux';
 import { getPhotos, setPhotoVisibility } from '../../utils/photos/photos'
 import './TeamPhotos.scss';
