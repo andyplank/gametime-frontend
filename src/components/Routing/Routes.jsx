@@ -32,7 +32,7 @@ const Routes = () => {
         <Private path="/manage/store" exact Component={Management} />
         <Private path="/manage/fundraiser" exact Component={Fundraising} />
         <Private path="/manage/business" exact Component={Business} />
-
+        
 
         {/* <Route path="/documentation" exact component={Documentation} /> */}
         {/* <Route path="/resources" exact component={Resources} /> */}
