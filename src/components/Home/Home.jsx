@@ -92,7 +92,13 @@ const Home = () => {
           <Col md={6} className="py-1">
             <Link to={`/team/${team_id}/photos/approve/`} className="no-link">
               <img src={ApproveImage} alt="Snow" className="w-100 grayscale rounded" />
-              <div className="centered text-white"><h3>Approve Photos</h3></div>
+              <div className="centered text-white">
+                <h3>
+                  Approve Photos 
+                  <br /> 
+                  (Admins Only)
+                </h3>
+              </div>
             </Link>
           </Col>
           <Col md={6} className="py-1">
