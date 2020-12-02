@@ -53,6 +53,7 @@ const ApprovePhotos = () => {
             const res = await getPhotos(state.team_id)
             setPhotos(res);
             setIsEmpty(res.every(p => p.active));
+            console.log(res)
 		}
         fetchPhotos();
     }, []);
@@ -109,7 +110,7 @@ const ApprovePhotos = () => {
                     setShowAlert={setShowAlert}
                     label={label}
                 />
-            <div className="gallery-approve">
+            <div className="gallery">
                 <div>
                     <PhotoApproveModal/>
                     <GridList cellHeight={200} cols={3}>
@@ -119,7 +120,7 @@ const ApprovePhotos = () => {
                                 <GridListTileBar
                                     title={tile.title}
                                     titlePosition="bottom"
-                                    actionIcon={
+                                    actionIcon={ state.permissionLevel >= 1 &&
                                         <>
                                             <IconButton 
                                                 className={classes.icon} 

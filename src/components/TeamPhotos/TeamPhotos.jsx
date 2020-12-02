@@ -32,7 +32,9 @@ const useStyles = makeStyles((theme) => ({
 const TeamPhotos = () => {
     const { team_id } = useParams();
 	function selector(store) {
+        console.log(store.user.teams[store.status.selected_team] );
 		return {
+            signedIn: store.status.signed_in,
             permissionLevel: store.user.teams[store.status.selected_team] 
                 ? store.user.teams[store.status.selected_team].permission_level 
                 : 0,
@@ -146,12 +148,15 @@ const TeamPhotos = () => {
                 setShowAlert={setShowAlert}
                 label={label}
             />
-            <div className="center">
-                <PhotoUploadModal /> 
-                <IconButton onClick={() => setShowUpload(true)}>
-                    <AddCircleOutlineIcon style={{fontSize:60}}/>
-                </IconButton>
-            </div>
+            {
+                state.signedIn &&
+                <div className="center">
+                    <PhotoUploadModal /> 
+                    <IconButton onClick={() => setShowUpload(true)}>
+                        <AddCircleOutlineIcon style={{fontSize:60}}/>
+                    </IconButton>
+                </div>
+            }
         </>
     }
     {
@@ -174,15 +179,18 @@ const TeamPhotos = () => {
                                             >
                                                 <GetAppIcon />
                                             </IconButton>
-                                            <IconButton 
-                                                className={classes.icon} 
-                                                onClick={() => { 
-                                                    setShowRemove(true); 
-                                                    setToRemove(tile)
-                                                }}
-                                            >
-                                                <DeleteOutlineIcon />
-                                            </IconButton>
+                                            {
+                                                state.permissionLevel >= 1 &&
+                                                <IconButton 
+                                                    className={classes.icon} 
+                                                    onClick={() => { 
+                                                        setShowRemove(true); 
+                                                        setToRemove(tile)
+                                                    }}
+                                                >
+                                                    <DeleteOutlineIcon />
+                                                </IconButton>
+                                            }
                                         </>
                                     }
                                     actionPosition="left"

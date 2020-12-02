@@ -32,7 +32,7 @@ export async function getPhotos(team_id){
 
     const config = {
         method: 'get',
-        url: 'https://gametime-server.hubermjonathan.com:8080/photos',
+        url: 'https://gametime-server.hubermjonathan.com:8080/photos/all',
         headers: headers,
         params: data
     }
