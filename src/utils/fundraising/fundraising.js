@@ -5,6 +5,7 @@ import API_URL from '../API_URL';
  * Creates a donation session
  *
  * @param {String} team_id The uuid of the team.
+ * @param {String} player_id The uuid of the player.
  * @return {success, error, message, fundraiser}
  */
 export async function createSession(donation_amount, email, team_id, player_id) {

@@ -7,9 +7,10 @@ const headers = {
 
 export async function createSession(buyer_info, items, team_id) {
     const itemDetails = items.map((item) => {
-        const temp = [];
-        temp.push(item.item_id);
-        temp.push(item.quantity);
+        const temp = {};
+        temp.item_id = item.item_id;
+        temp.quantity = item.quantity;
+        temp.label = item.type !== "" ? item.type : null;
         return temp;
     });
     const data = { 
@@ -17,8 +18,8 @@ export async function createSession(buyer_info, items, team_id) {
         cancel_url: `http://localhost:8080/#/team/${team_id}/store/checkout`,
         team_id: team_id,
         email: buyer_info.email,
-        address: buyer_info.address, 
-        item_ids: itemDetails
+        buyer_address: buyer_info.address, 
+        items: itemDetails
     }
     const config = {
         method: 'post',

@@ -105,7 +105,7 @@ const Store = () => {
             <Route path="/team/:team_id/store/item/:itemId" component={ItemDetails} />
             <Route path="/team/:team_id/store/cart/" exact component={Cart} />
             <Route path="/team/:team_id/store/checkout/" exact component={CheckOut} />
-            <Route path="/team/:team_id/store/purchase/" exact component={SuccessPurchase} />
+            <Route path="/team/:team_id/store/success/" exact component={SuccessPurchase} />
             <Route path="/team/:team_id/store" exact component={ItemGrid} />
             <Route component={() => (<Redirect to={{ pathname: `/team/${team_id}/store` }} />)} />
           </Switch>
