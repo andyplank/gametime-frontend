@@ -5,6 +5,7 @@ import {Button, Container, Carousel, Col, Row} from 'react-bootstrap';
 import './Home.scss';
 import { Link, useParams} from 'react-router-dom';
 import Contact from './Contact';
+import TeamPhotos from '../TeamPhotos/TeamPhotos';
 
 import StoreImage from '../../assets/images/store.jpg';
 import FundImage from '../../assets/images/charity.jpg';
@@ -84,24 +85,6 @@ const Home = () => {
             </Link>
           </Col>
           <Col md={6} className="py-1">
-            <Link to={`/team/${team_id}/photos/`} className="no-link">
-              <img src={PhotoImage} alt="Snow" className="w-100 grayscale rounded" />
-              <div className="centered text-white"><h3>Photos</h3></div>
-            </Link>
-          </Col>
-          <Col md={6} className="py-1">
-            <Link to={`/team/${team_id}/photos/approve/`} className="no-link">
-              <img src={ApproveImage} alt="Snow" className="w-100 grayscale rounded" />
-              <div className="centered text-white">
-                <h3>
-                  Approve Photos 
-                  <br /> 
-                  (Admins Only)
-                </h3>
-              </div>
-            </Link>
-          </Col>
-          <Col md={6} className="py-1">
             <Link to={`/team/${team_id}/store/`} className="no-link">
               <img src={StoreImage} alt="Snow" className="w-100 grayscale rounded" />
               <div className="centered text-white"><h3>Team Store</h3></div>
@@ -118,6 +101,12 @@ const Home = () => {
           </div>
           )
         }
+
+        <div className="text-center py-4 gallery">
+          <h5>Promotions!</h5>
+          <TeamPhotos />
+        </div>
+
         <Contact />
       </Container>
     </div>

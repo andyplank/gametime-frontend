@@ -8,9 +8,11 @@ import {
   createTeamFundraiser,
   editPlayerFundraiser,
   editTeamFundraiser,
+  getReport
 } from '../../utils/fundraising/fundraising';
 import './Fundraising.scss';
 import Email from '../Email/Email';
+
 
 const defaultState = {
   statusMessage: '',
@@ -364,6 +366,13 @@ const Fundraising = () => {
                   onClick={handleEditFundraiser}
                 >
                   Update Fundraiser
+                </button>
+                <button
+                  className="btn btn-primary my-2 ml-1"
+                  type="submit"
+                  onClick={() => getReport(team.team_id)}
+                >
+                  Download Report
                 </button>
               </>
             )}

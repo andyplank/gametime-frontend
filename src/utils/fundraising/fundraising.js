@@ -1,3 +1,4 @@
+import axios from 'axios';
 import networker from '../networker/networker';
 import API_URL from '../API_URL';
 
@@ -235,4 +236,25 @@ export async function editPlayerFundraiser(data) {
       message: 'Unable to edit fundraiser at this time. Please try again later',
     };
   }
+}
+
+export async function getReport(teamId){
+  const headers = {
+    'Content-Type': 'application/json',
+  }
+
+const data = {
+    team_id: teamId
+}
+
+const config = {
+    method: 'get',
+    url: 'https://gametime-server.hubermjonathan.com:8080/fundraising/report',
+    headers: headers,
+    params: data
+}
+
+const res = await axios(config);
+console.log(res)
+return res.status === 200;
 }

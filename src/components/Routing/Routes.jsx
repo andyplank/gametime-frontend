@@ -13,7 +13,6 @@ import JoinTeamPage from '../TeamManagement/JoinTeamPage';
 import Management from '../Store/Management';
 import Store from '../Store/Store';
 import Documentation from '../Documentation/Documentation';
-import TeamPhotos from '../TeamPhotos/TeamPhotos';
 import ApprovePhotos from '../TeamPhotos/ApprovePhotos';
 import NotFound from './NotFound';
 import Private from './Private';
@@ -36,7 +35,6 @@ const Routes = () => {
         <Private path="/manage/business" exact Component={Business} />
         
         <Route path="/team/:team_id/photos/approve" exact component={ApprovePhotos} />
-        <Route path="/team/:team_id/photos" exact component={TeamPhotos} />
         <Route path="/team/:team_id/fundraiser" exact component={TeamFund} />
         <Route path="/team/:team_id/fundraiser/:user_id" component={Fundraiser} />
         <Route path="/team/:team_id/store/" component={Store} />
