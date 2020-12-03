@@ -25,5 +25,8 @@ module.exports = {
     'no-param-reassign': 'off',
     'react/jsx-curly-newline': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
+    'react/sort-comp': 'off',
+    'no-shadow': 'off',
+    'react/forbid-prop-types': 'off'
   },
 };

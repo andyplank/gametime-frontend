@@ -6,10 +6,12 @@ import {
   MdHome,
   MdMessage,
   MdFolder,
+  MdStore,
   MdPowerSettingsNew,
   MdAssignmentTurnedIn,
   MdAttachMoney,
 } from 'react-icons/md';
+import { FaHandsHelping } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import './Menu.scss';
 
@@ -39,7 +41,9 @@ const Menu = (props) => {
           </ListGroup.Item>
           {/* Links */}
           {role !== 'Member' && (
-            <ListGroup.Item onClick={() => history.push(`/team/${team_id}/home`)}>
+            <ListGroup.Item
+              onClick={() => history.push(`/team/${team_id}/home`)}
+            >
               <Row className="align-items-center">
                 <MdHome size={linkIconSize} className="mx-sm-2" />
                 Homepage
@@ -65,15 +69,25 @@ const Menu = (props) => {
           {role !== 'Member' && (
             <ListGroup.Item onClick={() => history.push('/manage/store')}>
               <Row className="align-items-center">
-                <MdFolder size={linkIconSize} className="mx-sm-2" />
+                <MdStore size={linkIconSize} className="mx-sm-2" />
                 Store
+              </Row>
+            </ListGroup.Item>
+          )}
+          {role !== 'Member' && (
+            <ListGroup.Item
+              onClick={() => history.push('/manage/documentation')}
+            >
+              <Row className="align-items-center">
+                <MdFolder size={linkIconSize} className="mx-sm-2" />
+                Documentation
               </Row>
             </ListGroup.Item>
           )}
           {role !== 'Member' && (
             <ListGroup.Item onClick={() => history.push('/manage/business')}>
               <Row className="align-items-center">
-                <MdFolder size={linkIconSize} className="mx-sm-2" />
+                <FaHandsHelping size={linkIconSize} className="mx-sm-2" />
                 Sponsors
               </Row>
             </ListGroup.Item>

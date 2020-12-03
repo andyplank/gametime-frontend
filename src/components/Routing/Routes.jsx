@@ -12,6 +12,7 @@ import Orders from '../Orders/Orders';
 import JoinTeamPage from '../TeamManagement/JoinTeamPage';
 import Management from '../Store/Management';
 import Store from '../Store/Store';
+import Documentation from '../Documentation/Documentation';
 import TeamPhotos from '../TeamPhotos/TeamPhotos';
 import ApprovePhotos from '../TeamPhotos/ApprovePhotos';
 import NotFound from './NotFound';
@@ -31,12 +32,9 @@ const Routes = () => {
         <Private path="/manage/orders" exact Component={Orders} />
         <Private path="/manage/store" exact Component={Management} />
         <Private path="/manage/fundraiser" exact Component={Fundraising} />
+        <Private path="/manage/documentation" exact Component={Documentation} />
         <Private path="/manage/business" exact Component={Business} />
         
-
-        {/* <Route path="/documentation" exact component={Documentation} /> */}
-        {/* <Route path="/resources" exact component={Resources} /> */}
-
         <Route path="/team/:team_id/photos/approve" exact component={ApprovePhotos} />
         <Route path="/team/:team_id/photos" exact component={TeamPhotos} />
         <Route path="/team/:team_id/fundraiser" exact component={TeamFund} />
