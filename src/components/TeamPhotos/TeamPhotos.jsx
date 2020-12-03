@@ -159,7 +159,7 @@ const TeamPhotos = (props) => {
     }
     {
         !isEmpty ? (
-            <div className="gallery">
+            <div className="gallery-team">
                 <div>
                     <PhotoRemoveModal/>
                     <GridList cellHeight={180} cols={3}>
