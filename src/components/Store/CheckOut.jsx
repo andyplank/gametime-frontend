@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { useParams, Link } from 'react-router-dom';
-import { purchaseItems } from '../../utils/store/store';
+import {loadStripe} from '@stripe/stripe-js';
+import { createSession } from '../../utils/store/store';
 
 import StoreContext from './context';
 import Feedback from "../Common/Feedback";
@@ -19,16 +20,26 @@ const CheckOut = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    const res = await purchaseItems(data, cart, team_id);
-    if(res===true){
-      setAlertType('success');
-      setShowAlert(true);
-      updateCart([]);
-    } else {
+    const res = await createSession(data, cart, team_id);
+    if(res===false){
       setAlertType('danger');
       setShowAlert(true);
+      setLoading(false);
+      return;
     }
-    setLoading(false);
+    const stripe = await loadStripe('pk_test_51HpQWQH5nNgIxkMEMsc0KLCcjXej4FfNgN8iPf61bsgRYnk0xsFOSwuvBWRaKTgRyY6oK95a7S0fa0HoTUQLwheu00j3NVwfEN');
+    const result = await stripe.redirectToCheckout({
+      sessionId: res,
+    });
+    if (result.error) {
+      setAlertType('danger');
+      setShowAlert(true);
+      setLoading(false);
+      // TODO: Errors from stripe
+      // console.log(result.error.message);
+    } else {
+      updateCart([]);
+    }
   };
 
   const [showAlert, setShowAlert] = useState(false);
@@ -60,23 +71,6 @@ const CheckOut = () => {
       </Row>
     )
   });
-
-  // Order was completed
-  if(alertType === "success" && showAlert===true){
-    return (
-      <div className="text-center quarter">
-        <Container className="pb-4 mb-4">
-          <h2>Success!</h2>
-          <h4>Your order has been placed. A receipt has been sent to your email.</h4>
-          <div className="my-3">
-            <Link to={`/team/${team_id}/store/`} className="no-link">
-              <Button variant="outline-secondary">Return to store</Button>
-            </Link>
-          </div>
-        </Container>
-      </div>
-    )
-  }
 
   // No items in the cart
   if(cart.length===0){

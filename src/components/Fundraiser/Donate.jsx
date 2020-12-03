@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Form, Col } from 'react-bootstrap';
-import { useParams} from 'react-router-dom';
+import {loadStripe} from '@stripe/stripe-js';
+import PropTypes from 'prop-types';
 import Feedback from '../Common/Feedback';
 
-import { contact } from '../../utils/business/business';
+import { createSession } from '../../utils/fundraising/fundraising';
 
-const Contact = () => {
+const Donate = (props) => {
+  const {
+    team_id,
+    player_id
+  } = props;
 
-  const { team_id } = useParams();
   const [showAlert, setShowAlert] = useState(false);
   const [alertType, setAlertType] = useState('danger');
   const [isLoading, setLoading] = useState(false);
@@ -24,43 +28,52 @@ const Contact = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    const res = await contact(team_id, data.name, data.email, data.description);
-    if(res){
-      setAlertType('success');
-      setShowAlert(true);
-      reset()
-    } else {
+    const res = await createSession(data.ammount, data.email, team_id, player_id);
+    if(res===false){
       setAlertType('danger');
       setShowAlert(true);
+      setLoading(false);
+      return;
     }
-    setLoading(false);
+    const stripe = await loadStripe('pk_test_51HpQWQH5nNgIxkMEMsc0KLCcjXej4FfNgN8iPf61bsgRYnk0xsFOSwuvBWRaKTgRyY6oK95a7S0fa0HoTUQLwheu00j3NVwfEN');
+    const result = await stripe.redirectToCheckout({
+      sessionId: res,
+    });
+    if (result.error) {
+      setAlertType('danger');
+      setShowAlert(true);
+      setLoading(false);
+      // TODO: Errors from stripe
+      // console.log(result.error.message);
+    }
   };
 
     return (
       <div className="py-2">
         <h4>
-          Contact the team!
+          Donate Now!
         </h4>
         <Form noValidate onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <Form.Row>
             <Col>
               <Form.Group>
-                <Form.Label>Name</Form.Label>
+                <Form.Label>Amount</Form.Label>
                 <Form.Control 
-                  type="new-password"
-                  name="name"
-                  isValid={(formState.touched.name || formState.isSubmitted) && !errors.name}
-                  isInvalid={errors.name}
+                  type="number"
+                  name="ammount"
+                  isValid={(formState.touched.ammount || formState.isSubmitted) && !errors.ammount}
+                  isInvalid={errors.ammount}
                   ref={register({
-                    required: "Required",
-            }
-            )}
+                        required: "Required",
+                        min: 1
+                    }
+                )}
                 />
                 <Form.Control.Feedback type="valid">
                   Looks Good
                 </Form.Control.Feedback>
                 <Form.Control.Feedback type="invalid">
-                  {errors.name && errors.name.message}
+                  {errors.ammount && errors.ammount.message}
                 </Form.Control.Feedback>
               </Form.Group>
             </Col>
@@ -87,26 +100,6 @@ const Contact = () => {
             </Col>
           </Form.Row>
 
-          <Form.Group>
-            <Form.Label>Description</Form.Label>
-            <Form.Control 
-              type="text-field"
-              name="description"
-              isValid={(formState.touched.description || formState.isSubmitted) && !errors.description}
-              isInvalid={errors.description}
-              ref={register({
-                    required: "Required",
-                }
-              )}
-            />
-            <Form.Control.Feedback type="valid">
-              Looks Good
-            </Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              {errors.description && errors.description.message}
-            </Form.Control.Feedback>
-          </Form.Group>
-
           <Feedback 
             alertType={alertType}
             showAlert={showAlert}
@@ -120,7 +113,7 @@ const Contact = () => {
               disabled={isLoading}
               onClick={!isLoading ? handleSubmit : null}
             >
-              {isLoading ? 'Sending' : 'Send'}
+              {isLoading ? 'Saving' : 'Save'}
             </Button> 
           </Form.Group>
         </Form> 
@@ -128,5 +121,11 @@ const Contact = () => {
     )
 };
 
-Contact.propTypes = {}
-export default Contact;
+Donate.defaultProps = {
+  player_id: null
+}
+Donate.propTypes = {
+  team_id: PropTypes.string.isRequired,
+  player_id: PropTypes.string
+}
+export default Donate;

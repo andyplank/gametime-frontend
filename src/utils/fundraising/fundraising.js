@@ -1,6 +1,40 @@
-import axios from 'axios';
 import networker from '../networker/networker';
 import API_URL from '../API_URL';
+
+/**
+ * Creates a donation session
+ *
+ * @param {String} team_id The uuid of the team.
+ * @param {String} player_id The uuid of the player.
+ * @return {success, error, message, fundraiser}
+ */
+export async function createSession(donation_amount, email, team_id, player_id) {
+  const data = { 
+      success_url: `${window.location.href.split("#")[0]}#/team/${team_id}/transaction/success/`,
+      cancel_url: `${window.location.href.split("#")[0]}#/team/${team_id}/fundraiser`,
+      team_id: team_id,
+      player_id: player_id,
+      email: email,
+      donation_amount: donation_amount, 
+  }
+  const config = {
+      method: 'post',
+      url: `${API_URL}/createDonationSession`,
+      headers: {    
+        'Content-Type': 'application/json'
+      },
+      data: data
+  }
+  try {
+      const res = await networker(config);
+      if(res.status!==200){
+          return false;
+      }
+      return res.data.id;
+  } catch (err) {
+      return false;
+  }
+}
 
 /**
  * Retrieves team fundraiser data
@@ -236,25 +270,4 @@ export async function editPlayerFundraiser(data) {
       message: 'Unable to edit fundraiser at this time. Please try again later',
     };
   }
-}
-
-export async function getReport(teamId){
-  const headers = {
-    'Content-Type': 'application/json',
-  }
-
-const data = {
-    team_id: teamId
-}
-
-const config = {
-    method: 'get',
-    url: 'https://gametime-server.hubermjonathan.com:8080/fundraising/report',
-    headers: headers,
-    params: data
-}
-
-const res = await axios(config);
-console.log(res)
-return res.status === 200;
 }

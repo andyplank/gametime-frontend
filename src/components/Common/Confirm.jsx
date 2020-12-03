@@ -13,14 +13,14 @@ const Confirm = (props) => {
     const handleSubmit = async () => {
       setLoading(true);
       const res = await deleteFunc();
-      setShowAlert(true);
       if (res===true) {
         refresh();
         setAlertType('success');
       } else {
-        setLoading(false);
         setAlertType('danger');
       }
+      setShowAlert(true);
+      setLoading(false);
     }
 
     return (

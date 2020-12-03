@@ -34,12 +34,12 @@ const UploadFileModal = (props) => {
     event.preventDefault();
     setLoading(true);
 
-    async function File2Base64(file) {
+    async function File2Base64(fil) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(fil);
         reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
+        reader.onerror = (err) => reject(err);
       });
     }
 
@@ -59,7 +59,7 @@ const UploadFileModal = (props) => {
     let fileString;
     try {
       fileString = await File2Base64(file);
-    } catch (error) {
+    } catch (err) {
       setFile('');
       setError(
         'Failed to process the selected file. It may be corrupted or not PDF-compliant'

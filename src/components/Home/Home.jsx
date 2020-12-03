@@ -1,17 +1,13 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import {Button, Container, Carousel, Col, Row} from 'react-bootstrap';
+import { Container, Carousel, Col, Row } from 'react-bootstrap';
 import './Home.scss';
 import { Link, useParams} from 'react-router-dom';
 import Contact from './Contact';
 import TeamPhotos from '../TeamPhotos/TeamPhotos';
 
-import StoreImage from '../../assets/images/store.jpg';
-import FundImage from '../../assets/images/charity.jpg';
-import PhotoImage from '../../assets/images/photos.jpg';
-import ApproveImage from '../../assets/images/approve.jpg';
-
+import StoreImage from '../../assets/icons/shopping-cart.svg';
+import FundImage from '../../assets/icons/money-bag.svg';
 
 import { fetchSponsorships, fetchPromotions } from '../../utils/business/business';
 
@@ -69,7 +65,7 @@ const Home = () => {
 
   return (
     <div className="fill-vert">
-      <Carousel controls={false} indicators={false} interval={2000} className="banner">
+      <Carousel controls={false} indicators={false} className="banner">
         {bannerContent}
       </Carousel>
       <Jumbotron className="text-center">
@@ -78,23 +74,23 @@ const Home = () => {
       <Container>
 
         <Row className="py-2">
-          <Col md={6} className="py-1">
+          <Col md={6} className="py-1 text-center">
             <Link to={`/team/${team_id}/fundraiser/`} className="no-link">
-              <img src={FundImage} alt="Snow" className="w-100 grayscale rounded" />
-              <div className="centered text-white"><h3>Team Fundraiser</h3></div>
+              <div><h3>Fundraiser</h3></div>
+              <img src={FundImage} alt="fundraiser" className="w-100 home-icons" />
             </Link>
           </Col>
-          <Col md={6} className="py-1">
+          <Col md={6} className="py-1 text-center">
             <Link to={`/team/${team_id}/store/`} className="no-link">
-              <img src={StoreImage} alt="Snow" className="w-100 grayscale rounded" />
-              <div className="centered text-white"><h3>Team Store</h3></div>
+              <div><h3>Store</h3></div>
+              <img src={StoreImage} alt="cart" className="w-100 home-icons" />
             </Link>
           </Col>
         </Row>
 
         {promotions.length !== 0 && (
           <div className="text-center py-4">
-            <h5>Promotions!</h5>
+            <h3 className="pb-2">Promotions</h3>
             <Carousel className="promo">
               {promoContent}          
             </Carousel>
@@ -102,8 +98,8 @@ const Home = () => {
           )
         }
 
-        <div className="text-center py-4 gallery">
-          <h5>Promotions!</h5>
+        <div className="py-4 gallery">
+          <h3 className="text-center pb-2">Photos</h3>
           <TeamPhotos />
         </div>
 

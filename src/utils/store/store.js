@@ -5,6 +5,60 @@ const headers = {
     'Content-Type': 'application/json'
 }
 
+export async function confirmTransaction(transaction_id) {
+    const data = { 
+        transaction_id: transaction_id,
+    }
+    const config = {
+        method: 'post',
+        url: `${API_URL}/confirmTransaction`,
+        headers: headers,
+        data: data
+    }
+    try {
+        const res = await networker(config);
+        if(res.status!==200){
+            return false;
+        }
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
+
+export async function createSession(buyer_info, items, team_id) {
+    const itemDetails = items.map((item) => {
+        const temp = {};
+        temp.item_id = item.item_id;
+        temp.quantity = item.quantity;
+        temp.label = item.type !== "" ? item.type : null;
+        return temp;
+    });
+    const data = { 
+        success_url: `${window.location.href.split("#")[0]}#/team/${team_id}/transaction/success/`,
+        cancel_url: `${window.location.href.split("#")[0]}#/team/${team_id}/store`,
+        team_id: team_id,
+        email: buyer_info.email,
+        buyer_address: buyer_info.address, 
+        items: itemDetails
+    }
+    const config = {
+        method: 'post',
+        url: `${API_URL}/createCheckoutSession`,
+        headers: headers,
+        data: data
+    }
+    try {
+        const res = await networker(config);
+        if(res.status!==200){
+            return false;
+        }
+        return res.data.id;
+    } catch (err) {
+        return false;
+    }
+}
+
 export async function fetchItems(setItems, id) {
     const config = {
         method: 'get',
