@@ -121,7 +121,7 @@ const ApprovePhotos = () => {
                     setShowAlert={setShowAlert}
                     label={label}
                 />
-            <div className="gallery">
+            <div className="gallery-approve">
                 <div>
                     <PhotoApproveModal/>
                     <GridList cellHeight={200} cols={3}>
