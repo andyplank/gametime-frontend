@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import GridList from '@material-ui/core/GridList';
@@ -11,13 +10,14 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Modal from 'react-bootstrap/Modal';
 import Button from '@material-ui/core/Button';
+import { useSelector } from 'react-redux';
 import UploadPicture from '../UploadPicture/UploadPicture'
 import Feedback from '../Common/Feedback';
-import { useSelector } from 'react-redux';
+
 import { getPhotos, uploadPhoto, setPhotoVisibility } from '../../utils/photos/photos'
 import './TeamPhotos.scss';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     titleBar: {
         background:
           'linear-gradient(to top, rgba(0,0,0,0.7) 0%, ' +
@@ -29,10 +29,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const TeamPhotos = (props) => {
+const TeamPhotos = () => {
     const { team_id } = useParams();
 	function selector(store) {
-        console.log(store.user.teams[store.status.selected_team] );
 		return {
             signedIn: store.status.signed_in,
             permissionLevel: store.user.teams[store.status.selected_team] 
@@ -63,9 +62,8 @@ const TeamPhotos = (props) => {
     }, []);
 
     const handleRemove = async (photo) => {
-        //call endpoint to set photo not active
-        let apiObj = {
-            team_id: state.team_id, //replace with teamId from selector
+        const apiObj = {
+            team_id: state.team_id,
             file_id: photo.file_id,
             active: false
         }
@@ -76,7 +74,11 @@ const TeamPhotos = (props) => {
         setShowAlert(true);
 
         const p = photos;
-        p.forEach(p => p.file_id === photo.file_id ? p.active = false : p.active = p.active);
+        p.forEach(p => {
+            if(p.file_id === photo.file_id){
+                p.active = false;
+            }
+        });
         setPhotos(p);
         setShowRemove(false);
         setIsEmpty(p.every(p => !p.active));
@@ -85,131 +87,135 @@ const TeamPhotos = (props) => {
     const PhotoRemoveModal = () => {
         const removeMsg = 'Are you sure you want to remove this photo?';
         return (
-            <Modal
-                show={showRemove}
-                onHide={() => setShowRemove(false)}
-            >
+          <Modal
+            show={showRemove}
+            onHide={() => setShowRemove(false)}
+          >
             <Modal.Header closeButton>
-                <Modal.Title>Remove Team Photo</Modal.Title>
+              <Modal.Title>Remove Team Photo</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {removeMsg}
+              {removeMsg}
             </Modal.Body>
             <Modal.Footer>
-                <Button style={{backgroundColor:'red'}}variant="contained" color="primary" onClick={() => setShowRemove(false)}>No</Button>
-                &nbsp;
-                <Button variant="contained" color="primary" onClick={() => handleRemove(toRemove)}>Yes</Button>
+              <Button style={{backgroundColor:'red'}} variant="contained" color="primary" onClick={() => setShowRemove(false)}>No</Button>
+              &nbsp;
+              <Button variant="contained" color="primary" onClick={() => handleRemove(toRemove)}>Yes</Button>
             </Modal.Footer>
-            </Modal>
+          </Modal>
         )
     }
 
     async function savePicture(picture) {
         const saveObj = {
-            team_id: state.team_id, //get from selector or params
+            team_id: state.team_id,
             picture: `data:image/jpeg;base64,${picture.picture}`,
             name: picture.name,
             active: false,
         }
-        //call endpoint to save team photo
+
         const res = await uploadPhoto(saveObj);
         setLabel('Success! The photo has been sent for approval.');
         setAlertType(res ? 'success' : 'danger');
         setShowAlert(true);
-        console.log(saveObj);
     }
 
     const PhotoUploadModal = () => {
         return (
-            <Modal
-                show={showUpload}
-                onHide={() => setShowUpload(false)}
-            >
+          <Modal
+            show={showUpload}
+            onHide={() => setShowUpload(false)}
+          >
             <Modal.Header closeButton>
-                <Modal.Title>Photo Upload</Modal.Title>
+              <Modal.Title>Photo Upload</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <UploadPicture 
-                    savePicture={savePicture} 
-                    hideModal={() => setShowUpload(false)}
-                    label="Open"
-                />
+              <UploadPicture 
+                savePicture={savePicture} 
+                hideModal={() => setShowUpload(false)}
+                label="Open"
+              />
             </Modal.Body>
-            </Modal>
+          </Modal>
         )
     }
     
-    return <div className="fill-vert">
-    {
+    return(
+      <div className="fill-vert">
+        
         <>
-            <Feedback 
-                alertType={alertType}
-                showAlert={showAlert}
-                setShowAlert={setShowAlert}
-                label={label}
-            />
-            {
-                state.signedIn &&
-                <div className="center">
-                    <PhotoUploadModal /> 
-                    <IconButton onClick={() => setShowUpload(true)}>
-                        <AddCircleOutlineIcon style={{fontSize:60}}/>
-                    </IconButton>
-                </div>
-            }
+          <Feedback 
+            alertType={alertType}
+            showAlert={showAlert}
+            setShowAlert={setShowAlert}
+            label={label}
+          />
+          {
+            state.signedIn &&
+            (
+              <div className="center">
+                <PhotoUploadModal /> 
+                <IconButton onClick={() => setShowUpload(true)}>
+                  <AddCircleOutlineIcon style={{fontSize:60}} />
+                </IconButton>
+              </div>
+            )
+          }
         </>
-    }
-    {
-        !isEmpty ? (
-            <div className="gallery-team">
+        
+        {
+            !isEmpty ? (
+              <div className="gallery-team">
                 <div>
-                    <PhotoRemoveModal/>
-                    <GridList cellHeight={180} cols={3}>
-                        {photos.map((tile) => tile.active && (
-                            <GridListTile key={tile.file_id}>
-                                <img src={tile.url}/>
-                                <GridListTileBar
-                                    title={tile.title}
-                                    titlePosition="bottom"
-                                    actionIcon={
-                                        <>
-                                            <IconButton 
-                                                className={classes.icon}
-                                                onClick={() => window.open(tile.url, "_blank")}
-                                            >
-                                                <GetAppIcon />
-                                            </IconButton>
-                                            {
-                                                state.permissionLevel >= 1 &&
-                                                <IconButton 
-                                                    className={classes.icon} 
-                                                    onClick={() => { 
-                                                        setShowRemove(true); 
-                                                        setToRemove(tile)
-                                                    }}
-                                                >
-                                                    <DeleteOutlineIcon />
-                                                </IconButton>
-                                            }
-                                        </>
-                                    }
-                                    actionPosition="left"
-                                    className={classes.titleBar}
-                                />
-                            </GridListTile>
-                        ))}
-                    </GridList>
+                  <PhotoRemoveModal />
+                  <GridList cellHeight={180} cols={3}>
+                    {photos.map((tile) => tile.active && (
+                    <GridListTile key={tile.file_id}>
+                      <img src={tile.url} alt="img" />
+                      <GridListTileBar
+                        title={tile.title}
+                        titlePosition="bottom"
+                        actionIcon={(
+                          <>
+                            <IconButton 
+                              className={classes.icon}
+                              onClick={() => window.open(tile.url, "_blank")}
+                            >
+                              <GetAppIcon />
+                            </IconButton>
+                            {
+                            state.permissionLevel >= 1 && (
+                            <IconButton 
+                              className={classes.icon} 
+                              onClick={() => { 
+                                setShowRemove(true); 
+                                setToRemove(tile)
+                              }}
+                            >
+                              <DeleteOutlineIcon />
+                            </IconButton>
+                            )
+                        }
+                          </>
+                        )}
+                        actionPosition="left"
+                        className={classes.titleBar}
+                      />
+                    </GridListTile>
+                            ))}
+                  </GridList>
                 </div>
-            </div>
-        ) 
-        : 
-        (
-            <div className="gallery">
+              </div>
+            ) 
+            : 
+            (
+              <div className="gallery">
                 <h3>There are no available photos at this time for the team.</h3>
-            </div>
-        )
-    }
-    </ div>
+              </div>
+            )
+        }
+      </div>
+    )
 }
 
 export default TeamPhotos;
