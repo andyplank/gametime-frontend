@@ -152,7 +152,13 @@ const Documentation = () => {
                   Team Documents
                 </span>
               </div>
-              <TeamDocumentsList team_files={files.team_files} />
+              {files.team_files.length > 0 ? (
+                <TeamDocumentsList team_files={files.team_files} />
+              ) : (
+                <span className="documentation-title-body">
+                  No team documents have been uploaded at this time
+                </span>
+              )}
             </>
           )}
         </div>
