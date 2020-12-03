@@ -8,10 +8,10 @@ import Feedback from '../Common/Feedback';
 import { createSession } from '../../utils/fundraising/fundraising';
 
 const Donate = (props) => {
-    const {
-        team_id,
-        player_id
-    } = props;
+  const {
+    team_id,
+    player_id
+  } = props;
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertType, setAlertType] = useState('danger');
@@ -43,7 +43,8 @@ const Donate = (props) => {
       setAlertType('danger');
       setShowAlert(true);
       setLoading(false);
-      console.log(result.error.message);
+      // TODO: Errors from stripe
+      // console.log(result.error.message);
     }
   };
 
@@ -121,10 +122,10 @@ const Donate = (props) => {
 };
 
 Donate.defaultProps = {
-    player_id: "0"
+  player_id: null
 }
 Donate.propTypes = {
-    team_id: PropTypes.string.isRequired,
-    player_id: PropTypes.string
+  team_id: PropTypes.string.isRequired,
+  player_id: PropTypes.string
 }
 export default Donate;

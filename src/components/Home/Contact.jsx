@@ -120,7 +120,7 @@ const Contact = () => {
               disabled={isLoading}
               onClick={!isLoading ? handleSubmit : null}
             >
-              {isLoading ? 'Saving' : 'Save'}
+              {isLoading ? 'Sending' : 'Send'}
             </Button> 
           </Form.Group>
         </Form> 

@@ -6,8 +6,8 @@ import './Home.scss';
 import { Link, useParams} from 'react-router-dom';
 import Contact from './Contact';
 
-import StoreImage from '../../assets/images/store.jpg';
-import FundImage from '../../assets/images/charity.jpg';
+import StoreImage from '../../assets/icons/shopping-cart.svg';
+import FundImage from '../../assets/icons/money-bag.svg';
 
 
 import { fetchSponsorships, fetchPromotions } from '../../utils/business/business';
@@ -66,7 +66,7 @@ const Home = () => {
 
   return (
     <div className="fill-vert">
-      <Carousel controls={false} indicators={false} interval={2000} className="banner">
+      <Carousel controls={false} indicators={false} className="banner">
         {bannerContent}
       </Carousel>
       <Jumbotron className="text-center">
@@ -74,40 +74,24 @@ const Home = () => {
       </Jumbotron>
       <Container>
 
-        <Row className="py-2">
+        <Row className="py-2 text-center">
           <Col md={6} className="py-1">
             <Link to={`/team/${team_id}/fundraiser/`} className="no-link">
-              <img src={FundImage} alt="Snow" className="w-100 grayscale rounded" />
-              <div className="centered text-white"><h3>Team Fundraiser</h3></div>
+              <div><h3>Fundraiser</h3></div>
+              <img src={FundImage} alt="fundraiser" className="w-100 home-icons" />
             </Link>
           </Col>
-          <div className="py-2">
-            <Link to={`/team/${team_id}/store/`} className="no-link">
-              <Button>Go to team store</Button>
-            </Link>
-          </div>
-          <div className="py-2">
-            <Link to={`/team/${team_id}/photos/`} className="no-link">
-              <Button>Go to team photos</Button>
-            </Link>
-          </div>
-          <div className="py-2">
-            <Link to={`/team/${team_id}/photos/approve`} className="no-link">
-              <Button>Approve Photos</Button>
-            </Link>
-          </div>
-
           <Col md={6} className="py-1">
             <Link to={`/team/${team_id}/store/`} className="no-link">
-              <img src={StoreImage} alt="Snow" className="w-100 grayscale rounded" />
-              <div className="centered text-white"><h3>Team Store</h3></div>
+              <div><h3>Store</h3></div>
+              <img src={StoreImage} alt="cart" className="w-100 home-icons" />
             </Link>
           </Col>
         </Row>
 
         {promotions.length !== 0 && (
           <div className="text-center py-4">
-            <h5>Promotions!</h5>
+            <h3 className="pb-2">Promotions</h3>
             <Carousel className="promo">
               {promoContent}          
             </Carousel>

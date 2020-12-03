@@ -18,6 +18,7 @@ import NotFound from './NotFound';
 import Private from './Private';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import SuccessTransaction from '../Common/SuccessTransaction';
 
 const Routes = () => {
   return (
@@ -33,13 +34,10 @@ const Routes = () => {
         <Private path="/manage/fundraiser" exact Component={Fundraising} />
         <Private path="/manage/business" exact Component={Business} />
 
-
-        {/* <Route path="/documentation" exact component={Documentation} /> */}
-        {/* <Route path="/resources" exact component={Resources} /> */}
-
         <Route path="/team/:team_id/photos/approve" exact component={ApprovePhotos} />
         <Route path="/team/:team_id/photos" exact component={TeamPhotos} />
         <Route path="/team/:team_id/fundraiser" exact component={TeamFund} />
+        <Route path="/team/:team_id/transaction/success/:transaction_id" component={SuccessTransaction} />
         <Route path="/team/:team_id/fundraiser/:user_id" component={Fundraiser} />
         <Route path="/team/:team_id/store/" component={Store} />
         <Route path="/team/:team_id/home" component={Home} />

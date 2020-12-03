@@ -35,7 +35,8 @@ const CheckOut = () => {
       setAlertType('danger');
       setShowAlert(true);
       setLoading(false);
-      console.log(result.error.message);
+      // TODO: Errors from stripe
+      // console.log(result.error.message);
     } else {
       updateCart([]);
     }

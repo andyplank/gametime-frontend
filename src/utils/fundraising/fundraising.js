@@ -10,8 +10,8 @@ import API_URL from '../API_URL';
  */
 export async function createSession(donation_amount, email, team_id, player_id) {
   const data = { 
-      success_url: `http://localhost:8080/#/team/${team_id}/store/success`,
-      cancel_url: `http://localhost:8080/#/team/${team_id}/fundraiser`,
+      success_url: `${window.location.href.split("#")[0]}#/team/${team_id}/transaction/success/`,
+      cancel_url: `${window.location.href.split("#")[0]}#/team/${team_id}/fundraiser`,
       team_id: team_id,
       player_id: player_id,
       email: email,

@@ -10,7 +10,6 @@ import ItemGrid from './ItemGrid';
 import ItemDetails from './ItemDetails';
 import ItemForm from './ItemForm';
 import CheckOut from './CheckOut';
-import SuccessPurchase from './SuccessPurchase';
 
 import { fetchItems } from '../../utils/store/store'
 
@@ -105,7 +104,6 @@ const Store = () => {
             <Route path="/team/:team_id/store/item/:itemId" component={ItemDetails} />
             <Route path="/team/:team_id/store/cart/" exact component={Cart} />
             <Route path="/team/:team_id/store/checkout/" exact component={CheckOut} />
-            <Route path="/team/:team_id/store/success/" exact component={SuccessPurchase} />
             <Route path="/team/:team_id/store" exact component={ItemGrid} />
             <Route component={() => (<Redirect to={{ pathname: `/team/${team_id}/store` }} />)} />
           </Switch>
