@@ -10,6 +10,7 @@ import {
   MdPowerSettingsNew,
   MdAssignmentTurnedIn,
   MdAttachMoney,
+  MdCheck
 } from 'react-icons/md';
 import { FaHandsHelping } from 'react-icons/fa';
 import PropTypes from 'prop-types';
@@ -97,6 +98,14 @@ const Menu = (props) => {
               <Row className="align-items-center">
                 <MdAttachMoney size={linkIconSize} className="mx-sm-2" />
                 Fundraising
+              </Row>
+            </ListGroup.Item>
+          )}
+          {role !== 'Member' && (
+            <ListGroup.Item onClick={() => history.push(`/team/${team_id}/photos/approve`)}>
+              <Row className="align-items-center">
+                <MdCheck size={linkIconSize} className="mx-sm-2" />
+                Approve Photos
               </Row>
             </ListGroup.Item>
           )}

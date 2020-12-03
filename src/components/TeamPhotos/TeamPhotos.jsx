@@ -14,7 +14,7 @@ import Button from '@material-ui/core/Button';
 import UploadPicture from '../UploadPicture/UploadPicture'
 import Feedback from '../Common/Feedback';
 import { useSelector } from 'react-redux';
-import { downloadPicture, getPhotos, uploadPhoto, setPhotoVisibility } from '../../utils/photos/photos'
+import { getPhotos, uploadPhoto, setPhotoVisibility } from '../../utils/photos/photos'
 import './TeamPhotos.scss';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const TeamPhotos = () => {
+const TeamPhotos = (props) => {
     const { team_id } = useParams();
 	function selector(store) {
         console.log(store.user.teams[store.status.selected_team] );
@@ -164,7 +164,7 @@ const TeamPhotos = () => {
             <div className="gallery">
                 <div>
                     <PhotoRemoveModal/>
-                    <GridList cellHeight={200} cols={3}>
+                    <GridList cellHeight={180} cols={3}>
                         {photos.map((tile) => tile.active && (
                             <GridListTile key={tile.file_id}>
                                 <img src={tile.url}/>
