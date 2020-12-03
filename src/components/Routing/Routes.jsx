@@ -11,6 +11,7 @@ import Orders from '../Orders/Orders';
 import JoinTeamPage from '../TeamManagement/JoinTeamPage';
 import Management from '../Store/Management';
 import Store from '../Store/Store';
+import Documentation from '../Documentation/Documentation';
 import NotFound from './NotFound';
 import Private from './Private';
 import Header from '../Header/Header';
@@ -28,8 +29,7 @@ const Routes = () => {
         <Private path="/manage/orders" exact Component={Orders} />
         <Private path="/manage/store" exact Component={Management} />
         <Private path="/manage/fundraiser" exact Component={Fundraising} />
-
-        {/* <Route path="/documentation" exact component={Documentation} /> */}
+        <Private path="/manage/documentation" exact Component={Documentation} />
         {/* <Route path="/resources" exact component={Resources} /> */}
 
         <Route path="/team/:team_id/fundraiser" exact component={TeamFund} />

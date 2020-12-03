@@ -6,6 +6,7 @@ import {
   MdHome,
   MdMessage,
   MdFolder,
+  MdStore,
   MdPowerSettingsNew,
   MdAssignmentTurnedIn,
   MdAttachMoney,
@@ -65,8 +66,16 @@ const Menu = (props) => {
           {role !== 'Member' && (
             <ListGroup.Item onClick={() => history.push('/manage/store')}>
               <Row className="align-items-center">
-                <MdFolder size={linkIconSize} className="mx-sm-2" />
+                <MdStore size={linkIconSize} className="mx-sm-2" />
                 Store
+              </Row>
+            </ListGroup.Item>
+          )}
+          {role !== 'Member' && (
+            <ListGroup.Item onClick={() => history.push('/manage/documentation')}>
+              <Row className="align-items-center">
+                <MdFolder size={linkIconSize} className="mx-sm-2" />
+                Documentation
               </Row>
             </ListGroup.Item>
           )}
