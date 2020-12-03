@@ -366,28 +366,24 @@ const Fundraising = () => {
                 >
                   Update Fundraiser
                 </button>
-                <div style={{paddingLeft:"4px"}}>
+                {state.isActive && team.permission_level >= 1 && (
+                <div>
                   <button
-                    className="btn btn-primary my-2 ml-1"
+                    className="btn btn-primary ml-2 my-2"
                     type="submit"
                     onClick={() => window.open(`https://gametime-server.hubermjonathan.com:8080/fundraising/report?team_id=${team.team_id}`, "_blank")}
                   >
                     Download Report
                   </button>
                 </div>
+                  )
+                }
               </>
             )}
           </div>
         </form>
-        <div>
-          {state.isActive && team.permission_level !== 2 && <Email />}
-        </div>
+        {state.isActive && team.permission_level !== 2 && <Email />}
       </div>
-      {state.statusMessage !== '' && (
-        <div className="d-flex justify-content-center">
-          <span className="form-text">{state.statusMessage}</span>
-        </div>
-      )}
     </div>
   );
 };
