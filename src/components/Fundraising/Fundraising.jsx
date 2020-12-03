@@ -8,7 +8,6 @@ import {
   createTeamFundraiser,
   editPlayerFundraiser,
   editTeamFundraiser,
-  getReport
 } from '../../utils/fundraising/fundraising';
 import './Fundraising.scss';
 import Email from '../Email/Email';
@@ -370,7 +369,7 @@ const Fundraising = () => {
                 <button
                   className="btn btn-primary my-2 ml-1"
                   type="submit"
-                  onClick={() => getReport(team.team_id)}
+                  onClick={() => window.open(`https://gametime-server.hubermjonathan.com:8080/fundraising/report?team_id=${team.team_id}`, "_blank")}
                 >
                   Download Report
                 </button>
