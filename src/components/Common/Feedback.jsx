@@ -31,14 +31,13 @@ const Feedback = (props) => {
   );
 }
 
+Feedback.defaultProps = {
+  label: null
+}
 Feedback.propTypes = {
   alertType: PropTypes.string.isRequired,
   showAlert: PropTypes.bool.isRequired,
   setShowAlert: PropTypes.func.isRequired,
   label: PropTypes.string
-}
-
-Feedback.defaultProps = {
-  label: null
 }
 export default Feedback;

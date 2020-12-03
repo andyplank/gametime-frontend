@@ -99,7 +99,7 @@ const Home = () => {
         }
 
         <div className="py-4 gallery">
-          <h3 className="text-center">Photos</h3>
+          <h3 className="text-center pb-2">Photos</h3>
           <TeamPhotos />
         </div>
 

@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
 const TeamPhotos = (props) => {
     const { team_id } = useParams();
 	function selector(store) {
-        console.log(store.user.teams[store.status.selected_team] );
 		return {
             signedIn: store.status.signed_in,
             permissionLevel: store.user.teams[store.status.selected_team] 
@@ -116,7 +115,6 @@ const TeamPhotos = (props) => {
         setLabel('Success! The photo has been sent for approval.');
         setAlertType(res ? 'success' : 'danger');
         setShowAlert(true);
-        console.log(saveObj);
     }
 
     const PhotoUploadModal = () => {
