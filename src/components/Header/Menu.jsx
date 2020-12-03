@@ -41,7 +41,9 @@ const Menu = (props) => {
           </ListGroup.Item>
           {/* Links */}
           {role !== 'Member' && (
-            <ListGroup.Item onClick={() => history.push(`/team/${team_id}/home`)}>
+            <ListGroup.Item
+              onClick={() => history.push(`/team/${team_id}/home`)}
+            >
               <Row className="align-items-center">
                 <MdHome size={linkIconSize} className="mx-sm-2" />
                 Homepage
@@ -73,21 +75,23 @@ const Menu = (props) => {
             </ListGroup.Item>
           )}
           {role !== 'Member' && (
-            <ListGroup.Item onClick={() => history.push('/manage/documentation')}>
+            <ListGroup.Item
+              onClick={() => history.push('/manage/documentation')}
+            >
               <Row className="align-items-center">
                 <MdFolder size={linkIconSize} className="mx-sm-2" />
                 Documentation
-                </Row>
-                </ListGroup.Item>
+              </Row>
+            </ListGroup.Item>
           )}
           {role !== 'Member' && (
             <ListGroup.Item onClick={() => history.push('/manage/business')}>
-            <Row className="align-items-center">
-              <FaHandsHelping size={linkIconSize} className="mx-sm-2" />
-              Sponsors
-            </Row>
-          </ListGroup.Item>)
-          }
+              <Row className="align-items-center">
+                <FaHandsHelping size={linkIconSize} className="mx-sm-2" />
+                Sponsors
+              </Row>
+            </ListGroup.Item>
+          )}
           {role !== 'Member' && (
             <ListGroup.Item onClick={() => history.push('/manage/fundraiser')}>
               <Row className="align-items-center">
