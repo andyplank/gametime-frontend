@@ -73,14 +73,14 @@ const Home = () => {
       </Jumbotron>
       <Container>
 
-        <Row className="py-2 text-center">
-          <Col md={6} className="py-1">
+        <Row className="py-2">
+          <Col md={6} className="py-1 text-center">
             <Link to={`/team/${team_id}/fundraiser/`} className="no-link">
               <div><h3>Fundraiser</h3></div>
               <img src={FundImage} alt="fundraiser" className="w-100 home-icons" />
             </Link>
           </Col>
-          <Col md={6} className="py-1">
+          <Col md={6} className="py-1 text-center">
             <Link to={`/team/${team_id}/store/`} className="no-link">
               <div><h3>Store</h3></div>
               <img src={StoreImage} alt="cart" className="w-100 home-icons" />
@@ -98,8 +98,8 @@ const Home = () => {
           )
         }
 
-        <div className="text-center py-4 gallery">
-          <h5>Promotions!</h5>
+        <div className="py-4 gallery">
+          <h3 className="text-center">Photos</h3>
           <TeamPhotos />
         </div>
 
