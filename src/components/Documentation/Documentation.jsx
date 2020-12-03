@@ -1,4 +1,3 @@
-// /*eslint-disable*/
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { FaFilePdf } from 'react-icons/fa';
@@ -70,11 +69,10 @@ const Documentation = () => {
     user_files.push(file);
 
     if (isAdmin) {
-        team_files.push(file);
+      team_files.push(file);
     }
 
-    setFiles({ user_files: user_files, team_files: team_files
-    });
+    setFiles({ user_files: user_files, team_files: team_files });
     setLoading(false);
   }
 

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Alert } from 'react-bootstrap';
 
 const Feedback = (props) => {
-  const {alertType, showAlert, setShowAlert} = props;
+  const {alertType, showAlert, setShowAlert, label} = props;
 
   if(showAlert===false){
     return (
@@ -25,7 +25,7 @@ const Feedback = (props) => {
       {alertType === 'danger' ?
       'Error something went wrong.'
       :
-      'Success!'
+      label || 'Success!'
       }
     </Alert>  
   );
@@ -34,6 +34,11 @@ const Feedback = (props) => {
 Feedback.propTypes = {
   alertType: PropTypes.string.isRequired,
   showAlert: PropTypes.bool.isRequired,
-  setShowAlert: PropTypes.func.isRequired
+  setShowAlert: PropTypes.func.isRequired,
+  label: PropTypes.string
+}
+
+Feedback.defaultProps = {
+  label: null
 }
 export default Feedback;

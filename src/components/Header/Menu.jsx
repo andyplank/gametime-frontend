@@ -11,6 +11,7 @@ import {
   MdAssignmentTurnedIn,
   MdAttachMoney,
 } from 'react-icons/md';
+import { FaHandsHelping } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import './Menu.scss';
 
@@ -76,9 +77,17 @@ const Menu = (props) => {
               <Row className="align-items-center">
                 <MdFolder size={linkIconSize} className="mx-sm-2" />
                 Documentation
-              </Row>
-            </ListGroup.Item>
+                </Row>
+                </ListGroup.Item>
           )}
+          {role !== 'Member' && (
+            <ListGroup.Item onClick={() => history.push('/manage/business')}>
+            <Row className="align-items-center">
+              <FaHandsHelping size={linkIconSize} className="mx-sm-2" />
+              Sponsors
+            </Row>
+          </ListGroup.Item>)
+          }
           {role !== 'Member' && (
             <ListGroup.Item onClick={() => history.push('/manage/fundraiser')}>
               <Row className="align-items-center">
