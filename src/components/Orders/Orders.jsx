@@ -87,8 +87,9 @@ const Orders = () => {
             onChange={(event) => handleStatusChange(row.transaction_id, event.target.value)}
           >
             <MenuItem value={0}>Pending</MenuItem>
-            <MenuItem value={1}>Shipped</MenuItem>
-            <MenuItem value={2}>Completed</MenuItem>
+            <MenuItem value={1}>Payment Completed</MenuItem>
+            <MenuItem value={2}>Shipped</MenuItem>
+            <MenuItem value={3}>Completed</MenuItem>
           </Select>
         </FormControl>
       </TableCell>

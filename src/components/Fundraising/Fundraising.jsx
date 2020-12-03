@@ -12,6 +12,7 @@ import {
 import './Fundraising.scss';
 import Email from '../Email/Email';
 
+
 const defaultState = {
   statusMessage: '',
   isActive: false,
@@ -364,6 +365,13 @@ const Fundraising = () => {
                   onClick={handleEditFundraiser}
                 >
                   Update Fundraiser
+                </button>
+                <button
+                  className="btn btn-primary my-2 ml-1"
+                  type="submit"
+                  onClick={() => window.open(`https://gametime-server.hubermjonathan.com:8080/fundraising/report?team_id=${team.team_id}`, "_blank")}
+                >
+                  Download Report
                 </button>
               </>
             )}

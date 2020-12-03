@@ -1,0 +1,34 @@
+.documentation-title-heading {
+  display: block;
+  font-size: 3em;
+  font-weight: 500;
+  color: black;
+  text-align: center;
+  line-height: normal;
+}
+
+.documentation-title-subheading {
+  display: block;
+  font-size: 2em;
+  font-weight: 500;
+  color: black;
+  line-height: normal;
+}
+
+.documentation-title-body {
+  display: block;
+  font-size: 1.5em;
+  color: black;
+  text-align: center;
+  line-height: normal;
+}
+
+.documentation-file-title {
+  display: inline;
+  text-overflow: ellipsis;
+  font-size: 1.5em;
+  font-weight: 500;
+  color: black;
+  text-align: center;
+  line-height: normal;
+}

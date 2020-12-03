@@ -1,14 +1,13 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import {Button, Container, Carousel, Col, Row} from 'react-bootstrap';
+import { Container, Carousel, Col, Row } from 'react-bootstrap';
 import './Home.scss';
 import { Link, useParams} from 'react-router-dom';
 import Contact from './Contact';
+import TeamPhotos from '../TeamPhotos/TeamPhotos';
 
 import StoreImage from '../../assets/icons/shopping-cart.svg';
 import FundImage from '../../assets/icons/money-bag.svg';
-
 
 import { fetchSponsorships, fetchPromotions } from '../../utils/business/business';
 
@@ -98,6 +97,12 @@ const Home = () => {
           </div>
           )
         }
+
+        <div className="text-center py-4 gallery">
+          <h5>Promotions!</h5>
+          <TeamPhotos />
+        </div>
+
         <Contact />
       </Container>
     </div>

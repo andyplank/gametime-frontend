@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 import Feedback from '../Common/Feedback';
 import { useSelector } from 'react-redux';
 import { getPhotos, setPhotoVisibility } from '../../utils/photos/photos'
+import {Redirect} from 'react-router-dom';
 import './TeamPhotos.scss';
  
 const useStyles = makeStyles((theme) => ({
@@ -47,14 +48,21 @@ const ApprovePhotos = () => {
     const [alertType, setAlertType] = useState('');
     const [showAlert, setShowAlert] = useState(false);
     const [label, setLabel] = useState('');
+    const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
-        async function fetchPhotos() {
-            const res = await getPhotos(state.team_id)
-            setPhotos(res);
-            setIsEmpty(res.every(p => p.active));
-		}
-        fetchPhotos();
+        if(!state.signedIn || state.permissionLevel < 1){
+            setRedirect(true);
+        }
+        else{
+            async function fetchPhotos() {
+                const res = await getPhotos(state.team_id)
+                setPhotos(res);
+                setIsEmpty(res.every(p => p.active));
+            }
+            fetchPhotos();
+        
+        }
     }, []);
 
     const handleApprove = async (photo) => {
@@ -100,6 +108,10 @@ const ApprovePhotos = () => {
             </Modal>
         )
     }
+
+    if(redirect){
+        return <Redirect to={{ pathname: `/team/${state.team_id}/home` }} />
+    }
     
     return !isEmpty ? ( 
         <div className="fill-vert">
@@ -109,7 +121,7 @@ const ApprovePhotos = () => {
                     setShowAlert={setShowAlert}
                     label={label}
                 />
-            <div className="gallery-approve">
+            <div className="gallery">
                 <div>
                     <PhotoApproveModal/>
                     <GridList cellHeight={200} cols={3}>
@@ -119,7 +131,7 @@ const ApprovePhotos = () => {
                                 <GridListTileBar
                                     title={tile.title}
                                     titlePosition="bottom"
-                                    actionIcon={
+                                    actionIcon={ state.permissionLevel >= 1 &&
                                         <>
                                             <IconButton 
                                                 className={classes.icon} 
