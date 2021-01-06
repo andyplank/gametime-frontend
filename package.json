@@ -47,7 +47,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@stripe/stripe-js": "^1.11.0",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.20",
