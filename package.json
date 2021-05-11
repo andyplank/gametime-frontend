@@ -50,7 +50,7 @@
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
     "js-cookie": "^2.2.1",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "material-ui-icons": "^1.0.0-beta.36",
     "prop-types": "^15.7.2",
     "react": "^16.14.0",
